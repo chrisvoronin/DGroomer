@@ -1,0 +1,98 @@
+//
+//  ClosedoutTableController.m
+//  PSA
+//
+//  Created by Michael Simone on 9/6/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "ClosedoutTableController.h"
+#import "Closeout.h"
+#import "ClosedOutController.h"
+
+@implementation ClosedoutTableController
+
+@synthesize appDelegate;
+
+extern NSMutableArray *closeValueArray;
+NSInteger closeoutID;
+
+- (IBAction)back:(id)sender {
+	[self.view removeFromSuperview];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+		
+	// Set the background color to an image
+	self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"PSA_Productpurple.png"]];
+	
+    [super viewDidLoad];
+}
+
+// Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+	
+	// Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
+}
+
+
+- (void)dealloc {
+	[myTableView release];
+    [super dealloc];
+}
+
+#pragma mark TableViewDelegate
+
+- (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [myTableView dequeueReusableCellWithIdentifier:@"TypeCell"];
+    if (cell == nil) {
+        cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"TypeCell"] autorelease];
+    }
+	
+	cell.textLabel.font = [UIFont italicSystemFontOfSize:12];
+	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		
+	for (int i=0; i < [closeValueArray count]; i++) {
+		NSString *dateInfo = [closeValueArray objectAtIndex:i];
+		cell.textLabel.text = dateInfo;
+		i++;
+	}
+	
+	return cell;
+}
+
+// The table has one row for each possible type.
+- (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section {
+	
+	return [closeValueArray count]/2;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{		
+	// don't keep the table selection
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+		
+	Closeout *clOut = [closeValueArray objectAtIndex:(indexPath.row+1)];
+	closeoutID = clOut.key;
+	
+	ClosedOutController *clseView = [[ClosedOutController alloc] initWithNibName:@"ClosedoutView" bundle:[NSBundle mainBundle]];
+	[self.view addSubview:clseView.view];
+}
+
+@end

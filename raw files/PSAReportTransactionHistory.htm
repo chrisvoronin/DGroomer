@@ -1,0 +1,229 @@
+<!-- BEGINNING STATIC HTML TOP SECTION -->
+<html>
+<head>
+<style TYPE="text/css">
+BODY, TD {
+    font-family: Helvetica, Verdana, Arial, Geneva;
+    font-size:   12px;
+}
+
+.total {
+	color: #333333;
+}
+</style>
+</head>
+<body>
+	<table width="95%" border="0" cellpadding="0" cellspacing="2" align="center">
+		<!-- Salon/Receipt Information -->
+		<tr>
+			<td>
+				<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center">
+					<tr>
+						<td>
+							<font size="5"><b>##SALON NAME##</b></font>
+							<br/>
+							##SALON INFO##
+						</td>
+						<td align="right" valign="top">
+							<font size="5" color="#6b6b6b"><b>Transaction History</b></font>
+							<br/>
+							Start Date:
+							<br/>
+							End Date: 
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		
+		<!-- Customer Information -->
+		<tr><td>&nbsp;</td></tr>
+		<tr>
+			<td>
+				<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center">
+					<tr>
+						<td colspan="2">
+							<hr />
+						</td>
+					</tr>
+					<tr>
+						<td valign="top" width="120">
+							<font size="3" color="#6b6b6b"><b>Transaction:</b></font>
+						</td>
+						<td valign="top">
+							123456789
+						</td>
+					</tr>
+					<tr>
+						<td valign="top" width="120">
+							<font size="3" color="#6b6b6b"><b>Date:</b></font>
+						</td>
+						<td valign="top">
+							Thu Jan 12, 2010 88:88 PM
+						</td>
+					</tr>
+					<tr>
+						<td valign="top" width="120">
+							<font size="3" color="#6b6b6b"><b>Customer</b></font>
+						</td>
+						<td valign="top">
+							##CLIENT INFO##
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		
+		<!-- Purchase Information -->
+		<tr><td>&nbsp;</td></tr>
+		<tr>
+			<td>
+				<font size="3" color="#6b6b6b"><b>Purchases & Services</b></font>
+				<br/><br/>
+				<table width="100%" border="0" cellpadding="5" cellspacing="0" align="center">
+					<tr align="right">
+						<td width="76" align="center" style="border-bottom:solid 1px #cccccc;">
+							<b>Item No.</b>
+						</td>
+						<td align="center" style="border-bottom:solid 1px #cccccc;">
+							<b>Description</b>
+						</td>
+						<td width="80" style="border-bottom:solid 1px #cccccc;">
+							<b>Price</b>
+						</td>
+						<td width="30" style="border-bottom:solid 1px #cccccc;">
+							<b>Qty.</b>
+						</td>
+						<td width="80" style="border-bottom:solid 1px #cccccc;">
+							<b>Discount</b>
+						</td>
+						<td width="80" style="border-bottom:solid 1px #cccccc;">
+							<b>Line Total</b>
+						</td>
+					</tr>
+<!-- ENDING STATIC HTML TOP SECTION -->
+
+<!-- ADD THIS ROW FOR EACH PRODUCT/SERVICE/CERTIFICATE -->					
+					<tr align="right">
+						<td align="center" style="border-bottom:solid 1px #cccccc; border-left:solid 1px #cccccc; border-right:solid 1px #cccccc;">
+							88888888888
+						</td>
+						<td align="center" style="border-bottom:solid 1px #cccccc; border-right:solid 1px #cccccc;">
+							Gift Certificate for Bob Loblaw
+						</td>
+						<td style="border-bottom:solid 1px #cccccc; border-right:solid 1px #cccccc;">
+							$ 8888888.88
+						</td>
+						<td style="border-bottom:solid 1px #cccccc; border-right:solid 1px #cccccc;">
+							8888
+						</td>
+						<td style="border-bottom:solid 1px #cccccc; border-right:solid 1px #cccccc;">
+							$ 8888888.88
+						</td>
+						<td style="border-bottom:solid 1px #cccccc; border-right:solid 1px #cccccc;" >
+							$ 8888888.88
+						</td>
+					</tr>
+					
+<!-- BEGINNING STATIC HTML MIDDLE SECTION -->
+					<!-- Totals -->
+					<tr align="right" class="total">
+						<td colspan="4" style="border-right:solid 1px #cccccc;">
+							<font color="#666666"><b>Discount Total</b></font>
+						</td>
+						<td style="border-bottom:solid 1px #cccccc; border-right:solid 1px #cccccc;">
+							<b>$ ##TOTAL DISCOUNT##</b>
+						</td>
+						<td style="border-right:solid 1px #cccccc; border-bottom:solid 1px #cccccc;">
+							&nbsp;
+						</td>
+					</tr>
+					<tr align="right" class="total">
+						<td colspan="5" style="border-right:solid 1px #cccccc;">
+							<font color="#666666"><b>Sub-Total</b></font>
+						</td>
+						<td style="border-right:solid 1px #cccccc; border-bottom:solid 1px #cccccc;">
+							<b>$ ##SUBTOTAL##</b>
+						</td>
+					</tr>
+					<tr align="right" class="total">
+						<td colspan="5" style="border-right:solid 1px #cccccc;">
+							<font color="#666666"><b>Sales Tax</b></font>
+						</td>
+						<td style="border-right:solid 1px #cccccc; border-bottom:solid 1px #cccccc;">
+							<b>$ ##TAX##</b>
+						</td>
+					</tr>
+					<tr align="right">
+						<td colspan="5" style="border-right:solid 1px #cccccc;">
+							<font color="#666666"><b>Total Balance</b></font>
+						</td>
+						<td style="border-right:solid 1px #cccccc; border-bottom:solid 1px #cccccc;">
+							<b>$ ##TOTAL BALANCE##</b>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		
+		<!-- Payment Information -->
+		<tr><td>&nbsp;</td></tr>
+		
+		<tr>
+			<td>
+				<font size="3" color="#6b6b6b"><b>Payments</b></font>
+				<br/><br/>
+				<table width="100%" border="0" cellpadding="5" cellspacing="0" align="center">
+					<tr align="right">
+						<td style="border-bottom:solid 1px #cccccc;">
+							<b>Payment Description</b>
+						</td>
+						<td width="80" style="border-bottom:solid 1px #cccccc;">
+							<b>Amount</b>
+						</td>
+					</tr>
+<!-- ENDING STATIC HTML MIDDLE SECTION -->
+					
+<!-- ADD THIS ROW FOR EACH PAYMENT -->
+					<tr align="right">
+						<td style="border-bottom:solid 1px #cccccc; border-right:solid 1px #cccccc; border-left:solid 1px #cccccc;">
+							Credit card ending in 4923
+						</td>
+						<td style="border-bottom:solid 1px #cccccc; border-right:solid 1px #cccccc;" >
+							$ 8888888.88
+						</td>
+					</tr>
+					
+<!-- BEGINNING STATIC HTML BOTTOM SECTION -->				
+					<!-- Totals -->
+					<tr align="right" >
+						<td style="border-right:solid 1px #cccccc;">
+							<font color="#666666"><b>Payment Total</b></font>
+						</td>
+						<td style="border-right:solid 1px #cccccc; border-bottom:solid 1px #cccccc;">
+							<b>$ ##TOTAL PAID##</b>
+						</td>
+					</tr>
+					<tr align="right" >
+						<td style="border-right:solid 1px #cccccc;">
+							<font color="#666666"><b>Change</b></font>
+						</td>
+						<td style="border-right:solid 1px #cccccc; border-bottom:solid 1px #cccccc;">
+							<b>$ ##CHANGE##</b>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		
+		
+	</table>
+</body>
+</html>
+<!-- ENDING STATIC HTML BOTTOM SECTION -->
+
+
+
+
+
+

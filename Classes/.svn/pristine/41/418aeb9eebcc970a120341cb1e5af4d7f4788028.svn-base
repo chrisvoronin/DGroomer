@@ -1,0 +1,50 @@
+//
+//  Product.h
+//  PSA
+//
+//  Created by Michael Simone on 7/15/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <sqlite3.h>
+
+@interface Product : NSObject {
+    // Attributes.
+	NSInteger	productID;
+	NSInteger	productNumber;
+	NSString	*productName;
+	NSNumber	*productCost;
+	NSNumber	*productPrice;
+	NSInteger	productMin;
+	NSInteger	productMax;
+	NSInteger	productOnHand;
+	NSInteger	vendorID;
+	NSInteger	prodTypeID;
+	NSString	*productLastSoldDate;
+	NSInteger		productTaxable;
+}
+
+// Property exposure for primary key and other attributes. The primary key is 'assign' because it is not an object, 
+// nonatomic because there is no need for concurrent access, and readonly because it cannot be changed without 
+// corrupting the database.
+
+@property (assign, nonatomic) NSInteger	productID;
+@property (assign, nonatomic) NSInteger	productNumber;
+@property (assign, nonatomic) NSString	*productName;
+@property (assign, nonatomic) NSNumber	*productCost;
+@property (assign, nonatomic) NSNumber	*productPrice;
+@property (assign, nonatomic) NSInteger	productMin;
+@property (assign, nonatomic) NSInteger	productMax;
+@property (assign, nonatomic) NSInteger	productOnHand;
+@property (assign, nonatomic) NSInteger	vendorID;
+@property (assign, nonatomic) NSInteger	prodTypeID;
+@property (assign, nonatomic) NSString	*productLastSoldDate;
+@property (assign, nonatomic) NSInteger productTaxable;
+
+// Finalize (delete) all of the SQLite compiled queries.
++ (void)finalizeStatements;
+
+- (id)initWithProductData:(NSInteger)prodID prodNum:(NSInteger)prodNum prodName:(NSString*)prodName prodCost:(NSNumber*)prodCost prodPrice:(NSNumber*)prodPrice prodMin:(NSInteger)prodMin prodMax:(NSInteger)prodMax prodOnHand:(NSInteger)onHand vendor:(NSInteger)vendID prodTyID:(NSInteger)prodTyID lastSold:(NSString*)lastSold tax:(NSInteger)tax;
+
+@end

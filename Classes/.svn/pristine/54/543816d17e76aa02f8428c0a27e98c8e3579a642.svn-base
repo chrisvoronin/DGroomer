@@ -1,0 +1,54 @@
+//
+//  Product.m
+//  PSA
+//
+//  Created by Michael Simone on 7/15/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "Product.h"
+
+// Static variables for compiled SQL queries. This implementation choice is to be able to share a one time
+// compilation of each query across all instances of the class. Each time a query is used, variables may be bound
+// to it, it will be "stepped", and then reset for the next usage. When the application begins to terminate,
+// a class method will be invoked to "finalize" (delete) the compiled queries - this must happen before the database
+// can be closed.
+static sqlite3_stmt *init_statement = nil;
+static sqlite3_stmt *hydrate_statement = nil;
+
+@implementation Product
+
+@synthesize productID, productNumber, productName, productCost, productPrice, productMin;
+@synthesize productMax, productOnHand, vendorID, prodTypeID, productLastSoldDate, productTaxable;
+
+// Finalize (delete) all of the SQLite compiled queries.
++ (void)finalizeStatements {
+    if (init_statement) {
+        sqlite3_finalize(init_statement);
+        init_statement = nil;
+    }
+    if (hydrate_statement) {
+        sqlite3_finalize(hydrate_statement);
+        hydrate_statement = nil;
+	}
+}
+
+- (id)initWithProductData:(NSInteger)prodID prodNum:(NSInteger)prodNum prodName:(NSString*)prodName prodCost:(NSNumber*)prodCost prodPrice:(NSNumber*)prodPrice prodMin:(NSInteger)prodMin prodMax:(NSInteger)prodMax prodOnHand:(NSInteger)onHand vendor:(NSInteger)vendID prodTyID:(NSInteger)prodTyID lastSold:(NSString*)lastSold tax:(NSInteger)tax {
+	
+	self.productID = prodID;
+	self.productNumber = prodNum;
+	self.productName = prodName;
+	self.productCost = prodCost;
+	self.productPrice = prodPrice;
+	self.productMin = prodMin;
+	self.productMax = prodMax;
+	self.productOnHand = onHand;
+	self.vendorID = vendID;
+	self.prodTypeID = prodTyID;
+	self.productLastSoldDate = lastSold;
+	self.productTaxable= tax;
+	
+	return self;
+}
+
+@end

@@ -1,0 +1,51 @@
+//
+//  GiftCertificate.m
+//  PSA
+//
+//  Created by Michael Simone on 8/15/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "GiftCertificate.h"
+
+// Static variables for compiled SQL queries. This implementation choice is to be able to share a one time
+// compilation of each query across all instances of the class. Each time a query is used, variables may be bound
+// to it, it will be "stepped", and then reset for the next usage. When the application begins to terminate,
+// a class method will be invoked to "finalize" (delete) the compiled queries - this must happen before the database
+// can be closed.
+static sqlite3_stmt *init_statement = nil;
+static sqlite3_stmt *hydrate_statement = nil;
+
+@implementation GiftCertificate
+
+@synthesize giftCertificateID, giftCertificateNumber, clientID, recipient, purchaseDate, expirationDate, currentValue;
+@synthesize originalValue, giftCertificateMessage, giftCertificateNote;
+
+// Finalize (delete) all of the SQLite compiled queries.
++ (void)finalizeStatements {
+    if (init_statement) {
+        sqlite3_finalize(init_statement);
+        init_statement = nil;
+    }
+    if (hydrate_statement) {
+        sqlite3_finalize(hydrate_statement);
+        hydrate_statement = nil;
+	}
+}
+
+- (id)initWithGiftData:(NSInteger)gID number:(NSInteger)gNum client:(NSInteger)cID recip:(NSString*)recip purchDate:(NSString*)purchDate expire:(NSString*)expire curVal:(NSNumber*)curVal origVal:(NSNumber*)origVal message:(NSString*)message giftNote:(NSString*)giftNote {
+	self.giftCertificateID = gID;
+	self.giftCertificateNumber = gNum;
+	self.clientID = cID;
+	self.recipient = recip;
+	self.purchaseDate = purchDate;
+	self.expirationDate = expire;
+	self.currentValue = curVal;
+	self.originalValue = origVal;
+	self.giftCertificateMessage = message;
+	self.giftCertificateNote = giftNote;
+	
+	return self;
+}
+
+@end

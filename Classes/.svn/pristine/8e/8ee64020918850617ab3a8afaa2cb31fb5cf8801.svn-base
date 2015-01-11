@@ -1,0 +1,71 @@
+//
+//  RegisterDetailController.h
+//  PSA
+//
+//  Created by Michael Simone on 8/9/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "PSAAppDelegate.h"
+#import "TransactionDetail.h"
+#import "GiftCertificateController.h"
+#import "ServiceViewController.h"
+#import "ProductViewController.h"
+#import "PaymentController.h"
+
+@interface RegisterDetailController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+	IBOutlet UITableView *myTableView;
+	
+	// Internal variables
+	TransactionDetail *transDetail;
+	
+	NSString *clientName;
+	NSInteger tNum;
+	NSNumber *subTotal;
+	NSNumber *salesTax;
+	NSNumber *totalDue;
+	NSNumber *tip;
+	NSNumber *totalBalance;
+	NSNumber *amountPaid;
+	NSNumber *change;
+	NSNumber *balance;
+		
+	// Use the appDelegate for setting and getting values
+	PSAAppDelegate *appDelegate;
+	
+	// Load the controllers needed for the NIB
+	GiftCertificateController *gControl;
+	ClientViewController *cControl;
+	ServiceViewController *servControl;
+	ProductViewController *prodControl;
+	PaymentController *payControl;
+	
+	RegisterViewController *regControl;
+}
+
+@property (nonatomic, retain) UITableView *myTableView;
+@property (nonatomic, retain) PSAAppDelegate *appDelegate;
+@property (nonatomic, retain) TransactionDetail *transDetail;
+@property (nonatomic, retain) GiftCertificateController *gControl;
+@property (nonatomic, retain) ClientViewController *cControl;
+@property (nonatomic, retain) ServiceViewController *servControl;
+@property (nonatomic, retain) ProductViewController *prodControl;
+@property (nonatomic, retain) PaymentController *payControl;
+@property (nonatomic, retain) RegisterViewController *regControl;
+@property (nonatomic, retain) NSString *clientName;
+@property (nonatomic, retain) NSNumber *subTotal;
+@property (nonatomic, retain) NSNumber *salesTax;
+@property (nonatomic, retain) NSNumber *totalDue;
+@property (nonatomic, retain) NSNumber *tip;
+@property (nonatomic, retain) NSNumber *totalBalance;
+@property (nonatomic, retain) NSNumber *amountPaid;
+@property (nonatomic, retain) NSNumber *change;
+@property (nonatomic, retain) NSNumber *balance;
+@property (nonatomic, assign) NSInteger tNum;
+
+- (IBAction) back:(id)sender;
+- (IBAction) save:(id)sender;
+- (IBAction) voidTransaction:(id)sender;
+
+@end

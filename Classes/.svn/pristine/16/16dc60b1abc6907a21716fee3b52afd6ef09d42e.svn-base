@@ -1,0 +1,22 @@
+//
+//  DayViewController.h
+//  PSA
+//
+//  Created by Michael Simone on 3/5/09.
+//  Copyright Dropped Pin 2009. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+
+@interface DayViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+    IBOutlet UILabel		*monthLabel;
+	IBOutlet UITableView *myTableView;
+}
+
+- (IBAction)getCalendarEvent:(id)sender;
+- (IBAction)getCurrentDay:(id)sender;
+- (IBAction)addAppointment:(id)sender;
+- (IBAction)cancel:(id)sender;
+
+@end

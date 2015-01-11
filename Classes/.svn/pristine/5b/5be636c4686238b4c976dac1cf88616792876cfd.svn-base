@@ -1,0 +1,40 @@
+//
+//  MonthViewController.h
+//  PSA
+//
+//  Created by Michael Simone on 3/5/09.
+//  Copyright Dropped Pin 2009. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+#import "PSAAppDelegate.h"
+
+#define LABEL_SIZE 45
+#define	INITIAL_X 20
+#define INITIAL_Y 125
+
+@interface MonthViewController : UIViewController {
+    UILabel *monthLabel;
+	NSDate	*currentMonth;
+	NSMutableArray *labelList;
+		
+	// Use the appDelegate for setting and getting values
+	PSAAppDelegate *appDelegate;
+}
+
+@property (nonatomic, retain) NSMutableArray *labelList;
+@property (nonatomic, retain) NSDate *currentMonth;
+@property (nonatomic, retain) PSAAppDelegate *appDelegate;
+
+- (void)displayMonth;
+- (void)drawDay:(int)day week:(int)week day:(NSString*)value;
+
+- (IBAction)previousDay:(id)sender;
+- (IBAction)nextDay:(id)sender;
+- (IBAction)getCalendarEvent:(id)sender;
+- (IBAction)getCurrentDay:(id)sender;
+- (IBAction)addAppointment:(id)sender;
+- (IBAction)cancel:(id)sender;
+
+@end

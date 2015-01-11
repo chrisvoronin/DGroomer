@@ -1,0 +1,41 @@
+//
+//  GiftCertificate.h
+//  PSA
+//
+//  Created by Michael Simone on 8/15/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <sqlite3.h>
+
+@interface GiftCertificate : NSObject {
+	NSInteger	giftCertificateID;
+	NSInteger	giftCertificateNumber;
+	NSInteger	clientID;
+	NSString	*recipient;
+	NSString	*purchaseDate;
+	NSString	*expirationDate;
+	NSNumber	*currentValue;
+	NSNumber	*originalValue;
+	NSString	*giftCertificateMessage;
+	NSString	*giftCertificateNote;
+}
+
+@property (assign, nonatomic) NSInteger giftCertificateID;
+@property (assign, nonatomic) NSInteger	giftCertificateNumber;
+@property (assign, nonatomic) NSString	*recipient;
+@property (assign, nonatomic) NSInteger	clientID;
+@property (assign, nonatomic) NSString	*purchaseDate;
+@property (assign, nonatomic) NSString	*expirationDate;
+@property (assign, nonatomic) NSNumber	*currentValue;
+@property (assign, nonatomic) NSNumber	*originalValue;
+@property (assign, nonatomic) NSString	*giftCertificateMessage;
+@property (assign, nonatomic) NSString	*giftCertificateNote;
+
+// Finalize (delete) all of the SQLite compiled queries.
++ (void)finalizeStatements;
+
+- (id)initWithGiftData:(NSInteger)gID number:(NSInteger)gNum client:(NSInteger)cID recip:(NSString*)recip purchDate:(NSString*)purchDate expire:(NSString*)expire curVal:(NSNumber*)curVal origVal:(NSNumber*)origVal message:(NSString*)message giftNote:(NSString*)giftNote;
+
+@end

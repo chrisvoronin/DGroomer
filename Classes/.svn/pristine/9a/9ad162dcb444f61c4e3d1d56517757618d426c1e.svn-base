@@ -1,0 +1,48 @@
+//
+//  Appointments.h
+//  PSA
+//
+//  Created by Michael Simone on 5/31/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <sqlite3.h>
+
+@interface Appointments : NSObject {
+	// Attributes.
+	NSInteger appointmentID;
+	NSString *startDateTime;
+    NSString *endDateTime;
+    NSString *clientName;
+    NSString *notes;
+	NSInteger *standingAppointment;
+	NSInteger *startDuration;
+	NSInteger *gapDuration;
+	NSInteger *endDuration;
+	NSInteger serviceID;
+	NSInteger clientID;
+}
+
+// Property exposure for primary key and other attributes. The primary key is 'assign' because it is not an object, 
+// nonatomic because there is no need for concurrent access, and readonly because it cannot be changed without 
+// corrupting the database.
+
+@property (assign, nonatomic) NSInteger appointmentID;
+@property (assign, nonatomic) NSString *startDateTime;
+@property (assign, nonatomic) NSString *endDateTime;
+@property (assign, nonatomic) NSString *clientName;
+@property (assign, nonatomic) NSString *notes;
+@property (assign, nonatomic) NSInteger *standingAppointment;
+@property (assign, nonatomic) NSInteger *startDuration;
+@property (assign, nonatomic) NSInteger *gapDuration;
+@property (assign, nonatomic) NSInteger *endDuration;
+@property (assign, nonatomic) NSInteger serviceID;
+@property (assign, nonatomic) NSInteger clientID;
+
+// Finalize (delete) all of the SQLite compiled queries.
++ (void)finalizeStatements;
+
+- (id)initWithData:(NSInteger)key startTime:(NSString *)st endDateTime:(NSString *)et name:(NSString *)cn notes:(NSString*)notes standAppt:(NSInteger*)std stDur:(NSInteger*)standDur gapDur:(NSInteger*)gap endDur:(NSInteger*)endDur serviceName:(NSInteger)serv clientID:(NSInteger)cID;
+
+@end

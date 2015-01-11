@@ -1,0 +1,204 @@
+#import "AddApptController.h"
+#import "FirstViewController.h"
+
+@implementation AddApptController
+
+@synthesize types, myTableView, name, apptPicker, startTime, endTime, client, serviceControl, scheduleControl;
+@synthesize appDelegate;
+
+- (IBAction)addCancel:(id)sender {
+    // unload the NIB file	
+	[self.view removeFromSuperview];
+}
+
+- (IBAction)addDone:(id)sender {
+	// Write the data to the DB
+	[appDelegate saveClientOnSchedule:self.name start:appDelegate.apptStartTime end:appDelegate.apptEndTime notes:appDelegate.notes startDur:appDelegate.serviceStartTime gapDur:appDelegate.serviceGapTime endDur:appDelegate.serviceEndTime servID:appDelegate.serviceID clID:appDelegate.clientID stand:0];
+		
+	[scheduleControl viewWillAppear:YES];
+    // unload the NIB file
+	[self.view removeFromSuperview];
+	
+}
+
+// Show the address book to select the client formulations
+- (void)openClientList {
+    // Load the client NIB file
+	if (client == nil) {
+		client = [[ClientViewController alloc] initWithNibName:@"ClientsView" bundle:[NSBundle mainBundle]];
+		client.apptController = self;
+	}
+	
+	[client loadClientList];
+	[self.view addSubview:client.view];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	
+    // Remove any previous selection.
+    NSIndexPath *tableSelection = [myTableView indexPathForSelectedRow];
+	[myTableView deselectRowAtIndexPath:tableSelection animated:YES];
+	
+	// Set the name value
+	self.name = [[NSString alloc] initWithFormat:@"%@ %@", appDelegate.clientFirstName, appDelegate.clientLastName];
+	
+    [myTableView reloadData];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {	
+	// Use the delegate to set/get values
+	appDelegate = (PSAAppDelegate *)[[UIApplication sharedApplication] delegate];
+	
+	// Initialize the variables we are displaying
+	self.name = @" ";
+	appDelegate.apptStartTime = @" ";
+	appDelegate.apptEndTime = @" ";
+	appDelegate.serviceName = @" ";
+	appDelegate.notes = @" ";
+}
+
+// Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
+    // Release anything that's not essential, such as cached data
+}
+
+- (void)dealloc {
+	[apptPicker release];
+	[myTableView release];
+	
+    [super dealloc];
+}
+
+#pragma mark TableView Methods
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tv {
+    // 3 sections, one for each property
+    return 3;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{	
+	// don't keep the table selection
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	
+	if (apptPicker == nil) {
+		apptPicker = [[ApptDatePickerViewController alloc] initWithNibName:@"ApptDatePickerView" bundle:[NSBundle mainBundle]];
+		apptPicker.apptController = self;
+		[apptPicker.datePicker reloadAllComponents];
+	}
+	
+	if (serviceControl == nil) {
+		serviceControl = [[ServiceViewController alloc] initWithNibName:@"ServicesView" bundle:[NSBundle mainBundle]];
+		serviceControl.apptController = self;
+	}
+	
+	switch (indexPath.section) {
+        case 0:
+			[self openClientList];
+			break;
+		case 1:
+			[self.view addSubview:serviceControl.view];
+			break;
+		case 2:
+			if ([appDelegate.serviceName isEqualToString:@" "]) {
+				// Display an alert
+				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"A service type must be selected before setting appointment time." delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+				[alert show];	
+				[alert release];
+			} else {
+				switch (indexPath.row) {
+					case 0: 
+						[self.view addSubview:apptPicker.view];
+						break;
+					case 1:
+						[self.view addSubview:apptPicker.view];
+						break;
+				}
+			}
+			break;
+		case 3:
+			break;
+    }
+	
+}
+
+// The table uses standard UITableViewCells. The text for a cell is simply the string value of the matching type.
+- (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [myTableView dequeueReusableCellWithIdentifier:@"TypeCell"];
+    if (cell == nil) {
+        cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"TypeCell"] autorelease];
+    }
+	
+	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	cell.textLabel.textColor = [UIColor lightGrayColor];
+	cell.textLabel.font = [UIFont boldSystemFontOfSize:10];
+		
+	// Use an object array here so that we can change the values later and effect the current view
+	switch (indexPath.section) {
+		case 0:
+			if (![self.name isEqualToString:@" "])
+				cell.textLabel.textColor = [UIColor blackColor];
+			cell.textLabel.text = [NSString stringWithFormat:@"Client Name: %@", self.name];
+			break;
+		case 1:
+			if (![appDelegate.serviceName isEqualToString:@" "])
+				cell.textLabel.textColor = [UIColor blackColor];
+			cell.textLabel.text = [NSString stringWithFormat:@"Services: %@", appDelegate.serviceName];
+			break;
+		case 2:
+			switch (indexPath.row) {
+				case 0:
+					if (![appDelegate.apptStartTime isEqualToString:@" "])
+						cell.textLabel.textColor = [UIColor blackColor];
+					cell.textLabel.text = [NSString stringWithFormat:@"Start Time: %@", appDelegate.apptStartTime];
+					break;
+				case 1:
+					if (![appDelegate.apptEndTime isEqualToString:@" "])
+						cell.textLabel.textColor = [UIColor blackColor];
+					cell.textLabel.text = [NSString stringWithFormat:@"End Time: %@", appDelegate.apptEndTime];
+					break;
+			}
+			break;
+		case 3:
+			if (![appDelegate.notes isEqualToString:@" "])
+				cell.textLabel.textColor = [UIColor blackColor];
+			cell.textLabel.text = [NSString stringWithFormat:@"Notes: %@", appDelegate.notes];
+			break;
+	}
+		
+	return cell;
+	
+}
+
+// The table has one row for each possible type.
+- (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section {
+	
+	NSInteger numRows;
+	
+	switch (section) {
+		case 0:
+			numRows = 1;
+			break;
+		case 1:
+			numRows = 1;
+			break;
+		case 2:
+			numRows = 2;
+			break;
+		case 3:
+			numRows = 1;
+			break;
+	}
+	
+	return numRows;
+}
+
+@end

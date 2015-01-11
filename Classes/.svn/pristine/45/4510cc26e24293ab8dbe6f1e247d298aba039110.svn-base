@@ -1,0 +1,26 @@
+//
+//  ShowCloseoutController.h
+//  PSA
+//
+//  Created by Michael Simone on 9/5/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+
+@interface ShowCloseoutController : UIViewController {
+	IBOutlet UIButton *from;
+	IBOutlet UIButton *until;
+	IBOutlet UIDatePicker *myPicker;
+	
+	NSDate *useFrom;
+	NSDate *useUntil;
+}
+
+- (IBAction)fromDate:(id)sender;
+- (IBAction)untilDate:(id)sender;
+- (IBAction)back:(id)sender;
+- (IBAction)report:(id)sender;
+
+@end

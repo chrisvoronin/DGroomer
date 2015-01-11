@@ -1,0 +1,28 @@
+//
+//  SetAnnivEmailTextController.h
+//  PSA
+//
+//  Created by Michael Simone on 8/2/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "PSAAppDelegate.h"
+
+@interface SetAnnivEmailTextController : UIViewController {
+	IBOutlet UITextField *emailFrom;
+	IBOutlet UITextField *emailSubject;
+	IBOutlet UITextView *textMessage;
+	
+	// Use the appDelegate for setting and getting values
+	PSAAppDelegate *appDelegate;
+}
+
+@property (nonatomic, retain) PSAAppDelegate *appDelegate;
+@property (nonatomic, retain) UITextField *emailSubject;
+@property (nonatomic, retain) UITextView *textMessage;
+
+- (IBAction)back:(id)sender;
+- (IBAction)save:(id)sender;
+
+@end

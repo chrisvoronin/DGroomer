@@ -1,0 +1,59 @@
+//
+//  Client.m
+//  PSA
+//
+//  Created by Michael Simone on 6/13/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "Client.h"
+
+// Static variables for compiled SQL queries. This implementation choice is to be able to share a one time
+// compilation of each query across all instances of the class. Each time a query is used, variables may be bound
+// to it, it will be "stepped", and then reset for the next usage. When the application begins to terminate,
+// a class method will be invoked to "finalize" (delete) the compiled queries - this must happen before the database
+// can be closed.
+static sqlite3_stmt *init_statement = nil;
+static sqlite3_stmt *hydrate_statement = nil;
+
+@implementation Client
+
+@synthesize clientID, firstName, lastName, workPhone, homePhone, cellPhone, address1, address2;
+@synthesize city, stateID, zipcode, email, birthdate, anniversary, notes;
+
+// Finalize (delete) all of the SQLite compiled queries.
++ (void)finalizeStatements {
+    if (init_statement) {
+        sqlite3_finalize(init_statement);
+        init_statement = nil;
+    }
+    if (hydrate_statement) {
+        sqlite3_finalize(hydrate_statement);
+        hydrate_statement = nil;
+	}
+}
+
+- (id)initWithData:(NSInteger)key firstName:(NSString *)fn lastName:(NSString *)ln workPhone:(NSString *)wp cellPhone:(NSString*)cp homePhone:(NSString*)hp
+address1: (NSString *)addr1 address2:(NSString *)addr2 city:(NSString*)ct state:(NSString*)st zipcode:(NSString*)zip
+email:(NSString*)em birthdate:(NSString*)bd anniversary:(NSString*)anniv notes:(NSString*)nt {
+				 
+	self.clientID = key;
+	self.firstName = fn;
+	self.lastName = ln;
+	self.workPhone = wp;
+	self.cellPhone = cp;
+	self.homePhone = hp;
+	self.address1 = addr1;
+	self.address2 = addr2;
+	self.city = ct;
+	self.stateID = st;
+	self.zipcode = zip;
+	self.email = em;
+	self.birthdate = bd;
+	self.anniversary = anniv;
+	self.notes = nt;
+	
+	return self;
+}
+
+@end

@@ -1,0 +1,139 @@
+//
+//  ShowCloseoutController.m
+//  PSA
+//
+//  Created by Michael Simone on 9/5/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "ShowCloseoutController.h"
+#import "ClosedoutTableController.h"
+#import "PSAAppDelegate.h"
+#import "Closeout.h"
+
+@implementation ShowCloseoutController
+
+NSMutableArray *closeValueArray;
+
+- (IBAction)fromDate:(id)sender {
+	NSAutoreleasePool *localPool = [[NSAutoreleasePool alloc] init];
+	
+	useFrom = myPicker.date;
+	[useFrom retain];
+	
+	// display the date on the button label
+	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	[dateFormatter setDateStyle:NSDateFormatterShortStyle];
+	
+	[from setTitle:[NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:useFrom]] forState:UIControlStateNormal];
+	
+	[localPool release];
+}
+
+- (IBAction)untilDate:(id)sender {
+	NSAutoreleasePool *localPool = [[NSAutoreleasePool alloc] init];
+	
+	useUntil = myPicker.date;
+	[useUntil retain];
+	
+	//display the date on the button label
+	// display the date on the button label
+	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	[dateFormatter setDateStyle:NSDateFormatterShortStyle];
+	
+	[until setTitle:[NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:useUntil]] forState:UIControlStateNormal];
+	
+	[localPool release];
+}
+
+- (IBAction)back:(id)sender {
+	[self.view removeFromSuperview];
+}
+
+- (IBAction)report:(id)sender {
+	
+	closeValueArray = [[NSMutableArray alloc] init];
+	
+	PSAAppDelegate *appDelegate = (PSAAppDelegate *)[[UIApplication sharedApplication] delegate];
+	[appDelegate loadCloseoutHistory];
+	
+	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	[dateFormatter setDateStyle:NSDateFormatterFullStyle];
+	[dateFormatter setTimeStyle:NSDateFormatterFullStyle];
+	
+	NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+	
+	NSDateComponents *fromDateComponents = [calendar components:NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit fromDate:useFrom];
+	NSInteger fromMonth = [fromDateComponents month];
+	NSInteger fromDay = [fromDateComponents day];
+	NSInteger fromYear = [fromDateComponents year];
+	
+	NSDateComponents *toDateComponents = [calendar components:NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit fromDate:useUntil];
+	NSInteger toMonth = [toDateComponents month];
+	NSInteger toDay = [toDateComponents day];
+	NSInteger toYear = [toDateComponents year];
+	
+	Closeout *clOut;
+	
+	//filter the array based on dates
+	for (int i=0; i < [appDelegate.closeouts count]; i++) {
+		clOut = [appDelegate.closeouts objectAtIndex:i];
+		NSDate *clDate = [[NSDate alloc] init];
+		clDate = [dateFormatter dateFromString:clOut.dateInfo];
+		
+		NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+		NSDateComponents *clientDateComponents = [calendar components:NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit fromDate:clDate];
+		NSInteger clientMonth = [clientDateComponents month];
+		NSInteger clientDay = [clientDateComponents day];
+		NSInteger clientYear = [clientDateComponents year];
+		
+		if ((clientYear >= fromYear) && (clientYear <= toYear))
+			if ((clientMonth >= fromMonth) && (clientMonth <= toMonth))
+				if ((clientDay >= fromDay) && (clientDay <= toDay)) {
+					[closeValueArray addObject:clOut.dateInfo];
+					[closeValueArray addObject:clOut];
+				}
+		
+	}
+	
+	// show tableview page
+	ClosedoutTableController *clView = [[ClosedoutTableController alloc] initWithNibName:@"ClosedoutTableController" bundle:[NSBundle mainBundle]];
+	[self.view addSubview:clView.view];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+	// Set the background color to an image
+	self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"PSA_Productpurple.png"]];
+	
+    [super viewDidLoad];
+}
+
+// Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+	
+	// Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
+}
+
+
+- (void)dealloc {
+	[from release];
+	[until release];
+	[myPicker release];
+    [super dealloc];
+}
+
+
+@end

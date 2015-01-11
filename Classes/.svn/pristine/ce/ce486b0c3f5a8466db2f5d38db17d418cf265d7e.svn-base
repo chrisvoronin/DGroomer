@@ -1,0 +1,50 @@
+//
+//  DailyCloseoutController.h
+//  PSA
+//
+//  Created by Michael Simone on 9/1/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
+#import "PSAAppDelegate.h"
+
+@interface DailyCloseoutController : UIViewController <UIActionSheetDelegate, MFMailComposeViewControllerDelegate> {
+	IBOutlet UITextView *myTextView;
+	
+	NSNumber *cash;
+	NSNumber *credit;
+	NSNumber *checks;
+	NSNumber *coupons;
+	NSNumber *giftCerts;
+	NSNumber *services;
+	NSNumber *retail;
+	NSNumber *tips;
+	NSNumber *salesTax;
+	NSNumber *purchasedGiftCerts;
+		
+	// Use the appDelegate for setting and getting values
+	PSAAppDelegate *appDelegate;
+}
+
+@property (nonatomic, retain) NSNumber *cash;
+@property (nonatomic, retain) NSNumber *credit;
+@property (nonatomic, retain) NSNumber *checks;
+@property (nonatomic, retain) NSNumber *coupons;
+@property (nonatomic, retain) NSNumber *giftCerts;
+@property (nonatomic, retain) NSNumber *services;
+@property (nonatomic, retain) NSNumber *retail;
+@property (nonatomic, retain) NSNumber *tips;
+@property (nonatomic, retain) NSNumber *salesTax;
+@property (nonatomic, retain) NSNumber *purchasedGiftCerts;
+@property (nonatomic, retain) UITextView *myTextView;
+@property (nonatomic, retain) PSAAppDelegate *appDelegate;
+
+- (IBAction)back:(id)sender;
+- (IBAction)email:(id)sender;
+- (IBAction)doCloseout:(id)sender;
+
+- (void)loadValues;
+
+@end

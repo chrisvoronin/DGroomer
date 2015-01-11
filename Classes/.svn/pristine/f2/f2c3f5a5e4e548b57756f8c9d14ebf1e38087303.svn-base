@@ -1,0 +1,262 @@
+//
+//  ServiceTimeController.m
+//  PSA
+//
+//  Created by Michael Simone on 7/13/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "ServiceTimeController.h"
+
+
+@implementation ServiceTimeController
+
+@synthesize myPickerView, myTableView, doubleAppt;
+@synthesize appDelegate;
+@synthesize servicesController;
+
+NSMutableArray *minuteArray;
+NSMutableArray *hourArray;
+
+NSString *startTime;
+NSString *gapTime;
+NSString *endTime;
+NSString *hour;
+NSString *minute;
+
+int hours;
+int minutes;
+int seconds; //Needed to keep track of hor many seconds each appointment is
+
+BOOL cell1, cell2, cell3;
+
+- (IBAction)cancel:(id)sender {
+    [self.view removeFromSuperview];
+}
+
+- (IBAction)done:(id)sender {
+		
+	 if ([doubleAppt isOn])
+		 appDelegate.serviceActive = 1;
+	else
+		appDelegate.serviceActive = 0;
+	
+    [self.view removeFromSuperview];
+	[servicesController viewWillAppear: YES];
+}
+
+- (IBAction) adjustDouble:(id)sender {
+	[myTableView reloadData];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+	
+	
+	// Use the delegate to set/get values
+	appDelegate = (PSAAppDelegate *)[[UIApplication sharedApplication] delegate];
+			
+	minuteArray = [[NSMutableArray alloc] init];
+	hourArray = [[NSMutableArray alloc] init];
+	
+	minuteArray = [[NSArray arrayWithObjects: @"00 min", @"15 min", @"30 min", @"45 min", nil] retain];
+	hourArray = [[NSArray arrayWithObjects: @"--", @"1 hr", @"2 hrs", @"3 hrs", @"4 hrs", @"5 hrs", @"6 hrs", @"7 hrs", @"8 hrs", @"9 hrs", @"10 hrs", @"11 hrs", nil] retain];
+			
+	// Set the background color to a nice blue image
+	[self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PSA_Blue.png"]]];
+	self.myTableView.backgroundColor = [UIColor clearColor];
+	
+	// Let's reset the picker
+	[myPickerView selectRow:0 inComponent:0 animated:NO];
+	[myPickerView selectRow:0 inComponent:1 animated:NO];
+	
+	// Set the correct cell for data
+	cell1 = YES;
+	cell2 = NO;
+	cell3 = NO;
+	
+	// set the default values for the start, gap, end times
+	startTime = @" ";
+	gapTime = @" ";
+	endTime = @" ";
+	hour = @"";
+	minute = @"00 min";
+	
+	seconds = 0;
+	hours = 0;
+	minutes = 0;
+	
+	[super viewDidLoad];
+}
+
+// Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+	
+	// Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
+}
+
+
+- (void)dealloc {
+	[minuteArray release];
+	[hourArray release];
+	[startTime release];
+	[gapTime release];
+	[endTime release];
+	[hour release];
+	[minute release];
+	
+    [super dealloc];
+}
+
+#pragma mark ---- UIPickerViewDataSource delegate methods ----
+
+// returns the number of columns to display.
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+	return 2;
+	
+}
+
+// returns the number of rows
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {	
+	switch (component) {
+		case 0:
+			return [hourArray count];
+			break;
+		case 1:
+			return [minuteArray count];
+			break;
+	}
+	
+	return 0;
+}
+
+#pragma mark ---- UIPickerViewDelegate delegate methods ----
+
+// returns the title of each row
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+	
+	switch (component) {
+		case 0:
+			return [hourArray objectAtIndex:row];
+			break;
+		case 1:
+			return [minuteArray objectAtIndex:row];
+			break;
+	}
+	
+	return 0;
+	
+}
+
+// gets called when the user settles on a row
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+		
+	switch (component) {
+		case 0:
+			if (row != 0) {
+				hour = [[NSString stringWithFormat:@"%@", [hourArray objectAtIndex:row]] retain];
+				hours = row * 60 * 60;
+			} else {
+				hour = [NSString stringWithFormat:@" "];
+				hours = row * 60 * 60;
+			}
+			break;
+		case 1: {
+			minute = [[NSString stringWithFormat:@"%@", [minuteArray objectAtIndex:row]] retain];
+			minutes = ((row * 15) * 60);
+		}
+			break;
+	}
+	
+	seconds = hours + minutes; // Calculate the seconds for the appointment sections
+
+	if (cell1 == YES) {
+		startTime = [[NSString stringWithFormat:@"%@ %@", hour, minute] retain];
+		appDelegate.serviceStartTime = seconds;
+	} else if (cell2 == YES) {
+		gapTime = [[NSString stringWithFormat:@"%@ %@", hour, minute] retain];
+		appDelegate.serviceGapTime = seconds;
+	}
+	else {
+		endTime = [[NSString stringWithFormat:@"%@ %@", hour, minute] retain];
+		appDelegate.serviceEndTime = seconds;
+	}
+	
+	[myTableView reloadData];
+}
+
+#pragma mark TableDelegate methods
+
+- (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [myTableView dequeueReusableCellWithIdentifier:@"TypeCell"];
+    if (cell == nil) {
+        cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"TypeCell"] autorelease];
+    }
+	
+	cell.accessoryType = UITableViewCellAccessoryNone;
+	cell.textLabel.textColor = [UIColor blackColor];
+	cell.textLabel.font = [UIFont boldSystemFontOfSize:12];
+		
+	// Use an object array here so that we can change the values later and effect the current view
+	// TODO - still need to add a button for half or all day appointments
+	switch ([indexPath row]) {
+		case 0: {
+			cell.textLabel.text = [NSString stringWithFormat:@"Start Length of Service: %@", startTime];
+			break;
+		}
+		case 1: {
+			cell.textLabel.text = [NSString stringWithFormat:@"Gap Length of Service: %@", gapTime];
+			break;
+			
+		}
+		case 2: {
+			cell.textLabel.text = [NSString stringWithFormat:@"End Length of Service: %@", endTime];
+			break;			
+		}
+		default:
+			break;
+	}
+	
+	return cell;
+}
+
+// The table has one row for each possible type.
+- (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section {
+	if ([doubleAppt isOn])
+		return 3;
+	else
+		return 1;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{		
+	// don't keep the table selection
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	
+	// We need to determine which one was pressed and get the values back.
+	switch (indexPath.row) {
+		case 0:
+			cell1 = YES; cell2 = NO; cell3 = NO;
+			break;
+		case 1:
+			cell1 = NO; cell2 = YES; cell3 = NO;
+			break;
+		case 2:
+			cell1 = NO; cell2 = NO; cell3 = YES;
+			break;
+	}
+}
+
+@end

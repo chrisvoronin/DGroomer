@@ -1,0 +1,323 @@
+//
+//  DailyCloseoutController.m
+//  PSA
+//
+//  Created by Michael Simone on 9/1/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "DailyCloseoutController.h"
+#import "Transaction.h"
+#import "TransactionPayment.h"
+#import "TransactionDetail.h"
+#import "Service.h"
+#import "Product.h"
+#import "GiftCertificate.h"
+
+@interface DailyCloseoutController (Private)
+- (void)sendEmail;
+@end
+
+@implementation DailyCloseoutController
+
+@synthesize cash, credit, checks, coupons, giftCerts, services, retail, tips, salesTax, purchasedGiftCerts;
+@synthesize appDelegate, myTextView;
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+	// the user clicked one of the OK/Cancel buttons
+	if (buttonIndex == 0)
+	{
+		//do nothing because we canceled
+	}
+	else
+	{
+		NSAutoreleasePool *localPool = [[NSAutoreleasePool alloc] init];
+		
+		NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+		[dateFormatter setDateStyle:NSDateFormatterFullStyle];
+		[dateFormatter setTimeStyle:NSDateFormatterFullStyle];
+		
+		// Load the daily transactions
+		[appDelegate loadTransactions];
+		
+		Transaction *trans = nil;
+		
+		for (int i=0; i < [appDelegate.transactions count]; i++) {
+			// Check for only complete transactions
+			trans = [appDelegate.transactions objectAtIndex:i];
+			if ([trans.transactionStatus isEqualToString:@"Open"]) {
+				// close the files and then update them
+				appDelegate.transactionID = trans.transactionID;
+				appDelegate.transactionNumber = trans.transactionNumber;
+				appDelegate.transactionDate = trans.transactionDate;
+				appDelegate.transactionStatus = @"Void";
+				appDelegate.transactionTotal = trans.transactionTotal;
+				appDelegate.transactionDiscountTotal = trans.transactionDiscountTotal;
+				appDelegate.transactionTaxTotal = trans.transactionTaxTotal;
+				appDelegate.transactionPaymentTotal = trans.transactionPaymentTotal;
+				appDelegate.transactionTipTotal = trans.transactionTipTotal;
+				appDelegate.transactionChangeTotal = trans.transactionChangeTotal;
+				appDelegate.transactionSubTotal= trans.transactionSubTotal;
+				
+				[appDelegate updateTransactions:trans.transactionID];
+			}
+		}
+		
+		for (int i=0; i < [appDelegate.transactions count]; i++) {
+			// Check for only complete transactions
+			trans = [appDelegate.transactions objectAtIndex:i];
+			if ([trans.transactionStatus isEqualToString:@"Complete"]) {
+				// close the files and then update them
+				appDelegate.transactionID = trans.transactionID;
+				appDelegate.transactionNumber = trans.transactionNumber;
+				appDelegate.transactionDate = trans.transactionDate;
+				appDelegate.transactionStatus = @"Closed";
+				appDelegate.transactionTotal = trans.transactionTotal;
+				appDelegate.transactionDiscountTotal = trans.transactionDiscountTotal;
+				appDelegate.transactionTaxTotal = trans.transactionTaxTotal;
+				appDelegate.transactionPaymentTotal = trans.transactionPaymentTotal;
+				appDelegate.transactionTipTotal = trans.transactionTipTotal;
+				appDelegate.transactionChangeTotal = trans.transactionChangeTotal;
+				appDelegate.transactionSubTotal= trans.transactionSubTotal;
+				
+				[appDelegate updateTransactions:trans.transactionID];
+			}
+		}
+		
+		// Save the closeout
+		NSString *today = [dateFormatter stringFromDate:[NSDate date]];
+		
+		appDelegate.dateInfo = today;
+		appDelegate.userVisa = credit;
+		appDelegate.receiptCash = cash;
+		appDelegate.receiptCheck = checks;
+		appDelegate.receiptCoupon = coupons;
+		appDelegate.receiptGift = giftCerts;
+		appDelegate.salesService = services;
+		appDelegate.salesRetail = retail;
+		appDelegate.salesGift = purchasedGiftCerts;
+		appDelegate.salesTips = tips;
+		appDelegate.closeoutSalesTax = salesTax;
+		
+		[appDelegate saveCloseout];
+		
+		[self loadValues];
+		
+		[localPool release];
+	}
+	
+}
+
+- (IBAction)doCloseout:(id)sender {
+	
+	// Void out the transaction
+	// Show an alert to make sure we want to void it
+	// open an alert with just an OK button
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Are you sure you wish to close all open transactions?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+	[alert show];	
+	[alert release];
+}
+
+#pragma mark MAIN SECTION
+
+- (void)sendEmail {
+	MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
+	picker.mailComposeDelegate = self;
+	
+	[picker setSubject:@"Daily Closeout Report"];
+				
+	[picker setMessageBody:[NSString stringWithFormat:@"%@", myTextView.text] isHTML:NO];
+
+	[self presentModalViewController:picker animated:YES];
+	
+}
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error 
+{	
+	[self dismissModalViewControllerAnimated:YES];
+}
+
+- (IBAction)back:(id)sender {
+	[self.view removeFromSuperview];
+}
+
+- (IBAction)email:(id)sender {
+	// Open the email alert sheet
+	// open a dialog with two custom buttons
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Email Report"
+															 delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil
+													otherButtonTitles:@"Use Email", nil];
+	actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+	[actionSheet showInView:self.view];
+	[actionSheet release];
+}
+
+// Called when the user selects an option in the sheet. The sheet will automatically be dismissed.
+- (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex) {
+        case 0: {
+			Class mailClass = (NSClassFromString(@"MFMailComposeViewController"));
+			if (mailClass != nil) {
+				// We must always check whether the current device is configured for sending emails
+				if ([mailClass canSendMail]) {
+					[self sendEmail];
+				}
+			}
+        } break;
+        default:
+            break;
+    }
+}
+
+- (void)loadValues {
+	// Load the daily transactions
+	[appDelegate loadDailyCloseout];
+	
+	Transaction *trans = nil;
+	self.cash = [NSNumber numberWithFloat:0.0];
+	self.credit = [NSNumber numberWithFloat:0.0];
+	self.checks = [NSNumber numberWithFloat:0.0];
+	self.coupons = [NSNumber numberWithFloat:0.0];
+	self.giftCerts = [NSNumber numberWithFloat:0.0];
+	self.services = [NSNumber numberWithFloat:0.0];
+	self.retail = [NSNumber numberWithFloat:0.0];
+	self.tips = [NSNumber numberWithFloat:0.0];
+	self.salesTax = [NSNumber numberWithFloat:0.0];
+	self.purchasedGiftCerts = [NSNumber numberWithFloat:0.0];
+	
+	for (int i=0; i < [appDelegate.transactions count]; i++) {
+		// Check for only closed transactions
+		trans = [appDelegate.transactions objectAtIndex:i];
+		if ([trans.transactionStatus isEqualToString:@"Complete"]) {
+			// load the transaction payment history for the ID
+			[appDelegate getPaymentTransaction:trans.transactionID];
+			TransactionPayment *transPay;
+			for (int j=0; j < [appDelegate.transactionPayments count]; j++) {
+				transPay = [appDelegate.transactionPayments objectAtIndex:j];
+				if ([transPay.transactionType isEqualToString:@"Cash"])
+					cash = [NSNumber numberWithFloat:[cash floatValue] + [transPay.transAmountPaid floatValue]];
+				if ([transPay.transactionType isEqualToString:@"Check"])
+					checks = [NSNumber numberWithFloat:[checks floatValue] + [transPay.transAmountPaid floatValue]];
+				if (([transPay.transactionType isEqualToString:@"American Express"]) ||
+					([transPay.transactionType isEqualToString:@"Discover"]) ||
+					([transPay.transactionType isEqualToString:@"Visa"]) ||
+					([transPay.transactionType isEqualToString:@"Mastercard"]))
+					credit = [NSNumber numberWithFloat:[credit floatValue] + [transPay.transAmountPaid floatValue]];
+				if ([transPay.transactionType isEqualToString:@"Coupons"])
+					coupons = [NSNumber numberWithFloat:[coupons floatValue] + [transPay.transAmountPaid floatValue]];
+				if ([transPay.transactionType isEqualToString:@"Gift Certificate"])
+					giftCerts = [NSNumber numberWithFloat:[giftCerts floatValue] + [transPay.transAmountPaid floatValue]];
+				tips = [NSNumber numberWithFloat:[tips floatValue] + [trans.transactionTipTotal floatValue]];
+				salesTax = [NSNumber numberWithFloat:[salesTax floatValue] + [trans.transactionTaxTotal floatValue]];
+			}
+			
+			// Lets look at the details now to get the other information
+			[appDelegate loadDetailTransactionsForTransactionNumber:trans.transactionID];
+			TransactionDetail *transDetail;
+			for (int j=0; j < [appDelegate.transactionDetails count]; j++) {
+				transDetail = [appDelegate.transactionDetails objectAtIndex:j];
+				[appDelegate loadService:transDetail.serviceID];
+				Service *serv;
+				for (int k=0; k < [appDelegate.services count];k++) {
+					serv = [appDelegate.services objectAtIndex:k];
+					services = [NSNumber numberWithFloat:[services floatValue] + [serv.price floatValue]];
+				}
+				Product *prod;
+				for (int k=0; k < [appDelegate.products count];k++) {
+					prod = [appDelegate.products objectAtIndex:k];
+					retail = [NSNumber numberWithFloat:[retail floatValue] + [prod.productPrice floatValue]];
+				}
+				GiftCertificate *gift;
+				for (int k=0; k < [appDelegate.giftCertificates count];k++) {
+					gift = [appDelegate.giftCertificates objectAtIndex:k];
+					purchasedGiftCerts = [NSNumber numberWithFloat:[purchasedGiftCerts floatValue] + [gift.originalValue floatValue]];
+				}
+			}
+		}
+	}
+	
+	[cash retain];
+	[credit retain];
+	[checks retain];
+	[coupons retain];
+	[giftCerts retain];
+	[services retain];
+	[retail retain];
+	[purchasedGiftCerts retain];
+	[tips retain];
+	[salesTax retain];
+	
+	NSMutableString *myString = [[NSMutableString alloc] init];
+	[myString appendFormat:@"Cash     $%.2f\n", [cash floatValue]];
+	[myString appendFormat:@"Credit    $%.2f\n", [credit floatValue]];
+	[myString appendFormat:@"Checks  $%.2f\n", [checks floatValue]];
+	[myString appendFormat:@"---------------------\n"];
+	[myString appendFormat:@"Total   $%.2f\n\n", [cash floatValue] + [credit floatValue] + [checks floatValue]];
+	
+	// Display the reciepts section
+	[myString appendFormat:@"Reciepts\n"];
+	[myString appendFormat:@"-------------\n"];
+	[myString appendFormat:@"Cash        $%.2f\n", [cash floatValue]];
+	[myString appendFormat:@"Credit       $%.2f\n", [credit floatValue]];
+	[myString appendFormat:@"Checks      $%.2f\n", [checks floatValue]];
+	[myString appendFormat:@"Coupons   $%.2f\n", [coupons floatValue]];
+	[myString appendFormat:@"Gift Certs  $%.2f\n", [giftCerts floatValue]];
+	[myString appendFormat:@"---------------------\n"];
+	[myString appendFormat:@"Total   $%.2f\n\n", [cash floatValue] + [credit floatValue] + [checks floatValue] + [coupons floatValue] + [giftCerts floatValue]];
+	
+	// display the activities section
+	[myString appendFormat:@"Activities\n"];
+	[myString appendFormat:@"-------------\n"];
+	[myString appendFormat:@"Services        $%.2f\n", [services floatValue]];
+	[myString appendFormat:@"Retail            $%.2f\n", [retail floatValue]];
+	[myString appendFormat:@"Tips              $%.2f\n", [tips floatValue]];
+	[myString appendFormat:@"Sales Tax      $%.2f\n", [salesTax floatValue]];
+	[myString appendFormat:@"Gift Certs       $%.2f\n", [purchasedGiftCerts floatValue]];
+	[myString appendFormat:@"---------------------\n"];
+	[myString appendFormat:@"Total   $%.2f\n\n", [services floatValue] + [retail floatValue] + [tips floatValue] + [salesTax floatValue] + [purchasedGiftCerts floatValue]];
+		
+	myTextView.text = myString;
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+	
+	// Use the delegate to set/get values
+	appDelegate = (PSAAppDelegate *)[[UIApplication sharedApplication] delegate];
+	
+	// Set the background color to an image
+	self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"PSA_Productpurple.png"]];
+	
+	[self loadValues];
+	
+    [super viewDidLoad];
+}
+
+// Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+	
+	// Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
+}
+
+
+- (void)dealloc {
+	[myTextView release];
+    [super dealloc];
+}
+
+@end

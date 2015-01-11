@@ -1,0 +1,43 @@
+//
+//  Transaction.h
+//  PSA
+//
+//  Created by Michael Simone on 7/27/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <sqlite3.h>
+
+@interface Transaction : NSObject {
+	NSInteger	transactionID;
+	NSInteger	transactionNumber;
+	NSString	*transactionDate;
+	NSString	*transactionStatus;
+	NSNumber	*transactionTotal;
+	NSNumber	*transactionDiscountTotal;
+	NSNumber	*transactionTaxTotal;
+	NSNumber	*transactionPaymentTotal;
+	NSNumber	*transactionTipTotal;
+	NSNumber	*transactionChangeTotal;
+	NSNumber	*transactionSubTotal;
+}
+
+@property (assign, nonatomic) NSInteger transactionID;
+@property (assign, nonatomic) NSInteger	transactionNumber;
+@property (assign, nonatomic) NSString	*transactionDate;
+@property (assign, nonatomic) NSString	*transactionStatus;
+@property (assign, nonatomic) NSNumber	*transactionTotal;
+@property (assign, nonatomic) NSNumber	*transactionDiscountTotal;
+@property (assign, nonatomic) NSNumber	*transactionTaxTotal;
+@property (assign, nonatomic) NSNumber	*transactionPaymentTotal;
+@property (assign, nonatomic) NSNumber	*transactionTipTotal;
+@property (assign, nonatomic) NSNumber	*transactionChangeTotal;
+@property (assign, nonatomic) NSNumber	*transactionSubTotal;
+
+// Finalize (delete) all of the SQLite compiled queries.
++ (void)finalizeStatements;
+
+- (id)initWithTransactionData:(NSInteger)transID transNum:(NSInteger)transNum transDate:(NSString*)transDate transStatus:(NSString*)transStatus transTotal:(NSNumber*)transTotal discTotal:(NSNumber*)discTotal taxTotal:(NSNumber*)taxTotal payTotal:(NSNumber*)payTotal tipTotal:(NSNumber*)tipTotal chgTotal:(NSNumber*)chgTotal subTotal:(NSNumber*)subTotal;
+
+@end

@@ -1,0 +1,153 @@
+//
+//  VendorViewController.m
+//  PSA
+//
+//  Created by Michael Simone on 7/17/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "VendorViewController.h"
+#import "ProductViewController.h"
+#import "Vendor.h"
+
+@implementation VendorViewController
+
+@synthesize myTableView, appDelegate, mySearchBar, listContent, groupListContent, savedContent, addVendorController, productsController;
+
+- (IBAction)addVendor:(id)sender {
+	// Load the add vendor NIB file
+	if (addVendorController == nil) {
+		addVendorController = [[AddVendorContactController alloc] initWithNibName:@"AddVendorContact" bundle:[NSBundle mainBundle]];
+		addVendorController.viewController = self;
+	} else
+		[addVendorController viewWillAppear:YES];
+	
+	[self.view addSubview:addVendorController.view];
+}
+
+- (IBAction)cancel:(id)sender {
+	[self.view removeFromSuperview];
+}
+
+#pragma mark UIViewController
+
+- (void)viewWillAppear:(BOOL)animated
+{	
+	NSIndexPath *tableSelection = [myTableView indexPathForSelectedRow];
+	[myTableView deselectRowAtIndexPath:tableSelection animated:NO];
+	[myTableView reloadData];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+	
+	// Use the delegate to set/get values
+	appDelegate = (PSAAppDelegate *)[[UIApplication sharedApplication] delegate];
+	
+	// Set the background color to a nice blue image
+	[self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PSA_Blue.png"]]];
+	[self.myTableView setBackgroundColor:[UIColor clearColor]];
+	
+	// don't get in the way of user typing
+	mySearchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+	mySearchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+	mySearchBar.showsCancelButton = NO;
+	mySearchBar.delegate = self;
+	
+	// Load the vendor list from the database
+	[appDelegate loadVendors];
+	
+	// create the group list
+	if ([appDelegate.vendors count] == 0)
+		listContent = [[NSArray alloc] initWithObjects:	@"No Vendor Entries", nil];
+	
+	[super viewDidLoad];
+}
+
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+	
+	// Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
+}
+
+
+#pragma mark Table view methods
+
+- (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [myTableView dequeueReusableCellWithIdentifier:@"TypeCell"];
+    if (cell == nil) {
+        cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"TypeCell"] autorelease];
+    }
+	
+	cell.textLabel.font = [UIFont italicSystemFontOfSize:16];
+	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		
+	NSString *vendName = @"";
+	Vendor *vendors;
+	
+	// Load the group values from the database (we need this for later)
+	[appDelegate loadVendors];
+	
+	vendors = [appDelegate.vendors objectAtIndex:indexPath.section];
+	
+	for (int i = 0; i < [appDelegate.vendors count]; i++) {
+		vendName = [NSString stringWithFormat:@"%@", vendors.vendorName];
+		cell.textLabel.text = [NSString stringWithFormat:@"%@", vendName];
+	}
+	
+	return cell;
+}
+
+// The table has one row for each possible type.
+- (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section {
+	// Load the vendor list from the database
+	[appDelegate loadVendors];
+	
+	return [appDelegate.vendors count];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{		
+	[appDelegate loadVendors];
+	Vendor *vendors = [appDelegate.vendors objectAtIndex:indexPath.row];
+	appDelegate.vendorName = vendors.vendorName;
+	
+	// don't keep the table selection
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	[productsController viewWillAppear:YES];
+	[self.view removeFromSuperview];
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+	return UITableViewCellEditingStyleDelete;
+}
+
+- (void)tableView:(UITableView *)tv commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    // If row is deleted, remove it from the list.	
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Find the book at the deleted row, and remove from application delegate's array.
+		// Load the vendor values from the database (we need this for later)
+		[appDelegate loadVendors];
+		
+		Vendor *vendors = [appDelegate.vendors objectAtIndex:indexPath.row];
+        [appDelegate removeVendor:vendors.vendrID];
+		
+        // Animate the deletion from the table.
+        [self.myTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+		
+    }
+}
+
+- (void)dealloc {
+    [super dealloc];
+}
+
+
+@end
+

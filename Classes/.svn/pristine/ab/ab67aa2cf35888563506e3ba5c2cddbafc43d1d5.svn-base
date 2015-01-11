@@ -1,0 +1,98 @@
+//
+//  AddRatesController.m
+//  PSA
+//
+//  Created by Michael Simone on 8/2/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "AddRatesController.h"
+#import "Settings.h"
+#import "Tax.h"
+
+@implementation AddRatesController
+
+@synthesize appDelegate, commissionRate, saleTaxPercent;
+
+- (IBAction)save:(id)sender {
+	// Get the commission rate
+	if ([commissionRate.text length] != 0)
+		appDelegate.commissionRate = [NSNumber numberWithFloat:([commissionRate.text floatValue] / 100)];
+	else
+		appDelegate.commissionRate = [NSNumber numberWithFloat:0.00];
+		
+	// Let's do the tax now
+	if ([saleTaxPercent.text length] != 0)
+		appDelegate.taxRate = [NSNumber numberWithFloat:([saleTaxPercent.text floatValue] / 100)];
+	else
+		appDelegate.taxRate = [NSNumber numberWithFloat:0.00];
+	
+	// set the rest of the tax fields even though they aren't used
+	appDelegate.taxName = @"";
+	appDelegate.taxDescription = @"";
+	appDelegate.isPercentage = 1;
+	
+	[appDelegate loadTax];
+	if ([appDelegate.taxes count] != 0) {
+		// Update
+		Tax *tx = [appDelegate.taxes objectAtIndex:0];
+		[appDelegate updateTax:tx.taxID];
+	} else
+		[appDelegate saveTax];
+		
+	[self.view removeFromSuperview];
+}
+
+- (IBAction)back:(id)sender {
+	[self.view removeFromSuperview];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+	// Use the delegate to set/get values
+	appDelegate = (PSAAppDelegate *)[[UIApplication sharedApplication] delegate];
+	
+	self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"PSA_SettingsOrange.png"]];
+
+	[appDelegate loadTax];
+	if ([appDelegate.taxes count] != 0) {
+		Tax *tx = [appDelegate.taxes objectAtIndex:0];
+		
+		if ([tx.commissionRate floatValue] > 0)
+			commissionRate.text = [NSString stringWithFormat:@"%.2f", ([tx.commissionRate floatValue] * 100)];
+		
+		if ([tx.taxRate floatValue] > 0)
+			saleTaxPercent.text = [NSString stringWithFormat:@"%.2f", ([tx.taxRate floatValue] * 100)];
+	}
+	
+	[super viewDidLoad];
+}
+
+// Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+	
+	// Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
+}
+
+
+- (void)dealloc {
+	[commissionRate release];
+	[saleTaxPercent release];
+	
+    [super dealloc];
+}
+
+
+@end

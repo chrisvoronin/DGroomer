@@ -1,0 +1,110 @@
+//
+//  SettingsViewController.m
+//  PSA
+//
+//  Created by Michael Simone on 7/23/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "SettingsViewController.h"
+
+@implementation SettingsViewController
+
+@synthesize appDelegate, emailTextControl, annivTextControl, rateControl, companyControl, timeControl, colorControl;
+
+- (IBAction)back:(id)sender {
+	[self.view removeFromSuperview];
+}
+
+- (IBAction)addCompanyInfo:(id)sender {
+	// Load the company NIB file
+	companyControl = [[CompanyViewController alloc] initWithNibName:@"CompanyView" bundle:[NSBundle mainBundle]];
+	
+	[self.view addSubview:companyControl.view];
+}
+
+- (IBAction)setCommissionRate:(id)sender {
+	// Load the addRate NIB file
+	rateControl = [[AddRatesController alloc] initWithNibName:@"AddRatesView" bundle:[NSBundle mainBundle]];
+	
+	[self.view addSubview:rateControl.view];
+}
+
+- (IBAction)setActiveColorline:(id)sender {
+	// Load the colorLine NIB file
+	if (colorControl == nil) {
+		colorControl = [[ColorLineController alloc] initWithNibName:@"SetActiveColorView" bundle:[NSBundle mainBundle]];
+	}
+	
+	[self.view addSubview:colorControl.view];
+}
+
+- (IBAction)setWorkSchedule:(id)sender {
+	// Load the time clock NIB file
+	if (timeControl == nil) {
+		timeControl = [[TimeClockController alloc] initWithNibName:@"TimeClockView" bundle:[NSBundle mainBundle]];
+	}
+	
+	[self.view addSubview:timeControl.view];
+}
+
+- (IBAction)setEmailMessage:(id)sender {
+	// Load the setEmail NIB file
+	if (annivTextControl == nil) {
+		annivTextControl = [[SetAnnivEmailTextController alloc] initWithNibName:@"SetAnnivEmailText" bundle:[NSBundle mainBundle]];
+	}
+	
+	[self.view addSubview:annivTextControl.view];
+}
+
+- (IBAction)setBirthdayMessage:(id)sender {
+	// Load the setEmail NIB file
+	if (emailTextControl == nil) {
+		emailTextControl = [[SetEmailTextController alloc] initWithNibName:@"SetEmailText" bundle:[NSBundle mainBundle]];
+	}
+	
+	[self.view addSubview:emailTextControl.view];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+	
+	// Use the delegate to set/get values
+	appDelegate = (PSAAppDelegate *)[[UIApplication sharedApplication] delegate];
+
+    [super viewDidLoad];
+	self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"PSA_SettingsOrange.png"]];
+
+}
+
+// Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+	
+	// Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
+}
+
+
+- (void)dealloc {
+	[emailTextControl release];
+	[rateControl release];
+	[companyControl release];
+	[timeControl release];
+	[colorControl release];
+	
+    [super dealloc];
+}
+
+
+@end

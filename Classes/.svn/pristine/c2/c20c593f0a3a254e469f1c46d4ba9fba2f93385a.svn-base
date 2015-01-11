@@ -1,0 +1,26 @@
+//
+//  DailyCloseoutController.h
+//  PSA
+//
+//  Created by Michael Simone on 9/1/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "PSAAppDelegate.h"
+
+@interface ClosedOutController : UIViewController {
+	IBOutlet UITextView *myTextView;
+	
+	// Use the appDelegate for setting and getting values
+	PSAAppDelegate *appDelegate;
+}
+
+@property (nonatomic, retain) UITextView *myTextView;
+@property (nonatomic, retain) PSAAppDelegate *appDelegate;
+
+- (IBAction)back:(id)sender;
+
+- (void)loadValues;
+
+@end

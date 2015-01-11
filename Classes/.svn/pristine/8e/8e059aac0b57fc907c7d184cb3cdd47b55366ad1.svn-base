@@ -1,0 +1,38 @@
+//
+//  ServicesInformation.h
+//  PSA
+//
+//  Created by Michael Simone on 7/13/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "PSAAppDelegate.h"
+#import "ServicePicker.h"
+#import "AddServicesNameController.h"
+#import "ServiceCostController.h"
+#import "ServiceTimeController.h"
+
+@interface ServicesInformationController : UIViewController<UITableViewDelegate, UITableViewDataSource> {
+	IBOutlet UITableView *myTableView;
+	
+	ServicePicker *myPickerView;
+	AddServicesNameController *myNameControl;
+	ServiceCostController *myCosts;
+	ServiceTimeController *myTimeControl;
+		
+	// Use the appDelegate for setting and getting values
+	PSAAppDelegate *appDelegate;
+}
+
+@property (nonatomic, retain) UITableView *myTableView;
+@property (nonatomic, retain) ServicePicker *myPickerView;
+@property (nonatomic, retain) PSAAppDelegate *appDelegate;
+@property (nonatomic, retain) AddServicesNameController *myNameControl;
+@property (nonatomic, retain) ServiceCostController *myCosts;
+@property (nonatomic, retain) ServiceTimeController *myTimeControl;
+
+- (IBAction)cancel:(id)sender;
+- (IBAction)save:(id)sender;
+
+@end

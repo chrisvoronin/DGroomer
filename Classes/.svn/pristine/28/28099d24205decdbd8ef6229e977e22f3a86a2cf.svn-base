@@ -1,0 +1,32 @@
+//
+//  AddNameInfoController.h
+//  PSA
+//
+//  Created by Michael Simone on 6/6/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "PSAAppDelegate.h"
+
+@interface AddNameInfoController : UIViewController {
+
+	IBOutlet UITextField *firstName;
+	IBOutlet UITextField *lastName;
+	
+	// Use the appDelegate for setting and getting values
+	PSAAppDelegate *appDelegate;
+	
+	// Need a controller reference for later use
+	AddClientContactController *contactController;
+}
+
+@property (nonatomic, retain) UITextField *firstName;
+@property (nonatomic, retain) UITextField *lastName;
+@property (nonatomic, retain) PSAAppDelegate *appDelegate;
+@property (nonatomic, retain) AddClientContactController *contactController;
+
+- (IBAction)cancelNames:(id)sender;
+- (IBAction)saveNames:(id)sender;
+
+@end

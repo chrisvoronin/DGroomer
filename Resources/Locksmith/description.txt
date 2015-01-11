@@ -1,0 +1,45 @@
+Locksmith Pro is the app you need to run your own locksmithing business! It features the tools for managing your clients, appointments, products, services, and point-of-sale. Unlike other CRM software, Locksmith Pro requires no Internet access or desktop software, you control everything from your iPhone, iPad, or iPod Touch!
+
+FEATURES:
+* Clients
+ - Import clients from existing address book contacts.
+ - Create new contacts that are added to your device's Contacts.
+ - Clients are organized into an address book group "Locksmith Pro Clients".
+ - View and save appointments, projects, sales, and notes for each client.
+ - View and send birthday and anniversary emails.
+
+* Scheduling
+ - Multiple booking allows you to schedule multiple appointments at the same time.
+ - Standing appointments allow for easy creation of recurring appointments.
+ - Designed to flow like the iPhone's built-in calendar.
+ - Day, week, month, and list formats let you choose your viewing style.
+ - Email clients appointment reminders.
+
+* Point-of-Sale
+ - Checkout clients directly from your device. Accept cash, credit, gift certificates, or a partial payment from each.
+ - Add additional products and services to each transaction.
+ - Manage the purchasing and use of gift certificates.
+ - Manages product inventory from purchases and restocking.
+ - Daily closeouts keep track of how your business is running.
+ - Email receipts after accepting payment.
+
+* Credit Card Processing
+ - Process payments and credit cards anywhere!
+ - Accept all major credit cards.
+ - WiFi or 3G access required.
+ - U.S. bank account required. May incur additional fees from processing gateway.
+
+* Products and Services
+ - Prepopulated with common locksmith services to help you start using Locksmith Pro faster!
+ - Create your own inventory of products and services.
+ - Organize them into groups for easy reference.
+ - Services are color coded and customizable for viewing on the calendar.
+
+* Reporting 
+ - Formatted for view on your device.
+ - Formatted and emailable for larger print viewing.
+ - Reports include closeout history list, closeout totals (consolidated), product history, product inventory, and transaction history.
+
+NOTES:
+ - There is no software available to view your data outside of your phone, aside from emailing reports.
+ - If you would like to create or edit your Contact groups, there is a free app named "Groupy" that will do this (there are other apps too, that are not free). Be careful not to alter the "Locksmith Pro Clients" group as this may have undesired effects on Locksmith Pro.

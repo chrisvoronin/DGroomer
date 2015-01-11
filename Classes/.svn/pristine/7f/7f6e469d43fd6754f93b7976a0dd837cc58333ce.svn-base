@@ -1,0 +1,47 @@
+//
+//  Vendor.h
+//  PSA
+//
+//  Created by Michael Simone on 7/17/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <sqlite3.h>
+
+@interface Vendor : NSObject {
+	NSInteger		vendrID;
+	NSString		*vendorName;
+	NSString		*vendorContact;
+	NSString		*vendorAddress1;
+	NSString		*vendorAddress2;
+	NSString		*vendorCity;
+	NSString		*vendorState;
+	NSInteger		vendorZipcode;
+	NSInteger		vendorTelephone;
+	NSString		*vendorEmail;
+	NSInteger		vendorFax;
+}
+
+// Property exposure for primary key and other attributes. The primary key is 'assign' because it is not an object, 
+// nonatomic because there is no need for concurrent access, and readonly because it cannot be changed without 
+// corrupting the database.
+
+@property (assign, nonatomic) NSInteger		vendrID;
+@property (assign, nonatomic) NSString		*vendorName;
+@property (assign, nonatomic) NSString		*vendorContact;
+@property (assign, nonatomic) NSString		*vendorAddress1;
+@property (assign, nonatomic) NSString		*vendorAddress2;
+@property (assign, nonatomic) NSString		*vendorCity;
+@property (assign, nonatomic) NSString		*vendorState;
+@property (assign, nonatomic) NSInteger		vendorZipcode;
+@property (assign, nonatomic) NSInteger		vendorTelephone;
+@property (assign, nonatomic) NSString		*vendorEmail;
+@property (assign, nonatomic) NSInteger		vendorFax;
+
+// Finalize (delete) all of the SQLite compiled queries.
++ (void)finalizeStatements;
+
+- (id)initWithVendorData:(NSInteger)vID name:(NSString*)vName contact:(NSString*)vContact addr1:(NSString*)vAddr1 addr2:(NSString*)vAddr2 city:(NSString*)vCity state:(NSString*)vState zip:(NSInteger)vZip phone:(NSInteger)vPhone email:(NSString*)vEmail fax:(NSInteger)vFax;
+
+@end

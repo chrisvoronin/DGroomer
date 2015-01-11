@@ -1,0 +1,52 @@
+//
+//  Vendor.m
+//  PSA
+//
+//  Created by Michael Simone on 7/17/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "Vendor.h"
+
+// Static variables for compiled SQL queries. This implementation choice is to be able to share a one time
+// compilation of each query across all instances of the class. Each time a query is used, variables may be bound
+// to it, it will be "stepped", and then reset for the next usage. When the application begins to terminate,
+// a class method will be invoked to "finalize" (delete) the compiled queries - this must happen before the database
+// can be closed.
+static sqlite3_stmt *init_statement = nil;
+static sqlite3_stmt *hydrate_statement = nil;
+
+@implementation Vendor
+
+@synthesize vendrID, vendorName, vendorContact, vendorAddress1, vendorAddress2, vendorCity, vendorState, vendorZipcode, vendorTelephone, vendorEmail, vendorFax;
+
+// Finalize (delete) all of the SQLite compiled queries.
++ (void)finalizeStatements {
+    if (init_statement) {
+        sqlite3_finalize(init_statement);
+        init_statement = nil;
+    }
+    if (hydrate_statement) {
+        sqlite3_finalize(hydrate_statement);
+        hydrate_statement = nil;
+	}
+}
+
+- (id)initWithVendorData:(NSInteger)vID name:(NSString*)vName contact:(NSString*)vContact addr1:(NSString*)vAddr1 addr2:(NSString*)vAddr2 city:(NSString*)vCity state:(NSString*)vState zip:(NSInteger)vZip phone:(NSInteger)vPhone email:(NSString*)vEmail fax:(NSInteger)vFax {
+	
+	self.vendrID = vID;
+	self.vendorName = vName;
+	self.vendorContact = vContact;
+	self.vendorAddress1 = vAddr1;
+	self.vendorAddress2 = vAddr2;
+	self.vendorCity = vCity;
+	self.vendorState = vState;
+	self.vendorZipcode = vZip;
+	self.vendorTelephone = vPhone;
+	self.vendorEmail = vEmail;
+	self.vendorFax = vFax;
+	
+	return self;
+}
+
+@end

@@ -1,0 +1,550 @@
+//
+//  RegisterDetailController.m
+//  PSA
+//
+//  Created by Michael Simone on 8/9/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "RegisterDetailController.h"
+#import "RegisterDetailCell.h"
+#import "TransactionPayment.h"
+#import "TransactionDetail.h"
+#import "Transaction.h"
+#import "Client.h"
+#import "Service.h"
+#import "Product.h"
+#import "Tax.h"
+
+@implementation RegisterDetailController
+
+@synthesize myTableView, appDelegate, transDetail, clientName, tNum, subTotal, salesTax, totalDue, tip, totalBalance, amountPaid, change, balance;
+@synthesize gControl, cControl, servControl, prodControl, payControl, regControl;
+
+NSInteger tmpTransID;
+
+extern NSNumber *giftValue;
+
+- (IBAction)back:(id)sender {
+	// Reset back to the default for later;
+	appDelegate.addTransaction = NO;
+	[self.view removeFromSuperview];
+}
+
+- (IBAction) save:(id)sender {
+	float pricing = 0.0;
+	
+	NSAutoreleasePool *localPool = [[NSAutoreleasePool alloc] init];
+	
+	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	[dateFormatter setDateStyle:NSDateFormatterShortStyle];
+	
+	// Reset back to the default for later;
+	if (appDelegate.addTransaction == YES) {
+				
+		// Save the transaction and transaction details before displaying it.
+		NSInteger transNumber = [appDelegate.transactions count]; // This will always yield a correct 'new' transaction number
+		appDelegate.transactionNumber = transNumber;
+		appDelegate.transactionDate = [dateFormatter stringFromDate:[NSDate date]];
+		appDelegate.transactionStatus = @"Open";
+		appDelegate.transactionDiscountTotal = [NSNumber numberWithFloat:0];
+		appDelegate.transactionTaxTotal = [NSNumber numberWithFloat:0];
+		appDelegate.transactionPaymentTotal = [NSNumber numberWithFloat:0];
+		appDelegate.transactionTipTotal = [NSNumber numberWithFloat:0];
+		appDelegate.transactionChangeTotal = [NSNumber numberWithFloat:0];
+		
+		//Grab the service information for displaying
+		Service *serv;
+		[appDelegate loadService:appDelegate.serviceID];
+		if ([appDelegate.services count] != 0) {
+			serv = [appDelegate.services objectAtIndex:0];
+			appDelegate.serviceID = serv.serviceID;
+			pricing = pricing + [serv.price floatValue];
+		}
+		else
+			appDelegate.serviceID = 0;
+		
+		//Grab the product information for displaying
+		Product *prod;
+		[appDelegate loadProducts:appDelegate.productID];
+		if ([appDelegate.products count] != 0) {
+			prod = [appDelegate.products objectAtIndex:0];
+			appDelegate.productID = prod.productID;
+			pricing = pricing + [prod.productPrice floatValue];
+		}
+		else
+			appDelegate.productID = 0;
+		
+		appDelegate.transactionSubTotal = [NSNumber numberWithFloat:pricing];
+		appDelegate.transactionTotal = [NSNumber numberWithFloat:[appDelegate.transactionSubTotal floatValue] + [appDelegate.transactionTaxTotal floatValue]];
+		[appDelegate saveTransactions];
+		
+		// Grab or set the information for the transaction detail
+		appDelegate.transactionNumber = transNumber;
+		
+		// Let's get the transactionID from the saved transaction
+		[appDelegate getTransactionFromTransactionNumber:transNumber];
+		
+		if ([appDelegate.transactions count] != 0) {
+			Transaction *trans = [appDelegate.transactions objectAtIndex:0];
+			appDelegate.transactionID = trans.transactionID;
+			appDelegate.preTaxAmount = [NSNumber numberWithFloat:pricing];
+			appDelegate.discountedAmount = [NSNumber numberWithFloat:0];
+			appDelegate.taxedAmount = [NSNumber numberWithFloat:pricing];
+		}
+		
+		appDelegate.giftCertificateID = 0;
+		[appDelegate saveDetailTransactions];
+	} else {
+		// load up the original transaction
+		[appDelegate getTransaction:appDelegate.transactionID];
+		Transaction *trans = [appDelegate.transactions objectAtIndex:0];
+		
+		//do update
+		appDelegate.transactionNumber = trans.transactionNumber;
+		appDelegate.transactionDate = [dateFormatter stringFromDate:[NSDate date]];
+		appDelegate.transactionDiscountTotal = [NSNumber numberWithFloat:[trans.transactionDiscountTotal floatValue]];
+		appDelegate.transactionTaxTotal = [NSNumber numberWithFloat:[self.salesTax floatValue]];
+		appDelegate.transactionPaymentTotal = [NSNumber numberWithFloat:[self.amountPaid floatValue]];
+		appDelegate.transactionTipTotal = [NSNumber numberWithFloat:[self.tip floatValue]];
+		appDelegate.transactionChangeTotal = [NSNumber numberWithFloat:[self.change floatValue]];
+		appDelegate.transactionSubTotal = [NSNumber numberWithFloat:[self.subTotal floatValue]];
+		appDelegate.transactionTotal = [NSNumber numberWithFloat:[self.totalDue floatValue]];
+		
+		[appDelegate updateTransactions:appDelegate.transactionID];
+	}
+	
+	[localPool release];
+
+	appDelegate.addTransaction = NO;
+	[self.view removeFromSuperview];
+	
+	[regControl viewWillAppear:YES];
+}
+
+- (IBAction) voidTransaction:(id)sender {
+	// Void out the transaction
+	// Show an alert to make sure we want to void it
+	// open an alert with just an OK button
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Are you sure you wish to void this transaction?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+	[alert show];	
+	[alert release];
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+	NSAutoreleasePool *localPool = [[NSAutoreleasePool alloc] init];
+	
+	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	[dateFormatter setDateStyle:NSDateFormatterShortStyle];
+	
+	// the user clicked one of the OK/Cancel buttons
+	if (buttonIndex == 0)
+	{
+		//do nothing because we canceled
+	}
+	else
+	{
+		appDelegate.transactionID = tmpTransID;
+		appDelegate.transactionDate = [dateFormatter stringFromDate:[NSDate date]];
+		appDelegate.transactionStatus = @"Void";
+		
+		[appDelegate updateTransactions:tmpTransID];
+		[self.view removeFromSuperview];
+	}
+	
+	[localPool release];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{		
+	NSIndexPath *tableSelection = [myTableView indexPathForSelectedRow];
+	[myTableView deselectRowAtIndexPath:tableSelection animated:NO];
+	[myTableView reloadData];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+	
+	// Use the delegate to set/get values
+	appDelegate = (PSAAppDelegate *)[[UIApplication sharedApplication] delegate];
+	
+	// Set the background color to a nice image
+	[self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PSA_RegisterGreen.png"]]];
+	[self.myTableView setBackgroundColor:[UIColor clearColor]];
+	
+	// Load the transaction detail data
+	// Get all the information for the transaction
+	if (appDelegate.addTransaction == NO) {
+		[appDelegate loadDetailTransactionsForTransactionNumber:appDelegate.transactionNumber];
+		self.transDetail = [appDelegate.transactionDetails objectAtIndex:0];
+		tmpTransID = appDelegate.transactionID;
+	}
+	
+	self.clientName = @"Add client name";
+	self.tNum = 0;
+	self.subTotal = [NSNumber numberWithFloat:0.00];
+	self.salesTax = [NSNumber numberWithFloat:0.00];
+	self.totalDue = [NSNumber numberWithFloat:0.00];
+	self.tip = [NSNumber numberWithFloat:0.00];
+	self.totalBalance = [NSNumber numberWithFloat:0.00];
+	self.amountPaid = [NSNumber numberWithFloat:0.00];
+	self.change = [NSNumber numberWithFloat:0.00];
+	self.balance = [NSNumber numberWithFloat:0.00];
+	
+	[balance retain];
+		
+	NSIndexPath *tableSelection = [myTableView indexPathForSelectedRow];
+	[myTableView deselectRowAtIndexPath:tableSelection animated:NO];
+	[myTableView reloadData];
+	
+	[super viewDidLoad];
+}
+
+// Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+	
+	// Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
+}
+
+
+- (void)dealloc {
+    [super dealloc];
+}
+
+#pragma mark -
+#pragma mark TableViewDelegate
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tv {
+    // 7 sections, one for each property
+    return 7;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+	NSString *title;
+	
+	switch (section)
+	{
+		case 0:
+		{
+			title = @"Client:";
+			break;
+		}
+		case 1:
+		{
+			title = @"Charges:";
+			break;
+		}
+		case 2:
+		{
+			title = @"Services:";
+			break;
+		}
+		case 3:
+		{
+			title = @"Products";
+			break;
+		}
+		case 4:
+		{
+			title = @"Payments"; //[NSString stringWithFormat:@"Balance: %.2f", self.totalBalance];
+			break;
+		}
+		case 5:
+		{
+			title = @"Gift Certificates:";
+			break;
+		}
+		case 6:
+			title = @"";
+			break;
+	}
+	return title;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    RegisterDetailCell *cellDetail = (RegisterDetailCell *)[myTableView dequeueReusableCellWithIdentifier:@"RegisterDetailCellIdentifier"];
+    if (cellDetail == nil) {
+        cellDetail = [[[RegisterDetailCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"RegisterDetailCellIdentifier"] autorelease];
+    }
+	
+	UITableViewCell *cell = [myTableView dequeueReusableCellWithIdentifier:@"TypeCell"];
+    if (cell == nil) {
+        cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"TypeCell"] autorelease];
+    }
+	
+	// Load up the cell type values
+	cell.textLabel.font = [UIFont italicSystemFontOfSize:12];
+	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	
+	Service *serv = nil;
+	Product *prod = nil;
+	
+	if (appDelegate.addTransaction == NO) {
+		[appDelegate loadService:transDetail.serviceID];
+		
+		if ([appDelegate.services count] != 0)
+			serv = [appDelegate.services objectAtIndex:0];
+		
+		[appDelegate loadProducts:transDetail.productID];
+		if ([appDelegate.products count] != 0)
+			prod = [appDelegate.products objectAtIndex:0];
+		
+		self.subTotal = [NSNumber numberWithFloat:([serv.price floatValue] + [prod.productPrice floatValue])];
+	} else {
+		[appDelegate loadService:appDelegate.serviceID];
+		if ([appDelegate.services count] != 0) {
+			serv = [appDelegate.services objectAtIndex:0];
+			self.subTotal = serv.price;
+		}
+		[appDelegate loadProducts:appDelegate.productID];
+		if ([appDelegate.products count] != 0) {
+			prod = [appDelegate.products objectAtIndex:0];
+			self.subTotal = prod.productPrice;
+		}
+		
+		self.subTotal = [NSNumber numberWithFloat:([serv.price floatValue] + [prod.productPrice floatValue])];
+	}
+	
+	if (appDelegate.addTransaction == NO) {
+		[appDelegate loadTax];
+		Tax *myTax = nil;
+	
+		if ([appDelegate.taxes count] != 0) {
+			myTax = [appDelegate.taxes objectAtIndex:0];
+		}
+	
+		if (myTax != nil)
+			self.salesTax = [NSNumber numberWithFloat:([myTax.taxRate floatValue] * [self.subTotal floatValue])];
+	
+		balance = [NSNumber numberWithFloat:([self.totalDue floatValue] + [self.tip floatValue])];
+	
+		[appDelegate getPaymentTransaction:tmpTransID];
+		TransactionPayment *transPay;
+		for (int i = 0; i < [appDelegate.transactionPayments count]; i++) {
+			transPay = [appDelegate.transactionPayments objectAtIndex:i];
+			self.tip = [NSNumber numberWithFloat:[transPay.transTipAmount floatValue]];
+			self.amountPaid = [NSNumber numberWithFloat:[transPay.transAmountPaid floatValue]];
+			balance = [NSNumber numberWithFloat:(([self.totalDue floatValue] + [self.tip floatValue]) - [self.amountPaid floatValue])];
+		}
+	} else
+		balance = [NSNumber numberWithFloat:([self.totalDue floatValue] + [self.tip floatValue])];
+		
+	switch (indexPath.section) {
+		case 0:
+			cell.textLabel.textColor = [UIColor blackColor];
+			switch (indexPath.row) {
+				case 0:
+					if (appDelegate.addTransaction == NO) {
+						[appDelegate getClient:transDetail.clientID];
+						Client *cli = [appDelegate.clients objectAtIndex:0];
+						if (![cli.lastName isEqualToString:@" "])
+							self.clientName = [NSString stringWithFormat:@"%@ %@", cli.firstName, cli.lastName];
+						else
+							self.clientName = [NSString stringWithFormat:@"%@", cli.firstName];
+					} else {
+						if (appDelegate.clientFirstName != nil) {
+							if (![appDelegate.clientLastName isEqualToString:@" "])
+								self.clientName = [NSString stringWithFormat:@"%@ %@", appDelegate.clientFirstName, appDelegate.clientLastName];
+							else
+								self.clientName = [NSString stringWithFormat:@"%@", appDelegate.clientFirstName];
+						} else
+							self.clientName = @"";
+					}
+					cell.textLabel.text = [NSString stringWithFormat:@"Client: %@", self.clientName];
+					break;
+				case 1:
+					if (appDelegate.addTransaction == NO) {
+						self.tNum = transDetail.transactionNumber;
+					} else {
+						//increment the transaction number also
+						[appDelegate loadTransactions];
+						self.tNum = [appDelegate.transactions count];
+					}
+					cell.accessoryType = UITableViewCellAccessoryNone;
+					cell.textLabel.text = [NSString stringWithFormat:@"Trans #: %i", self.tNum];
+					break;
+			}
+			break;
+		case 1:
+			cell.textLabel.textColor = [UIColor blackColor];
+			switch (indexPath.row) {
+				case 0:
+					[cellDetail setValues:@"Sub Total:" number:[NSString stringWithFormat:@"%.2f", [self.subTotal floatValue]]];
+					break;
+				case 1:
+					[cellDetail setValues:@"Sales Tax:" number:[NSString stringWithFormat:@"%.2f", [self.salesTax floatValue]]];
+					break;
+				case 2:
+					self.totalDue = [NSNumber numberWithFloat:([self.salesTax floatValue] + [self.subTotal floatValue])];
+					[cellDetail setValues:@"Total Due:" number:[NSString stringWithFormat:@"%.2f", [self.totalDue floatValue]]]; 
+					break;
+				case 3:
+					[cellDetail setValues:@"Tip:" number:[NSString stringWithFormat:@"%.2f", [self.tip floatValue]]];
+					break;
+				case 4:
+					self.totalBalance = [NSNumber numberWithFloat:([self.totalDue floatValue] + [self.tip floatValue])];
+					if (giftValue != nil)
+						self.totalBalance = [NSNumber numberWithFloat:[self.totalBalance floatValue] + [giftValue floatValue]];
+					[cellDetail setValues:@"Total Balance:" number:[NSString stringWithFormat:@"%.2f", [self.totalBalance floatValue]]];
+					break;
+				case 5:
+					[cellDetail setValues:@"Amount Paid:" number:[NSString stringWithFormat:@"%.2f", [self.amountPaid floatValue]]]; 
+					break;
+				case 6: {
+					[cellDetail setValues:@"Balance:" number:[NSString stringWithFormat:@"%.2f", [balance floatValue]]];
+					if ([balance floatValue] <= 0.0)
+						appDelegate.transactionStatus = @"Complete";
+					else
+						appDelegate.transactionStatus = @"Open";
+					}
+					break;
+				case 7:
+					if ([balance floatValue] == 0.0) {
+						if ([self.totalBalance floatValue] == [self.amountPaid floatValue])
+							self.change = [NSNumber numberWithFloat:0.00];
+						else
+							self.change = [NSNumber numberWithFloat:[balance floatValue] - [self.amountPaid floatValue]];
+					}
+					[cellDetail setValues:@"Change:" number:[NSString stringWithFormat:@"%.2f", [self.change floatValue]]];
+					break;					
+			}
+			cell = cellDetail;
+			break;
+		case 2:
+			cell.textLabel.textColor = [UIColor redColor];
+			cell.textLabel.text = @"Add a Service";
+			if (serv != nil) {
+				// Get the list of services and display it
+				cell.textLabel.text = serv.serviceName;
+				cell.accessoryType = UITableViewCellAccessoryNone;
+				cell.textLabel.textColor = [UIColor blackColor];
+			}
+			break;
+		case 3:
+			cell.textLabel.textColor = [UIColor redColor];
+			cell.textLabel.text = @"Add a Product";
+			if (prod != nil) {
+				// Get the list of services and display it
+				cell.textLabel.text = prod.productName;
+				cell.accessoryType = UITableViewCellAccessoryNone;
+				cell.textLabel.textColor = [UIColor blackColor];
+			}
+			break;
+		case 4:
+			cell.textLabel.textColor = [UIColor redColor];
+			cell.textLabel.text = @"Add a Payment";
+			break;
+		case 5:
+			cell.textLabel.textColor = [UIColor redColor];
+			cell.textLabel.text = @"Purchase Gift Certificate";
+			break;
+		case 6:
+			cell.textLabel.font = [UIFont boldSystemFontOfSize:16];
+			cell.accessoryType = UITableViewCellAccessoryNone;
+			cell.textLabel.textAlignment = UITextAlignmentCenter;
+			cell.textLabel.textColor = [UIColor redColor];
+			cell.textLabel.text = @"Void Transaction";
+			break;
+	}
+		
+	return cell;
+}
+
+// The table has one row for each possible type.
+- (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section {
+	NSInteger numRows;
+	
+	switch (section) {
+		case 0:
+			numRows = 2;
+			break;
+		case 1:
+			numRows = 8;
+			break;
+		default:
+			numRows = 1;
+			break;
+	}
+	
+	return numRows;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{		
+	// don't keep the table selection
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	
+	switch (indexPath.section) {
+		case 0:
+			if (appDelegate.addTransaction == YES) {
+				// open the client NIB and pull the client name and ID
+				if (cControl == nil) {
+					cControl = [[ClientViewController alloc] initWithNibName:@"ClientsView" bundle:[NSBundle mainBundle]];
+					cControl.rdControl = self;
+				}
+				[self.view addSubview:cControl.view];
+			}
+			break;
+		case 1:
+			break;
+		case 2:
+				// open the services NIB and pull the service and ID
+				if (servControl == nil) {
+					servControl = [[ServiceViewController alloc] initWithNibName:@"ServicesView" bundle:[NSBundle mainBundle]];
+					servControl.rdControl = self;
+				}
+				[self.view addSubview:servControl.view];
+			break;
+		case 3:
+				// open the products NIB and pull the service and ID
+				if (prodControl == nil) {
+					prodControl = [[ProductViewController alloc] initWithNibName:@"ProductView" bundle:[NSBundle mainBundle]];
+					prodControl.rdControl = self;
+				}
+				[self.view addSubview:prodControl.view];
+			break;
+		case 4:
+			if (appDelegate.addTransaction == YES) {
+				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"You must first save this transaction." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+				[alert show];	
+				[alert release];
+			} else {
+				if (payControl == nil) {
+					payControl = [[PaymentController alloc] initWithNibName:@"PaymentPicker" bundle:[NSBundle mainBundle]];
+					payControl.rdControl = self;
+				}
+				[self.view addSubview:payControl.view];
+				
+			}
+			break;
+		case 5:
+			// Load the gift certificate NIB file
+			if (gControl == nil) {
+				gControl = [[GiftCertificateController alloc] initWithNibName:@"GiftCertificate" bundle:[NSBundle mainBundle]];
+				gControl.rControl = self;
+			}
+			[self.view addSubview:gControl.view];
+			break;
+		case 6:
+			[self voidTransaction:nil];
+			break;
+	}
+	
+}
+
+@end

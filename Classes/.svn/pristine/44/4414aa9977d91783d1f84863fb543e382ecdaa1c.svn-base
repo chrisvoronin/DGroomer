@@ -1,0 +1,2835 @@
+//
+//  PSAAppDelegate.m
+//  PSA
+//
+//  Created by Michael Simone on 6/8/09.
+//  Copyright Dropped Pin 2009. All rights reserved.
+//
+
+#import "PSAAppDelegate.h"
+#import "PSAViewController.h"
+#import "AloxxiViewController.h"
+#import "AddClientContactController.h"
+#import "Aloxxi.h"
+#import "Appointments.h"
+#import "Client.h"
+#import "ClientViewController.h"
+#import "ServiceViewController.h"
+#import "Group.h"
+#import "Type.h"
+#import "Service.h"
+#import "Product.h"
+#import "Vendor.h"
+#import "Transaction.h"
+#import "TransactionDetail.h"
+#import "GiftCertificate.h"
+#import "TransactionPayment.h"
+#import "Company.h"
+#import "Settings.h"
+#import "Tax.h"
+#import "MasterColorLine.h"
+#import "Closeout.h"
+
+// Private interface for AppDelegate - internal only methods.
+@interface PSAAppDelegate (Private)
+- (void)createEditableCopyOfDatabaseIfNeeded;
+- (void)initializeDatabase;
+@end
+
+@implementation PSAAppDelegate
+
+@synthesize window;
+@synthesize viewController;
+@synthesize addTransaction;
+
+//Used in the client nibs and sections
+@synthesize clients, clientID, firstName, lastName, address1, address2, city, zipcode, workPhone, cellPhone;
+@synthesize homePhone, email, notes, birthdate, anniversary, stateID;
+
+//Used in the company nib
+@synthesize company, companyID, salesTax, companyAddress1, companyAddress2, companyCity, companyState, companyZipCode;
+@synthesize companyName, companyEmail, companyPhone, companyFax, monthsOldAppointments, OwnerKey;
+
+//Used in the schedule nibs and screens
+@synthesize todayAppointments, appointmentID, apptStartTime, apptEndTime;
+
+//Used in the service nibs and sections
+@synthesize groups, groupDescription, groupID, services, serviceName, servicePrice, serviceFee, serviceCost, serviceTaxable, serviceStartTime;
+@synthesize serviceID, serviceDuration, serviceGapTime, serviceEndTime, serviceActive;
+
+//Used in the product nibs and sections
+@synthesize productTypes, products, productTypeDescription, productTypeID, productID, productNumber, productName, productCost, productPrice, productMin;
+@synthesize productMax, productOnHand, vendorID, prodTypeID, productLastSoldDate, productTaxable;
+
+//Used in the vendor nibs and sections
+@synthesize vendors, vendrID, vendorName, vendorContact, vendorAddress1, vendorAddress2, vendorCity, vendorState;
+@synthesize vendorZipcode, vendorTelephone, vendorEmail, vendorFax;
+
+//Used in the gift certificate nibs and sections
+@synthesize giftCertificateID, giftCertificateNumber, recipient, purchaseDate, expirationDate, currentValue;
+@synthesize originalValue, giftCertificateMessage, giftCertificateNote, giftCertificates;
+
+// Used in the Register nibs and screens
+@synthesize transactions, transactionID, transactionNumber, transactionDate, transactionStatus, transactionTotal, transactionDiscountTotal;
+@synthesize transactionTaxTotal, transactionPaymentTotal, transactionTipTotal, transactionChangeTotal, transactionSubTotal;
+@synthesize transactionDetails, transactionDetailID, preTaxAmount, discountedAmount, taxedAmount;
+
+// Used in the transactio payment nibs
+@synthesize transactionPaymentID, transactionID, transactionType, transPriceAmount, transDiscAmount, transTaxedAmount, transTaxPaid;
+@synthesize transTipAmount, transAmountPaid, transChange, transSubtotal, giftCertificateID, transCheckNumber, transactionPayments;
+
+// Used in the payment nibs and screens
+@synthesize paymentType, paymentTypeID, paymentTypes;
+
+// Used in the settings nibs and screens
+@synthesize settingsID, commissionRate, birthEmailFrom, birthEmailSubject, birthEmailText, annivEmailFrom, annivEmailSubject, annivEmailText;
+@synthesize marketEmailFrom, marketEmailSubject, marketEmailText, marketEmailSendDate, mondayStart, mondayFinish, tuesdayStart, tuesdayFinish;
+@synthesize wednesdayStart, wednesdayFinish, thursdayStart, thursdayFinish, fridayStart, fridayFinish, saturdayStart, saturdayFinish;
+@synthesize sundayStart, sundayFinish, settings;
+
+// Used in the tax tables
+@synthesize taxes, taxID, taxName, taxDescription, taxRate, isPercentage;
+
+// Used in the master colorline tables
+@synthesize masterLine, colorLineID, colorLineName, activeLine;
+
+@synthesize closeouts, dateInfo, userVisa, receiptCash, receiptCheck, receiptCoupon, receiptGift, salesService, salesRetail, salesGift, salesTips, closeoutSalesTax;
+
+//Used in the formulation nibs and section//
+@synthesize aloxxi, foils, developers, colorLines;
+@synthesize colorLineArray, applicationTypeArray, naturalColorArray, targetColorArray, percentOfGrayArray, foilArray, developerArray;
+@synthesize colorLineValue, applicationTypeValue, naturalColorValue, targetColorValue, grayValue;
+@synthesize foil1Value, foil2Value, foil3Value, foil4Value;
+@synthesize developer1Value, developer2Value, developer3Value, developer4Value;
+@synthesize stepOneInstructions, stepOne, stepTwo, refreshingOptions;
+@synthesize clientFirstName, clientLastName;
+//end of formulation section//
+
+// The application ships with a default database in its bundle. If anything in the application
+// bundle is altered, the code sign will fail. We want the database to be editable by users, 
+// so we need to create a copy of it in the application's Documents directory.    	
+// Call internal method to initialize database connection.
+- (void)initializeDatabase {
+	// Open the database connection and retrieve minimal information for all objects.
+	
+    if (database == NULL) {
+        // First, test for existence.
+        BOOL success;
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        NSError *error;
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"psa.sqlite"];
+        if ([fileManager fileExistsAtPath:writableDBPath] == NO) {
+            // The writable database does not exist, so copy the default to the appropriate location.
+            NSString *defaultDBPath = [[NSBundle mainBundle] pathForResource:@"psa" ofType:@"sqlite"];
+            success = [fileManager copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
+            if (!success) {
+                NSCAssert1(0, @"Failed to create writable database file with message '%@'.", [error localizedDescription]);
+            }
+        }
+        // Open the database. The database was prepared outside the application.
+        if (sqlite3_open([writableDBPath UTF8String], &database) != SQLITE_OK) {
+            // Even though the open failed, call close to properly clean up resources.
+            sqlite3_close(database);
+            database = NULL;
+            NSCAssert1(0, @"Failed to open database with message '%s'.", sqlite3_errmsg(database));
+            // Additional error handling, as appropriate...
+        }
+    }
+}
+
+- (void)applicationDidFinishLaunching:(UIApplication *)application {
+    // The application ships with a default database in its bundle. If anything in the application
+    // bundle is altered, the code sign will fail. We want the database to be readable by users, 
+    // so we need to create a copy of it in the application's Documents directory.     
+    [self createEditableCopyOfDatabaseIfNeeded];
+	
+	// Call internal method to initialize database connection
+    [self initializeDatabase];
+	
+	// Set variables for later use
+	self.addTransaction = NO;
+	[self setIsFormulaLoaded:NO];
+	clientFirstName = nil;
+	clientLastName = nil;
+	
+    // Add the tab bar controller's current view as a subview of the window
+    [window addSubview:viewController.view];
+	[window makeKeyAndVisible];
+	
+}
+
+- (void)dealloc {
+    [viewController release];
+    [window release];
+	
+	//Release the formulation stuff
+	[aloxxi release];
+	[foils release];
+	[developers release];
+    [window release];
+	
+	// Release all the picker holders
+	[colorLineArray release];
+	[applicationTypeArray release];
+	[naturalColorArray release];
+	[targetColorArray release];
+	[percentOfGrayArray release];
+	[foilArray release];
+	[developerArray release];
+	
+	[colorLineValue release];
+	[applicationTypeValue release];
+	[naturalColorValue release];
+	[targetColorValue release];
+	[grayValue release];
+	
+	[foil1Value release];
+	[foil2Value release];
+	[foil3Value release];
+	[foil4Value release];
+	
+	[developer1Value release];
+	[developer2Value release];
+	[developer3Value release];
+	[developer4Value release];
+    [super dealloc];
+}
+
+// Close the database when application exits.
+- (void)applicationWillTerminate:(UIApplication *)application {
+    // Close the database.
+    if (sqlite3_close(database) != SQLITE_OK) {
+        NSAssert1(0, @"Error: failed to close database with message '%s'.", sqlite3_errmsg(database));
+    }
+}
+
+// Creates a writable copy of the bundled default database in the application Documents directory.
+- (void)createEditableCopyOfDatabaseIfNeeded {
+    // First, test for existence.
+    BOOL success;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"psa.sqlite"];
+    success = [fileManager fileExistsAtPath:writableDBPath];
+    if (success) return;
+    // The writable database does not exist, so copy the default to the appropriate location.
+    NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"psa.sqlite"];
+    success = [fileManager copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
+    if (!success) {
+        NSAssert1(0, @"Failed to create writable database file with message '%@'.", [error localizedDescription]);
+    }
+}
+
+#pragma mark FORMULA METHODS
+// Open the database connection and retrieve minimal information for all objects.
+- (void)loadFormulas {
+    NSMutableArray *aloxxiArray = [[NSMutableArray alloc] init];
+    
+	self.aloxxi = aloxxiArray;
+    [aloxxiArray release];
+	
+	// Get all values.
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_formulations WHERE colorLineName='%s'", [colorLineValue UTF8String]);
+	sqlite3_stmt *statement;
+	// Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+	// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.			
+			NSString *applicationType = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 3)];
+			
+			NSString *naturalColor = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 4)];
+			
+			NSString *targetColor = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 6)];
+			
+			NSString *grayScale = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 7)];
+			
+			Aloxxi *aloxxis = [[Aloxxi alloc] initWithData:colorLineValue appType:applicationType 
+											  naturalColor:naturalColor tagetColor:targetColor grayScale:grayScale];
+			[aloxxi addObject:aloxxis];
+			[aloxxis release];
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+	
+	// Let's load up the foils now
+	NSMutableArray *foilsArray = [[NSMutableArray alloc] init];
+	
+	// Run the database query and get out results
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_targetColor WHERE colorLineName='%s'", [colorLineValue UTF8String]);
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.
+			NSString *foilColorName = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 4)];
+			
+			[foilsArray addObject:foilColorName];
+			[foilColorName release];
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+	
+	self.foils = [foilsArray copy];
+	[foilsArray release];
+	
+	// Let's load up the developer information now
+	NSMutableArray *developersArray = [[NSMutableArray alloc] init];
+	
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_developer");
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.
+			NSString *developerName = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 1)];
+			
+			[developersArray addObject:developerName];
+			[developerName release];
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+	
+	self.developers = [developersArray copy];
+	
+	[developersArray release];
+	
+	//Parse out the duplicates from the arrays
+	Aloxxi *aloxxi2;
+	NSMutableArray *newArray;
+	
+	newArray = [[NSMutableArray alloc] init];
+	
+	//Prime the first value so we can copy it
+	aloxxi2 = [aloxxi objectAtIndex:0];
+	[newArray addObject:aloxxi2.naturalColor];
+	
+	for (int i=1; i < [aloxxi count]; i++) {
+		aloxxi2 = [aloxxi objectAtIndex:i];
+		
+		if ([newArray containsObject:aloxxi2.naturalColor])
+			; //do nothing
+		else
+			//Add objects to the array;
+			[newArray addObject:aloxxi2.naturalColor];
+	}
+	
+	naturalColorArray = [[NSArray arrayWithArray:newArray] retain];
+	[newArray removeAllObjects];
+	
+	aloxxi2 = [aloxxi objectAtIndex:0];
+	[newArray addObject:aloxxi2.targetColor];
+	
+	for (int i=1; i < [aloxxi count]; i++) {
+		aloxxi2 = [aloxxi objectAtIndex:i];
+		
+		if ([newArray containsObject:aloxxi2.targetColor])
+			; //do nothing
+		else
+			//Add objects to the array;
+			[newArray addObject:aloxxi2.targetColor];
+	}
+	
+	targetColorArray = [[NSArray arrayWithArray:newArray] retain];
+	[newArray removeAllObjects];
+	
+	aloxxi2 = [aloxxi objectAtIndex:0];
+	[newArray addObject:aloxxi2.grayScale];
+	
+	for (int i=1; i < [aloxxi count]; i++) {
+		aloxxi2 = [aloxxi objectAtIndex:i];
+		
+		if ([newArray containsObject:aloxxi2.grayScale])
+			; //do nothing
+		else
+			//Add objects to the array;
+			[newArray addObject:aloxxi2.grayScale];
+	}
+	
+	percentOfGrayArray = [[NSArray arrayWithArray:newArray] retain];
+	[newArray removeAllObjects];
+	
+	//Prime the foil value so we can copy it
+	NSString *foilString = [foils objectAtIndex:0];
+	[newArray addObject:foilString];
+	
+	for (int i=1; i < [foils count]; i++) {
+		foilString = [foils objectAtIndex:i];
+		
+		if ([newArray containsObject:foilString])
+			; //do nothing
+		else
+			//Add objects to the array;
+			[newArray addObject:foilString];
+	}
+	
+	foilArray = [[NSArray arrayWithArray:newArray] retain];
+	
+	// Developer is easy
+	developerArray = [[NSArray arrayWithArray:developers] retain]; 
+	
+}
+
+- (void)runFormulation {
+	
+	// Run the database query and get out results
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_formulations WHERE colorLineName='%s' AND applicationType='%s' AND naturalColor='%s' AND targetColor='%s' AND grayScale='%s'", [colorLineValue UTF8String], [applicationTypeValue UTF8String], [naturalColorValue UTF8String], [targetColorValue UTF8String], [grayValue UTF8String]);
+	sqlite3_stmt *statement;
+	// Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+	// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.
+			stepOneInstructions = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 8)];			
+			stepOne = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 9)];			
+			stepTwo = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 10)];
+			refreshingOptions = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 11)];
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (NSInteger)getPickerNumber {
+	return pickerNumber;
+}
+- (void)setPickerNumber:(NSInteger) pickNum {
+	pickerNumber = pickNum;
+}
+
+- (BOOL)getIsFoil {
+	return isFoil;
+}
+- (void)setIsFoil:(BOOL)foil {
+	isFoil = foil;
+}
+
+- (BOOL)getIsMixedFoil {
+	return isMixedFoil;
+}
+- (void)setIsMixedFoil:(BOOL)mixedFoil {
+	isMixedFoil = mixedFoil;
+}
+
+- (BOOL)getIsFormulaLoaded {
+	return isFormulaLoaded;
+}
+- (void)setIsFormulaLoaded:(BOOL)loaded {
+	isFormulaLoaded = loaded;
+}
+
+#pragma mark CLIENT METHODS
+- (void)loadClients {
+	NSMutableArray *clientArray = [[NSMutableArray alloc] init];
+    
+	self.clients = clientArray;
+    [clientArray release];
+	
+	// Get all values.
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_client");
+	sqlite3_stmt *statement;
+	// Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+	// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.
+			NSInteger newKey = sqlite3_column_int(statement, 0);
+			NSString *first = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 1)];
+			NSString *last = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 2)];
+			NSString *wp = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 3)];
+			NSString *hp = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 4)];
+			NSString *cp = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 5)];
+			NSString *addr1 = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 6)];
+			NSString *addr2 = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 7)];
+			NSString *ct = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 8)];
+			NSString *st = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 9)];
+			NSString *zip = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 10)];
+			NSString *em = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 11)];
+			NSString *bd = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 12)];
+			NSString *an = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 13)];
+			NSString *nt = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 14)];
+			
+			Client *client = [[Client alloc] initWithData:newKey firstName:first lastName:last workPhone:wp cellPhone:cp homePhone:hp address1:addr1 address2:addr2 city:ct state:st zipcode:zip email:em birthdate:bd anniversary:an notes:nt];
+			
+			[clients addObject:client];
+			[client release];
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)saveClient {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "INSERT INTO psa_client (firstname, lastName, workPhone, homePhone, cellPhone, address1, address2, city, stateID, zipCode, email, birthdate, anniversary, notes) VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')", [firstName UTF8String], [lastName UTF8String], [workPhone UTF8String], [homePhone UTF8String], [cellPhone UTF8String], [address1 UTF8String], [address2 UTF8String], [city UTF8String], [stateID UTF8String], [zipcode UTF8String], [email UTF8String], [birthdate UTF8String], [anniversary UTF8String], [notes UTF8String]);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)updateClient:(NSInteger)key {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "UPDATE psa_client SET firstname='%s', lastName='%s', workPhone='%s', homePhone='%s', cellPhone='%s', address1='%s', address2='%s', city='%s', stateID='%s', zipCode='%s', email='%s', birthdate='%s', anniversary='%s', notes='%s' WHERE clientID='%i'", [firstName UTF8String], [lastName UTF8String], [workPhone UTF8String], [homePhone UTF8String], [cellPhone UTF8String], [address1 UTF8String], [address2 UTF8String], [city UTF8String], [stateID UTF8String], [zipcode UTF8String], [email UTF8String], [birthdate UTF8String], [anniversary UTF8String], [notes UTF8String], key);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)removeClient:(NSInteger)key {
+	char sql[1024];
+	bzero(&sql, 1024);
+	
+	sprintf(sql, "DELETE FROM psa_client WHERE clientID='%i'", key);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to delete from the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+	
+}
+
+- (void)getClient:(NSInteger)key {
+	NSMutableArray *clientArray = [[NSMutableArray alloc] init];
+    
+	self.clients = clientArray;
+    [clientArray release];
+	
+	// Get all values.
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_client WHERE clientID='%i'", key);
+	sqlite3_stmt *statement;
+	// Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+	// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.
+			NSInteger newKey = sqlite3_column_int(statement, 0);
+			NSString *first = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 1)];
+			NSString *last = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 2)];
+			NSString *wp = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 3)];
+			NSString *hp = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 4)];
+			NSString *cp = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 5)];
+			NSString *addr1 = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 6)];
+			NSString *addr2 = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 7)];
+			NSString *ct = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 8)];
+			NSString *st = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 9)];
+			NSString *zip = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 10)];
+			NSString *em = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 11)];
+			NSString *bd = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 12)];
+			NSString *an = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 13)];
+			NSString *nt = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 14)];
+			
+			Client *client = [[Client alloc] initWithData:newKey firstName:first lastName:last workPhone:wp cellPhone:cp homePhone:hp address1:addr1 address2:addr2 city:ct state:st zipcode:zip email:em birthdate:bd anniversary:an notes:nt];
+			
+			[clients addObject:client];
+			[client release];
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+#pragma mark COMPANY METHODS
+- (void)loadCompany  {
+	NSMutableArray *companyArray = [[NSMutableArray alloc] init];
+    
+	self.company = companyArray;
+    [companyArray release];
+	
+	// Get all values.
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_company");
+	sqlite3_stmt *statement;
+	// Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+	// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.
+			NSInteger newKey = sqlite3_column_int(statement, 0);
+			NSString *name = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 1)];
+			NSNumber *tax = [NSNumber numberWithFloat:sqlite3_column_double(statement, 2)];
+			NSString *addr1 = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 3)];
+			NSString *addr2 = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 4)];
+			NSString *compCity = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 5)];
+			NSString *compState = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 6)];
+			NSInteger zipCode = sqlite3_column_int(statement, 7);
+			NSString *compEmail = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 8)];
+			NSInteger phone = sqlite3_column_int(statement, 9);
+			NSInteger fax = sqlite3_column_int(statement, 10);
+			NSInteger months = sqlite3_column_int(statement, 11);
+			NSInteger owner = sqlite3_column_int(statement, 12);
+			
+			Company *comp = [[Company alloc] initWithCompanyData:newKey name:name tax:tax addr1:addr1 addr2:addr2 city:compCity state:compState zip:zipCode email:compEmail phone:phone fax:fax appts:months owner:owner];
+			
+			[company addObject:comp];
+			[comp release];
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)saveCompany {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "INSERT INTO psa_company (companyName, salesTax, companyAddress1, companyAddress2, companyCity, stateID, companyZipCode, companyEmail, companyPhone, companyFax, MonthsOldAppointments, OwnerKey) VALUES('%s', '%.2f', '%s', '%s', '%s', '%s', '%i', '%s', '%i', '%i', '%i', '%i')", [companyName UTF8String], [salesTax floatValue], [companyAddress1 UTF8String], [companyAddress2 UTF8String], [companyCity UTF8String], [companyState UTF8String], companyZipCode, [companyEmail UTF8String], companyPhone, companyFax, monthsOldAppointments, OwnerKey);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)updateCompany:(NSInteger)key {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "UPDATE psa_company SET companyName='%s', salesTax='%.2f', companyAddress1='%s', companyAddress2='%s', companyCity='%s', stateID='%s', companyZipCode='%i', companyEmail='%s', companyPhone='%i', companyFax='%i', MonthsOldAppointments='%i', OwnerKey='%i' WHERE companyID='%i'", [companyName UTF8String], [salesTax floatValue], [companyAddress1 UTF8String], [companyAddress2 UTF8String], [companyCity UTF8String], [companyState UTF8String], companyZipCode, [companyEmail UTF8String], companyPhone, companyFax, monthsOldAppointments, OwnerKey, key);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)removeCompany:(NSInteger)key {
+	char sql[1024];
+	bzero(&sql, 1024);
+	
+	sprintf(sql, "DELETE FROM psa_company WHERE companyID='%i'", key);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to delete from the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+#pragma mark SCHEDULE METHODS
+- (void)loadAppointments {
+	NSMutableArray *todayArray = [[NSMutableArray alloc] init];
+    
+	self.todayAppointments = todayArray;
+    [todayArray release];
+	
+	// Get all values.
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_appointments");
+	sqlite3_stmt *statement;
+	// Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+	// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.	
+			NSInteger key = sqlite3_column_int(statement, 0);
+			NSString *start = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 1)];
+			NSString *end = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 2)];
+			NSString *client = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 3)];
+			NSInteger cl = sqlite3_column_int(statement, 4);
+			NSInteger serv = sqlite3_column_int(statement, 5);
+			NSString *note = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 6)];
+			NSInteger *standing = (NSInteger*)sqlite3_column_int(statement, 8);
+			NSInteger *startDur = (NSInteger*)sqlite3_column_int(statement, 9);
+			NSInteger *gapDur = (NSInteger*)sqlite3_column_int(statement, 10);
+			NSInteger *endDur = (NSInteger*)sqlite3_column_int(statement, 11);
+			
+			Appointments *appt = [[Appointments alloc] init];
+			[appt initWithData:key startTime:start endDateTime:end name:client notes:note standAppt:standing stDur:startDur gapDur:gapDur endDur:endDur serviceName:serv clientID:cl];
+			
+			[todayAppointments addObject:appt];
+			[appt release];
+			
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)saveClientOnSchedule:(NSString*)client start:(NSString*)startTime end:(NSString*)endTime notes:(NSString*)note
+					startDur:(NSInteger)startDuration gapDur:(NSInteger)gapDuration endDur:(NSInteger) endDuration servID:(NSInteger)servID clID:(NSInteger)clID stand:(NSInteger)stand {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "INSERT INTO psa_appointments (startDateTime, endDateTime, clientName, clientID, serviceID, notes, linkingID, standingAppointmentID, StartDuration, GapDuration, EndDuration, photoBefore, photoFinish) VALUES('%s', '%s', '%s', '%i', '%i', '%s', '%d', '%i', '%d', '%d', '%d','%s', '%s')", [startTime UTF8String], [endTime UTF8String], [client UTF8String], clID, servID, [note UTF8String], NULL, stand, startDuration, gapDuration, endDuration, NULL, NULL);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)updateAppointment:(NSInteger)key {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "UPDATE psa_appointments SET startDateTime='%s' endDateTime='%s' clientName='%s' clientID='%i' serviceID='%i' notes='%s' linkingID='%i' standingAppointmentID='%i' StartDuration='%i' GapDuration='%i' EndDuration='%i' photoBefore='%s' photoFinish='%s' WHERE appointmentID='%i'", [apptStartTime UTF8String], [apptEndTime UTF8String], [firstName UTF8String], clientID, serviceID, [notes UTF8String], NULL, NULL, serviceStartTime, serviceGapTime, serviceEndTime, NULL, NULL, key);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)removeClientFromSchedule:(NSString*)client start:(NSString*)startTime {
+	char sql[1024];
+	bzero(&sql, 1024);
+	
+	sprintf(sql, "DELETE FROM psa_appointments WHERE clientName='%s' AND startDateTime='%s'", [client UTF8String], [startTime UTF8String]);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to delete from the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+#pragma mark SERVICE METHODS
+// Service Methods
+- (void)loadGroups {
+    NSMutableArray *groupArray = [[NSMutableArray alloc] init];
+    
+	self.groups = groupArray;
+    [groupArray release];
+	
+	// Get all values.
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_group");
+	sqlite3_stmt *statement;
+	// Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+	// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.	
+			NSInteger newKey = sqlite3_column_int(statement, 0);
+			NSString *newGroup = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 1)];
+			
+			Group *gp = [[Group alloc] init];
+			[gp initWithGroupData:newGroup key:newKey];
+			
+			[groups addObject:gp];
+			[gp release];
+			
+			//[newGroup release];
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)saveGroups {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "INSERT INTO psa_group (groupDescription) VALUES('%s')", [groupDescription UTF8String]);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)updateGroups:(NSInteger)key {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "UPDATE psa_group SET groupDescription='%s' WHERE groupID='%i'", [groupDescription UTF8String], key);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)removeGroup:(NSInteger)group {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "DELETE FROM psa_group WHERE groupID='%i'", group);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to delete from the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)saveService {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "INSERT INTO psa_services (groupID, serviceName, price, fee, cost, taxable, duration, startTime, gapTime, endTime, single, samplePhoto) VALUES('%d', '%s', '%.2f', '%.2f', '%.2f', '%i', NULL, '%i', '%i', '%i', '%i', NULL)", groupID, [serviceName UTF8String], [servicePrice floatValue], [serviceFee floatValue], [serviceCost floatValue], serviceTaxable, serviceStartTime, serviceGapTime, serviceEndTime, serviceActive);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)updateService:(NSInteger)key {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "UPDATE psa_services SET groupID='%i', serviceName='%s', price='%.2f', fee='%.2f', cost='%.2f', taxable='%i', duration='%i', startTime='%i', gapTime='%i', endTime='%i', single='%i', samplePhoto=NULL WHERE serviceID='%i'", groupID, [serviceName UTF8String], [servicePrice floatValue], [serviceFee floatValue], [serviceCost floatValue], serviceTaxable, serviceStartTime, serviceGapTime, serviceEndTime, serviceActive, key);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)loadServicesFromGroup:(NSInteger)key {
+	NSMutableArray *serviceArray = [[NSMutableArray alloc] init];
+    
+	self.services = serviceArray;
+    [serviceArray release];
+	
+	// Get all values.
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_services where groupID='%i'", key);
+	sqlite3_stmt *statement;
+	// Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+	// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.	
+			NSInteger newKey = sqlite3_column_int(statement, 0);
+			NSInteger gID = sqlite3_column_int(statement, 1);
+			NSString *sName = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 2)];
+			NSNumber *sPrice = [NSNumber numberWithFloat:sqlite3_column_double(statement, 3)];
+			NSNumber *sFee = [NSNumber numberWithFloat:sqlite3_column_double(statement, 4)];
+			NSNumber *sCost = [NSNumber numberWithFloat:sqlite3_column_double(statement, 5)];
+			NSInteger sTax = sqlite3_column_int(statement, 6);
+			NSInteger sTime = sqlite3_column_int(statement, 8);
+			NSInteger sGap = sqlite3_column_int(statement, 9);
+			NSInteger sEnd = sqlite3_column_int(statement, 10);
+			NSInteger sSingle = sqlite3_column_int(statement, 11);
+			
+			Service *sp = [[Service alloc] init];
+			[sp initWithServiceData:newKey gID:gID servName:sName price:sPrice fee:sFee cost:sCost taxabe:sTax startTime:sTime gapTime:sGap endTime:sEnd single:sSingle];
+			
+			[services addObject:sp];
+			[sp release];
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)loadService:(NSInteger)key {
+	NSMutableArray *serviceArray = [[NSMutableArray alloc] init];
+    
+	self.services = serviceArray;
+    [serviceArray release];
+	
+	// Get all values.
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_services where serviceID = '%i'", key);
+	sqlite3_stmt *statement;
+	// Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+	// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.	
+			NSInteger newKey = sqlite3_column_int(statement, 0);
+			NSInteger gID = sqlite3_column_int(statement, 1);
+			NSString *sName = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 2)];
+			NSNumber *sPrice = [NSNumber numberWithFloat:sqlite3_column_double(statement, 3)];
+			NSNumber *sFee = [NSNumber numberWithFloat:sqlite3_column_double(statement, 4)];
+			NSNumber *sCost = [NSNumber numberWithFloat:sqlite3_column_double(statement, 5)];
+			NSInteger sTax = sqlite3_column_int(statement, 6);
+			NSInteger sTime = sqlite3_column_int(statement, 8);
+			NSInteger sGap = sqlite3_column_int(statement, 9);
+			NSInteger sEnd = sqlite3_column_int(statement, 10);
+			NSInteger sSingle = sqlite3_column_int(statement, 11);
+			
+			Service *sp = [[Service alloc] init];
+			[sp initWithServiceData:newKey gID:gID servName:sName price:sPrice fee:sFee cost:sCost taxabe:sTax startTime:sTime gapTime:sGap endTime:sEnd single:sSingle];
+			
+			[services addObject:sp];
+			[sp release];
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)removeService:(NSInteger)key {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "DELETE FROM psa_services WHERE serviceID='%i'", key);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to delete from the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+#pragma mark PRODUCT METHODS
+// Product Methods
+- (void)loadProductTypes {
+	NSMutableArray *typesArray = [[NSMutableArray alloc] init];
+    
+	self.productTypes = typesArray;
+    [typesArray release];
+	
+	// Get all values.
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_productType");
+	sqlite3_stmt *statement;
+	// Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+	// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.	
+			NSInteger newKey = sqlite3_column_int(statement, 0);
+			NSString *newType = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 1)];
+			
+			Type *tp = [[Type alloc] init];
+			[tp initWithTypeData:newType key:newKey];
+			
+			[productTypes addObject:tp];
+			[tp release];
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)saveProductTypes {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "INSERT INTO psa_productType (productDescription) VALUES('%s')", [productTypeDescription UTF8String]);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)updateProductTypes:(NSInteger)key {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "UPDATE psa_productType SET productDescription='%s' WHERE productTypeID='%i'", [productTypeDescription UTF8String], key);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)removeProductType:(NSInteger)product {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "DELETE FROM psa_productType WHERE productTypeID='%i'", productTypeID);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to delete from the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)saveProduct {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "INSERT INTO psa_products (productNumber, productName, cost, price, productMin, productMax, onHand, vendorID, productTypeID, lastSoldDate, taxable) VALUES('%i', '%s', '%.2f', '%.2f', '%i', '%i', '%i', '%i', '%i', '%s', '%i')", productNumber, [productName UTF8String], [productCost floatValue], [productPrice floatValue], productMin, productMax, productOnHand, vendorID, prodTypeID, [productLastSoldDate UTF8String], productTaxable);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)updateProduct:(NSInteger)key {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "UPDATE psa_products SET productNumber='%i', productName='%s', cost='%.2f', price='%.2f', productMin='%i', productMax='%i', onHand='%i', vendorID='%i', productTypeID='%i', lastSoldDate='%s', taxable='%i' WHERE productTypeID='%i'", productNumber, [productName UTF8String], [productCost floatValue], [productPrice floatValue], productMin, productMax, productOnHand, vendorID, prodTypeID, [productLastSoldDate UTF8String], productTaxable, key);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)loadProducts:(NSInteger)key {
+	NSMutableArray *productsArray = [[NSMutableArray alloc] init];
+    
+	self.products = productsArray;
+    [productsArray release];
+	
+	// Get all values.
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_products where productTypeID='%i'", key);
+	sqlite3_stmt *statement;
+	// Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+	// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.	
+			NSInteger newKey = sqlite3_column_int(statement, 0);
+			NSInteger prodNum = sqlite3_column_int(statement, 1);
+			NSString *sName = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 2)];
+			NSNumber *sCost = [NSNumber numberWithFloat:sqlite3_column_double(statement, 3)];
+			NSNumber *sPrice = [NSNumber numberWithFloat:sqlite3_column_double(statement, 4)];
+			NSInteger prodMin = sqlite3_column_int(statement, 5);
+			NSInteger prodMax = sqlite3_column_int(statement, 6);
+			NSInteger onH = sqlite3_column_int(statement, 7);
+			NSInteger vId = sqlite3_column_int(statement, 8);
+			NSInteger prdTypeID = sqlite3_column_int(statement, 9);
+			NSString *lastSld = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 10)];
+			NSInteger tax = sqlite3_column_int(statement, 11);
+			
+			Product *prd = [[Product alloc] init];
+			[prd initWithProductData:newKey prodNum:prodNum prodName:sName prodCost:sCost prodPrice:sPrice prodMin:prodMin prodMax:prodMax prodOnHand:onH vendor:vId prodTyID:prdTypeID lastSold:lastSld tax:tax];
+			
+			[products addObject:prd];
+			[prd release];
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)removeProduct:(NSInteger)key {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "DELETE FROM psa_products WHERE productID='%i'", key);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to delete from the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+#pragma mark VENDOR METHODS
+// Vendor Methods
+- (void)loadVendors {
+	NSMutableArray *vendorArray = [[NSMutableArray alloc] init];
+    
+	self.vendors = vendorArray;
+    [vendorArray release];
+	
+	// Get all values.
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_vendor");
+	sqlite3_stmt *statement;
+	// Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+	// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.	
+			NSInteger newKey = sqlite3_column_int(statement, 0);
+			NSString *vname = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 1)];
+			NSString *vcont = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 2)];
+			NSString *vaddr1 = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 3)];
+			NSString *vaddr2 = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 4)];
+			NSString *vcity = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 5)];
+			NSString *vstate = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 6)];
+			NSInteger vzip = sqlite3_column_int(statement, 7);
+			NSInteger vph = sqlite3_column_int(statement, 8);
+			NSString *vemail = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 9)];
+			NSInteger vfax = sqlite3_column_int(statement, 10);
+			
+			Vendor *vp = [[Vendor alloc] init];
+			[vp initWithVendorData:newKey name:vname contact:vcont addr1:vaddr1 addr2:vaddr2 city:vcity state:vstate zip:vzip phone:vph email:vemail fax:vfax];			
+			[vendors addObject:vp];
+			[vp release];
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)saveVendor {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "INSERT INTO psa_vendor (vendorName, contact, address1, address2, city, stateID, zipCode, telephoneNumber, email, faxNumber) VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%i', '%i', '%s', '%i')", [vendorName UTF8String], [vendorContact UTF8String], [vendorAddress1 UTF8String], [vendorAddress2 UTF8String], [vendorCity UTF8String], [vendorState UTF8String], vendorZipcode, vendorTelephone, [vendorEmail UTF8String], vendorFax);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)updateVendor:(NSInteger)key {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "UPDATE psa_vendor SET vendorName='%s', contact='%s', address1='%s', address2='%s', city='%s', stateID='%s', zipCode='%i', telephoneNumber='%i', email='%s', faxNumber='%i' WHERE vendorID='%i'", [vendorName UTF8String], [vendorContact UTF8String], [vendorAddress1 UTF8String], [vendorAddress2 UTF8String], [vendorCity UTF8String], [vendorState UTF8String], vendorZipcode, vendorTelephone, [vendorEmail UTF8String], vendorFax, key);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)removeVendor:(NSInteger)key {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "DELETE FROM psa_vendor WHERE vendorID='%i'", key);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to delete from the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)getVendor:(NSInteger)key {
+	NSMutableArray *vendorArray = [[NSMutableArray alloc] init];
+    
+	self.vendors = vendorArray;
+    [vendorArray release];
+	
+	// Get all values.
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_vendor where vendorID = '%i'", key);
+	sqlite3_stmt *statement;
+	// Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+	// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.	
+			NSInteger newKey = sqlite3_column_int(statement, 0);
+			NSString *vname = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 1)];
+			NSString *vcont = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 2)];
+			NSString *vaddr1 = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 3)];
+			NSString *vaddr2 = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 4)];
+			NSString *vcity = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 5)];
+			NSString *vstate = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 6)];
+			NSInteger vzip = sqlite3_column_int(statement, 7);
+			NSInteger vph = sqlite3_column_int(statement, 8);
+			NSString *vemail = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 9)];
+			NSInteger vfax = sqlite3_column_int(statement, 10);
+			
+			Vendor *vp = [[Vendor alloc] init];
+			[vp initWithVendorData:newKey name:vname contact:vcont addr1:vaddr1 addr2:vaddr2 city:vcity state:vstate zip:vzip phone:vph email:vemail fax:vfax];
+			
+			[self.vendors addObject:vp];
+			[vp release];
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+#pragma mark TRANSACTION METHODS
+- (void)loadTransactions {
+	NSMutableArray *transactionsArray = [[NSMutableArray alloc] init];
+    
+	self.transactions = transactionsArray;
+    [transactionsArray release];
+	
+	// Get all values.
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_transaction");
+	sqlite3_stmt *statement;
+	// Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+	// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.	
+			NSInteger newKey = sqlite3_column_int(statement, 0);
+			NSInteger tNum = sqlite3_column_int(statement, 1);
+			NSString *tDate = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 2)];
+			NSString *tStatus = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 3)];
+			NSNumber *tTotal = [NSNumber numberWithFloat:sqlite3_column_double(statement, 4)];
+			NSNumber *tDTotal = [NSNumber numberWithFloat:sqlite3_column_double(statement, 5)];
+			NSNumber *tTaxTot = [NSNumber numberWithFloat:sqlite3_column_double(statement, 6)];
+			NSNumber *tPayTot = [NSNumber numberWithFloat:sqlite3_column_double(statement, 7)];
+			NSNumber *tTipTot = [NSNumber numberWithFloat:sqlite3_column_double(statement, 8)];
+			NSNumber *tChgTot = [NSNumber numberWithFloat:sqlite3_column_double(statement, 9)];
+			NSNumber *tSubTot = [NSNumber numberWithFloat:sqlite3_column_double(statement, 10)];
+						
+			Transaction *tp = [[Transaction alloc] init];
+			[tp initWithTransactionData:newKey transNum:tNum transDate:tDate transStatus:tStatus transTotal:tTotal discTotal:tDTotal taxTotal:tTaxTot payTotal:tPayTot tipTotal:tTipTot chgTotal:tChgTot subTotal:tSubTot];		
+			[self.transactions addObject:tp];
+			[tp release];
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)saveTransactions {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "INSERT INTO psa_transaction (transactionNumber, transactionDate, transactionStatus, transactionTotal, transactionDiscountTotal, transactionTaxTotal, transactionPaymentTotal, transactionTipTotal, transactionChangeTotal, transactionSubTotal) VALUES('%i', '%s', '%s', '%.2f', '%.2f', '%.2f', '%.2f', '%.2f', '%.2f', '%.2f')", transactionNumber, [transactionDate UTF8String], [transactionStatus UTF8String], [transactionTotal floatValue], [transactionDiscountTotal floatValue], [transactionTaxTotal floatValue], [transactionPaymentTotal floatValue], [transactionTipTotal floatValue], [transactionChangeTotal floatValue], [transactionSubTotal floatValue]);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)updateTransactions:(NSInteger)key {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "UPDATE psa_transaction SET transactionNumber='%i', transactionDate='%s', transactionStatus='%s', transactionTotal='%.2f', transactionDiscountTotal='%.2f', transactionTaxTotal='%.2f', transactionPaymentTotal='%.2f', transactionTipTotal='%.2f', transactionChangeTotal='%.2f', transactionSubTotal='%.2f' WHERE transactionID='%i'", transactionNumber, [transactionDate UTF8String], [transactionStatus UTF8String], [transactionTotal floatValue], [transactionDiscountTotal floatValue], [transactionTaxTotal floatValue], [transactionPaymentTotal floatValue], [transactionTipTotal floatValue], [transactionChangeTotal floatValue], [transactionSubTotal floatValue], key);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)removeTransaction:(NSInteger)key {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "DELETE FROM psa_transaction WHERE transactionID='%i'", key);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to delete from the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)getTransaction:(NSInteger)key {
+	NSMutableArray *transactionsArray = [[NSMutableArray alloc] init];
+    
+	self.transactions = transactionsArray;
+    [transactionsArray release];
+	
+	// Get all values.
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_transaction WHERE transactionID='%i'", key);
+	sqlite3_stmt *statement;
+	// Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+	// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.	
+			NSInteger newKey = sqlite3_column_int(statement, 0);
+			NSInteger tNum = sqlite3_column_int(statement, 1);
+			NSString *tDate = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 2)];
+			NSString *tStatus = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 3)];
+			NSNumber *tTotal = [NSNumber numberWithFloat:sqlite3_column_double(statement, 4)];
+			NSNumber *tDTotal = [NSNumber numberWithFloat:sqlite3_column_double(statement, 5)];
+			NSNumber *tTaxTot = [NSNumber numberWithFloat:sqlite3_column_double(statement, 6)];
+			NSNumber *tPayTot = [NSNumber numberWithFloat:sqlite3_column_double(statement, 7)];
+			NSNumber *tTipTot = [NSNumber numberWithFloat:sqlite3_column_double(statement, 8)];
+			NSNumber *tChgTot = [NSNumber numberWithFloat:sqlite3_column_double(statement, 9)];
+			NSNumber *tSubTot = [NSNumber numberWithFloat:sqlite3_column_double(statement, 10)];
+			
+			Transaction *tp = [[Transaction alloc] init];
+			[tp initWithTransactionData:newKey transNum:tNum transDate:tDate transStatus:tStatus transTotal:tTotal discTotal:tDTotal taxTotal:tTaxTot payTotal:tPayTot tipTotal:tTipTot chgTotal:tChgTot subTotal:tSubTot];		
+			[self.transactions addObject:tp];
+			[tp release];
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)getTransactionFromTransactionNumber:(NSInteger)key {
+	NSMutableArray *transactionsArray = [[NSMutableArray alloc] init];
+    
+	self.transactions = transactionsArray;
+    [transactionsArray release];
+	
+	// Get all values.
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_transaction WHERE transactionNumber='%i'", key);
+	sqlite3_stmt *statement;
+	// Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+	// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.	
+			NSInteger newKey = sqlite3_column_int(statement, 0);
+			NSInteger tNum = sqlite3_column_int(statement, 1);
+			NSString *tDate = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 2)];
+			NSString *tStatus = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 3)];
+			NSNumber *tTotal = [NSNumber numberWithFloat:sqlite3_column_double(statement, 4)];
+			NSNumber *tDTotal = [NSNumber numberWithFloat:sqlite3_column_double(statement, 5)];
+			NSNumber *tTaxTot = [NSNumber numberWithFloat:sqlite3_column_double(statement, 6)];
+			NSNumber *tPayTot = [NSNumber numberWithFloat:sqlite3_column_double(statement, 7)];
+			NSNumber *tTipTot = [NSNumber numberWithFloat:sqlite3_column_double(statement, 8)];
+			NSNumber *tChgTot = [NSNumber numberWithFloat:sqlite3_column_double(statement, 9)];
+			NSNumber *tSubTot = [NSNumber numberWithFloat:sqlite3_column_double(statement, 10)];
+			
+			Transaction *tp = [[Transaction alloc] init];
+			[tp initWithTransactionData:newKey transNum:tNum transDate:tDate transStatus:tStatus transTotal:tTotal discTotal:tDTotal taxTotal:tTaxTot payTotal:tPayTot tipTotal:tTipTot chgTotal:tChgTot subTotal:tSubTot];		
+			[self.transactions addObject:tp];
+			[tp release];
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)loadDetailTransactionsForTransactionNumber:(NSInteger)key {
+	NSMutableArray *transDetailArray = [[NSMutableArray alloc] init];
+    
+	self.transactionDetails = transDetailArray;
+    [transDetailArray release];
+	
+	// Get all values.
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_transactionDetail WHERE transactionNumber='%i'", key);
+	sqlite3_stmt *statement;
+	// Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+	// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.	
+			NSInteger newKey = sqlite3_column_int(statement, 0);
+			NSInteger apptID = sqlite3_column_int(statement, 1);
+			NSInteger cID = sqlite3_column_int(statement, 2);
+			NSInteger pID = sqlite3_column_int(statement, 3);
+			NSInteger sID = sqlite3_column_int(statement, 4);
+			NSInteger transID = sqlite3_column_int(statement, 5);
+			NSNumber *pTaxAmt = [NSNumber numberWithFloat:sqlite3_column_double(statement, 6)];
+			NSNumber *dAmount = [NSNumber numberWithFloat:sqlite3_column_double(statement, 7)];
+			NSNumber *tAmount = [NSNumber numberWithFloat:sqlite3_column_double(statement, 8)];
+			NSInteger gID = sqlite3_column_int(statement, 9);
+			NSInteger tNum = sqlite3_column_int(statement, 10);
+						
+			TransactionDetail *tp = [[TransactionDetail alloc] init];
+			[tp initWithTransactionDetailData:newKey apptID:apptID cID:cID prodID:pID servID:sID transID:transID preTax:pTaxAmt discAm:dAmount taxAmount:tAmount giftCertID:gID transNum:tNum];		
+			[self.transactionDetails addObject:tp];
+			[tp release];
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)saveDetailTransactions {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "INSERT INTO psa_transactionDetail (appointmentID, clientID, productID, serviceID, transactionID, preTaxAmount, discountedAmount, taxedAmount, giftCertificateID, transactionNumber) VALUES('%i', '%i', '%i', '%i', '%i', '%.2f', '%.2f', '%.2f', '%i', '%i')", appointmentID, clientID, productID, serviceID, transactionID, [preTaxAmount floatValue], [discountedAmount floatValue], [taxedAmount floatValue], giftCertificateID, transactionNumber);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)updateDetailTransactions:(NSInteger)key {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "UPDATE psa_transactionDetail SET appointmentID='%i', clientID='%i', productID='%i', serviceID='%i', transactionID='%i', preTaxAmount='%.2f', discountedAmount='%.2f', taxedAmount='%.2f', giftCertificateID='%i', transactionNumber='%i' WHERE transactionDetailID='%i'", appointmentID, clientID, productID, serviceID, transactionID, [preTaxAmount floatValue], [discountedAmount floatValue], [taxedAmount floatValue], giftCertificateID, transactionNumber, key);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)removeDetailTransaction:(NSInteger)key {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "DELETE FROM psa_transactionDetail WHERE transactionDetailID='%i'", key);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to delete from the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)getDetailTransaction:(NSInteger)key {
+	NSMutableArray *transDetailArray = [[NSMutableArray alloc] init];
+    
+	self.transactionDetails = transDetailArray;
+    [transDetailArray release];
+	
+	// Get all values.
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_transactionDetail WHERE transactionDetailID='%i'", key);
+	sqlite3_stmt *statement;
+	// Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+	// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.	
+			NSInteger newKey = sqlite3_column_int(statement, 0);
+			NSInteger apptID = sqlite3_column_int(statement, 1);
+			NSInteger cID = sqlite3_column_int(statement, 2);
+			NSInteger pID = sqlite3_column_int(statement, 3);
+			NSInteger sID = sqlite3_column_int(statement, 4);
+			NSInteger transID = sqlite3_column_int(statement, 5);
+			NSNumber *pTaxAmt = [NSNumber numberWithFloat:sqlite3_column_double(statement, 6)];
+			NSNumber *dAmount = [NSNumber numberWithFloat:sqlite3_column_double(statement, 7)];
+			NSNumber *tAmount = [NSNumber numberWithFloat:sqlite3_column_double(statement, 8)];
+			NSInteger gID = sqlite3_column_int(statement, 9);
+			NSInteger tNum = sqlite3_column_int(statement, 10);
+			
+			TransactionDetail *tp = [[TransactionDetail alloc] init];
+			[tp initWithTransactionDetailData:newKey apptID:apptID cID:cID prodID:pID servID:sID transID:transID preTax:pTaxAmt discAm:dAmount taxAmount:tAmount giftCertID:gID transNum:tNum];		
+			[self.transactionDetails addObject:tp];
+			[tp release];
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+#pragma mark GIFT CERTIFICATE METHODS
+- (void)loadGift {
+	NSMutableArray *giftArray = [[NSMutableArray alloc] init];
+    
+	self.giftCertificates = giftArray;
+    [giftArray release];
+	
+	// Get all values.
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_giftCertificate");
+	sqlite3_stmt *statement;
+	// Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+	// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.	
+			NSInteger gID = sqlite3_column_int(statement, 0);
+			NSInteger gNum = sqlite3_column_int(statement, 1);
+			NSInteger cID = sqlite3_column_int(statement, 2);
+			NSString *recip = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 3)];
+			NSString *purchDate = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 4)];
+			NSString *expire = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 5)];
+			NSNumber *curVal = [NSNumber numberWithFloat:sqlite3_column_double(statement, 6)];
+			NSNumber *origVal = [NSNumber numberWithFloat:sqlite3_column_double(statement, 7)];
+			NSString *message = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 8)];
+			NSString *giftNote = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 9)];
+			
+			GiftCertificate *gC = [[GiftCertificate alloc] init];
+			[gC initWithGiftData:gID number:gNum client:cID recip:recip purchDate:purchDate expire:expire curVal:curVal origVal:origVal message:message giftNote:giftNote];			
+			[self.giftCertificates addObject:gC];
+			[gC release];
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)saveGift {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "INSERT INTO psa_giftCertificate (giftCertificateNumber, clientID, recipient, purchaseDate, expirationDate, currentValue, originalValue, giftCertificateMessage, giftCertificateNote) VALUES('%i', '%i', '%s', '%s', '%s', '%.2f', '%.2f', '%s', '%s')", giftCertificateNumber, clientID, [recipient UTF8String], [purchaseDate UTF8String], [expirationDate UTF8String], [currentValue floatValue], [originalValue floatValue], [giftCertificateMessage UTF8String], [giftCertificateNote UTF8String]);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)updateGift:(NSInteger)key {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "UPDATE psa_giftCertificate SET giftCertificateNumber='%i', clientID='%i', recipient='%s', purchaseDate='%s', expirationDate='%s', currentValue='%.2f', originalValue='%.2f', giftCertificateMessage='%s', giftCertificateNote='%s' WHERE giftCertificateID='%i'", giftCertificateNumber, clientID, [recipient UTF8String], [purchaseDate UTF8String], [expirationDate UTF8String], [currentValue floatValue], [originalValue floatValue], [giftCertificateMessage UTF8String], [giftCertificateNote UTF8String], key);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)removeGift:(NSInteger)key {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "DELETE FROM psa_giftCertificate WHERE giftCertificateID='%i'", key);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to delete from the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)getGift:(NSInteger)key {
+	NSMutableArray *giftArray = [[NSMutableArray alloc] init];
+    
+	self.giftCertificates = giftArray;
+    [giftArray release];
+	
+	// Get all values.
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_giftCertificate WHERE giftCertificateID='%i'", key);
+	sqlite3_stmt *statement;
+	// Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+	// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.	
+			NSInteger gID = sqlite3_column_int(statement, 0);
+			NSInteger gNum = sqlite3_column_int(statement, 1);
+			NSInteger cID = sqlite3_column_int(statement, 2);
+			NSString *recip = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 3)];
+			NSString *purchDate = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 4)];
+			NSString *expire = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 5)];
+			NSNumber *curVal = [NSNumber numberWithFloat:sqlite3_column_double(statement, 6)];
+			NSNumber *origVal = [NSNumber numberWithFloat:sqlite3_column_double(statement, 7)];
+			NSString *message = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 8)];
+			NSString *giftNote = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 9)];
+			
+			GiftCertificate *gC = [[GiftCertificate alloc] init];
+			[gC initWithGiftData:gID number:gNum client:cID recip:recip purchDate:purchDate expire:expire curVal:curVal origVal:origVal message:message giftNote:giftNote];			
+			[self.giftCertificates addObject:gC];
+			[gC release];
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)getGiftFromGiftNum:(NSInteger)key {
+	NSMutableArray *giftArray = [[NSMutableArray alloc] init];
+    
+	self.giftCertificates = giftArray;
+    [giftArray release];
+	
+	// Get all values.
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_giftCertificate WHERE giftCertificateNumber='%i'", key);
+	sqlite3_stmt *statement;
+	// Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+	// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.	
+			NSInteger gID = sqlite3_column_int(statement, 0);
+			NSInteger gNum = sqlite3_column_int(statement, 1);
+			NSInteger cID = sqlite3_column_int(statement, 2);
+			NSString *recip = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 3)];
+			NSString *purchDate = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 4)];
+			NSString *expire = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 5)];
+			NSNumber *curVal = [NSNumber numberWithFloat:sqlite3_column_double(statement, 6)];
+			NSNumber *origVal = [NSNumber numberWithFloat:sqlite3_column_double(statement, 7)];
+			NSString *message = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 8)];
+			NSString *giftNote = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 9)];
+			
+			GiftCertificate *gC = [[GiftCertificate alloc] init];
+			[gC initWithGiftData:gID number:gNum client:cID recip:recip purchDate:purchDate expire:expire curVal:curVal origVal:origVal message:message giftNote:giftNote];			
+			[self.giftCertificates addObject:gC];
+			[gC release];
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+#pragma mark PAYMENT METHODS
+- (void)loadPaymentTypes {
+	NSMutableArray *payArray = [[NSMutableArray alloc] init];
+    
+	self.paymentTypes = payArray;
+    [payArray release];
+	
+	// Get all values.
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_transactionType");
+	sqlite3_stmt *statement;
+	// Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+	// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.	
+			//NSInteger newKey = sqlite3_column_int(statement, 0);
+			NSString *payType = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 1)];
+			[self.paymentTypes addObject:payType];
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+#pragma mark TRANSACTION PAYMENT METHODS
+- (void)loadPaymentTransactions {
+	NSMutableArray *payArray = [[NSMutableArray alloc] init];
+    
+	self.transactionPayments = payArray;
+    [payArray release];
+	
+	// Get all values.
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_transactionPayment");
+	sqlite3_stmt *statement;
+	// Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+	// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.	
+			NSInteger tpID = sqlite3_column_int(statement, 0);
+			NSInteger tID = sqlite3_column_int(statement, 1);
+			NSString *tT = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 2)];
+			NSNumber *tpa = [NSNumber numberWithFloat:sqlite3_column_double(statement, 3)];
+			NSNumber *tda = [NSNumber numberWithFloat:sqlite3_column_double(statement, 4)];
+			NSNumber *tta = [NSNumber numberWithFloat:sqlite3_column_double(statement, 5)];
+			NSNumber *ttp = [NSNumber numberWithFloat:sqlite3_column_double(statement, 6)];
+			NSNumber *ttam = [NSNumber numberWithFloat:sqlite3_column_double(statement, 7)];
+			NSNumber *tap = [NSNumber numberWithFloat:sqlite3_column_double(statement, 8)];
+			NSNumber *tc = [NSNumber numberWithFloat:sqlite3_column_double(statement, 9)];
+			NSNumber *ts = [NSNumber numberWithFloat:sqlite3_column_double(statement, 10)];
+			NSInteger gID = sqlite3_column_int(statement, 11);
+			NSInteger tcn = sqlite3_column_int(statement, 12);
+			
+			TransactionPayment *tP = [[TransactionPayment alloc] init];
+			[tP initWithTransPaymentData:tpID transIDL:tID transType:tT tpa:tpa tda:tda tta:tta ttp:ttp ttam:ttam tap:tap tc:tc ts:ts giftCertID:gID tcn:tcn];			
+			[self.transactionPayments addObject:tP];
+			[tP release];
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)savePaymentTransactions {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "INSERT INTO psa_transactionPayment (transactionID, transactionType, priceAmount, discountedAmount, taxedAmount, taxPaid, tipAmount, amountPaid, change, subtotal, giftCertificateID, checkNumber) VALUES('%i', '%s', '%.2f', '%.2f', '%.2f', '%.2f', '%.2f', '%.2f', '%.2f', '%.2f', '%i', '%i')", transactionID, [transactionType UTF8String], [transPriceAmount floatValue], [transDiscAmount floatValue], [transTaxedAmount floatValue], [transTaxPaid floatValue], [transTipAmount floatValue], [transAmountPaid floatValue], [transChange floatValue], [transSubtotal floatValue], giftCertificateID, transCheckNumber);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)removePaymentTransaction:(NSInteger)key {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "DELETE FROM psa_transactionPayment WHERE transactionID='%i'", key);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to delete from the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)getPaymentTransaction:(NSInteger)key {
+	NSMutableArray *payArray = [[NSMutableArray alloc] init];
+    
+	self.transactionPayments = payArray;
+    [payArray release];
+	
+	// Get all values.
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_transactionPayment WHERE transactionID='%i'", key);
+	sqlite3_stmt *statement;
+	// Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+	// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.	
+			NSInteger tpID = sqlite3_column_int(statement, 0);
+			NSInteger tID = sqlite3_column_int(statement, 1);
+			NSString *tT = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 2)];
+			NSNumber *tpa = [NSNumber numberWithFloat:sqlite3_column_double(statement, 3)];
+			NSNumber *tda = [NSNumber numberWithFloat:sqlite3_column_double(statement, 4)];
+			NSNumber *tta = [NSNumber numberWithFloat:sqlite3_column_double(statement, 5)];
+			NSNumber *ttp = [NSNumber numberWithFloat:sqlite3_column_double(statement, 6)];
+			NSNumber *ttam = [NSNumber numberWithFloat:sqlite3_column_double(statement, 7)];
+			NSNumber *tap = [NSNumber numberWithFloat:sqlite3_column_double(statement, 8)];
+			NSNumber *tc = [NSNumber numberWithFloat:sqlite3_column_double(statement, 9)];
+			NSNumber *ts = [NSNumber numberWithFloat:sqlite3_column_double(statement, 10)];
+			NSInteger gID = sqlite3_column_int(statement, 11);
+			NSInteger tcn = sqlite3_column_int(statement, 12);
+			
+			TransactionPayment *tP = [[TransactionPayment alloc] init];
+			[tP initWithTransPaymentData:tpID transIDL:tID transType:tT tpa:tpa tda:tda tta:tta ttp:ttp ttam:ttam tap:tap tc:tc ts:ts giftCertID:gID tcn:tcn];			
+			[self.transactionPayments addObject:tP];
+			[tP release];
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+#pragma mark SETTINGS METHODS
+- (void)loadSettings {
+	NSMutableArray *settingsArray = [[NSMutableArray alloc] init];
+    
+	self.settings = settingsArray;
+    [settingsArray release];
+	
+	// Get all values.
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_settings");
+	sqlite3_stmt *statement;
+	// Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+	// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.
+			NSInteger newKey = sqlite3_column_int(statement, 0);
+			NSString *bef = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 1)];
+			NSString *bes = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 2)];
+			NSString *bet = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 3)];
+			NSString *aef = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 4)];
+			NSString *aes = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 5)];
+			NSString *aet = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 6)];
+			NSString *mef = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 7)];
+			NSString *mes = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 8)];
+			NSString *met = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 9)];
+			NSString *mesd = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 10)];
+			NSString *mons = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 11)];
+			NSString *monf = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 12)];
+			NSString *tues = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 13)];
+			NSString *tuef = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 14)];
+			NSString *weds = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 15)];
+			NSString *wedf = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 16)];
+			NSString *thurs = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 17)];
+			NSString *thurf = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 18)];
+			NSString *fris = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 19)];
+			NSString *frif = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 20)];
+			NSString *sats = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 21)];
+			NSString *satf = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 22)];
+			NSString *suns = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 23)];
+			NSString *sunf = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 24)];
+			
+			Settings *sett = [[Settings alloc] initWithSettingsData:newKey bef:bef bes:bes bet:bet aef:aef aes:aes aet:aet mef:mef mes:mes met:met mesd:mesd mons:mons monf:monf tuess:tues tuesf:tuef weds:weds wedf:wedf thurs:thurs thurf:thurf fris:fris frif:frif sats:sats satf:satf suns:suns sunf:sunf];
+			
+			[settings addObject:sett];
+			[sett release];
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)saveSettings {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "INSERT INTO psa_settings (birthEmailFrom, birthEmailSubject, birthEmailText, annivEmailFrom, annivEmailSubject, annivEmailText, marketEmailFrom, marketEmailSubject, marketEmailText, marketEmailSendDate, mondayStart, mondayFinish, tuesdayStart, tuesdayFinish, wednesdayStart, wednesdayFinish, thursdayStart, thursdayFinish, fridayStart, fridayFinish, saturdayStart, saturdayFinish, sundayStart, sundayFinish) VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')", [birthEmailFrom UTF8String], [birthEmailSubject UTF8String], [birthEmailText UTF8String], [annivEmailFrom UTF8String], [annivEmailSubject UTF8String], [annivEmailText UTF8String], [marketEmailFrom UTF8String], [marketEmailSubject UTF8String], [marketEmailText UTF8String], [marketEmailSendDate UTF8String], [mondayStart UTF8String], [mondayFinish UTF8String], [tuesdayStart UTF8String], [tuesdayFinish UTF8String], [wednesdayStart UTF8String], [wednesdayFinish UTF8String], [thursdayStart UTF8String], [thursdayFinish UTF8String], [fridayStart UTF8String], [fridayFinish UTF8String], [saturdayStart UTF8String], [saturdayFinish UTF8String], [sundayStart UTF8String], [sundayFinish UTF8String]);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)updateSettings:(NSInteger)key {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "UPDATE psa_settings SET birthEmailFrom='%s', birthEmailSubject='%s', birthEmailText='%s', annivEmailFrom='%s', annivEmailSubject='%s', annivEmailText='%s', marketEmailFrom='%s', marketEmailSubject='%s', marketEmailText='%s', marketEmailSendDate='%s', mondayStart='%s', mondayFinish='%s', tuesdayStart='%s', tuesdayFinish='%s', wednesdayStart='%s', wednesdayFinish='%s', thursdayStart='%s', thursdayFinish='%s', fridayStart='%s', fridayFinish='%s', saturdayStart='%s', saturdayFinish='%s', sundayStart='%s', sundayFinish='%s' WHERE settingsID='%i'", [birthEmailFrom UTF8String], [birthEmailSubject UTF8String], [birthEmailText UTF8String], [annivEmailFrom UTF8String], [annivEmailSubject UTF8String], [annivEmailText UTF8String], [marketEmailFrom UTF8String], [marketEmailSubject UTF8String], [marketEmailText UTF8String], [marketEmailSendDate UTF8String], [mondayStart UTF8String], [mondayFinish UTF8String], [tuesdayStart UTF8String], [tuesdayFinish UTF8String], [wednesdayStart UTF8String], [wednesdayFinish UTF8String], [thursdayStart UTF8String], [thursdayFinish UTF8String], [fridayStart UTF8String], [fridayFinish UTF8String], [saturdayStart UTF8String], [saturdayFinish UTF8String], [sundayStart UTF8String], [sundayFinish UTF8String], key);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)removeSettings:(NSInteger)key {
+	char sql[1024];
+	bzero(&sql, 1024);
+	
+	sprintf(sql, "DELETE FROM psa_settings WHERE settingsID='%i'", key);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to delete from the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+#pragma mark TAX METHODS
+- (void)loadTax {
+	NSMutableArray *taxArray = [[NSMutableArray alloc] init];
+    
+	self.taxes = taxArray;
+    [taxArray release];
+	
+	// Get all values.
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_tax");
+	sqlite3_stmt *statement;
+	// Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+	// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.
+			NSNumber *com = [NSNumber numberWithFloat:sqlite3_column_double(statement, 0)];
+			NSInteger newKey = sqlite3_column_int(statement, 1);
+			NSString *name = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 2)];
+			NSString *desc = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 3)];
+			NSNumber *rate = [NSNumber numberWithFloat:sqlite3_column_double(statement, 4)];
+			NSInteger pct = sqlite3_column_int(statement, 5);
+			
+			Tax *tax = [[Tax alloc] initWithTaxData:newKey name:name desc:desc rate:rate pct:pct comm:com];
+			
+			[taxes addObject:tax];
+			[tax release];
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)saveTax {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "INSERT INTO psa_tax (commissionRate, taxName, description, rate, isPercentage) VALUES('%.2f', '%s', '%s', '%,2f', '%i')", [commissionRate floatValue], [taxName UTF8String], [taxDescription UTF8String], [taxRate floatValue], isPercentage);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)updateTax:(NSInteger)key {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "UPDATE psa_tax SET commissionRate='%.2f', taxName='%s', description='%s', rate='%.2f', isPercentage='%i' WHERE taxID='%i'", [commissionRate floatValue], [taxName UTF8String], [taxDescription UTF8String], [taxRate floatValue], isPercentage, key);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)removeTax:(NSInteger)key {
+	char sql[1024];
+	bzero(&sql, 1024);
+	
+	sprintf(sql, "DELETE FROM psa_tax WHERE taxID='%i'", key);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to delete from the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+#pragma mark MASTER COLORLINE METHODS
+- (void)loadMaster {
+	NSMutableArray *colorArray = [[NSMutableArray alloc] init];
+    
+	self.masterLine = colorArray;
+    [colorArray release];
+	
+	// Get all values.
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_masterColorLine");
+	sqlite3_stmt *statement;
+	// Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+	// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.
+			NSInteger newKey = sqlite3_column_int(statement, 0);
+			NSString *name = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 1)];
+			NSInteger act = sqlite3_column_int(statement, 2);
+			
+			MasterColorLine *master = [[MasterColorLine alloc] initWithMasterData:newKey name:name active:act];
+			
+			[masterLine addObject:master];
+			[master release];
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+	
+	// Sort out the foils and remove duplicates
+	NSMutableArray *newArray;
+	
+	newArray = [[NSMutableArray alloc] init];
+	
+	//Prime the foil value so we can copy it
+	MasterColorLine *colorString = [masterLine objectAtIndex:0];
+	[newArray addObject:colorString.colorLineName];
+	
+	for (int i=1; i < [masterLine count]; i++) {
+		colorString = [masterLine objectAtIndex:i];
+		//Add objects to the array;
+		[newArray addObject:colorString.colorLineName];
+	}
+	
+	colorLineArray = [[NSArray arrayWithArray:newArray] retain];
+	
+	[newArray release];
+}
+
+- (void)loadActiveMaster {
+	NSMutableArray *colorArray = [[NSMutableArray alloc] init];
+    
+	self.masterLine = colorArray;
+    [colorArray release];
+	
+	// Get all values.
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_masterColorLine WHERE activeLine=1");
+	sqlite3_stmt *statement;
+	// Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+	// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.
+			NSInteger newKey = sqlite3_column_int(statement, 0);
+			NSString *name = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 1)];
+			NSInteger act = sqlite3_column_int(statement, 2);
+			
+			MasterColorLine *master = [[MasterColorLine alloc] initWithMasterData:newKey name:name active:act];
+			
+			[masterLine addObject:master];
+			[master release];
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+	
+	// Sort out the foils and remove duplicates
+	NSMutableArray *newArray;
+	
+	newArray = [[NSMutableArray alloc] init];
+	
+	//Prime the foil value so we can copy it
+	MasterColorLine *colorString = [masterLine objectAtIndex:0];
+	[newArray addObject:colorString.colorLineName];
+	
+	for (int i=1; i < [masterLine count]; i++) {
+		colorString = [masterLine objectAtIndex:i];
+		//Add objects to the array;
+		[newArray addObject:colorString.colorLineName];
+	}
+	
+	colorLineArray = [[NSArray arrayWithArray:newArray] retain];
+	
+	[newArray release];
+}
+
+- (void)saveMaster {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "INSERT INTO psa_masterColorLine (colorLineName, activeLine) VALUES('%s', '%i')", [colorLineName UTF8String], activeLine);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)updateMaster:(NSInteger)key {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "UPDATE psa_masterColorLine SET colorLineName='%s', activeLine='%i' WHERE colorLineID='%i'", [colorLineName UTF8String], activeLine, key);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)removeMaster:(NSInteger)key {
+	char sql[1024];
+	bzero(&sql, 1024);
+	
+	sprintf(sql, "DELETE FROM psa_masterColorLine WHERE colorLineID='%i'", key);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to delete from the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+#pragma mark REPORT METHODS
+- (void)loadCloseoutHistory {
+	NSMutableArray *closeoutArray = [[NSMutableArray alloc] init];
+    
+	self.closeouts = closeoutArray;
+    [closeoutArray release];
+	
+	// Get all values.
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_closeout");
+	sqlite3_stmt *statement;
+	// Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+	// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.
+			NSInteger newKey = sqlite3_column_int(statement, 0);
+			NSString *dInfo = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 1)];
+			NSNumber *credit = [NSNumber numberWithFloat:sqlite3_column_double(statement, 9)];
+			NSNumber *cash = [NSNumber numberWithFloat:sqlite3_column_double(statement, 12)];
+			NSNumber *check = [NSNumber numberWithFloat:sqlite3_column_double(statement, 13)];
+			NSNumber *coupon = [NSNumber numberWithFloat:sqlite3_column_double(statement, 14)];
+			NSNumber *gift = [NSNumber numberWithFloat:sqlite3_column_double(statement, 15)];
+			NSNumber *service = [NSNumber numberWithFloat:sqlite3_column_double(statement, 21)];
+			NSNumber *retail = [NSNumber numberWithFloat:sqlite3_column_double(statement, 22)];
+			NSNumber *sGift = [NSNumber numberWithFloat:sqlite3_column_double(statement, 23)];
+			NSNumber *tips = [NSNumber numberWithFloat:sqlite3_column_double(statement, 26)];
+			NSNumber *tax = [NSNumber numberWithFloat:sqlite3_column_double(statement, 27)];
+			
+			Closeout *cOut = [[Closeout alloc] initWithCloseoutData:newKey date:dInfo credit:credit cash:cash check:check coupon:coupon gift:gift service:service retail:retail saleGift:sGift tips:tips tax:tax];
+			
+			[closeouts addObject:cOut];
+			[cOut release];
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)saveCloseout {
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "INSERT INTO psa_closeout (closeoutDateTime, computerCash, computerCheck, computerVisa, computerDiscover, computerAmEx, userCash, userCheck, userVisa, userDiscover, userAmEx, receiptCash, receiptCheck, receiptCoupon, receiptGift, receiptPackages, receiptAccount, receiptVisa, receiptDiscover, receiptAmEx, salesService, salesRetail, salesGift, salesPackages, salesAccount, salesTips, salesTax, beginningCash, endCash, totalCash, totalChange, totalCashPaid) VALUES('%s', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '%.2f', NULL, NULL,'%.2f', '%.2f', '%.2f', '%.2f', NULL, NULL, NULL, NULL, NULL, '%.2f', '%.2f', '%.2f', NULL, NULL, '%.2f', '%.2f', NULL, NULL, NULL, NULL, NULL)", [dateInfo UTF8String], [userVisa floatValue], [receiptCash floatValue], [receiptCheck floatValue], [receiptCoupon floatValue], [receiptGift floatValue], [salesService floatValue], [salesRetail floatValue], [salesGift floatValue], [salesTips floatValue], [closeoutSalesTax floatValue]);
+	
+	sqlite3_stmt *statement;
+	
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) != SQLITE_OK) {
+		NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	
+	int success = sqlite3_step(statement);
+	// Because we want to reuse the statement, we "reset" it instead of "finalizing" it.
+	sqlite3_reset(statement);
+	if (success == SQLITE_ERROR) {
+		NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
+	} 
+	
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)getCloseout:(NSInteger)key {
+	NSMutableArray *closeoutArray = [[NSMutableArray alloc] init];
+    
+	self.closeouts = closeoutArray;
+    [closeoutArray release];
+	
+	// Get all values.
+	char sql[1024];
+	bzero(&sql, 1024);
+	sprintf(sql, "SELECT * FROM psa_closeout WHERE closeoutID='%i'", key);
+	sqlite3_stmt *statement;
+	// Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+	// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
+	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+		// We "step" through the results - once for each row.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			// The second parameter indicates the column index into the result set.
+			//int primaryKey = sqlite3_column_int(statement, 0);
+			// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+			// autorelease is slightly more expensive than release. This design choice has nothing to do with
+			// actual memory management - at the end of this block of code, all the objects allocated
+			// here will be in memory regardless of whether we use autorelease or release, because they are
+			// retained by the array.
+			NSInteger newKey = sqlite3_column_int(statement, 0);
+			NSString *dInfo = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 1)];
+			NSNumber *credit = [NSNumber numberWithFloat:sqlite3_column_double(statement, 9)];
+			NSNumber *cash = [NSNumber numberWithFloat:sqlite3_column_double(statement, 12)];
+			NSNumber *check = [NSNumber numberWithFloat:sqlite3_column_double(statement, 13)];
+			NSNumber *coupon = [NSNumber numberWithFloat:sqlite3_column_double(statement, 14)];
+			NSNumber *gift = [NSNumber numberWithFloat:sqlite3_column_double(statement, 15)];
+			NSNumber *service = [NSNumber numberWithFloat:sqlite3_column_double(statement, 21)];
+			NSNumber *retail = [NSNumber numberWithFloat:sqlite3_column_double(statement, 22)];
+			NSNumber *sGift = [NSNumber numberWithFloat:sqlite3_column_double(statement, 23)];
+			NSNumber *tips = [NSNumber numberWithFloat:sqlite3_column_double(statement, 26)];
+			NSNumber *tax = [NSNumber numberWithFloat:sqlite3_column_double(statement, 27)];
+			
+			Closeout *cOut = [[Closeout alloc] initWithCloseoutData:newKey date:dInfo credit:credit cash:cash check:check coupon:coupon gift:gift service:service retail:retail saleGift:sGift tips:tips tax:tax];
+			
+			[closeouts addObject:cOut];
+			[cOut release];
+		}
+	} else {
+		NSAssert1(0, @"Error: during prepare '%s'.", sqlite3_errmsg(database));
+	}
+	// "Finalize" the statement - releases the resources associated with the statement.
+	sqlite3_finalize(statement);
+}
+
+- (void)loadDailyCloseout {
+	// We already have the transactions method written. :-)
+	[self loadTransactions];
+}
+
+- (void)loadGiftCertificate {
+	// We already have this method written :-)
+	[self loadGift];
+}
+
+- (void)loadTransactionHistory {
+	
+}
+
+@end

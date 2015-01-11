@@ -1,0 +1,166 @@
+//
+//  RegisterViewController.m
+//  PSA
+//
+//  Created by Michael Simone on 7/26/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "RegisterViewController.h"
+#import "RegisterTableViewCell.h"
+#import "Transaction.h"
+#import "Client.h"
+
+@implementation RegisterViewController
+
+@synthesize myTableView, appDelegate, detailControl;
+
+NSMutableArray *transSet;
+
+- (IBAction)back:(id)sender {
+	[self.view removeFromSuperview];
+}
+
+- (IBAction) addTransaction:(id)sender {
+	// Add the detail Controller group NIB file
+	
+	if (detailControl == nil) {
+		detailControl = [[RegisterDetailController alloc] initWithNibName:@"RegisterDetail" bundle:[NSBundle mainBundle]];
+		detailControl.regControl = self;
+	}
+	
+	appDelegate.addTransaction = YES;
+	[self.view addSubview:detailControl.view];
+	[detailControl viewDidLoad];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{	
+	NSIndexPath *tableSelection = [myTableView indexPathForSelectedRow];
+	[myTableView deselectRowAtIndexPath:tableSelection animated:NO];
+	[myTableView reloadData];
+	
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+	
+	// Use the delegate to set/get values
+	appDelegate = (PSAAppDelegate *)[[UIApplication sharedApplication] delegate];
+	
+	// Set the background color to a nice blue image
+	[self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PSA_RegisterGreen.png"]]];
+	[self.myTableView setBackgroundColor:[UIColor clearColor]];
+	
+	appDelegate.addTransaction = NO;
+	[appDelegate loadTransactions];
+	
+	[super viewDidLoad];
+}
+
+// Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+	
+	// Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
+}
+
+
+- (void)dealloc {
+	[myTableView release];
+	[detailControl release];
+	
+    [super dealloc];
+}
+
+#pragma mark TableViewDelegate
+
+- (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+		
+    RegisterTableViewCell *cell = (RegisterTableViewCell *)[myTableView dequeueReusableCellWithIdentifier:@"RegisterCellIdentifier"];
+    if (cell == nil) {
+        cell = [[[RegisterTableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"RegisterCellIdentifier"] autorelease];
+    }
+		
+	[appDelegate loadTransactions];
+	transSet = [[NSMutableArray alloc] init];
+	
+	for (int i=0; i < [appDelegate.transactions count]; i++) {
+		Transaction *trans = [appDelegate.transactions objectAtIndex:indexPath.row];
+		if (([trans.transactionStatus isEqualToString:@"Closed"]) ||
+			([trans.transactionStatus isEqualToString:@"Void"]))
+			trans = [appDelegate.transactions objectAtIndex:i];
+		
+		if (([trans.transactionStatus isEqualToString:@"Complete"]) ||
+			([trans.transactionStatus isEqualToString:@"Open"])) {
+			[appDelegate loadDetailTransactionsForTransactionNumber:trans.transactionNumber];
+			TransactionDetail *dTrans = [appDelegate.transactionDetails objectAtIndex:0];
+			[transSet addObject:trans];
+			[appDelegate getClient:dTrans.clientID];
+			Client *cli = [appDelegate.clients objectAtIndex:0];
+			NSString *name;
+			
+			if (![cli.lastName isEqualToString:@" "])
+				name = [NSString stringWithFormat:@"%@ %@", cli.firstName, cli.lastName];
+			else
+				name = [NSString stringWithFormat:@"%@", cli.firstName];
+			
+			[cell setValues:@"Trans#" 
+					 number:[NSString stringWithFormat:@"%i", trans.transactionNumber] 
+					   name:[NSString stringWithFormat:@"%@", name] 
+				   apptDate:[NSString stringWithFormat:@"%@", trans.transactionDate]
+					 status:[NSString stringWithFormat:@"%@", trans.transactionStatus]
+					   cost:[NSString stringWithFormat:@"%.2f", [trans.transactionTotal floatValue]]];
+		}
+	}
+		
+	return cell;
+}
+
+// The table has one row for each possible type.
+- (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section {
+	[appDelegate loadTransactions];
+	
+	int counter = 0;
+	
+	for (int i=0; i < [appDelegate.transactions count]; i++) {
+		Transaction *trans = [appDelegate.transactions objectAtIndex:i];
+		
+		if (([trans.transactionStatus isEqualToString:@"Complete"]) ||
+			([trans.transactionStatus isEqualToString:@"Open"]))
+			counter++;
+	}
+	
+	return counter;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{		
+	// don't keep the table selection
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	
+	//[appDelegate loadTransactions];
+	Transaction *trans = [transSet objectAtIndex:indexPath.row];
+	appDelegate.transactionNumber = trans.transactionNumber;
+	appDelegate.transactionID = trans.transactionID;
+	
+	// Allocate the object here because we need the reference back to the object before it's destroyed
+	// Add the detail Controller group NIB file
+	detailControl = [[RegisterDetailController alloc] initWithNibName:@"RegisterDetail" bundle:[NSBundle mainBundle]];
+	detailControl.regControl = self;
+	[self.view addSubview:detailControl.view];
+	
+}
+
+@end

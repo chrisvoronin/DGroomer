@@ -1,0 +1,100 @@
+//
+//  RegisterDetailCell.m
+//  PSA
+//
+//  Created by Michael Simone on 8/11/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "RegisterDetailCell.h"
+
+#pragma mark -
+#pragma mark SubviewFrames category
+
+@interface RegisterDetailCell (SubviewFrames)
+- (CGRect)_cellLabelFrame;
+- (CGRect)_cellValueLabelFrame;
+@end
+
+
+@implementation RegisterDetailCell
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+		cellLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        [cellLabel setFont:[UIFont systemFontOfSize:14.0]];
+        [cellLabel setTextColor:[UIColor blackColor]];
+        [cellLabel setHighlightedTextColor:[UIColor whiteColor]];
+        [self.contentView addSubview:cellLabel];
+		
+		
+        cellValue = [[UILabel alloc] initWithFrame:CGRectZero];
+        [cellValue setFont:[UIFont systemFontOfSize:14.0]];
+        [cellValue setTextColor:[UIColor blackColor]];
+        [cellValue setHighlightedTextColor:[UIColor whiteColor]];
+        [self.contentView addSubview:cellValue];
+    }
+    return self;
+}
+
+#pragma mark -
+#pragma mark Laying out subviews
+
+/*
+ To save space, the prep time label disappears during editing.
+ */
+- (void)layoutSubviews {
+    [super layoutSubviews];
+	
+    [cellLabel setFrame:[self _cellLabelFrame]];
+    [cellValue setFrame:[self _cellValueLabelFrame]];
+}
+
+
+/*
+ Return the frame of the various subviews -- these are dependent on the editing state of the cell.
+ */
+- (CGRect)_cellLabelFrame {
+    if (self.editing) {
+        return CGRectMake(20, 11, 200, 21);
+    }
+	else {
+        return CGRectMake(20, 11, 200, 21);
+    }
+}
+
+- (CGRect)_cellValueLabelFrame {
+    if (self.editing) {
+		return CGRectMake(233, 10, 67, 21);
+    }
+	else {
+        return CGRectMake(233, 10, 67, 21);
+    }
+}
+
+#pragma mark -
+#pragma mark Value set accessor
+
+- (void)setValues:(NSString*)cLabel number:(NSString*)cValue {
+	
+	cellLabel.text = cLabel;
+	cellValue.text = cValue;
+}
+
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+
+
+- (void)dealloc {
+	[cellLabel release];
+    [cellValue release];
+    [super dealloc];
+}
+
+
+@end

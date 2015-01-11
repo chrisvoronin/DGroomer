@@ -1,0 +1,30 @@
+//
+//  Group.h
+//  PSA
+//
+//  Created by Michael Simone on 6/12/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <sqlite3.h>
+
+@interface Group : NSObject {
+    // Attributes.
+	NSString *groupDescription;
+	NSInteger groupID;
+}
+
+// Property exposure for primary key and other attributes. The primary key is 'assign' because it is not an object, 
+// nonatomic because there is no need for concurrent access, and readonly because it cannot be changed without 
+// corrupting the database.
+
+@property (assign, nonatomic) NSString *groupDescription;
+@property (assign, nonatomic) NSInteger groupID;
+
+// Finalize (delete) all of the SQLite compiled queries.
++ (void)finalizeStatements;
+
+- (id)initWithGroupData:(NSString *)gp key:(NSInteger)key;
+
+@end

@@ -1,0 +1,108 @@
+//
+//  CompanyViewController.m
+//  PSA
+//
+//  Created by Michael Simone on 8/2/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "CompanyViewController.h"
+#import "Company.h"
+
+@implementation CompanyViewController
+
+@synthesize appDelegate, name, owner, addr1, addr2, city, state, zip, email, phone, fax;
+
+BOOL edit;
+NSInteger compID;
+
+- (IBAction)save:(id)sender {
+	appDelegate.companyName = name.text;
+	appDelegate.OwnerKey = [owner.text integerValue];
+	appDelegate.companyAddress1 = addr1.text;
+	appDelegate.companyAddress2 = addr2.text;
+	appDelegate.companyCity = city.text;
+	appDelegate.companyState = state.text;
+	appDelegate.companyZipCode = [zip.text floatValue];
+	appDelegate.companyEmail = email.text;
+	appDelegate.companyPhone = [phone.text integerValue];
+	appDelegate.companyFax = [fax.text integerValue];
+	appDelegate.salesTax = [NSNumber numberWithFloat:0.0];
+	
+	if (edit == YES)
+		[appDelegate updateCompany:compID];
+	else
+		[appDelegate saveCompany];
+	
+	edit = NO;
+	
+	[self.view removeFromSuperview];
+}
+
+- (IBAction)back:(id)sender {
+	edit = NO;
+	[self.view removeFromSuperview];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+	
+	// Use the delegate to set/get values
+	appDelegate = (PSAAppDelegate *)[[UIApplication sharedApplication] delegate];
+	
+	[myScrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height * 1.5)];
+	
+	self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"PSA_SettingsOrange.png"]];
+    [super viewDidLoad];
+	
+	//If there is a company then load it up
+	[appDelegate loadCompany];
+	if ([appDelegate.company count] != 0) {
+		Company *comp = [appDelegate.company objectAtIndex:0];
+		edit = YES;
+		
+		compID = comp.companyID;
+		name.text = comp.companyName;
+		if (comp.OwnerKey != 0)
+			owner.text = [NSString stringWithFormat:@"%i", comp.OwnerKey];
+		addr1.text = comp.companyAddress1;
+		addr2.text = comp.companyAddress2;
+		city.text = comp.companyCity;
+		state.text = comp.companyState;
+		if (comp.companyZipCode != 0)
+			zip.text = [NSString stringWithFormat:@"%i", comp.companyZipCode];
+		email.text = comp.companyEmail;
+		if (comp.companyPhone != 0)
+			phone.text = [NSString stringWithFormat:@"%i", comp.companyPhone];
+		if (comp.companyFax != 0)
+			fax.text = [NSString stringWithFormat:@"%i", comp.companyFax];
+	}
+
+	[self.view setNeedsDisplay];
+}
+
+// Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+	
+	// Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
+}
+
+
+- (void)dealloc {
+    [super dealloc];
+}
+
+
+@end

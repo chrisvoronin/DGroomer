@@ -1,0 +1,48 @@
+//
+//  Service.h
+//  PSA
+//
+//  Created by Michael Simone on 7/11/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <sqlite3.h>
+
+@interface Service : NSObject {
+    // Attributes.
+	NSInteger	serviceID;
+	NSInteger	groupID;
+	NSString	*serviceName;
+	NSNumber	*price;
+	NSNumber	*fee;
+	NSNumber	*cost;
+	NSInteger		taxable;
+	NSInteger	startTime;
+	NSInteger	gapTime;
+	NSInteger	endTime;
+	NSInteger		single;
+}
+
+// Property exposure for primary key and other attributes. The primary key is 'assign' because it is not an object, 
+// nonatomic because there is no need for concurrent access, and readonly because it cannot be changed without 
+// corrupting the database.
+
+@property (assign, nonatomic) NSInteger	serviceID;
+@property (assign, nonatomic) NSInteger	groupID;
+@property (assign, nonatomic) NSString	*serviceName;
+@property (assign, nonatomic) NSNumber	*price;
+@property (assign, nonatomic) NSNumber	*fee;
+@property (assign, nonatomic) NSNumber	*cost;
+@property (assign, nonatomic) NSInteger		taxable;
+@property (assign, nonatomic) NSInteger	startTime;
+@property (assign, nonatomic) NSInteger	gapTime;
+@property (assign, nonatomic) NSInteger	endTime;
+@property (assign, nonatomic) NSInteger		single;
+
+// Finalize (delete) all of the SQLite compiled queries.
++ (void)finalizeStatements;
+
+- (id)initWithServiceData:(NSInteger)servID gID:(NSInteger)gID servName:(NSString*)servName price:(NSNumber*)p fee:(NSNumber*)f cost:(NSNumber*)c taxabe:(NSInteger)t startTime:(NSInteger)s gapTime:(NSInteger)g endTime:(NSInteger)e single:(NSInteger)sng;
+
+@end

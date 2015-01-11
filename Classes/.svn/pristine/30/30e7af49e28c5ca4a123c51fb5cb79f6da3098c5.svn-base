@@ -1,0 +1,676 @@
+//
+//  PSAAppDelegate.h
+//  PSA
+//
+//  Created by Michael Simone on 6/8/09.
+//  Copyright Dropped Pin 2009. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import <sqlite3.h>
+
+@class PSAViewController;
+@class AloxxiViewController;
+@class ClientViewController;
+@class AddClientContactController;
+@class ServiceViewController;
+@class ProductViewController;
+@class AddTypeController;
+@class AddApptController;
+@class ScheduleViewController;
+@class ServicesInformationController;
+@class ProductsInformationController;
+@class ProductViewController;
+@class VendorViewController;
+@class RegisterViewController;
+@class RegisterDetailController;
+@class GiftCertificateController;
+
+@interface PSAAppDelegate : NSObject <UIApplicationDelegate> {
+    UIWindow *window;
+    PSAViewController *viewController;
+	
+	// Opaque reference to the SQLite database.
+	sqlite3 *database;
+	
+	// Global needed for reference point
+	BOOL addTransaction;
+	
+#pragma mark CLIENT_VARIABLES
+	// Information needed for the client database
+	NSMutableArray *clients;
+	NSInteger	clientID;
+	NSString	*firstName;
+	NSString	*lastName;
+	NSString	*workPhone;
+	NSString	*homePhone;
+	NSString	*cellPhone;
+	NSString	*address1;
+	NSString	*address2;
+	NSString	*city;
+	NSString	*stateID;
+	NSString	*zipcode;
+	NSString	*email;
+	NSString	*birthdate;
+	NSString	*anniversary;
+	NSString	*notes;
+	
+#pragma mark COMPANY_VARIABLES
+	NSMutableArray *company;
+	NSInteger companyID;
+	NSString *companyName;
+	NSNumber *salesTax;
+	NSString *companyAddress1;
+	NSString *companyAddress2;
+	NSString *companyCity;
+	NSString *companyState;
+	NSInteger companyZipCode;
+	NSString *companyEmail;
+	NSInteger companyPhone;
+	NSInteger companyFax;
+	NSInteger monthsOldAppointments;
+	NSInteger OwnerKey;
+	
+#pragma mark SCHEDULE_VARIABLES
+	NSMutableArray	*todayAppointments;
+	NSInteger		appointmentID;
+	NSArray			*appointmentArray;
+	NSString		*apptStartTime;
+	NSString		*apptEndTime;
+	
+#pragma mark SERVICE_VARIABLES
+	// Information needed for the service groups database
+	NSMutableArray *groups;
+	NSMutableArray *services;
+	
+	NSString	*groupDescription;
+	NSString	*serviceName;
+	NSInteger	groupID;
+	NSInteger	serviceID;
+	NSInteger	serviceStartTime;
+	NSInteger	serviceGapTime;
+	NSInteger	serviceEndTime;
+	NSInteger	serviceDuration;
+	NSNumber	*serviceCost;
+	NSNumber	*serviceFee;
+	NSNumber	*servicePrice;
+	NSInteger	serviceActive;
+	NSInteger	serviceTaxable;
+
+#pragma mark PRODUCT_VARIABLES
+	// Information needed for the product groups database
+	NSMutableArray *productTypes;
+	NSMutableArray *products;
+	
+	NSString	*productTypeDescription;
+	NSInteger	productTypeID;
+	
+	NSInteger	productID;
+	NSInteger	productNumber;
+	NSString	*productName;
+	NSNumber	*productCost;
+	NSNumber	*productPrice;
+	NSInteger	productMin;
+	NSInteger	productMax;
+	NSInteger	productOnHand;
+	NSInteger	vendorID;
+	NSInteger	prodTypeID;
+	NSString	*productLastSoldDate;
+	NSInteger	productTaxable;
+	
+#pragma mark VENDOR_VARIABLES
+	NSMutableArray	*vendors;
+	NSInteger		vendrID;
+	NSString		*vendorName;
+	NSString		*vendorContact;
+	NSString		*vendorAddress1;
+	NSString		*vendorAddress2;
+	NSString		*vendorCity;
+	NSString		*vendorState;
+	NSInteger		vendorZipcode;
+	NSInteger		vendorTelephone;
+	NSString		*vendorEmail;
+	NSInteger		vendorFax;
+	
+#pragma mark GIFT_CERFICIATE_VARIABLES
+	NSMutableArray *giftCertificates;
+	NSInteger	giftCertificateID;
+	NSInteger	giftCertificateNumber;
+	NSString	*recipient;
+	NSString	*purchaseDate;
+	NSString	*expirationDate;
+	NSNumber	*currentValue;
+	NSNumber	*originalValue;
+	NSString	*giftCertificateMessage;
+	NSString	*giftCertificateNote;
+	
+#pragma mark REGISTER_VARIABLES
+	NSMutableArray *transactions;
+	NSInteger	transactionID;
+	NSInteger	transactionNumber;
+	NSString	*transactionDate;
+	NSString	*transactionStatus;
+	NSNumber	*transactionTotal;
+	NSNumber	*transactionDiscountTotal;
+	NSNumber	*transactionTaxTotal;
+	NSNumber	*transactionPaymentTotal;
+	NSNumber	*transactionTipTotal;
+	NSNumber	*transactionChangeTotal;
+	NSNumber	*transactionSubTotal;
+	
+	// Subset of the transactions (tansaction detail)
+	NSMutableArray *transactionDetails;
+	NSInteger		transactionDetailID;
+	NSNumber		*preTaxAmount;
+	NSNumber		*discountedAmount;
+	NSNumber		*taxedAmount;
+	
+#pragma mark TRANSACTION_PAYMENT_TYPES
+	NSMutableArray *transactionPayments;
+	NSInteger transactionPaymentID;
+	NSString *transactionType;
+	NSNumber *transPriceAmount;
+	NSNumber *transDiscAmount;
+	NSNumber *transTaxedAmount;
+	NSNumber *transTaxPaid;
+	NSNumber *transTipAmount;
+	NSNumber *transAmountPaid;
+	NSNumber *transChange;
+	NSNumber *transSubtotal;
+	NSInteger transCheckNumber;
+	
+#pragma mark PAYMENT_TYPES
+	NSMutableArray *paymentTypes;
+	NSInteger	paymentTypeID;
+	NSString	*paymentType;
+	
+#pragma mark SETTINGS_TYPES
+	NSMutableArray *settings;
+	NSInteger settingsID;
+	NSNumber *commissionRate;
+	NSString *birthEmailFrom;
+	NSString *birthEmailSubject;
+	NSString *birthEmailText;
+	NSString *annivEmailFrom;
+	NSString *annivEmailSubject;
+	NSString *annivEmailText;
+	NSString *marketEmailFrom;
+	NSString *marketEmailSubject;
+	NSString *marketEmailText;
+	NSString *marketEmailSendDate;
+	NSString *mondayStart;
+	NSString *mondayFinish;
+	NSString *tuesdayStart;
+	NSString *tuesdayFinish;
+	NSString *wednesdayStart;
+	NSString *wednesdayFinish;
+	NSString *thursdayStart;
+	NSString *thursdayFinish;
+	NSString *fridayStart;
+	NSString *fridayFinish;
+	NSString *saturdayStart;
+	NSString *saturdayFinish;
+	NSString *sundayStart;
+	NSString *sundayFinish;
+	
+#pragma mark TAX_TYPES
+	NSMutableArray *taxes;
+	NSInteger taxID;
+	NSString *taxName;
+	NSString *taxDescription;
+	NSNumber *taxRate;
+	NSInteger isPercentage;
+	
+#pragma mark MASTER_COLOR
+	NSMutableArray *masterLine;
+	NSInteger colorLineID;
+	NSString *colorLineName;
+	NSInteger activeLine;
+	
+#pragma mark CLOSEOUT
+	NSMutableArray *closeouts;
+	NSString *dateInfo;
+	NSNumber *userVisa;
+	NSNumber *receiptCash;
+	NSNumber *receiptCheck;
+	NSNumber *receiptCoupon;
+	NSNumber *receiptGift;
+	NSNumber *salesService;
+	NSNumber *salesRetail;
+	NSNumber *salesGift;
+	NSNumber *salesTips;
+	NSNumber *closeoutSalesTax;
+	
+#pragma mark FORMULATION_VARIABLES
+	//Used in the formula nib and controller section
+	NSMutableArray *aloxxi;
+	NSMutableArray *foils;
+	NSMutableArray *colorLines;
+	NSMutableArray *developers;
+	
+	// These are for used in the picker views
+	NSArray		*colorLineArray;
+	NSArray		*applicationTypeArray;
+	NSArray		*naturalColorArray;
+	NSArray		*targetColorArray;
+	NSArray		*percentOfGrayArray;
+	NSArray		*foilArray;
+	NSArray		*developerArray;
+	
+	NSString	*colorLineValue;
+	NSString	*applicationTypeValue;
+	NSString	*naturalColorValue;
+	NSString	*targetColorValue;
+	NSString	*grayValue;
+	NSString	*foil1Value;
+	NSString	*foil2Value;
+	NSString	*foil3Value;
+	NSString	*foil4Value;
+	NSString	*developer1Value;
+	NSString	*developer2Value;
+	NSString	*developer3Value;
+	NSString	*developer4Value;
+	NSString	*clientFirstName;
+	NSString	*clientLastName;
+	
+	// Hold the final formulation values
+	NSString	*stepOneInstructions;
+	NSString	*stepOne;
+	NSString	*stepTwo;
+	NSString	*refreshingOptions;
+	
+	BOOL		isMixedFoil;
+	BOOL		isFoil;
+	BOOL		isFormulaLoaded;
+	NSInteger	pickerNumber;
+	
+	NSInteger	picker1row;
+	NSInteger	picker2row;
+	NSInteger	picker3row;
+	NSInteger	picker4row;
+	NSInteger	picker5row;
+	NSInteger	picker5rowCol1;
+	NSInteger	picker6row;
+	NSInteger	picker6rowCol1;
+	NSInteger	picker7row;
+	NSInteger	picker7rowCol1;
+	NSInteger	picker8row;
+	NSInteger	picker8rowCol1;	
+}
+
+@property (nonatomic, retain) IBOutlet UIWindow *window;
+@property (nonatomic, retain) IBOutlet PSAViewController *viewController;
+@property (nonatomic, assign) BOOL addTransaction;
+
+//Used in the formulation nibs and section
+//@property (nonatomic, retain) IBOutlet UIActivityIndicatorView	*progressView;
+
+// The remaining attributes are copied rather than retained because they are value objects.
+@property (nonatomic, retain) NSMutableArray *clients;
+@property (nonatomic) NSInteger clientID;
+@property (nonatomic, retain) NSString	*firstName;
+@property (nonatomic, retain) NSString	*lastName;
+@property (nonatomic, retain) NSString	*workPhone;
+@property (nonatomic, retain) NSString	*homePhone;
+@property (nonatomic, retain) NSString	*cellPhone;
+@property (nonatomic, retain) NSString	*address1;
+@property (nonatomic, retain) NSString	*address2;
+@property (nonatomic, retain) NSString	*city;
+@property (nonatomic, retain) NSString *stateID;
+@property (nonatomic, retain) NSString *zipcode;
+@property (nonatomic, retain) NSString	*email;
+@property (nonatomic, retain) NSString	*birthdate;
+@property (nonatomic, retain) NSString	*anniversary;
+@property (nonatomic, retain) NSString	*notes;
+
+// These attributes belong to the company screen
+@property (nonatomic, retain) NSMutableArray *company;
+@property (nonatomic) NSInteger companyID;
+@property (nonatomic, retain) NSString *companyName;
+@property (nonatomic, retain) NSNumber *salesTax;
+@property (nonatomic, retain) NSString *companyAddress1;
+@property (nonatomic, retain) NSString *companyAddress2;
+@property (nonatomic, retain) NSString *companyCity;
+@property (nonatomic, retain) NSString *companyState;
+@property (nonatomic) NSInteger companyZipCode;
+@property (nonatomic, retain) NSString *companyEmail;
+@property (nonatomic) NSInteger companyPhone;
+@property (nonatomic) NSInteger companyFax;
+@property (nonatomic) NSInteger monthsOldAppointments;
+@property (nonatomic) NSInteger OwnerKey;
+
+//These attributes belong to the schedule screen
+@property (nonatomic, retain) NSMutableArray *todayAppointments;
+@property (nonatomic) NSInteger appointmentID;
+@property (nonatomic, retain) NSString *apptStartTime;
+@property (nonatomic, retain) NSString *apptEndTime;
+
+//These attributes belong to the service screen
+@property (nonatomic, retain) NSMutableArray *groups;
+@property (nonatomic, retain) NSMutableArray *services;
+@property (nonatomic, retain) NSString	*groupDescription;
+@property (nonatomic, retain) NSString	*serviceName;
+@property (nonatomic) NSInteger	groupID;
+@property (nonatomic) NSInteger serviceID;
+@property (nonatomic) NSInteger	serviceStartTime;
+@property (nonatomic) NSInteger	serviceGapTime;
+@property (nonatomic) NSInteger	serviceEndTime;
+@property (nonatomic) NSInteger	serviceDuration;
+@property (nonatomic, retain) NSNumber	*serviceCost;
+@property (nonatomic, retain) NSNumber	*serviceFee;
+@property (nonatomic, retain) NSNumber	*servicePrice;
+@property (nonatomic) NSInteger serviceActive;
+@property (nonatomic) NSInteger serviceTaxable;
+
+//These attributes belong to the product screen
+@property (nonatomic, retain) NSMutableArray *productTypes;
+@property (nonatomic, retain) NSMutableArray *products;
+@property (nonatomic, retain) NSString	*productTypeDescription;
+@property (nonatomic) NSInteger	productTypeID;
+@property (nonatomic) NSInteger	productID;
+@property (nonatomic) NSInteger	productNumber;
+@property (nonatomic, retain) NSString	*productName;
+@property (nonatomic, retain) NSNumber	*productCost;
+@property (nonatomic, retain) NSNumber	*productPrice;
+@property (nonatomic) NSInteger	productMin;
+@property (nonatomic) NSInteger	productMax;
+@property (nonatomic) NSInteger	productOnHand;
+@property (nonatomic) NSInteger	vendorID;
+@property (nonatomic) NSInteger	prodTypeID;
+@property (nonatomic, retain) NSString	*productLastSoldDate;
+@property (nonatomic) NSInteger productTaxable;
+
+//These attributes belong to the vendor screen
+@property (nonatomic, retain) NSMutableArray *vendors;
+@property (nonatomic) NSInteger vendrID;
+@property (nonatomic, retain) NSString *vendorName;
+@property (nonatomic, retain) NSString *vendorContact;
+@property (nonatomic, retain) NSString *vendorAddress1;
+@property (nonatomic, retain) NSString *vendorAddress2;
+@property (nonatomic, retain) NSString *vendorCity;
+@property (nonatomic, retain) NSString *vendorState;
+@property (nonatomic) NSInteger vendorZipcode;
+@property (nonatomic) NSInteger vendorTelephone;
+@property (nonatomic, retain) NSString *vendorEmail;
+@property (nonatomic) NSInteger vendorFax;
+
+// Gift Certificate
+@property (nonatomic, retain) NSMutableArray *giftCertificates;
+@property (nonatomic) NSInteger giftCertificateID;
+@property (nonatomic) NSInteger	giftCertificateNumber;
+@property (nonatomic, retain) NSString	*recipient;
+@property (nonatomic, retain) NSString	*purchaseDate;
+@property (nonatomic, retain) NSString	*expirationDate;
+@property (nonatomic, retain) NSNumber	*currentValue;
+@property (nonatomic, retain) NSNumber	*originalValue;
+@property (nonatomic, retain) NSString	*giftCertificateMessage;
+@property (nonatomic, retain) NSString	*giftCertificateNote;
+
+// These attributes belong to the register screen
+@property (nonatomic, retain) NSMutableArray *transactions;
+@property (nonatomic) NSInteger transactionID;
+@property (nonatomic) NSInteger	transactionNumber;
+@property (nonatomic, retain) NSString	*transactionDate;
+@property (nonatomic, retain) NSString	*transactionStatus;
+@property (nonatomic, retain) NSNumber	*transactionTotal;
+@property (nonatomic, retain) NSNumber	*transactionDiscountTotal;
+@property (nonatomic, retain) NSNumber	*transactionTaxTotal;
+@property (nonatomic, retain) NSNumber	*transactionPaymentTotal;
+@property (nonatomic, retain) NSNumber	*transactionTipTotal;
+@property (nonatomic, retain) NSNumber	*transactionChangeTotal;
+@property (nonatomic, retain) NSNumber	*transactionSubTotal;
+
+//
+// Subset of the transactions (tansaction detail)
+//
+@property (nonatomic, retain) NSMutableArray *transactionDetails;
+@property (nonatomic) NSInteger transactionDetailID;
+@property (nonatomic, retain) NSNumber *preTaxAmount;
+@property (nonatomic, retain) NSNumber *discountedAmount;
+@property (nonatomic, retain) NSNumber *taxedAmount;
+
+//
+// Properties of the transaction payment
+//
+@property (nonatomic, retain) NSMutableArray *transactionPayments;
+@property (nonatomic) NSInteger transactionPaymentID;
+@property (nonatomic, retain) NSString *transactionType;
+@property (nonatomic, retain) NSNumber *transPriceAmount;
+@property (nonatomic, retain) NSNumber *transDiscAmount;
+@property (nonatomic, retain) NSNumber *transTaxedAmount;
+@property (nonatomic, retain) NSNumber *transTaxPaid;
+@property (nonatomic, retain) NSNumber *transTipAmount;
+@property (nonatomic, retain) NSNumber *transAmountPaid;
+@property (nonatomic, retain) NSNumber *transChange;
+@property (nonatomic, retain) NSNumber *transSubtotal;
+@property (nonatomic) NSInteger transCheckNumber;
+
+//
+// These attributes are used by the payment picker
+@property (nonatomic, retain) NSMutableArray *paymentTypes;
+@property (nonatomic) NSInteger	paymentTypeID;
+@property (nonatomic, retain) NSString	*paymentType;
+
+// Properties used by the settings nib
+@property (nonatomic, retain) NSMutableArray *settings;
+@property (nonatomic) NSInteger settingsID;
+@property (nonatomic, retain) NSNumber *commissionRate;
+@property (nonatomic, retain) NSString *birthEmailFrom;
+@property (nonatomic, retain) NSString *birthEmailSubject;
+@property (nonatomic, retain) NSString *birthEmailText;
+@property (nonatomic, retain) NSString *annivEmailFrom;
+@property (nonatomic, retain) NSString *annivEmailSubject;
+@property (nonatomic, retain) NSString *annivEmailText;
+@property (nonatomic, retain) NSString *marketEmailFrom;
+@property (nonatomic, retain) NSString *marketEmailSubject;
+@property (nonatomic, retain) NSString *marketEmailText;
+@property (nonatomic, retain) NSString *marketEmailSendDate;
+@property (nonatomic, retain) NSString *mondayStart;
+@property (nonatomic, retain) NSString *mondayFinish;
+@property (nonatomic, retain) NSString *tuesdayStart;
+@property (nonatomic, retain) NSString *tuesdayFinish;
+@property (nonatomic, retain) NSString *wednesdayStart;
+@property (nonatomic, retain) NSString *wednesdayFinish;
+@property (nonatomic, retain) NSString *thursdayStart;
+@property (nonatomic, retain) NSString *thursdayFinish;
+@property (nonatomic, retain) NSString *fridayStart;
+@property (nonatomic, retain) NSString *fridayFinish;
+@property (nonatomic, retain) NSString *saturdayStart;
+@property (nonatomic, retain) NSString *saturdayFinish;
+@property (nonatomic, retain) NSString *sundayStart;
+@property (nonatomic, retain) NSString *sundayFinish;
+
+// Properties used by the tax tables
+@property (nonatomic, retain) NSMutableArray *taxes;
+@property (nonatomic) NSInteger taxID;
+@property (nonatomic, retain) NSString *taxName;
+@property (nonatomic, retain) NSString *taxDescription;
+@property (nonatomic, retain) NSNumber *taxRate;
+@property (nonatomic) NSInteger isPercentage;
+
+// Properties used by the master colorline table
+@property (nonatomic, retain) NSMutableArray *masterLine;
+@property (nonatomic) NSInteger colorLineID;
+@property (nonatomic, retain) NSString *colorLineName;
+@property (nonatomic) NSInteger activeLine;
+
+// Properties used by the picker
+@property (nonatomic, retain) NSArray *colorLineArray;
+@property (nonatomic, retain) NSArray *applicationTypeArray;
+@property (nonatomic, retain) NSArray *naturalColorArray;
+@property (nonatomic, retain) NSArray *targetColorArray;
+@property (nonatomic, retain) NSArray *percentOfGrayArray;
+@property (nonatomic, retain) NSArray *foilArray;
+@property (nonatomic, retain) NSArray *developerArray;
+
+@property (nonatomic, retain) NSString *colorLineValue;
+@property (nonatomic, retain) NSString *applicationTypeValue;
+@property (nonatomic, retain) NSString *naturalColorValue;
+@property (nonatomic, retain) NSString *targetColorValue;
+@property (nonatomic, retain) NSString *grayValue;
+@property (nonatomic, retain) NSString *foil1Value;
+@property (nonatomic, retain) NSString *foil2Value;
+@property (nonatomic, retain) NSString *foil3Value;
+@property (nonatomic, retain) NSString *foil4Value;
+@property (nonatomic, retain) NSString *developer1Value;
+@property (nonatomic, retain) NSString *developer2Value;
+@property (nonatomic, retain) NSString *developer3Value;
+@property (nonatomic, retain) NSString *developer4Value;
+@property (nonatomic, retain) NSString *clientFirstName;
+@property (nonatomic, retain) NSString *clientLastName;
+
+// Properties of the Formulation screen
+@property (nonatomic, retain) NSString *stepOneInstructions;
+@property (nonatomic, retain) NSString *stepOne;
+@property (nonatomic, retain) NSString *stepTwo;
+@property (nonatomic, retain) NSString *refreshingOptions;
+
+// Makes the main array of Aloxxi objects available to other objects in the application.
+@property (nonatomic, retain) NSMutableArray *aloxxi;
+@property (nonatomic, retain) NSMutableArray *foils;
+@property (nonatomic, retain) NSMutableArray *colorLines;
+@property (nonatomic, retain) NSMutableArray *developers;
+
+// Needed for closeouts
+@property (nonatomic, retain) NSMutableArray *closeouts;
+@property (nonatomic, assign) NSString *dateInfo;
+@property (nonatomic, assign) NSNumber *userVisa;
+@property (nonatomic, assign) NSNumber *receiptCash;
+@property (nonatomic, assign) NSNumber *receiptCheck;
+@property (nonatomic, assign) NSNumber *receiptCoupon;
+@property (nonatomic, assign) NSNumber *receiptGift;
+@property (nonatomic, assign) NSNumber *salesService;
+@property (nonatomic, assign) NSNumber *salesRetail;
+@property (nonatomic, assign) NSNumber *salesGift;
+@property (nonatomic, assign) NSNumber *salesTips;
+@property (nonatomic, assign) NSNumber *closeoutSalesTax;
+
+// Formulation Methods
+- (void)loadFormulas;
+- (void)runFormulation;
+
+// Client Methods
+- (void)loadClients;
+- (void)saveClient;
+- (void)updateClient:(NSInteger)key;
+- (void)removeClient:(NSInteger)key;
+- (void)getClient:(NSInteger)key;
+
+// Company Methods
+- (void)loadCompany;
+- (void)saveCompany;
+- (void)updateCompany:(NSInteger)key;
+- (void)removeCompany:(NSInteger)key;
+
+// Schedule Methods
+- (void)loadAppointments;
+- (void)saveClientOnSchedule:(NSString*)client start:(NSString*)startTime end:(NSString*)endTime notes:(NSString*)note startDur:(NSInteger)startDuration gapDur:(NSInteger)gapDuration endDur:(NSInteger) endDuration servID:(NSInteger)servID clID:(NSInteger)clID stand:(NSInteger)stand;
+- (void)updateAppointment:(NSInteger)key;
+- (void)removeClientFromSchedule:(NSString*)client start:(NSString*)startTime;
+
+// Group Methods
+- (void)loadGroups;
+- (void)saveGroups;
+- (void)updateGroups:(NSInteger)key;
+- (void)removeGroup:(NSInteger)group;
+
+// Service Methods
+- (void)saveService;
+- (void)updateService:(NSInteger)key;
+- (void)loadServicesFromGroup:(NSInteger)key;
+- (void)loadService:(NSInteger)key;
+- (void)removeService:(NSInteger)key;
+
+// ProductType Methods
+- (void)loadProductTypes;
+- (void)saveProductTypes;
+- (void)updateProductTypes:(NSInteger)key;
+- (void)removeProductType:(NSInteger)product;
+
+// Product Methods
+- (void)saveProduct;
+- (void)updateProduct:(NSInteger)key;
+- (void)loadProducts:(NSInteger)key;
+- (void)removeProduct:(NSInteger)key;
+
+// Gift Certificate Methods
+- (void)loadGift;
+- (void)saveGift;
+- (void)updateGift:(NSInteger)key;
+- (void)removeGift:(NSInteger)key;
+- (void)getGift:(NSInteger)key;
+- (void)getGiftFromGiftNum:(NSInteger)key;
+
+// Vendor Methods
+- (void)loadVendors;
+- (void)saveVendor;
+- (void)updateVendor:(NSInteger)key;
+- (void)removeVendor:(NSInteger)key;
+- (void)getVendor:(NSInteger)key;
+
+// Transaction Methods
+- (void)loadTransactions;
+- (void)saveTransactions;
+- (void)updateTransactions:(NSInteger)key;
+- (void)removeTransaction:(NSInteger)key;
+- (void)getTransaction:(NSInteger)key;
+- (void)getTransactionFromTransactionNumber:(NSInteger)key;
+
+// Transaction Detail Methods
+- (void)loadDetailTransactionsForTransactionNumber:(NSInteger)key;
+- (void)saveDetailTransactions;
+- (void)updateDetailTransactions:(NSInteger)key;
+- (void)removeDetailTransaction:(NSInteger)key;
+- (void)getDetailTransaction:(NSInteger)key;
+
+// Transaction Payment Methods
+- (void)loadPaymentTransactions;
+- (void)savePaymentTransactions;
+- (void)removePaymentTransaction:(NSInteger)key;
+- (void)getPaymentTransaction:(NSInteger)key;
+
+// Payment Methods
+- (void)loadPaymentTypes;
+
+// Settings Methods
+- (void)loadSettings;
+- (void)saveSettings;
+- (void)updateSettings:(NSInteger)key;
+- (void)removeSettings:(NSInteger)key;
+
+// Tax Methods
+- (void)loadTax;
+- (void)saveTax;
+- (void)updateTax:(NSInteger)key;
+- (void)removeTax:(NSInteger)key;
+
+// Master Colorline Methods
+- (void)loadMaster;
+- (void)loadActiveMaster;
+- (void)saveMaster;
+- (void)updateMaster:(NSInteger)key;
+- (void)removeMaster:(NSInteger)key;
+
+// Set and get methods
+- (NSInteger)getPickerNumber;
+- (void)setPickerNumber:(NSInteger) pickNum;
+
+- (BOOL)getIsFoil;
+- (void)setIsFoil:(BOOL)foil;
+
+- (BOOL)getIsMixedFoil;
+- (void)setIsMixedFoil:(BOOL)mixedFoil;
+
+- (BOOL)getIsFormulaLoaded;
+- (void)setIsFormulaLoaded:(BOOL)loaded;
+
+// Reporting methods
+- (void)loadCloseoutHistory;
+- (void)saveCloseout;
+- (void)getCloseout:(NSInteger)key;
+- (void)loadDailyCloseout;
+- (void)loadGiftCertificate;
+- (void)loadTransactionHistory;
+
+@end
+

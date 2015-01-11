@@ -1,0 +1,100 @@
+//
+//  ProductDetailController.m
+//  PSA
+//
+//  Created by Michael Simone on 7/15/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "ProductDetailController.h"
+
+
+@implementation ProductDetailController
+
+@synthesize appDelegate, productController, newTypeController, infoController, vendorController;
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+	// Use the delegate to set/get values
+	appDelegate = (PSAAppDelegate *)[[UIApplication sharedApplication] delegate];
+	
+	// Set the background color to a nice blue image
+	[self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PSA_Blue.png"]]];
+	
+    [super viewDidLoad];
+}
+
+// Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+	
+	// Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
+}
+
+
+- (void)dealloc {
+
+	[newTypeController release];
+	
+    [super dealloc];
+}
+
+#pragma mark LOCAL_METHODS
+- (IBAction)addProductTypeGroup:(id)sender {
+	// Add the add group NIB file
+	if (newTypeController == nil) {
+		newTypeController = [[AddTypeController alloc] initWithNibName:@"AddTypeView" bundle:[NSBundle mainBundle]];
+	}
+	
+	[self.view addSubview:newTypeController.view];
+}
+
+- (IBAction)addProductInformation:(id)sender {
+ 
+	// Add the add services information NIB file
+	if (infoController == nil) {
+		infoController = [[ProductsInformationController alloc] initWithNibName:@"ProductsInformation" bundle:[NSBundle mainBundle]];
+	}
+	
+	[appDelegate loadProductTypes]; //Let's see if we have any product types defined
+	
+	if ([appDelegate.productTypes count] == 0) {
+		// We have no defined groups yet. Let the user know before allowing to continue.
+		// open an alert with just an OK button
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"There are no product types defined. Please create a product type before continuing." delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+		[alert show];	
+		[alert release];
+	} else
+		[self.view addSubview:infoController.view];
+}
+
+- (IBAction)addVendorInformation:(id)sender {
+	// Add the add vendor NIB file
+	if (vendorController == nil) {
+		vendorController = [[VendorViewController alloc] initWithNibName:@"VendorView" bundle:[NSBundle mainBundle]];
+	}
+	
+	[self.view addSubview:vendorController.view];
+}
+
+- (IBAction)cancel:(id)sender {
+	[self.view removeFromSuperview];
+}
+
+- (IBAction)save:(id)sender {
+	[self.view removeFromSuperview];
+	[productController viewWillAppear: YES];
+}
+
+@end

@@ -1,0 +1,203 @@
+//
+//  RegisterTableViewCell.m
+//  PSA
+//
+//  Created by Michael Simone on 7/26/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "RegisterTableViewCell.h"
+
+#pragma mark -
+#pragma mark SubviewFrames category
+
+@interface RegisterTableViewCell (SubviewFrames)
+- (CGRect)_ticketLabelFrame;
+- (CGRect)_ticketNumberLabelFrame;
+- (CGRect)_clientNameLabelFrame;
+- (CGRect)_appointmentDateLabelFrame;
+- (CGRect)_statusLabelFrame;
+- (CGRect)_costOfServiceLabelFrame;
+- (CGRect)_buttonFrame;
+@end
+
+
+@implementation RegisterTableViewCell
+
+#pragma mark -
+#pragma mark Initialization
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+	
+	if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        ticketLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        [ticketLabel setFont:[UIFont systemFontOfSize:10.0]];
+        [ticketLabel setTextColor:[UIColor lightGrayColor]];
+        [ticketLabel setHighlightedTextColor:[UIColor whiteColor]];
+        [self.contentView addSubview:ticketLabel];
+		
+		
+        ticketNumLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        [ticketNumLabel setFont:[UIFont systemFontOfSize:14.0]];
+        [ticketNumLabel setTextColor:[UIColor blackColor]];
+        [ticketNumLabel setHighlightedTextColor:[UIColor whiteColor]];
+        [self.contentView addSubview:ticketNumLabel];
+		
+        clientNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        [clientNameLabel setFont:[UIFont systemFontOfSize:14.0]];
+        [clientNameLabel setTextColor:[UIColor blackColor]];
+        [clientNameLabel setHighlightedTextColor:[UIColor whiteColor]];
+        [self.contentView addSubview:clientNameLabel];
+		
+        appointmentDateLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        [appointmentDateLabel setFont:[UIFont systemFontOfSize:10.0]];
+        [appointmentDateLabel setTextColor:[UIColor lightGrayColor]];
+        [appointmentDateLabel setHighlightedTextColor:[UIColor whiteColor]];
+        [self.contentView addSubview:appointmentDateLabel];
+		
+		statusLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        [statusLabel setFont:[UIFont systemFontOfSize:10.0]];
+        [statusLabel setTextColor:[UIColor lightGrayColor]];
+        [statusLabel setHighlightedTextColor:[UIColor whiteColor]];
+        [self.contentView addSubview:statusLabel];
+		
+		costOfServiceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        [costOfServiceLabel setFont:[UIFont systemFontOfSize:14.0]];
+        [costOfServiceLabel setTextColor:[UIColor blackColor]];
+        [costOfServiceLabel setHighlightedTextColor:[UIColor whiteColor]];
+        [self.contentView addSubview:costOfServiceLabel];
+		
+		detailButton = [[UIButton alloc] initWithFrame:CGRectZero];
+		detailButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+		[self.contentView addSubview:detailButton];
+    }
+	
+    return self;
+}
+
+#pragma mark -
+#pragma mark Laying out subviews
+
+/*
+ To save space, the prep time label disappears during editing.
+ */
+- (void)layoutSubviews {
+    [super layoutSubviews];
+	
+    [ticketLabel setFrame:[self _ticketLabelFrame]];
+    [ticketNumLabel setFrame:[self _ticketNumberLabelFrame]];
+    [clientNameLabel setFrame:[self _clientNameLabelFrame]];
+    [appointmentDateLabel setFrame:[self _appointmentDateLabelFrame]];
+	[statusLabel setFrame:[self _statusLabelFrame]];
+	[costOfServiceLabel setFrame:[self _costOfServiceLabelFrame]];
+	[detailButton setFrame:[self _buttonFrame]];
+    if (self.editing) {
+        costOfServiceLabel.alpha = 0.0;
+    } else {
+        costOfServiceLabel.alpha = 1.0;
+    }
+}
+
+
+/*
+ Return the frame of the various subviews -- these are dependent on the editing state of the cell.
+ */
+- (CGRect)_ticketLabelFrame {
+    if (self.editing) {
+        return CGRectMake(10, 2, 34, 21);
+    }
+	else {
+        return CGRectMake(10, 2, 34, 21);
+    }
+}
+
+- (CGRect)_ticketNumberLabelFrame {
+    if (self.editing) {
+	return CGRectMake(16, 20, 42, 21);
+    }
+	else {
+        return CGRectMake(16, 20, 42, 21);
+    }
+}
+
+- (CGRect)_clientNameLabelFrame {
+    if (self.editing) {
+        return CGRectMake(66, 2, 164, 21);
+    }
+	else {
+        return CGRectMake(66, 2, 164, 21);
+    }
+}
+
+- (CGRect)_appointmentDateLabelFrame {
+    if (self.editing) {
+        return CGRectMake(66, 20, 40, 21);
+    }
+	else {
+        return CGRectMake(66, 20, 40, 21);
+    }
+}
+
+- (CGRect)_statusLabelFrame {
+	if (self.editing) {
+        return CGRectMake(106, 20, 60, 21);
+    }
+	else {
+        return CGRectMake(106, 20, 60, 21);
+    }
+}
+
+- (CGRect)_costOfServiceLabelFrame {
+    if (self.editing) {
+        return CGRectMake(207, 10, 62, 21);
+    }
+	else {
+        return CGRectMake(207, 10, 62, 21);
+    }
+}
+
+- (CGRect)_buttonFrame {
+	if (self.editing) {
+        return CGRectMake(265, 9, 23, 23);
+    }
+	else {
+        return CGRectMake(265, 9, 23, 23);
+    }
+}
+
+
+#pragma mark -
+#pragma mark Memory management
+
+- (void)dealloc {
+    [ticketLabel release];
+    [ticketNumLabel release];
+    [clientNameLabel release];
+    [appointmentDateLabel release];
+	[statusLabel release];
+	[costOfServiceLabel release];
+    [super dealloc];
+}
+
+#pragma mark -
+#pragma mark Value set accessor
+
+- (void)setValues:(NSString*)tktLabel number:(NSString*)ticketNumber name:(NSString*)custName apptDate:(NSString*)apptDate status:(NSString*)status cost:(NSString*)cost {
+
+	ticketLabel.text = tktLabel;
+	ticketNumLabel.text = ticketNumber;
+	clientNameLabel.text = custName;
+	appointmentDateLabel.text = apptDate;
+	statusLabel.text = status;
+	costOfServiceLabel.text = cost;
+}
+
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+
+@end

@@ -1,0 +1,85 @@
+//
+//  ServiceCostController.m
+//  PSA
+//
+//  Created by Michael Simone on 7/13/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "ServiceCostController.h"
+
+
+@implementation ServiceCostController
+
+@synthesize appDelegate, myFee, myCost, myPrice, taxable, servicesController;
+
+- (IBAction)cancel:(id)sender {
+	[self.view removeFromSuperview];
+}
+
+- (IBAction)save:(id)sender {
+	//Write out data to database
+	if (![myFee.text isEqualToString:@""]) {
+		appDelegate.serviceFee = [NSNumber numberWithFloat:[myFee.text floatValue]];
+	}
+	
+	if (![myPrice.text isEqualToString:@""]) {
+		appDelegate.servicePrice = [NSNumber numberWithFloat:[myPrice.text floatValue]];
+	}
+	
+	if (![myCost.text isEqualToString:@""]) {
+		appDelegate.serviceCost = [NSNumber numberWithFloat:[myCost.text floatValue]];
+	}
+	
+	if ([taxable isOn])
+		appDelegate.serviceTaxable = 1;
+	else
+		appDelegate.serviceTaxable = 0;
+	
+	[servicesController viewWillAppear:YES];
+	[self.view removeFromSuperview];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+	
+	// Use the delegate to set/get values
+	appDelegate = (PSAAppDelegate *)[[UIApplication sharedApplication] delegate];
+	
+	// Always set the toggle to off by default
+	[taxable setOn:NO];
+	
+	// Set the background color to a nice blue image
+	[self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PSA_Blue.png"]]];
+	
+    [super viewDidLoad];
+}
+
+
+/*
+// Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+*/
+
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+	
+	// Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
+}
+
+
+- (void)dealloc {
+    [super dealloc];
+}
+
+
+@end

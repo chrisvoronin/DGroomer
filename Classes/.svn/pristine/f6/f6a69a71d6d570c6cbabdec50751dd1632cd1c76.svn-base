@@ -1,0 +1,59 @@
+//
+//  AddClientContactController.h
+//  PSA
+//
+//  Created by Michael Simone on 6/5/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import <AddressBook/AddressBook.h> 
+#import <AddressBookUI/AddressBookUI.h>
+
+#import "PSAAppDelegate.h"
+
+// Controller classes
+#import "ClientViewController.h"
+#import "AddNameInfoController.h"
+#import "PhoneNumberController.h"
+#import "AddAddressController.h"
+#import "EmailAddressController.h"
+#import "BirthdayController.h"
+#import "AnniversaryController.h"
+
+@interface AddClientContactController : UIViewController<UITableViewDelegate, UITableViewDataSource, ABPeoplePickerNavigationControllerDelegate> {
+	IBOutlet UITableView *myTableView;
+	
+	// Need this controller for adding clients information
+	AddNameInfoController *myInfoController;
+	PhoneNumberController *myPhoneController;
+	AddAddressController *myAddressController;
+	EmailAddressController *myEmailController;
+	BirthdayController *myBirthdayController;
+	AnniversaryController *myAnniversaryController;
+	
+	// Need a controller reference for later use
+	ClientViewController *clientController;
+	
+	// Use the appDelegate for setting and getting values
+	PSAAppDelegate *appDelegate;
+}
+
+- (void)openClientList;
+
+@property (nonatomic, retain) UITableView *myTableView;
+@property (nonatomic, retain) AddNameInfoController *myInfoController;
+@property (nonatomic, retain) PhoneNumberController *myPhoneController;
+@property (nonatomic, retain) AddAddressController *myAddressController;
+@property (nonatomic, retain) EmailAddressController *myEmailController;
+@property (nonatomic, retain) BirthdayController *myBirthdayController;
+@property (nonatomic, retain) AnniversaryController *myAnniversaryController;
+@property (nonatomic, retain) ClientViewController *clientController;
+@property (nonatomic, retain) PSAAppDelegate *appDelegate;
+
+- (IBAction)cancelClient:(id)sender;
+- (IBAction)saveClient:(id)sender;
+
+- (BOOL)errorCheck;
+
+@end

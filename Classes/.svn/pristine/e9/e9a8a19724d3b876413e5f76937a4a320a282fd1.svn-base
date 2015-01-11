@@ -1,0 +1,25 @@
+//
+//  DisplayReportController.h
+//  PSA
+//
+//  Created by Michael Simone on 8/26/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "PSAAppDelegate.h"
+
+@interface DisplayReportController : UIViewController <UIActionSheetDelegate > {
+	
+	IBOutlet UITextView *reportView;
+	
+	// Use the appDelegate for setting and getting values
+	PSAAppDelegate *appDelegate;
+}
+
+@property (nonatomic, retain) PSAAppDelegate *appDelegate;
+
+- (IBAction)back:(id)sender;
+- (IBAction)email:(id)sender;
+
+@end

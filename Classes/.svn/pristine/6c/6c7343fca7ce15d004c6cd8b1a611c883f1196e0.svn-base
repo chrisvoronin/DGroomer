@@ -1,0 +1,29 @@
+//
+//  AddServicesNameController.h
+//  PSA
+//
+//  Created by Michael Simone on 7/13/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "PSAAppDelegate.h"
+
+@interface AddServicesNameController : UIViewController {
+	IBOutlet UITextField *newServiceName;
+	
+	// Use the appDelegate for setting and getting values
+	PSAAppDelegate *appDelegate;
+	
+	// Need a controller reference for later use
+	ServicesInformationController *servicesController;
+}
+
+@property (nonatomic, retain) UITextField *newServiceName;
+@property (nonatomic, retain) PSAAppDelegate *appDelegate;
+@property (nonatomic, retain) ServicesInformationController *servicesController;
+
+- (IBAction)cancel:(id)sender;
+- (IBAction)save:(id)sender;
+
+@end

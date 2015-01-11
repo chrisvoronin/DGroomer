@@ -1,0 +1,30 @@
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+#import "PSAAppDelegate.h"
+#import "Service.h"
+#import "RegisterDetailController.h"
+
+@interface AppointmentViewController : UIViewController {
+    IBOutlet UINavigationItem *navigationItem;
+	IBOutlet UITextView *myTextView;
+	
+	RegisterDetailController *detailControl;
+	ScheduleViewController *scheduleControl;
+	Service *serv;
+	
+	// Use the appDelegate for setting and getting values
+	PSAAppDelegate *appDelegate;
+}
+
+@property (nonatomic, retain) UITextView *myTextView;
+@property (nonatomic, retain) ScheduleViewController *scheduleControl;
+@property (nonatomic, retain) PSAAppDelegate *appDelegate;
+@property (nonatomic, retain) Service *serv;
+@property (nonatomic, retain) RegisterDetailController *detailControl;
+
+- (IBAction)formulations:(id)sender;
+- (IBAction)cancelAppointment:(id)sender;
+- (IBAction)deleteAppointment:(id)sender;
+- (IBAction)checkOut:(id)sender;
+@end

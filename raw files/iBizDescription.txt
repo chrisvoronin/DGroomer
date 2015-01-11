@@ -1,0 +1,64 @@
+*Buy-in now for $39.99 and get credit card processing as a free upgrade!
+
+iBiz is a business management tool tailored to service based small businesses, independent contractors, and the self-employed. It features the tools needed to manage your clients, appointments, projects, products, services, time tracking, estimates, invoices, and point-of-sale. Unlike other CRM software, iBiz requires no Internet access or desktop software, you control everything from your iPhone or iPod Touch! Perfect for landscapers, painters, developers, photographers, pavers, plowers, or other service based point-of-sale businesses!
+
+FEATURES:
+* Clients
+ - Import clients from existing address book contacts.
+ - Create new contacts that are added to your device's Contacts.
+ - Clients are organized into an address book group "iBiz Clients".
+ - View and save appointments, projects, sales, and notes for each client.
+ - View and send birthday and anniversary emails.
+
+* Invoicing and Estimates
+ - Create invoices and estimates for your projects' products and services.
+ - Email them to clients.
+ - Invoices update automatically when product quantities, service hours, or prices change.
+ - View lists of overdue invoices and unapproved estimates in the Register.
+
+* Projects
+ - Add products and services to a project.
+ - Time tracking for hourly services, or manual entry.
+ - Hourly or flat rate services with possible setup fee.
+ - Schedule appointments for project work.
+ - Track project completion and 
+
+* Scheduling
+ - Multiple booking allows you to schedule multiple appointments at the same time.
+ - Standing appointments allow for easy creation of recurring appointments.
+ - Designed to flow like the iPhone's built-in calendar.
+ - Day, month, and list formats let you choose your viewing style.
+ - Email clients appointment reminders.
+
+* Point-of-Sale
+ - Checkout clients directly from your device. Accept cash, credit, gift certificates, or a partial payment from each.
+ - Add additional products and services to each transaction.
+ - Manage the purchasing and use of gift certificates.
+ - Manages product inventory from purchases and restocking.
+ - Daily closeouts keep track of how your business is running.
+ - Email receipts after accepting payment.
+
+* Products and Services
+ - Create your own inventory of products and services.
+ - Organize them into groups for easy reference.
+ - Services are color coded and customizable for viewing on the calendar.
+
+* Reporting 
+ - Formatted for view on your device.
+ - Formatted and emailable for larger print viewing.
+ - Reports include closeout history list, closeout totals (consolidated), product history, product inventory, and complete invoice or transaction history.
+
+NOTES:
+ - There is no software available to view your data outside of your phone, aside from emailing reports.
+ - If you would like to create or edit your Contact groups, there is a free app named "Groupy" that will do this (there are other apps too, that are not free). Be careful not to alter the "iBiz Clients" group as this may have undesired effects on iBiz.
+
+
+UPCOMING:
+* Credit Card Processing
+ - Process payments and credit cards anywhere!
+ - Accept all major credit cards.
+ - WiFi or 3G access required.
+ - U.S. bank account required. May incur additional fees from processing gateway
+
+* iPad Support
+ - We will start with basic support for the iPad, and then work our way into utilizing the iPad's design capabilities.

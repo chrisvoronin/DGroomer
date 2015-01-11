@@ -1,0 +1,29 @@
+#import <UIKit/UIKit.h>
+#import "PSAAppDelegate.h"
+
+@interface AddVendorContactController : UIViewController {
+    IBOutlet UIScrollView *myScrollView;
+    IBOutlet UITextField *address1;
+    IBOutlet UITextField *address2;
+    IBOutlet UITextField *city;
+    IBOutlet UITextField *contact;
+    IBOutlet UITextField *email;
+    IBOutlet UITextField *faxNumber;
+    IBOutlet UITextField *name;
+    IBOutlet UITextField *phoneNumber;
+    IBOutlet UITextField *state;
+    IBOutlet UITextField *zipcode;
+	
+	// Need a controller reference for later use
+	VendorViewController *viewController;
+	
+	// Use the appDelegate for setting and getting values
+	PSAAppDelegate *appDelegate;
+}
+
+@property (nonatomic, retain) VendorViewController *viewController;
+
+- (IBAction)cancel:(id)sender;
+- (IBAction)save:(id)sender;
+
+@end

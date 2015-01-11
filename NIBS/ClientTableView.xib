@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6221" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+    <dependencies>
+        <deployment version="768" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6213"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ClientTableViewController">
+            <connections>
+                <outlet property="clientTable" destination="61" id="76"/>
+                <outlet property="searchDisplayController" destination="84" id="86"/>
+                <outlet property="segActive" destination="97" id="101"/>
+                <outlet property="segDisplay" destination="111" id="113"/>
+                <outlet property="view" destination="75" id="79"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="75">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" id="95">
+                    <rect key="frame" x="0.0" y="436" width="320" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <items>
+                        <barButtonItem style="plain" id="112">
+                            <segmentedControl key="customView" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="111" userLabel="Display">
+                                <rect key="frame" x="16" y="8" width="153" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="" image="tabIco_1_1.png"/>
+                                    <segment title="" image="tabIco_2_1.png"/>
+                                    <segment title="" image="tabIco_3_1.png"/>
+                                </segments>
+                                <color key="tintColor" red="0.87755101999999996" green="0.76120310999999996" blue="0.41215929000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="segDisplayValueChanged:" destination="-1" eventType="valueChanged" id="114"/>
+                                </connections>
+                            </segmentedControl>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="104"/>
+                        <barButtonItem style="plain" id="98">
+                            <segmentedControl key="customView" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="97">
+                                <rect key="frame" x="188" y="7" width="116" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Active"/>
+                                    <segment title="All"/>
+                                </segments>
+                                <color key="tintColor" red="0.87755101999999996" green="0.76120310999999996" blue="0.41215929000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="segActiveValueChanged:" destination="-1" eventType="valueChanged" id="102"/>
+                                </connections>
+                            </segmentedControl>
+                        </barButtonItem>
+                    </items>
+                </toolbar>
+                <tableView clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" bouncesZoom="NO" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="61">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="436"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    <searchBar key="tableHeaderView" opaque="NO" multipleTouchEnabled="YES" contentMode="redraw" barStyle="black" id="83">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                        <textInputTraits key="textInputTraits"/>
+                        <connections>
+                            <outlet property="delegate" destination="-1" id="91"/>
+                        </connections>
+                    </searchBar>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="63"/>
+                        <outlet property="delegate" destination="-1" id="64"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackOpaque"/>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+        <searchDisplayController id="84">
+            <connections>
+                <outlet property="delegate" destination="-1" id="90"/>
+                <outlet property="searchBar" destination="83" id="85"/>
+                <outlet property="searchContentsController" destination="-1" id="87"/>
+                <outlet property="searchResultsDataSource" destination="-1" id="88"/>
+                <outlet property="searchResultsDelegate" destination="-1" id="89"/>
+            </connections>
+        </searchDisplayController>
+    </objects>
+    <resources>
+        <image name="tabIco_1_1.png" width="25" height="20"/>
+        <image name="tabIco_2_1.png" width="25" height="20"/>
+        <image name="tabIco_3_1.png" width="25" height="20"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

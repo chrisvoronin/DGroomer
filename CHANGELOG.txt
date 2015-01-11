@@ -1,0 +1,61 @@
+v3.3 -- 1/5/11
+-------------------
+- Added standing appointment intervals of every 2, 3, and 4 weeks.
+
+
+
+
+
+
+
+
+
+
+v3.0 -- 7/24/10
+-------------------
+By Popular DemandÉ
+- Client viewing and sorting options!
+- Weekly calendar view!
+
+Fixes
+- Checking out from an appointment will open the transaction ready for editing unless it is closed.
+- Fixed appointment edit then cancel data consistency.
+- Fixed crash when canceling credit payment (iOS 3.2+).
+- Fixed null payment data on invoice emails.
+- Fixed reversed shadows (iOS 3.2+).
+- Fixed crashes sending or canceling emails in iOS 4.
+- Fixed date picker time zone issues.
+- Found the missing "Back" button on Client and client recovery views (iOS 3.2+).
+- Monthly calendar view doesn't crash in 2011 (iOS 3.2+).
+- Owed shouldn't show "-0.00".
+- Service color wasn't appearing on service view until scroll.
+- Tip added to receipts, transaction reports
+
+Enhancements
+- Added the ability to switch the address book contact for a client.
+- High resolution images for iPhone4.
+- Less obtrusive automatic calendar scrolling.
+- Removed some "Done" buttons for quicker selection.
+
+v2.0 -- June, 2010
+-------------------
+- Closeout History table lists amount of products/services/etc. sold, not amount paid.
+- Credit card processing!
+- Fixed app website URL and support email.
+- Fixed bug disabling most of the cancel button when calling or texting a Client.
+- Fixed support email address in app.
+- Invoice products and services weren't being included in daily closeouts. They now are for invoices that are paid in full.
+- Gift certificates now fetched with interval from GMT...
+
+
+v1.0.2 -- May 3, 2010
+---------------------
+- Fixed alignment of table cells
+- Background of inventory type picker -> red
+- Minimum OS version 3.1.3
+
+
+v1.0.1 -- April 23, 2010
+------------------------
+- Renamed to myBusiness
+- Removed Owed: label from tip view

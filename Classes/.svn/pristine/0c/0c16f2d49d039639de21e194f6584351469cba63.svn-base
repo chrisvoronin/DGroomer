@@ -1,0 +1,32 @@
+//
+//  PickerViewController.h
+//  Aloxxi
+//
+//  Created by Michael Simone on 5/15/09.
+//  Copyright Dropped Pin 2009. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "PSAAppDelegate.h"
+
+@interface ServicePicker : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource> {
+	IBOutlet UIPickerView  *myPickerView;
+	NSArray		*pickerViewArray;
+		
+	// Use the appDelegate for setting and getting values
+	PSAAppDelegate *appDelegate;
+	
+	// Need a controller reference for later use
+	ServicesInformationController *servicesController;
+}
+
+- (IBAction)cancel:(id)sender;
+- (IBAction)done:(id)sender;
+
+@property (nonatomic, retain) UIPickerView *myPickerView;
+@property (nonatomic, retain) NSArray *pickerViewArray;
+@property (nonatomic, retain) PSAAppDelegate *appDelegate;
+@property (nonatomic, retain) ServicesInformationController *servicesController;
+
+@end
+

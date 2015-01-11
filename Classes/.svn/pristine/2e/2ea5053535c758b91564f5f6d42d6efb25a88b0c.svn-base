@@ -1,0 +1,92 @@
+//
+//  ServiceDetailController.m
+//  PSA
+//
+//  Created by Michael Simone on 7/11/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "ServiceDetailController.h"
+
+
+@implementation ServiceDetailController
+
+@synthesize appDelegate, serviceController, newGroupController, infoController;
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+	// Use the delegate to set/get values
+	appDelegate = (PSAAppDelegate *)[[UIApplication sharedApplication] delegate];
+	
+	// Set the background color to a nice blue image
+	[self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PSA_Blue.png"]]];
+	
+    [super viewDidLoad];
+}
+
+// Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+	
+	// Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
+}
+
+
+- (void)dealloc {
+	[serviceController release];
+	[newGroupController release];
+	[infoController release];
+	
+    [super dealloc];
+}
+
+#pragma mark LOCAL_METHODS
+- (IBAction)addServiceGroup:(id)sender {
+	// Add the add group NIB file
+	if (newGroupController == nil) {
+		newGroupController = [[AddGroupController alloc] initWithNibName:@"AddGroup" bundle:[NSBundle mainBundle]];
+	}
+	
+	[self.view addSubview:newGroupController.view];
+}
+
+- (IBAction)addServicesInformation:(id)sender {
+	// Add the add services information NIB file
+	if (infoController == nil) {
+		infoController = [[ServicesInformationController alloc] initWithNibName:@"ServicesInformation" bundle:[NSBundle mainBundle]];
+	}
+	
+	[appDelegate loadGroups]; //Let's see if we have any groups defined
+	
+	if ([appDelegate.groups count] == 0) {
+		// We have no defined groups yet. Let the user know before allowing to continue.
+		// open an alert with just an OK button
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"There are no groups defined. Please create a group before continuing." delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+		[alert show];	
+		[alert release];
+	} else
+		[self.view addSubview:infoController.view];
+}
+
+- (IBAction)cancel:(id)sender {
+	[self.view removeFromSuperview];
+}
+
+- (IBAction)save:(id)sender {
+	[self.view removeFromSuperview];
+	[serviceController viewWillAppear: YES];
+}
+
+
+@end

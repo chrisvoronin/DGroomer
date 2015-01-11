@@ -1,0 +1,38 @@
+//
+//  WeekViewController.h
+//  PSA
+//
+//  Created by Michael Simone on 3/5/09.
+//  Copyright Dropped Pin 2009. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+#import "PSAAppDelegate.h"
+#import "Appointments.h"
+
+@interface WeekViewController : UIViewController<UITableViewDelegate, UITableViewDataSource> {
+	IBOutlet UITableView	*myTableView;
+	NSArray					*listContent;			// the master content
+	NSMutableArray			*filteredListContent;	// the filtered content as a result of the search
+	NSMutableArray			*savedContent;			// the saved content in case the user cancels a search
+	Appointments			*appoints;
+	
+	// Use the appDelegate for setting and getting values
+	PSAAppDelegate *appDelegate;
+}
+
+@property (nonatomic, retain) NSArray *listContent;
+@property (nonatomic, retain) NSMutableArray *filteredListContent;
+@property (nonatomic, retain) NSMutableArray *savedContent;
+@property (nonatomic, retain) UITableView *myTableView;
+@property (nonatomic, retain) Appointments *appoints;
+@property (nonatomic, retain) PSAAppDelegate *appDelegate;
+
+- (void)loadTodaysList;
+- (IBAction)getCalendarEvent:(id)sender;
+- (IBAction)getCurrentDay:(id)sender;
+- (IBAction)addAppointment:(id)sender;
+- (IBAction)cancel:(id)sender;
+
+@end

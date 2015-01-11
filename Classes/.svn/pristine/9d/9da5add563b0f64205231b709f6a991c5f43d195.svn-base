@@ -1,0 +1,34 @@
+//
+//  ProductPriceController.h
+//  PSA
+//
+//  Created by Michael Simone on 7/20/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "PSAAppDelegate.h"
+
+@interface ProductPriceController : UIViewController {
+	
+	IBOutlet UITextField *prodCost;
+	IBOutlet UITextField *prodPrice;
+	IBOutlet UISwitch *tax;
+	
+	// Need a controller reference for later use
+	ProductsInformationController *productsController;
+	
+	// Use the appDelegate for setting and getting values
+	PSAAppDelegate *appDelegate;
+}
+
+@property (nonatomic, retain) UITextField *prodCost;
+@property (nonatomic, retain) UITextField *prodPrice;
+@property (nonatomic, retain) UISwitch *tax;
+@property (nonatomic, retain) ProductsInformationController *productsController;
+@property (nonatomic, retain) PSAAppDelegate *appDelegate;
+
+- (IBAction)cancel:(id)sender;
+- (IBAction)save:(id)sender;
+
+@end

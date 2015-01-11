@@ -1,0 +1,47 @@
+//
+//  SettingsViewController.h
+//  PSA
+//
+//  Created by Michael Simone on 7/23/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "PSAAppDelegate.h"
+#import "SetEmailTextController.h"
+#import "SetAnnivEmailTextController.h"
+#import "AddRatesController.h"
+#import "CompanyViewController.h"
+#import "TimeClockController.h"
+#import "ColorLineController.h"
+
+@interface SettingsViewController : UIViewController {
+	
+	SetEmailTextController *emailTextControl;
+	SetAnnivEmailTextController *annivTextControl;
+	AddRatesController *rateControl;
+	CompanyViewController *companyControl;
+	TimeClockController *timeControl;
+	ColorLineController *colorControl;
+	
+	// Use the appDelegate for setting and getting values
+	PSAAppDelegate *appDelegate;
+}
+
+@property (nonatomic, retain) PSAAppDelegate *appDelegate;
+@property (nonatomic, retain) SetEmailTextController *emailTextControl;
+@property (nonatomic, retain) SetAnnivEmailTextController *annivTextControl;
+@property (nonatomic, retain) AddRatesController *rateControl;
+@property (nonatomic, retain) CompanyViewController *companyControl;
+@property (nonatomic, retain) TimeClockController *timeControl;
+@property (nonatomic, retain) ColorLineController *colorControl;
+
+- (IBAction)back:(id)sender;
+- (IBAction)addCompanyInfo:(id)sender;
+- (IBAction)setCommissionRate:(id)sender;
+- (IBAction)setActiveColorline:(id)sender;
+- (IBAction)setWorkSchedule:(id)sender;
+- (IBAction)setEmailMessage:(id)sender;
+- (IBAction)setBirthdayMessage:(id)sender;
+
+@end

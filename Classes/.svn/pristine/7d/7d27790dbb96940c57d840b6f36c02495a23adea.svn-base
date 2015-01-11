@@ -1,0 +1,28 @@
+//
+//  AddRatesController.h
+//  PSA
+//
+//  Created by Michael Simone on 8/2/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "PSAAppDelegate.h"
+
+@interface AddRatesController : UIViewController {
+	
+	IBOutlet UITextField *commissionRate;
+	IBOutlet UITextField *saleTaxPercent;
+	
+	// Use the appDelegate for setting and getting values
+	PSAAppDelegate *appDelegate;
+}
+
+@property (nonatomic, retain) PSAAppDelegate *appDelegate;
+@property (nonatomic, retain) UITextField *commissionRate;
+@property (nonatomic, retain) UITextField *saleTaxPercent;
+
+- (IBAction)back:(id)sender;
+- (IBAction)save:(id)sender;
+
+@end

@@ -1,0 +1,19 @@
+//
+//  RegisterDetailCell.h
+//  PSA
+//
+//  Created by Michael Simone on 8/11/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+
+@interface RegisterDetailCell : UITableViewCell {
+	UILabel *cellLabel;
+	UILabel *cellValue;
+}
+
+- (void)setValues:(NSString*)cLabel number:(NSString*)cValue;
+
+@end

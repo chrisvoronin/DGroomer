@@ -1,0 +1,53 @@
+//
+// Prefix header for all source files of the 'myBusiness' target in the 'myBusiness' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+    #import <UIKit/UIKit.h>
+#endif
+
+/*
+ *	This definition, combined with a preprocessor macro, allow us to define
+ *	methods that only work for specific targets.
+ *	i.e. When the preprocessor macro under the Debug target is set to DEBUG,
+ *	calls to DebugLog() will be run, but not under the Release target.
+ */
+#ifdef DEBUG_LOGGING_ENABLED
+#define DebugLog(...) NSLog(__VA_ARGS__)
+#else
+#define DebugLog(...) // Nothing
+#endif
+
+#ifdef CONTRACTOR
+#define APPLICATION_NAME @"Contractor Pro"
+#elif ELECTRICIAN
+#define APPLICATION_NAME @"Electrician Pro"
+#elif GROOMER
+#define APPLICATION_NAME @"Dog Groomer"
+#define PROJECT_NOT_INCLUDED 1
+#elif LAWN
+#define APPLICATION_NAME @"Landscaper"
+#elif LOCKSMITH
+#define APPLICATION_NAME @"Locksmith Pro"
+#define PROJECT_NOT_INCLUDED 1
+#elif MASSAGE
+#define APPLICATION_NAME @"Massage Professional"
+#define PROJECT_NOT_INCLUDED 1
+#elif NAIL
+#define APPLICATION_NAME @"Nails"
+#define PROJECT_NOT_INCLUDED 1
+#elif PHOTOGRAPHER
+#define APPLICATION_NAME @"Photographer Pro"
+#define PROJECT_NOT_INCLUDED 1
+#elif PLUMBER
+#define APPLICATION_NAME @"Plumber Pro"
+#elif TRAINER
+#define APPLICATION_NAME @"Personal Trainer Pro"
+#define PROJECT_NOT_INCLUDED 1
+#else
+#define APPLICATION_NAME @"myBusiness"
+#endif
+
+#define APPLICATION_NAME @"Dog Groomer"
+#define PROJECT_NOT_INCLUDED 1

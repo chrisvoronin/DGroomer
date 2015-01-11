@@ -1,0 +1,51 @@
+//
+//  Client.h
+//  PSA
+//
+//  Created by Michael Simone on 6/13/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <sqlite3.h>
+
+@interface Client : NSObject {
+	// Information needed for the client database
+	NSInteger	clientID;
+	NSString	*firstName;
+	NSString	*lastName;
+	NSString	*workPhone;
+	NSString	*homePhone;
+	NSString	*cellPhone;
+	NSString	*address1;
+	NSString	*address2;
+	NSString	*city;
+	NSString	*stateID;
+	NSString	*zipcode;
+	NSString	*email;
+	NSString	*birthdate;
+	NSString	*anniversary;
+	NSString	*notes;
+}
+
+@property (nonatomic) NSInteger clientID;
+@property (copy, nonatomic) NSString	*firstName;
+@property (copy, nonatomic) NSString	*lastName;
+@property (copy, nonatomic) NSString	*workPhone;
+@property (copy, nonatomic) NSString	*homePhone;
+@property (copy, nonatomic) NSString	*cellPhone;
+@property (copy, nonatomic) NSString	*address1;
+@property (copy, nonatomic) NSString	*address2;
+@property (copy, nonatomic) NSString	*city;
+@property (copy, nonatomic) NSString	*stateID;
+@property (copy, nonatomic) NSString	*zipcode;
+@property (copy, nonatomic) NSString	*email;
+@property (copy, nonatomic) NSString	*birthdate;
+@property (copy, nonatomic) NSString	*anniversary;
+@property (copy, nonatomic) NSString	*notes;
+
+- (id)initWithData:(NSInteger)key firstName:(NSString *)fn lastName:(NSString *)ln workPhone:(NSString *)wp cellPhone:(NSString*)cp homePhone:(NSString*)hp
+		  address1: (NSString *)addr1 address2:(NSString *)addr2 city:(NSString*)ct state:(NSString*)st zipcode:(NSString*)zip
+			 email:(NSString*)em birthdate:(NSString*)bd anniversary:(NSString*)anniv notes:(NSString*)nt;
+
+@end

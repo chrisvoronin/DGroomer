@@ -1,0 +1,45 @@
+//
+//  Closeout.h
+//  PSA
+//
+//  Created by Michael Simone on 9/4/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <sqlite3.h>
+
+@interface Closeout : NSObject {
+	NSInteger key;
+	NSString *dateInfo;
+	NSNumber *userVisa;
+	NSNumber *receiptCash;
+	NSNumber *receiptCheck;
+	NSNumber *receiptCoupon;
+	NSNumber *receiptGift;
+	NSNumber *salesService;
+	NSNumber *salesRetail;
+	NSNumber *salesGift;
+	NSNumber *salesTips;
+	NSNumber *salesTax;
+}
+
+@property (nonatomic, assign) NSInteger key;
+@property (nonatomic, assign) NSString *dateInfo;
+@property (nonatomic, assign) NSNumber *userVisa;
+@property (nonatomic, assign) NSNumber *receiptCash;
+@property (nonatomic, assign) NSNumber *receiptCheck;
+@property (nonatomic, assign) NSNumber *receiptCoupon;
+@property (nonatomic, assign) NSNumber *receiptGift;
+@property (nonatomic, assign) NSNumber *salesService;
+@property (nonatomic, assign) NSNumber *salesRetail;
+@property (nonatomic, assign) NSNumber *salesGift;
+@property (nonatomic, assign) NSNumber *salesTips;
+@property (nonatomic, assign) NSNumber *salesTax;
+
+// Finalize (delete) all of the SQLite compiled queries.
++ (void)finalizeStatements;
+
+- (id)initWithCloseoutData:(NSInteger)keyID date:(NSString*)date credit:(NSNumber*)credit cash:(NSNumber*)cash check:(NSNumber*)check coupon:(NSNumber*)coupon gift:(NSNumber*)gift service:(NSNumber*)service retail:(NSNumber*)retail saleGift:(NSNumber*)saleGift tips:(NSNumber*)tips tax:(NSNumber*)tax;
+
+@end

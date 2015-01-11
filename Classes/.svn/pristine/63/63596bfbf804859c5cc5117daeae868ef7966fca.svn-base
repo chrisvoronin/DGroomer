@@ -1,0 +1,33 @@
+//
+//  Tax.h
+//  PSA
+//
+//  Created by Michael Simone on 8/23/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <sqlite3.h>
+
+@interface Tax : NSObject {
+	NSInteger taxID;
+	NSString *taxName;
+	NSString *taxDescription;
+	NSNumber *taxRate;
+	NSInteger isPercentage;
+	NSNumber *commissionRate;
+}
+
+@property (nonatomic, assign) NSInteger taxID;
+@property (nonatomic, assign) NSString *taxName;
+@property (nonatomic, assign) NSString *taxDescription;
+@property (nonatomic, assign) NSNumber *taxRate;
+@property (nonatomic, assign) NSInteger isPercentage;
+@property (assign, nonatomic) NSNumber *commissionRate;
+
+// Finalize (delete) all of the SQLite compiled queries.
++ (void)finalizeStatements;
+
+- (id)initWithTaxData:(NSInteger)key name:(NSString*)name desc:(NSString*)desc rate:(NSNumber*)rate pct:(NSInteger)pct comm:(NSNumber*)comm;
+
+@end

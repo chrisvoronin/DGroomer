@@ -1,0 +1,50 @@
+//
+//  ProductViewController.h
+//  PSA
+//
+//  Created by Michael Simone on 7/20/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "PSAAppDelegate.h"
+#import "ProductDetailController.h"
+#import "Type.h"
+#import "RegisterDetailController.h"
+
+@interface ProductViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate> {
+	IBOutlet UITableView	*myTableView;
+	IBOutlet UISearchBar	*mySearchBar;
+	
+	NSArray					*listContent;			// the master content
+	NSMutableArray			*filteredListContent;	// the filtered content as a result of the search
+	NSMutableArray			*savedContent;			// the saved content in case the user cancels a search
+	
+	Type	*prodTypes;
+	
+	AddApptController *apptController;
+	RegisterDetailController *rdControl;
+	
+	// Use the appDelegate for setting and getting values
+	PSAAppDelegate *appDelegate;
+	
+	ProductDetailController *detailController;
+}
+
+@property (nonatomic, retain) UITableView *myTableView;
+@property (nonatomic, retain) UISearchBar *mySearchBar;
+@property (nonatomic, retain) PSAAppDelegate *appDelegate;
+@property (nonatomic, retain) AddApptController *apptController;
+@property (nonatomic, retain) RegisterDetailController *rdControl;
+@property (nonatomic, retain) NSArray *listContent;
+@property (nonatomic, retain) NSMutableArray *filteredListContent;
+@property (nonatomic, retain) NSMutableArray *savedContent;
+@property (nonatomic, retain) ProductDetailController *detailController;
+@property (nonatomic, retain) Type *prodTypes;
+
++ (ProductViewController *) ProductViewSharedController;
+
+- (IBAction)addProduct:(id)sender;
+- (IBAction)cancel:(id)sender;
+
+@end

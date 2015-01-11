@@ -1,0 +1,23 @@
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <sqlite3.h>
+
+@interface Type : NSObject {
+    // Attributes.
+	NSString *productDescription;
+	NSInteger productID;
+}
+
+// Property exposure for primary key and other attributes. The primary key is 'assign' because it is not an object, 
+// nonatomic because there is no need for concurrent access, and readonly because it cannot be changed without 
+// corrupting the database.
+
+@property (assign, nonatomic) NSString *productDescription;
+@property (assign, nonatomic) NSInteger productID;
+
+// Finalize (delete) all of the SQLite compiled queries.
++ (void)finalizeStatements;
+
+- (id)initWithTypeData:(NSString *)tp key:(NSInteger)key;
+
+@end

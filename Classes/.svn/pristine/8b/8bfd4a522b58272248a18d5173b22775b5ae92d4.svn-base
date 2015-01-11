@@ -1,0 +1,40 @@
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "PSAAppDelegate.h"
+#import "ApptDatePickerViewController.h"
+#import "ClientViewController.h"
+#import "ServiceViewController.h"
+#import "ScheduleViewController.h"
+
+@interface AddApptController : UIViewController<UITableViewDelegate, UITableViewDataSource> {
+    IBOutlet UITableView *myTableView;
+	NSArray *types;
+	NSString *name;
+	NSDate	*startTime;
+	NSDate	*endTime;
+	ApptDatePickerViewController *apptPicker;
+	ClientViewController *client;
+	ServiceViewController *serviceControl;
+	ScheduleViewController *scheduleControl;
+	
+	// Use the appDelegate for setting and getting values
+	PSAAppDelegate *appDelegate;
+}
+@property (nonatomic, retain) NSArray *types;
+@property (nonatomic, retain) IBOutlet UITableView *myTableView;
+@property (nonatomic, retain) NSString *name;
+@property (nonatomic, retain) NSDate *startTime;
+@property (nonatomic, retain) NSDate *endTime;
+@property (nonatomic, retain) ApptDatePickerViewController *apptPicker;
+@property (nonatomic, retain) ClientViewController *client;
+@property (nonatomic, retain) ServiceViewController *serviceControl;
+@property (nonatomic, retain) ScheduleViewController *scheduleControl;
+@property (nonatomic, retain) PSAAppDelegate *appDelegate;
+
+- (IBAction)addCancel:(id)sender;
+- (IBAction)addDone:(id)sender;
+
+// Display the Apple contact list
+- (void)openClientList;
+
+@end

@@ -1,0 +1,195 @@
+//
+//  PaymentController.m
+//  PSA
+//
+//  Created by Michael Simone on 8/16/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "PaymentController.h"
+#import "RegisterDetailController.h"
+#import "Transaction.h"
+#import "TransactionDetail.h"
+#import "GiftCertificate.h"
+
+@implementation PaymentController
+
+@synthesize rdControl;
+
+NSString *payType;
+BOOL usedPicker;
+
+extern NSInteger tmpTransID;
+
+- (IBAction) cancel:(id)sender {
+	[self.view removeFromSuperview];
+}
+
+- (IBAction) save:(id)sender {
+	
+	if (usedPicker == NO)
+		payType = @"American Express";
+	
+	// Load up the transactionDetail
+	[appDelegate getDetailTransaction:tmpTransID];
+	if ([appDelegate.transactionDetails count] != 0) {
+		TransactionDetail *transD = [appDelegate.transactionDetails objectAtIndex:0];
+		
+		// Save the transaction payment
+		appDelegate.transPriceAmount = [NSNumber numberWithFloat:[transD.preTaxAmount floatValue]];
+		appDelegate.transDiscAmount = [NSNumber numberWithFloat:[transD.discountedAmount floatValue]];
+		appDelegate.transTaxedAmount = [NSNumber numberWithFloat:[transD.taxedAmount floatValue]];
+		appDelegate.transSubtotal = [NSNumber numberWithFloat:([transD.taxedAmount floatValue] - [transD.discountedAmount floatValue])];
+		appDelegate.transTipAmount = [NSNumber numberWithFloat:[tip.text floatValue]];
+		appDelegate.transTaxPaid = [NSNumber numberWithFloat:([appDelegate.transSubtotal floatValue] - [transD.preTaxAmount floatValue])];
+		appDelegate.transAmountPaid = [NSNumber numberWithFloat:[appDelegate.transAmountPaid floatValue] + [totalPayment.text floatValue]];
+		appDelegate.transChange = [NSNumber numberWithFloat:([appDelegate.transAmountPaid floatValue] - ([appDelegate.transSubtotal floatValue] + [appDelegate.transTipAmount floatValue]))];
+		appDelegate.transactionID = transD.transactionID;
+	} else {
+		appDelegate.transPriceAmount = [NSNumber numberWithFloat:0];
+		appDelegate.transDiscAmount = [NSNumber numberWithFloat:0];
+		appDelegate.transTaxedAmount = [NSNumber numberWithFloat:0];
+		appDelegate.transSubtotal = [NSNumber numberWithFloat:0];
+		appDelegate.transTipAmount = [NSNumber numberWithFloat:[tip.text floatValue]];
+		appDelegate.transTaxPaid = [NSNumber numberWithFloat:0];
+		appDelegate.transAmountPaid = [NSNumber numberWithFloat:[totalPayment.text floatValue]];
+		appDelegate.transChange = [NSNumber numberWithFloat:0];
+		
+		appDelegate.transactionID = tmpTransID;
+	}
+			
+	if ([checkNumber.text length] != 0)
+		appDelegate.transCheckNumber = [checkNumber.text integerValue];
+	else
+		appDelegate.transCheckNumber = 0;
+	
+	
+	
+	if ([giftCertificateNumber.text length] != 0) {
+		[appDelegate getGiftFromGiftNum:[giftCertificateNumber.text integerValue]];
+		GiftCertificate *gift = [appDelegate.giftCertificates objectAtIndex:0];
+		appDelegate.giftCertificateID = gift.giftCertificateID;
+		
+		// Check to make sure we have enough left on the gift certificate for the amount entered.
+		// do check here
+		//appDelegate.currentValue = [NSNumber numberWithFloat:[gift.currentValue floatValue] - [totalBalance floatValue]];
+	} else
+		appDelegate.giftCertificateID = 0;
+	
+	appDelegate.transactionType = payType;
+	
+	[appDelegate savePaymentTransactions];
+	
+	// If we used the gift certificate then update the amount
+	if ([giftCertificateNumber.text length] != 0) {
+		[appDelegate updateGift:appDelegate.giftCertificateID];
+	}
+	
+	[rdControl viewWillAppear:YES];
+	[self.view removeFromSuperview];
+}
+
+- (IBAction) lowerKeyboard:(id)sender {
+	[tip resignFirstResponder];
+	[totalPayment resignFirstResponder];
+	[checkNumber resignFirstResponder];
+	[giftCertificateNumber resignFirstResponder];
+}
+
+- (IBAction) addTip:(id)sender {
+	NSNumber *totalBalance = [NSNumber numberWithFloat:[balanceLabel.text floatValue]];
+	
+	totalBalance = [NSNumber numberWithFloat:([totalBalance floatValue] + [tip.text floatValue])];
+	balanceLabel.text = [totalBalance stringValue];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+	usedPicker = NO;
+	
+	// Use the delegate to set/get values
+	appDelegate = (PSAAppDelegate *)[[UIApplication sharedApplication] delegate];
+	[appDelegate loadPaymentTypes];
+	
+	[appDelegate getTransaction:tmpTransID];
+	
+	[self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PSA_RegisterGreen.png"]]];
+	[myScrollView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PSA_RegisterGreen.png"]]];
+	[myScrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height * 1.5)];
+	
+	if ([appDelegate.transactions count] != 0) {
+		Transaction *trans = [appDelegate.transactions objectAtIndex:0];
+		tip.text = [trans.transactionTipTotal stringValue];
+		balanceLabel.text = [trans.transactionTotal stringValue];
+	} else
+		balanceLabel.text = [NSString stringWithFormat:@"%.2f", [rdControl.totalDue floatValue]];
+		
+    [super viewDidLoad];
+}
+
+// Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+	
+	// Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
+}
+
+
+- (void)dealloc {
+    [super dealloc];
+}
+
+#pragma mark ---- UIPickerViewDataSource delegate methods ----
+
+// returns the number of columns to display.
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+	return 1;
+}
+
+// returns the number of rows
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+	return [appDelegate.paymentTypes count];
+}
+
+#pragma mark ---- UIPickerViewDelegate delegate methods ----
+
+// returns the title of each row
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+	return [appDelegate.paymentTypes objectAtIndex:row];
+}
+
+// gets called when the user settles on a row
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+	usedPicker = YES;
+	payType = [appDelegate.paymentTypes objectAtIndex:row];
+	
+	// Look and see if we have selected "check" or "gift certificate".
+	// If there is something in those after we show them then don't remove them.
+	// This allows for both check and gift certificate to show at the same time if we want.
+	if ([payType isEqualToString:@"Check"])
+		[checkNumber setHidden:NO];
+	else {
+		if ([checkNumber.text length] == 0)
+			[checkNumber setHidden:YES];
+	}
+	
+	if ([payType isEqualToString:@"Gift Certificate"])
+		[giftCertificateNumber setHidden:NO];
+	else {
+		if ([giftCertificateNumber.text length] == 0)
+			[giftCertificateNumber setHidden:YES];
+	}
+}
+
+@end

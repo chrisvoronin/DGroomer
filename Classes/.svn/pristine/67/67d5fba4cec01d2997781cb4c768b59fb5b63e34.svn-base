@@ -1,0 +1,223 @@
+//
+//  ColorLineController.m
+//  PSA
+//
+//  Created by Michael Simone on 8/3/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "ColorLineController.h"
+#import "MasterColorLine.h"
+
+@implementation ColorLineController
+
+@synthesize appDelegate;
+
+- (IBAction)doActive:(id)sender {
+	[appDelegate loadMaster];
+	MasterColorLine *master;
+	
+	master = [appDelegate.masterLine objectAtIndex:1];
+	if (master.activeLine == 1)
+		[switch1 setOn:YES];
+	else
+		[switch1 setOn:NO];
+	
+	master = [appDelegate.masterLine objectAtIndex:2];
+	if (master.activeLine == 1)
+		[switch2 setOn:YES];
+	else
+		[switch2 setOn:NO];
+	
+	master = [appDelegate.masterLine objectAtIndex:3];
+	if (master.activeLine == 1)
+		[switch3 setOn:YES];
+	else
+		[switch3 setOn:NO];
+	
+	master = [appDelegate.masterLine objectAtIndex:4];
+	if (master.activeLine == 1)
+		[switch4 setOn:YES];
+	else
+		[switch4 setOn:NO];
+	
+	master = [appDelegate.masterLine objectAtIndex:5];
+	if (master.activeLine == 1)
+		[switch5 setOn:YES];
+	else
+		[switch5 setOn:NO];
+	
+	master = [appDelegate.masterLine objectAtIndex:6];
+	if (master.activeLine == 1)
+		[switch6 setOn:YES];
+	else
+		[switch6 setOn:NO];
+	
+	master = [appDelegate.masterLine objectAtIndex:7];
+	if (master.activeLine == 1)
+		[switch7 setOn:YES];
+	else
+		[switch7 setOn:NO];
+	
+	master = [appDelegate.masterLine objectAtIndex:8];
+	if (master.activeLine == 1)
+		[switch8 setOn:YES];
+	else
+		[switch8 setOn:NO];
+	
+	master = [appDelegate.masterLine objectAtIndex:9];
+	if (master.activeLine == 1)
+		[switch9 setOn:YES];
+	else
+		[switch9 setOn:NO];
+	
+	master = [appDelegate.masterLine objectAtIndex:10];
+	if (master.activeLine == 1)
+		[switch10 setOn:YES];
+	else
+		[switch10 setOn:NO];
+	
+	master = [appDelegate.masterLine objectAtIndex:11];
+	if (master.activeLine == 1)
+		[switch11 setOn:YES];
+	else
+		[switch11 setOn:NO];
+	
+}
+
+- (IBAction)save:(id)sender {
+	[appDelegate loadMaster];
+	MasterColorLine *master;
+	
+	master = [appDelegate.masterLine objectAtIndex:1];
+	appDelegate.colorLineName = master.colorLineName;
+	if ([switch1 isOn]) {
+		appDelegate.activeLine = 1;
+	} else
+		appDelegate.activeLine = 0;
+	[appDelegate updateMaster:1];
+	
+	master = [appDelegate.masterLine objectAtIndex:2];
+	appDelegate.colorLineName = master.colorLineName;
+	if ([switch2 isOn]) {
+		appDelegate.activeLine = 1;
+	} else
+		appDelegate.activeLine = 0;
+	[appDelegate updateMaster:2];
+	
+	master = [appDelegate.masterLine objectAtIndex:3];
+	appDelegate.colorLineName = master.colorLineName;
+	if ([switch3 isOn]) {
+		appDelegate.activeLine = 1;
+	} else
+		appDelegate.activeLine = 0;
+	[appDelegate updateMaster:3];
+		
+	master = [appDelegate.masterLine objectAtIndex:4];
+	appDelegate.colorLineName = master.colorLineName;
+	if ([switch4 isOn]) {
+		appDelegate.activeLine = 1;
+	} else
+		appDelegate.activeLine = 0;
+	[appDelegate updateMaster:4];
+		
+	master = [appDelegate.masterLine objectAtIndex:5];
+	appDelegate.colorLineName = master.colorLineName;
+	if ([switch5 isOn]) {
+		appDelegate.activeLine = 1;
+	} else
+		appDelegate.activeLine = 0;
+	[appDelegate updateMaster:5];
+	
+	master = [appDelegate.masterLine objectAtIndex:6];
+	appDelegate.colorLineName = master.colorLineName;
+	if ([switch6 isOn]) {
+		appDelegate.activeLine = 1;
+	} else
+		appDelegate.activeLine = 0;
+	[appDelegate updateMaster:6];
+	
+	master = [appDelegate.masterLine objectAtIndex:7];
+	appDelegate.colorLineName = master.colorLineName;
+	if ([switch7 isOn]) {
+		appDelegate.activeLine = 1;
+	} else
+		appDelegate.activeLine = 0;
+	[appDelegate updateMaster:7];
+	
+	master = [appDelegate.masterLine objectAtIndex:8];
+	appDelegate.colorLineName = master.colorLineName;
+	if ([switch8 isOn]) {
+		appDelegate.activeLine = 1;
+	} else
+		appDelegate.activeLine = 0;
+	[appDelegate updateMaster:8];
+	
+	master = [appDelegate.masterLine objectAtIndex:9];
+	appDelegate.colorLineName = master.colorLineName;
+	if ([switch9 isOn]) {
+		appDelegate.activeLine = 1;
+	} else
+		appDelegate.activeLine = 0;
+	[appDelegate updateMaster:9];
+	
+	master = [appDelegate.masterLine objectAtIndex:10];
+	appDelegate.colorLineName = master.colorLineName;
+	if ([switch10 isOn]) {
+		appDelegate.activeLine = 1;
+	} else
+		appDelegate.activeLine = 0;
+	[appDelegate updateMaster:10];
+	
+	master = [appDelegate.masterLine objectAtIndex:11];
+	appDelegate.colorLineName = master.colorLineName;
+	if ([switch11 isOn]) {
+		appDelegate.activeLine = 1;
+	} else
+		appDelegate.activeLine = 0;
+	[appDelegate updateMaster:11];
+	
+	[self.view removeFromSuperview];
+}
+
+- (IBAction)back:(id)sender {
+	[self.view removeFromSuperview];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+	// Use the delegate to set/get values
+	appDelegate = (PSAAppDelegate *)[[UIApplication sharedApplication] delegate];
+	
+	self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"PSA_SettingsOrange.png"]];
+	
+	[self doActive:nil];
+	
+	[super viewDidLoad];
+}
+
+// Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+	
+	// Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
+}
+
+
+- (void)dealloc {
+    [super dealloc];
+}
+
+
+@end

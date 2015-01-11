@@ -1,0 +1,71 @@
+//
+//  Settings.h
+//  PSA
+//
+//  Created by Michael Simone on 8/23/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <sqlite3.h>
+
+@interface Settings : NSObject {
+	NSInteger settingsID;
+	NSString *birthEmailFrom;
+	NSString *birthEmailSubject;
+	NSString *birthEmailText;
+	NSString *annivEmailFrom;
+	NSString *annivEmailSubject;
+	NSString *annivEmailText;
+	NSString *marketEmailFrom;
+	NSString *marketEmailSubject;
+	NSString *marketEmailText;
+	NSString *marketEmailSendDate;
+	NSString *mondayStart;
+	NSString *mondayFinish;
+	NSString *tuesdayStart;
+	NSString *tuesdayFinish;
+	NSString *wednesdayStart;
+	NSString *wednesdayFinish;
+	NSString *thursdayStart;
+	NSString *thursdayFinish;
+	NSString *fridayStart;
+	NSString *fridayFinish;
+	NSString *saturdayStart;
+	NSString *saturdayFinish;
+	NSString *sundayStart;
+	NSString *sundayFinish;
+}
+
+@property (assign, nonatomic) NSInteger settingsID;
+@property (assign, nonatomic) NSString *birthEmailFrom;
+@property (assign, nonatomic) NSString *birthEmailSubject;
+@property (assign, nonatomic) NSString *birthEmailText;
+@property (assign, nonatomic) NSString *annivEmailFrom;
+@property (assign, nonatomic) NSString *annivEmailSubject;
+@property (assign, nonatomic) NSString *annivEmailText;
+@property (assign, nonatomic) NSString *marketEmailFrom;
+@property (assign, nonatomic) NSString *marketEmailSubject;
+@property (assign, nonatomic) NSString *marketEmailText;
+@property (assign, nonatomic) NSString *marketEmailSendDate;
+@property (assign, nonatomic) NSString *mondayStart;
+@property (assign, nonatomic) NSString *mondayFinish;
+@property (assign, nonatomic) NSString *tuesdayStart;
+@property (assign, nonatomic) NSString *tuesdayFinish;
+@property (assign, nonatomic) NSString *wednesdayStart;
+@property (assign, nonatomic) NSString *wednesdayFinish;
+@property (assign, nonatomic) NSString *thursdayStart;
+@property (assign, nonatomic) NSString *thursdayFinish;
+@property (assign, nonatomic) NSString *fridayStart;
+@property (assign, nonatomic) NSString *fridayFinish;
+@property (assign, nonatomic) NSString *saturdayStart;
+@property (assign, nonatomic) NSString *saturdayFinish;
+@property (assign, nonatomic) NSString *sundayStart;
+@property (assign, nonatomic) NSString *sundayFinish;
+
+// Finalize (delete) all of the SQLite compiled queries.
++ (void)finalizeStatements;
+
+- (id)initWithSettingsData:(NSInteger)key bef:(NSString*)bef bes:(NSString*)bes bet:(NSString*)bet aef:(NSString*)aef aes:(NSString*)aes aet:(NSString*)aet mef:(NSString*)mef mes:(NSString*)mes met:(NSString*)met mesd:(NSString*)mesd mons:(NSString*)mons monf:(NSString*)monf tuess:(NSString*)tuess tuesf:(NSString*)tuesf weds:(NSString*)weds wedf:(NSString*)wedf thurs:(NSString*)thurs thurf:(NSString*)thurf fris:(NSString*)fris frif:(NSString*)frif sats:(NSString*)sats satf:(NSString*)satf suns:(NSString*)suns sunf:(NSString*)sunf;
+
+@end

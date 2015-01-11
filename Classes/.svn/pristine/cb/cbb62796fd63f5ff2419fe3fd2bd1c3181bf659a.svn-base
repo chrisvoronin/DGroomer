@@ -1,0 +1,219 @@
+//
+//  ServicesInformation.m
+//  PSA
+//
+//  Created by Michael Simone on 7/13/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "ServicesInformationController.h"
+
+
+@implementation ServicesInformationController
+
+@synthesize appDelegate, myTableView, myPickerView, myNameControl, myCosts, myTimeControl;
+
+- (IBAction)cancel:(id)sender {
+	[self.view removeFromSuperview];
+}
+
+- (IBAction)save:(id)sender {
+	// Write out the info to the database
+	[appDelegate saveService];
+	[self.view removeFromSuperview];
+}
+
+#pragma mark UIViewController
+
+- (void)viewWillAppear:(BOOL)animated
+{	
+	NSIndexPath *tableSelection = [myTableView indexPathForSelectedRow];
+	[myTableView deselectRowAtIndexPath:tableSelection animated:NO];
+	[myTableView reloadData];
+	
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+	// Init some of the variables
+	appDelegate.groupDescription = @" ";
+	appDelegate.serviceName = @" ";
+	appDelegate.serviceFee = [NSNumber numberWithFloat:0.00];
+	appDelegate.serviceCost = [NSNumber numberWithFloat:0.00];
+	appDelegate.servicePrice = [NSNumber numberWithFloat:0.00];
+	appDelegate.serviceTaxable = 0;
+	appDelegate.serviceActive = 0;
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+	
+	// Use the delegate to set/get values
+	appDelegate = (PSAAppDelegate *)[[UIApplication sharedApplication] delegate];
+	
+	// Set the background color to a nice blue image
+	self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"PSA_Blue.png"]];
+	self.myTableView.backgroundColor = [UIColor clearColor];
+	
+	// Init some of the variables
+	appDelegate.groupDescription = @" ";
+	appDelegate.serviceName = @" ";
+	appDelegate.serviceFee = [NSNumber numberWithFloat:0.00];
+	appDelegate.serviceCost = [NSNumber numberWithFloat:0.00];
+	appDelegate.servicePrice = [NSNumber numberWithFloat:0.00];
+	appDelegate.serviceTaxable = 0;
+	appDelegate.serviceActive = 0;
+	
+	[super viewDidLoad];
+}
+
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+	
+	// Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
+}
+
+
+- (void)dealloc {
+	[myTableView release];
+    [super dealloc];
+}
+
+#pragma mark TableViewDelegate
+
+- (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [myTableView dequeueReusableCellWithIdentifier:@"TypeCell"];
+    if (cell == nil) {
+        cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"TypeCell"] autorelease];
+    }
+	
+	cell.textLabel.font = [UIFont italicSystemFontOfSize:16];
+	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	
+	switch (indexPath.row) {
+		case 0:
+			cell.textLabel.text = [NSString stringWithFormat:@"Group:  %@", appDelegate.groupDescription];
+			break;
+		case 1:
+			cell.textLabel.text =[NSString stringWithFormat: @"Service Name:  %@", appDelegate.serviceName];
+			break;
+		case 2:
+			cell.textLabel.text = [NSString stringWithFormat:@"Price:  $%.2f", [appDelegate.servicePrice floatValue]];
+			break;
+		case 3:
+			cell.textLabel.text = [NSString stringWithFormat:@"Fee:  $%.2f", [appDelegate.serviceFee floatValue]];
+			break;
+		case 4:
+			cell.textLabel.text = [NSString stringWithFormat:@"Cost:  $%.2f", [appDelegate.serviceCost floatValue]];
+			break;
+		case 5: {
+			NSString *tmp = @"NO";
+			if (appDelegate.serviceTaxable == 1)
+				tmp = [NSString stringWithFormat:@"YES"];
+			cell.textLabel.text = [NSString stringWithFormat:@"Taxable:  %@", tmp];
+			}
+			break;
+		case 6:
+			cell.textLabel.text = [NSString stringWithFormat:@"Start Time:  %i minutes", (appDelegate.serviceStartTime / 60)];
+			break;
+		case 7:
+			cell.textLabel.text = [NSString stringWithFormat:@"Gap Time:  %i minutes", (appDelegate.serviceGapTime / 60)];
+			break;
+		case 8:
+			cell.textLabel.text = [NSString stringWithFormat:@"End Time:  %i minutes", (appDelegate.serviceEndTime / 60)];
+			break;
+		case 9: {
+			NSString *tmp = @"NO";
+			if (appDelegate.serviceActive == 1)
+				tmp = [NSString stringWithFormat:@"YES"];
+			cell.textLabel.text = [NSString stringWithFormat:@"Double Appointment:  %@", tmp];
+			}
+			break;
+	}
+		
+	return cell;
+}
+
+// The table has one row for each possible type.
+- (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section {
+	return 10;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{		
+	// don't keep the table selection
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	
+	// Load the picker NIB file
+	if (myPickerView == nil) {
+		myPickerView = [[ServicePicker alloc] initWithNibName:@"ServicesGroupPicker" bundle:[NSBundle mainBundle]];
+		myPickerView.servicesController = self;
+	}
+	
+	if (myNameControl == nil) {
+		myNameControl = [[AddServicesNameController alloc] initWithNibName:@"AddServiceNameView" bundle:[NSBundle mainBundle]];
+		myNameControl.servicesController = self;
+	}
+	
+	if (myCosts == nil) {
+		myCosts = [[ServiceCostController alloc] initWithNibName:@"AddServiceCostView" bundle:[NSBundle mainBundle]];
+		myCosts.servicesController = self;
+	}
+	
+	if (myTimeControl == nil) {
+		myTimeControl = [[ServiceTimeController alloc] initWithNibName:@"AddServiceTimeView" bundle:[NSBundle mainBundle]];
+		myTimeControl.servicesController = self;
+	}
+	
+	switch (indexPath.row) {
+		case 0:
+			[myPickerView.myPickerView reload];
+			[self.view addSubview:myPickerView.view];
+			break;
+		case 1:
+			if ([appDelegate.groupDescription isEqualToString:@" "]) {
+				// open an alert with just an OK button
+				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Group must be selected before continuing." delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+				[alert show];	
+				[alert release];
+			} else
+				[self.view addSubview:myNameControl.view];
+			break;
+		case 2:
+			[self.view addSubview:myCosts.view];
+			[myCosts.myPrice becomeFirstResponder];
+			break;
+		case 3:
+			[self.view addSubview:myCosts.view];
+			[myCosts.myFee becomeFirstResponder];
+			break;
+		case 4:
+			[self.view addSubview:myCosts.view];
+			[myCosts.myCost becomeFirstResponder];
+			break;
+		case 5:
+			[self.view addSubview:myCosts.view];
+			[myCosts.taxable becomeFirstResponder];
+			break;
+		case 6:
+			[self.view addSubview:myTimeControl.view];
+			break;
+		case 7:
+			[self.view addSubview:myTimeControl.view];
+			break;
+		case 8:
+			[self.view addSubview:myTimeControl.view];
+			break;
+		case 9:
+			[self.view addSubview:myTimeControl.view];
+			break;	
+	}
+	
+}
+
+@end

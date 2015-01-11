@@ -1,0 +1,55 @@
+//
+//  ClientViewController.h
+//  PSA
+//
+//  Created by Michael Simone on 3/5/09.
+//  Copyright Dropped Pin 2009. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "PSAAppDelegate.h"
+#import "AddClientContactController.h"
+
+@interface ClientViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate> {
+	
+	IBOutlet UITableView	*myTableView;
+	IBOutlet UISearchBar	*mySearchBar;
+	
+	// Need this controller for adding clients
+	AddClientContactController *myContactController;
+	
+	AloxxiViewController *aloxxiController;
+	AddApptController *apptController;
+	GiftCertificateController *gControl;
+	RegisterDetailController *rdControl;
+	
+	NSArray					*listContent;			// the master content
+	NSMutableArray			*filteredListContent;	// the filtered content as a result of the search
+	NSMutableArray			*savedContent;			// the saved content in case the user cancels a search
+	
+	// Use the appDelegate for setting and getting values
+	PSAAppDelegate *appDelegate;
+
+}
+
+@property (nonatomic, retain) UITableView *myTableView;
+@property (nonatomic, retain) UISearchBar *mySearchBar;
+@property (nonatomic, retain) AddClientContactController *myContactController;
+@property (nonatomic, retain) PSAAppDelegate *appDelegate;
+@property (nonatomic, retain) AloxxiViewController *aloxxiController;
+@property (nonatomic, retain) AddApptController *apptController;
+@property (nonatomic, retain) GiftCertificateController *gControl;
+@property (nonatomic, retain) RegisterDetailController *rdControl;
+
+@property (nonatomic, retain) NSArray *listContent;
+@property (nonatomic, retain) NSMutableArray *filteredListContent;
+@property (nonatomic, retain) NSMutableArray *savedContent;
+
++ (ClientViewController *) ClientViewSharedController;
+
+- (IBAction)addClient:(id)sender;
+- (IBAction)cancel:(id)sender;
+
+- (void)loadClientList;
+
+@end

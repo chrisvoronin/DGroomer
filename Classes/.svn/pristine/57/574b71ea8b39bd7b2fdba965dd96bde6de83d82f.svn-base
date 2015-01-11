@@ -1,0 +1,23 @@
+//
+//  ClosedoutTableController.h
+//  PSA
+//
+//  Created by Michael Simone on 9/6/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "PSAAppDelegate.h"
+
+@interface ClosedoutTableController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+	IBOutlet UITableView *myTableView;
+	
+	// Use the appDelegate for setting and getting values
+	PSAAppDelegate *appDelegate;
+}
+
+@property (nonatomic, retain) PSAAppDelegate *appDelegate;
+
+- (IBAction)back:(id)sender;
+
+@end

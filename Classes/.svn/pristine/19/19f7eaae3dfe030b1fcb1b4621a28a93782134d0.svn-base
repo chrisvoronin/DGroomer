@@ -1,0 +1,24 @@
+//
+//  CloseoutTableViewCell.h
+//  PSA
+//
+//  Created by Michael Simone on 7/26/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+
+@interface CloseoutTableViewCell : UITableViewCell {
+	UILabel *ticketLabel;
+	UILabel *ticketNumLabel;
+	UILabel *clientNameLabel;
+	UILabel *appointmentDateLabel;
+	UILabel *costOfServiceLabel;
+	UILabel *statusLabel;
+	UIButton *detailButton;
+}
+
+- (void)setValues:(NSString*)tktLabel number:(NSString*)ticketNumber name:(NSString*)custName apptDate:(NSString*)apptDate status:(NSString*)status cost:(NSString*)cost;
+
+@end

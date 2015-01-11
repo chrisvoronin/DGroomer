@@ -1,0 +1,55 @@
+//
+//  ScheduleViewController.h
+//  PSA
+//
+//  Created by Michael Simone on 6/26/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "PSAAppDelegate.h"
+#import "Appointments.h"
+#import "AppointmentViewController.h"
+
+#define FORWARD_TIME 86400
+#define BACKWARD_TIME -86400
+#define OFFSET 40				// This is the x-axis pixel offset
+#define QUARTEROFFSET 10		// This is the offset per each 15 minutes of time (y-axis)
+#define TIMESLICE 15
+
+@interface ScheduleViewController : UIViewController {
+	IBOutlet UIScrollView *myScrollView;
+	IBOutlet UIImageView *myImageView;
+	IBOutlet UILabel *dateLabel;
+	NSDate	*currentDate;
+	NSMutableArray *filteredDateList;
+	NSMutableArray *buttonList;
+	AppointmentViewController *apptController;
+	
+	// Use the appDelegate for setting and getting values
+	PSAAppDelegate *appDelegate;
+}
+
+@property (nonatomic, retain) AppointmentViewController *apptController;
+@property (nonatomic, retain) NSMutableArray *filteredDateList;
+@property (nonatomic, retain) NSMutableArray *buttonList;
+@property (nonatomic, retain) NSDate *currentDate;
+@property (nonatomic, retain) UILabel *dateLabel;
+@property (nonatomic, retain) UIScrollView *myScrollView;
+@property (nonatomic, retain) UIImageView *myImageView;
+@property (nonatomic, retain) PSAAppDelegate *appDelegate;
+
+- (void)loadTodaysList;
+- (void)setDay:(int)movement;
+- (void)drawAppointments;
+- (void)drawButton:(UIButton*)button hour:(NSInteger)hour minute:(NSInteger)minute stopHour:(NSInteger)stopHour stopMinute:(NSInteger)stopMinute name:(NSString*)name;
+- (BOOL)buttonOverlap:(float)x y:(float)y width:(float)width height:(float)height;
+
+- (IBAction)previousDay:(id)sender;
+- (IBAction)nextDay:(id)sender;
+- (IBAction)getCalendarEvent:(id)sender;
+- (IBAction)getCurrentDay:(id)sender;
+- (IBAction)addAppointment:(id)sender;
+- (IBAction)cancel:(id)sender;
+
+@end

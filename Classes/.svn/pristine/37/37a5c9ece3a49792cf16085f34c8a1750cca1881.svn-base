@@ -1,0 +1,294 @@
+//
+//  PSAViewController.m
+//  PSA
+//
+//  Created by Michael Simone on 6/8/09.
+//  Copyright Dropped Pin 2009. All rights reserved.
+//
+
+#import "PSAViewController.h"
+#import "PSAAppDelegate.h"
+#import "Settings.h"
+#import "Client.h"
+
+// Private interface for AppDelegate - internal only methods.
+@interface PSAViewController (Private)
+- (NSArray*)getClientEmails;
+@end
+
+@implementation PSAViewController
+
+@synthesize scheduleControl, clientControl, formulaControl, productControl, serviceControl, registerControl;
+@synthesize weekControl, monthControl, addApptController, apptController, reportControl, settingsControl;
+
+static PSAViewController *_sharedPSAViewController = nil;
+
+BOOL bdayEmailDone = NO;
+BOOL annivEmailDone = YES;
+BOOL haveAnniv = NO;
+
++ (PSAViewController *) PSAViewControllerSharedController
+{
+    if (!_sharedPSAViewController)
+        _sharedPSAViewController = [[[self class] alloc] init];
+    return _sharedPSAViewController;
+}
+
+- (IBAction)scheduleB:(id)sender {
+	[self.view addSubview:scheduleControl.view];
+}
+
+- (IBAction)clientsB:(id)sender {
+	[self.view addSubview:clientControl.view];
+}
+
+- (IBAction)formulateB:(id)sender {
+	[self.view addSubview:formulaControl.view];
+}
+
+- (IBAction)registerB:(id)sender {
+	[self.view addSubview:registerControl.view];
+}
+
+- (IBAction)reportsB:(id)sender {
+	[self.view addSubview:reportControl.view];
+}
+
+- (IBAction)settingsB:(id)sender {
+	[self.view addSubview:settingsControl.view];
+}
+
+- (IBAction)productsB:(id)sender {
+	[self.view addSubview:productControl.view];
+}
+
+- (IBAction)servicesB:(id)sender {
+	[self.view addSubview:serviceControl.view];
+}
+
+- (IBAction)getInfo:(id)sender {
+	// Display an alert with the information
+	UILabel *title = [[UILabel alloc] init];
+	title.font = [UIFont systemFontOfSize:8];
+	title.text = @"PSA\nCopyright © 2009 Salon Technologies, Inc.\nVersion: 2.0\nDatabase Design: Tanya Orr\nSoftware Engineering and Design: Michael S. Simone";
+	
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Information" message:title.text delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+	[alert show];	
+	[alert release];
+	[title release];
+	
+}
+
+- (NSArray*)getClientEmails:(NSString*)type {
+	NSAutoreleasePool *localPool = [[NSAutoreleasePool alloc] init];
+	
+	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	[dateFormatter setDateStyle:NSDateFormatterFullStyle];
+	
+	NSMutableArray *emailAddresses = [[NSMutableArray alloc] init];
+	
+	PSAAppDelegate *appDelegate = (PSAAppDelegate *)[[UIApplication sharedApplication] delegate];
+	[appDelegate loadClients];
+	
+	if ([appDelegate.clients count] == 0)
+		return emailAddresses;
+	
+	// Let's get some information about the clients
+	Client *client;
+	for (int i=0; i < [appDelegate.clients count]; i++) {
+		client = [appDelegate.clients objectAtIndex:i];
+		
+		if ([type isEqualToString:@"birth"]) {
+			if ([client.birthdate length] != 0) {
+				// Let's grab the birthdate and compare
+				NSDate *todaysDate = [[NSDate alloc] init];
+				todaysDate = [NSDate date];
+				
+				NSDate *clientDate = [[NSDate alloc] init];
+				clientDate = [dateFormatter dateFromString:client.birthdate];
+				
+				NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+				NSDateComponents *clientDateComponents = [calendar components:NSDayCalendarUnit|NSMonthCalendarUnit fromDate:clientDate];
+				NSInteger clientMonth = [clientDateComponents month];
+				NSInteger clientDay = [clientDateComponents day];
+				
+				NSDateComponents *todayDateComponents = [calendar components:NSDayCalendarUnit|NSMonthCalendarUnit fromDate:todaysDate];
+				NSInteger todayMonth = [todayDateComponents month];
+				NSInteger todayDay = [todayDateComponents day];
+				
+				if ((todayDay == clientDay) && (todayMonth == clientMonth)) {
+					// We have a match so let's get the email address
+					if ([client.email length] != 0) {
+						[emailAddresses addObject:[NSString stringWithFormat:@"%@", client.email]];
+					}
+				}			
+			}
+		}
+		
+		if ([type isEqualToString:@"anniv"]) {
+			if ([client.anniversary length] != 0) {
+				// Let's grab the anniversary and compare
+				NSDate *todaysDate = [[NSDate alloc] init];
+				todaysDate = [NSDate date];
+				
+				NSDate *clientDate = [[NSDate alloc] init];
+				clientDate = [dateFormatter dateFromString:client.birthdate];
+				
+				NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+				NSDateComponents *clientDateComponents = [calendar components:NSDayCalendarUnit|NSMonthCalendarUnit fromDate:clientDate];
+				NSInteger clientMonth = [clientDateComponents month];
+				NSInteger clientDay = [clientDateComponents day];
+				
+				NSDateComponents *todayDateComponents = [calendar components:NSDayCalendarUnit|NSMonthCalendarUnit fromDate:todaysDate];
+				NSInteger todayMonth = [todayDateComponents month];
+				NSInteger todayDay = [todayDateComponents day];
+				
+				if ((todayDay == clientDay) && (todayMonth == clientMonth)) {
+					// We have a match so let's get the email address
+					if ([client.email length] != 0) {
+						[emailAddresses addObject:[NSString stringWithFormat:@"%@", client.email]];
+					}
+				}			
+			}
+		}
+	}
+	
+	return emailAddresses;
+	
+	[localPool release];
+}
+
+- (void)doEmail:(NSString*)type {
+	MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
+	picker.mailComposeDelegate = self;
+	NSArray *bccRecipients;
+	
+	PSAAppDelegate *appDelegate = (PSAAppDelegate *)[[UIApplication sharedApplication] delegate];
+	Settings *setter = [appDelegate.settings objectAtIndex:0];
+	
+	if ([type isEqualToString:@"birth"]) {
+		if ([setter.birthEmailSubject length] != 0)
+			[picker setSubject:[NSString stringWithFormat:@"%@", setter.birthEmailSubject]];
+		
+		// Set up recipients from the client list
+		bccRecipients = [self getClientEmails:[NSString stringWithFormat:@"birth"]];
+		
+		if ([bccRecipients count] == 0)
+			// exit mail
+			return;
+	}
+	
+	if ([type isEqualToString:@"anniv"]) {
+		if ([setter.annivEmailSubject length] != 0)
+			[picker setSubject:[NSString stringWithFormat:@"%@", setter.annivEmailSubject]];
+				
+		// Set up recipients from the client list
+		bccRecipients = [self getClientEmails:[NSString stringWithFormat:@"anniv"]];
+		
+		if ([bccRecipients count] == 0)
+			// exit mail
+			return;
+	}
+	
+	[picker setBccRecipients:bccRecipients];
+	
+	// Fill out the email body text
+	if ([type isEqualToString:@"birth"]) {
+		if ([setter.birthEmailText length] != 0)
+			[picker setMessageBody:[NSString stringWithFormat:@"%@", setter.birthEmailText] isHTML:NO];
+	}
+	
+	if ([type isEqualToString:@"anniv"]) {
+		if ([setter.annivEmailText length] != 0)
+			[picker setMessageBody:[NSString stringWithFormat:@"%@", setter.annivEmailText] isHTML:NO];
+	}
+	
+	[self presentModalViewController:picker animated:YES];
+    //[picker release];
+	
+}
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error 
+{	
+	[self dismissModalViewControllerAnimated:YES];
+}
+
+
+- (void)loadControllers {
+	// Load up the controllers for later use
+	scheduleControl = [[ScheduleViewController alloc] initWithNibName:@"ScheduleView" bundle:[NSBundle mainBundle]];
+	weekControl = [[WeekViewController alloc] initWithNibName:@"CalendarWeekView" bundle:[NSBundle mainBundle]];
+	monthControl = [[MonthViewController alloc] initWithNibName:@"CalendarMonthView" bundle:[NSBundle mainBundle]];
+	clientControl = [[ClientViewController alloc] initWithNibName:@"ClientsView" bundle:[NSBundle mainBundle]];
+	formulaControl = [[AloxxiViewController alloc] initWithNibName:@"AloxxiViewController" bundle:[NSBundle mainBundle]];
+	productControl = [[ProductViewController alloc] initWithNibName:@"ProductView" bundle:[NSBundle mainBundle]];
+	serviceControl = [[ServiceViewController alloc] initWithNibName:@"ServicesView" bundle:[NSBundle mainBundle]];
+	apptController = [[AppointmentViewController alloc] initWithNibName:@"AppointmentView" bundle:[NSBundle mainBundle]];
+	addApptController = [[AddApptController alloc] initWithNibName:@"AddAppointView" bundle:[NSBundle mainBundle]];
+	reportControl = [[ReportViewController alloc] initWithNibName:@"ReportsView" bundle:[NSBundle mainBundle]];
+	settingsControl = [[SettingsViewController alloc] initWithNibName:@"SettingsView" bundle:[NSBundle mainBundle]];
+	registerControl = [[RegisterViewController alloc] initWithNibName:@"RegisterView" bundle:[NSBundle mainBundle]];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+	
+	Class mailClass = (NSClassFromString(@"MFMailComposeViewController"));
+	if (mailClass != nil) {
+		// We must always check whether the current device is configured for sending emails
+		if ([mailClass canSendMail]) {
+			PSAAppDelegate *appDelegate = (PSAAppDelegate *)[[UIApplication sharedApplication] delegate];
+			
+			[appDelegate loadSettings];
+			if ([appDelegate.settings count] != 0) {
+				Settings *setter = [appDelegate.settings objectAtIndex:0];
+				if ([setter.birthEmailFrom length] != 0) {
+					if (bdayEmailDone == NO) {
+						bdayEmailDone = YES;	// this stops the view from restarting the email client
+						[self doEmail:@"birth"];
+					}
+				}
+				
+				//if ([setter.annivEmailFrom length] != 0) {
+					//if (annivEmailDone == NO) {
+						//annivEmailDone = YES;
+						//[self doEmail:@"anniv"];
+					//}
+				//}
+			}
+		}
+	}
+	
+	[super viewDidAppear:YES];
+}
+
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+	
+	// Set the background color to a nice reddish image
+	[self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PSA_Menu.png"]]];
+	
+	// Load the controllers
+	[self loadControllers];
+	
+	[super viewDidLoad];
+}
+
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+	
+	// Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
+}
+
+
+- (void)dealloc {
+    [super dealloc];
+}
+
+@end

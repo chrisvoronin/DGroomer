@@ -1,0 +1,74 @@
+//
+//  AddAddressController.m
+//  PSA
+//
+//  Created by Michael Simone on 6/6/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "AddAddressController.h"
+
+@implementation AddAddressController
+
+@synthesize address1, address2, city, state, zipcode;
+@synthesize contactController;
+@synthesize appDelegate;
+
+- (IBAction)cancel:(id)sender {
+	[self.view removeFromSuperview];
+}
+
+- (IBAction)save:(id)sender {
+	//Write out data to database
+	if (![address1.text isEqualToString:@""])
+		appDelegate.address1 = address1.text;
+	
+	if (![address2.text isEqualToString:@""])
+		appDelegate.address2 = address2.text;
+	
+	if (![city.text isEqualToString:@""])
+		appDelegate.city = city.text;
+	
+	if (![zipcode.text isEqualToString:@""])
+		appDelegate.zipcode = zipcode.text;
+	
+	[self.view removeFromSuperview];
+	[contactController viewWillAppear: YES];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+	// Use the delegate to set/get values
+	appDelegate = (PSAAppDelegate *)[[UIApplication sharedApplication] delegate];
+	
+	// Set the background color to a nice yellow image
+	self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"yellow_PSA.png"]];
+	
+    [super viewDidLoad];
+}
+
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+	
+	// Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
+}
+
+
+- (void)dealloc {
+	[address1 release];
+	[address2 release];
+	[city release];
+	[state release];
+	[zipcode release];
+	
+    [super dealloc];
+}
+
+
+@end

@@ -1,0 +1,128 @@
+//
+//  PickerViewController.m
+//  Aloxxi
+//
+//  Created by Michael Simone on 5/15/09.
+//  Copyright Dropped Pin 2009. All rights reserved.
+//
+
+#import "ServicePicker.h"
+#import "PSAAppDelegate.h"
+#import "Group.h"
+
+@implementation ServicePicker
+
+@synthesize myPickerView, pickerViewArray;
+@synthesize appDelegate;
+@synthesize servicesController;
+
+Group *groups;
+BOOL usedPicker;
+
+- (IBAction)cancel:(id)sender {
+	// Reset the foil values
+    [self.view removeFromSuperview];
+}
+
+- (IBAction)done:(id)sender {
+	
+	if (usedPicker == NO) {
+		// Load the color line values from the database
+		[appDelegate loadGroups];
+		groups = [appDelegate.groups objectAtIndex:0];
+		appDelegate.groupID = groups.groupID;
+		appDelegate.groupDescription = groups.groupDescription;
+	}
+		
+    [self.view removeFromSuperview];
+	
+	[servicesController viewWillAppear: YES];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+	
+	
+	// Use the delegate to set/get values
+	appDelegate = (PSAAppDelegate *)[[UIApplication sharedApplication] delegate];
+		
+	usedPicker = NO;
+		
+	// Set the background color to a nice blue image
+	self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"PSA_Blue.png"]];
+	
+	// Let's reset the picker
+	[myPickerView selectRow:0 inComponent:0 animated:NO];
+
+	
+	[super viewDidLoad];
+}
+
+// Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+	
+	// Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
+}
+
+
+- (void)dealloc {
+	[myPickerView release];
+	[pickerViewArray release];
+	[appDelegate release];
+	[groups release];
+	
+	[servicesController release];
+	
+    [super dealloc];
+}
+
+#pragma mark ---- UIPickerViewDataSource delegate methods ----
+
+// returns the number of columns to display.
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+		return 1;
+
+}
+
+// returns the number of rows
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+	[appDelegate loadGroups];
+	return [appDelegate.groups count];
+}
+
+#pragma mark ---- UIPickerViewDelegate delegate methods ----
+
+// returns the title of each row
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+	// Load the group values from the database
+	[appDelegate loadGroups];
+	groups = [appDelegate.groups objectAtIndex:row];
+	
+	return [NSString stringWithFormat:@"%@", groups.groupDescription];
+}
+
+// gets called when the user settles on a row
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+	usedPicker = YES;
+	
+	// Load the color line values from the database
+	[appDelegate loadGroups];
+	groups = [appDelegate.groups objectAtIndex:row];
+	
+	appDelegate.groupID = groups.groupID;
+	appDelegate.groupDescription = groups.groupDescription;
+}
+
+@end

@@ -1,0 +1,42 @@
+
+#import <UIKit/UIKit.h>
+#import "PSAAppDelegate.h"
+
+@interface ApptDatePickerViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+    NSString *textValue;
+    NSString *editedFieldKey;
+    IBOutlet UITextField *textField;
+    NSDate *startDate;
+	NSDate *endDate;
+    IBOutlet UIDatePicker *datePicker;
+    IBOutlet UITableView  *myTableView;
+    NSDateFormatter *dateFormatter;
+	NSArray	*dateHolder;
+	NSInteger secondsToAdd;
+	
+	AddApptController *apptController;
+	
+	// Use the appDelegate for setting and getting values
+	PSAAppDelegate *appDelegate;
+}
+
+@property (nonatomic, retain) NSString *textValue;
+@property (nonatomic, retain) NSDate *startDate;
+@property (nonatomic, retain) NSDate *endDate;
+@property (nonatomic, retain) NSString *editedFieldKey;
+@property (nonatomic, readonly) UITextField *textField;
+@property (nonatomic, retain) NSDateFormatter *dateFormatter;
+@property (nonatomic, retain) UITableView *myTableView;
+@property (nonatomic, retain) UIDatePicker *datePicker;
+@property (nonatomic, retain) NSArray *dateHolder;
+@property (nonatomic) NSInteger secondsToAdd;
+
+@property (nonatomic, retain) AddApptController *apptController;
+@property (nonatomic, retain) PSAAppDelegate *appDelegate;
+
+- (IBAction)cancel:(id)sender;
+- (IBAction)save:(id)sender;
+- (IBAction)dateChanged:(id)sender;
+
+@end
+

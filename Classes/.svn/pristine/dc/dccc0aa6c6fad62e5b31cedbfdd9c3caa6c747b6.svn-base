@@ -1,0 +1,41 @@
+//
+//  ProductsInformationController.h
+//  PSA
+//
+//  Created by Michael Simone on 7/15/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "PSAAppDelegate.h"
+#import "ProductPicker.h"
+#import "ProductNameController.h"
+#import "ProductPriceController.h"
+#import "ProductAmountController.h"
+#import "VendorViewController.h"
+
+@interface ProductsInformationController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+	IBOutlet UITableView *myTableView;
+		
+	ProductPicker *myPickerView;
+	ProductNameController *nameControl;
+	ProductPriceController *priceControl;
+	ProductAmountController *amountControl;
+	VendorViewController *vendorControl;
+	
+	// Use the appDelegate for setting and getting values
+	PSAAppDelegate *appDelegate;
+}
+
+@property (nonatomic, retain) UITableView *myTableView;
+@property (nonatomic, retain) PSAAppDelegate *appDelegate;
+@property (nonatomic, retain) ProductPicker *myPickerView;
+@property (nonatomic, retain) ProductNameController *nameControl;
+@property (nonatomic, retain) ProductPriceController *priceControl;
+@property (nonatomic, retain) ProductAmountController *amountControl;
+@property (nonatomic, retain) VendorViewController *vendorControl;
+
+- (IBAction)cancel:(id)sender;
+- (IBAction)save:(id)sender;
+
+@end

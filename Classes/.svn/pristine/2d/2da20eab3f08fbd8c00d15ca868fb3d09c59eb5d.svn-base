@@ -1,0 +1,143 @@
+#import "AppointmentViewController.h"
+#import "PSAViewController.h"
+#import "Transaction.h"
+#import "Service.h"
+
+@implementation AppointmentViewController
+
+@synthesize scheduleControl, myTextView, appDelegate, serv, detailControl;
+
+NSString *fName, *lName;
+
+- (IBAction)checkOut:(id)sender {
+	
+	NSAutoreleasePool *localPool = [[NSAutoreleasePool alloc] init];
+	
+	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	[dateFormatter setDateStyle:NSDateFormatterShortStyle];
+	
+	// Save the transaction and transaction details before displaying it.
+	NSInteger transNumber = [appDelegate.transactions count]; // This will always yield a correct 'new' transaction number
+	appDelegate.transactionNumber = transNumber;
+	appDelegate.transactionDate = [dateFormatter stringFromDate:[NSDate date]];
+	appDelegate.transactionStatus = @"Open";
+	appDelegate.transactionDiscountTotal = [NSNumber numberWithFloat:0];
+	appDelegate.transactionTaxTotal = [NSNumber numberWithFloat:0];
+	appDelegate.transactionPaymentTotal = [NSNumber numberWithFloat:0];
+	appDelegate.transactionTipTotal = [NSNumber numberWithFloat:0];
+	appDelegate.transactionChangeTotal = [NSNumber numberWithFloat:0];
+	
+	//Grab the service information for displaying
+	[appDelegate loadService:appDelegate.serviceID];
+	serv = [appDelegate.services objectAtIndex:0];
+	appDelegate.transactionSubTotal = serv.price;
+	appDelegate.transactionTotal = [NSNumber numberWithFloat:[appDelegate.transactionSubTotal floatValue] + [appDelegate.transactionTaxTotal floatValue]];
+	[appDelegate saveTransactions];
+	
+	// Grab or set the information for the transaction detail
+	appDelegate.serviceID = serv.serviceID;
+	appDelegate.productID = 0;
+	appDelegate.transactionNumber = transNumber;
+	
+	// Let's get the transactionID from the saved transaction
+	[appDelegate getTransactionFromTransactionNumber:transNumber];
+	Transaction *trans = [appDelegate.transactions objectAtIndex:0];
+	appDelegate.transactionID = trans.transactionID;
+	appDelegate.preTaxAmount = serv.price;
+	appDelegate.discountedAmount = [NSNumber numberWithFloat:0];
+	appDelegate.taxedAmount = serv.price;
+	appDelegate.giftCertificateID = 0;
+	[appDelegate saveDetailTransactions];
+	
+	// Add the detail Controller group NIB file
+	if (detailControl == nil) {
+		detailControl = [[RegisterDetailController alloc] initWithNibName:@"RegisterDetail" bundle:[NSBundle mainBundle]];
+	}
+	
+	[self.view addSubview:detailControl.view];
+	
+	[localPool release];
+}
+
+- (IBAction)formulations:(id)sender {
+	// Set the name delegate information so it's already set once we display the screen
+	appDelegate.clientFirstName = [appDelegate.firstName copy];
+	appDelegate.clientLastName = [appDelegate.lastName copy];
+	
+	// Open the formulations screen with the client filled in
+	[self.view addSubview:[PSAViewController PSAViewControllerSharedController].formulaControl.view];
+}
+
+- (IBAction)cancelAppointment:(id)sender {
+    // unload the NIB file
+	[self.view removeFromSuperview];
+}
+
+- (IBAction)deleteAppointment:(id)sender {
+	NSString *clientName = [NSString stringWithFormat:@"%@ %@", fName, lName];
+	[appDelegate removeClientFromSchedule:clientName start:appDelegate.apptStartTime];
+	[scheduleControl viewWillAppear:YES];
+	// unload the NIB file
+	[self.view removeFromSuperview];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+	// Use the delegate to set/get values
+	appDelegate = (PSAAppDelegate *)[[UIApplication sharedApplication] delegate];
+	
+	//Grab the service information for displaying
+	[appDelegate loadService:appDelegate.serviceID];
+	serv = [appDelegate.services objectAtIndex:0];
+	
+	[myTextView setFont:[UIFont boldSystemFontOfSize:12]];
+	
+	// Show all the information about the current appointment
+	NSMutableString *myString = [[NSMutableString alloc] init];
+	
+	if (![appDelegate.firstName isEqualToString:@" "] && !(appDelegate.firstName == nil)) {
+		[myString appendFormat:@"Customer Name: %@", appDelegate.firstName];
+		fName = [appDelegate.firstName copy];
+	}
+		
+	if (![appDelegate.lastName isEqualToString:@" "] && !(appDelegate.lastName == nil)) {
+		[myString appendFormat:@" %@", appDelegate.lastName];
+		lName = [appDelegate.lastName copy];
+	}
+			
+	if (![appDelegate.apptStartTime isEqualToString:@" "] && !(appDelegate.apptStartTime == nil))
+		[myString appendFormat:@"\n\nAppointment Start Time: %@", appDelegate.apptStartTime];
+	
+	if (![serv.serviceName isEqualToString:@" "] && !(serv.serviceName == nil))
+		[myString appendFormat:@"\n\nService: %@", serv.serviceName];
+	
+	if (![appDelegate.notes isEqualToString:@" "] && !(appDelegate.notes == nil))
+		[myString appendFormat:@"\n\nNotes: %@", appDelegate.notes];
+	
+	myTextView.text = myString;
+	
+	[super viewDidLoad];
+	
+	[myString release];
+}
+
+
+// Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
+    // Release anything that's not essential, such as cached data
+}
+
+
+- (void)dealloc {
+	[serv release];
+    [super dealloc];
+}
+
+@end

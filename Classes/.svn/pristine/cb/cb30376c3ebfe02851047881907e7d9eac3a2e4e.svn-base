@@ -1,0 +1,372 @@
+//
+//  ScheduleViewController.m
+//  PSA
+//
+//  Created by Michael Simone on 6/26/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "ScheduleViewController.h"
+#import "PSAViewController.h"
+#import "Appointments.h"
+
+@implementation ScheduleViewController
+
+@synthesize myScrollView, myImageView, dateLabel, currentDate, filteredDateList, buttonList, apptController;
+@synthesize appDelegate;
+
+- (IBAction)cancel:(id)sender {
+	[self.view removeFromSuperview];
+}
+
+// Get the correct nib loaded depending on which action the user wants to take
+// or take the appropriate action
+- (IBAction)getCalendarEvent:(id)sender {
+			
+	switch ([sender selectedSegmentIndex])
+	{
+		case 0:	// Day
+		{
+			[self.view addSubview:[PSAViewController PSAViewControllerSharedController].scheduleControl.view];
+			break;
+		}
+		case 1: // Week
+		{	
+			[self.view addSubview:[PSAViewController PSAViewControllerSharedController].weekControl.view];
+			break;
+		}
+		case 2:	// Month
+		{
+			[self.view addSubview:[PSAViewController PSAViewControllerSharedController].monthControl.view];
+			break;
+		}
+	}
+}
+
+- (IBAction)getCurrentDay:(id)sender {
+	// Load all of todays appointments from the database
+	[appDelegate loadAppointments];
+	
+	// Remove any old appointments
+	for (int i = 0; i < [buttonList count]; i++) {
+		[[buttonList objectAtIndex:i] removeFromSuperview];
+	}
+	
+	[self setDay:0];
+}
+
+- (IBAction)addAppointment:(id)sender {
+	
+    // Load the appointment nib
+	[PSAViewController PSAViewControllerSharedController].addApptController.scheduleControl = self;
+	[self.view addSubview:[PSAViewController PSAViewControllerSharedController].addApptController.view];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+	// Use the delegate to set/get values
+	appDelegate = (PSAAppDelegate *)[[UIApplication sharedApplication] delegate];
+	
+	// Load all the controllers
+	[[PSAViewController PSAViewControllerSharedController] loadControllers];
+	
+	[myScrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height * 2.2)];
+	
+	// Create a button array
+	buttonList = [[NSMutableArray alloc] init];
+	
+	// Load all the appointments from the database
+	[self loadTodaysList];
+
+    [super viewDidLoad];
+}
+
+- (void)loadTodaysList {
+	
+	// Load the client list from the database
+	[appDelegate loadAppointments];
+	
+	// Show todays date
+	[self getCurrentDay:self];
+
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	
+	// Load all of todays appointments from the database
+	[self loadTodaysList];
+		
+	[super viewWillAppear:animated];
+
+}
+
+
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+	
+	// Release any cached data, images, etc that aren't in use.
+}
+
+- (void)dealloc {
+	[apptController release];
+	[filteredDateList release];
+	[buttonList release];
+    [super dealloc];
+}
+
+// Move back on day in time
+- (IBAction)previousDay:(id)sender {
+	// Load all of todays appointments from the database
+	[appDelegate loadAppointments];
+
+	// Remove any old appointments
+	for (int i = 0; i < [buttonList count]; i++) {
+		[[buttonList objectAtIndex:i] removeFromSuperview];
+	}
+	
+	int time = BACKWARD_TIME;
+	[self setDay:time];
+}
+
+// ove forward one day in time
+- (IBAction)nextDay:(id)sender {
+	// Load all of todays appointments from the database
+	[appDelegate loadAppointments];
+
+	// Remove any old appointments
+	for (int i = 0; i < [buttonList count]; i++) {
+		[[buttonList objectAtIndex:i] removeFromSuperview];
+	}
+	
+	int time = FORWARD_TIME;
+	[self setDay:time];
+}
+
+- (void)setDay:(int)movement {
+	NSAutoreleasePool *localPool = [[NSAutoreleasePool alloc] init];
+	
+	// This will hold our new date value.
+	NSDate *newDate = [[NSDate init] alloc];
+	
+	// We need the other dates for comparison reasons.
+	NSDate *firstItemDate = [[NSDate init] alloc];
+	NSDate *secondItemDate = [[NSDate init] alloc];
+	
+	// Set up all the date formatters that we need. These will be used not only
+	// for formatting but also for comparisons later.
+	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	[dateFormatter setDateStyle:NSDateFormatterFullStyle];
+	
+	NSDateFormatter *secondItemFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	[secondItemFormatter setDateStyle:NSDateFormatterFullStyle];
+	
+	// Check to see if we want todays date. If not, you know what needs to be done ...
+	if (movement == 0)
+	{
+		secondItemDate = [secondItemFormatter dateFromString:[secondItemFormatter stringFromDate:[NSDate date]]];
+		dateLabel.text = [dateFormatter stringFromDate:[NSDate date]];
+		dateLabel.textColor = [UIColor blueColor];
+		self.currentDate = [NSDate date];
+	} else {
+		
+		newDate = [currentDate addTimeInterval: movement];
+		secondItemDate = [secondItemFormatter dateFromString:[secondItemFormatter stringFromDate:newDate]];
+		dateLabel.text = [dateFormatter stringFromDate:newDate];
+		firstItemDate = [dateFormatter dateFromString:[dateFormatter stringFromDate:[NSDate date]]];
+		
+		if ([secondItemDate isEqualToDate:firstItemDate])
+			dateLabel.textColor = [UIColor blueColor];
+		else
+			dateLabel.textColor = [UIColor blackColor];
+		
+		self.currentDate = newDate;
+	}
+	
+	// Let's grab all the appointments for the requested day.
+	Appointments *appoints;
+	NSString *todaysStoredStartTime;
+	NSString *todaysStoredStopTime;
+	NSString *clientName;
+	
+	filteredDateList = [[NSMutableArray alloc] init];
+	
+	int i = 0;
+	while (i < [appDelegate.todayAppointments count]) {
+		appoints = [appDelegate.todayAppointments objectAtIndex:i];
+		todaysStoredStartTime = [NSString stringWithFormat:@"%@", appoints.startDateTime];
+		firstItemDate = [dateFormatter dateFromString:todaysStoredStartTime];
+		
+		/* Compare both date strings */
+		if ([firstItemDate isEqualToDate:secondItemDate]) {	
+			// Get the stop time
+			todaysStoredStopTime = [NSString stringWithFormat:@"%@", appoints.endDateTime];
+			clientName = [NSString stringWithFormat:@"%@", appoints.clientName];
+			[self.filteredDateList addObject:todaysStoredStartTime];
+			[self.filteredDateList addObject:todaysStoredStopTime];
+			[self.filteredDateList addObject:clientName];
+			[self.filteredDateList addObject:appoints];
+		}
+		i++;
+	}
+		
+	if ([filteredDateList count] > 0) {
+		[self drawAppointments];
+	}
+	
+	[localPool release];
+}
+
+- (void)drawAppointments {
+	NSAutoreleasePool *localPool = [[NSAutoreleasePool alloc] init];
+	
+	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	[dateFormatter setDateStyle:NSDateFormatterFullStyle];
+	[dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+	
+	// We need to shorten the date value to hours
+	NSDate *firstItemDate = [[NSDate init] alloc];
+	NSDate *stopItemDate = [[NSDate init] alloc];
+	
+	NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+	NSDateComponents *dateComponents;
+	NSInteger hour, stopHour;
+	NSInteger minutes, stopMinutes;
+	
+	NSString *clientName;
+	UIButton *button;
+	
+	// We need the integer values from appoints
+	Appointments *appoints;
+		
+	// Check to make sure that we have a value in the data list
+	int i = 0;
+	while (i < [filteredDateList count]) {
+		firstItemDate = [dateFormatter dateFromString:[filteredDateList objectAtIndex:i]];
+		stopItemDate = [dateFormatter dateFromString:[filteredDateList objectAtIndex:++i]];
+		clientName = [filteredDateList objectAtIndex:++i];
+		appoints = [filteredDateList objectAtIndex:++i];
+		
+		dateComponents = [calendar components:NSHourCalendarUnit|NSMinuteCalendarUnit fromDate:firstItemDate];
+		hour = [dateComponents hour];
+		minutes = [dateComponents minute];
+		
+		dateComponents = [calendar components:NSHourCalendarUnit|NSMinuteCalendarUnit fromDate:stopItemDate];
+		stopHour = [dateComponents hour];
+		stopMinutes = [dateComponents minute];
+		
+		button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+		
+		// draw the appointment button
+		[self drawButton:button hour:hour minute:minutes stopHour:stopHour stopMinute:stopMinutes name:clientName];
+		
+		i++;
+	}
+	
+	[calendar release];
+	
+	[localPool release];
+	
+}
+
+- (void)processEvent:(id)sender {
+	NSAutoreleasePool *localPool = [[NSAutoreleasePool alloc] init];
+
+	// Load the appointment view NIB file
+	if (apptController == nil) {
+		apptController = [[AppointmentViewController alloc] initWithNibName:@"AppointmentView" bundle:[NSBundle mainBundle]];
+		apptController.scheduleControl = self;
+	}
+	
+	// Grab the name so we can parse the list of appointments for the day
+	NSString *name = [sender currentTitle];
+	
+	// We need the integer values from appoints
+	Appointments *appoints;
+	
+	// We need to shorten the date value to hours
+	NSString *firstItemDate, *clientName;
+	
+	int i = 0;
+	while (i < [filteredDateList count]) {
+		firstItemDate =[filteredDateList objectAtIndex:i];++i;
+		clientName = [filteredDateList objectAtIndex:++i];
+		appoints = [filteredDateList objectAtIndex:++i];
+		if ([clientName isEqual:name])
+			break;
+		i++;
+	}
+	
+	NSString *fName;
+	NSString *lName;
+	
+	NSArray *listItems = [name componentsSeparatedByString:@" "];
+	fName = [listItems objectAtIndex:0];
+	if ([listItems count] > 1)
+		lName = [listItems objectAtIndex:1];
+	
+	// Set the appDelegate variables correctly
+	appDelegate.firstName = fName;
+	appDelegate.lastName = lName;
+	appDelegate.apptStartTime = firstItemDate;
+	appDelegate.serviceID = appoints.serviceID;
+	appDelegate.appointmentID = appoints.appointmentID;
+	appDelegate.clientID = appoints.clientID;
+	
+	[self.view addSubview:apptController.view];
+	
+	[fName release];
+	[lName release];
+	
+	[localPool release];
+}
+
+- (void)drawButton:(UIButton*)button hour:(NSInteger)hour minute:(NSInteger)minute stopHour:(NSInteger)stopHour stopMinute:(NSInteger)stopMinute name:(NSString*)name{
+	// Draw the appointment button
+	float buttonSize = 125;
+	float buttonBuffer = 10;
+	float startOffset = (hour * 4) + (minute/TIMESLICE);
+	float stopOffset = (stopHour * 4) + (stopMinute/TIMESLICE);
+	float buttonLength = (stopOffset - startOffset);
+	
+	CGRect buttonFrame;
+	if ([self buttonOverlap:OFFSET y:(startOffset * QUARTEROFFSET) width:buttonSize height:(buttonLength * QUARTEROFFSET)] == NO)
+		buttonFrame = CGRectMake(OFFSET, (startOffset * QUARTEROFFSET), (buttonSize*2), (buttonLength * QUARTEROFFSET));
+	//else
+		//buttonFrame = CGRectMake(OFFSET + buttonSize + buttonBuffer, (startOffset * QUARTEROFFSET), buttonSize, (buttonLength * QUARTEROFFSET));
+		
+	button.frame = buttonFrame;
+	button.titleLabel.font = [UIFont boldSystemFontOfSize:12];
+	[button setTitle:name forState:UIControlStateNormal];
+	[button setTitleColor: [UIColor blackColor] forState: UIControlStateNormal];
+	[button setBackgroundImage:[UIImage imageNamed:@"yellow_PSA.png"] forState:UIControlStateNormal];
+	[button setUserInteractionEnabled:YES];
+	[button setEnabled:YES];
+	[button addTarget:self action:@selector(processEvent:) forControlEvents:UIControlEventTouchUpInside];
+		
+	[buttonList addObject:button];
+
+	// Attach to the scrollView. If attached to the imageView, the button presses get consumed
+	// by the imageView process and never register.
+	[self.myScrollView addSubview:button];
+
+}
+
+- (BOOL)buttonOverlap:(float)x y:(float)y width:(float)width height:(float)height {
+	// Check to see if we have an overlap on buttons
+	BOOL isOverLap = NO;
+	
+	for (int i = 0; i < [buttonList count]; i++) {
+		UIButton *button = [buttonList objectAtIndex:i];
+		CGRect tmpFrame = button.frame;
+		
+		// check logic for overlap
+		isOverLap = (((tmpFrame.origin.y + height) >= y) && (tmpFrame.origin.y <= (y + height)));
+				
+		return isOverLap;
+	}
+	
+	return isOverLap;
+}
+
+@end

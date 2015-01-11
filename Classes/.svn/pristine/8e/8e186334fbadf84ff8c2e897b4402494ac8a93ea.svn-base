@@ -1,0 +1,69 @@
+//
+//  Settings.m
+//  PSA
+//
+//  Created by Michael Simone on 8/23/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "Settings.h"
+
+// Static variables for compiled SQL queries. This implementation choice is to be able to share a one time
+// compilation of each query across all instances of the class. Each time a query is used, variables may be bound
+// to it, it will be "stepped", and then reset for the next usage. When the application begins to terminate,
+// a class method will be invoked to "finalize" (delete) the compiled queries - this must happen before the database
+// can be closed.
+static sqlite3_stmt *init_statement = nil;
+static sqlite3_stmt *hydrate_statement = nil;
+
+@implementation Settings
+
+@synthesize settingsID, birthEmailFrom, birthEmailSubject, birthEmailText, annivEmailFrom, annivEmailSubject, annivEmailText;
+@synthesize marketEmailFrom, marketEmailSubject, marketEmailText, marketEmailSendDate, mondayStart, mondayFinish, tuesdayStart, tuesdayFinish;
+@synthesize wednesdayStart, wednesdayFinish, thursdayStart, thursdayFinish, fridayStart, fridayFinish, saturdayStart, saturdayFinish;
+@synthesize sundayStart, sundayFinish;
+
+// Finalize (delete) all of the SQLite compiled queries.
++ (void)finalizeStatements {
+    if (init_statement) {
+        sqlite3_finalize(init_statement);
+        init_statement = nil;
+    }
+    if (hydrate_statement) {
+        sqlite3_finalize(hydrate_statement);
+        hydrate_statement = nil;
+	}
+}
+
+- (id)initWithSettingsData:(NSInteger)key bef:(NSString*)bef bes:(NSString*)bes bet:(NSString*)bet aef:(NSString*)aef aes:(NSString*)aes aet:(NSString*)aet mef:(NSString*)mef mes:(NSString*)mes met:(NSString*)met mesd:(NSString*)mesd mons:(NSString*)mons monf:(NSString*)monf tuess:(NSString*)tuess tuesf:(NSString*)tuesf weds:(NSString*)weds wedf:(NSString*)wedf thurs:(NSString*)thurs thurf:(NSString*)thurf fris:(NSString*)fris frif:(NSString*)frif sats:(NSString*)sats satf:(NSString*)satf suns:(NSString*)suns sunf:(NSString*)sunf {
+	
+	self.settingsID = key;
+	self.birthEmailFrom = bef;
+	self.birthEmailSubject = bes;
+	self.birthEmailText = bet;
+	self.annivEmailFrom = aef;
+	self.annivEmailSubject = aes;
+	self.annivEmailText = aet;
+	self.marketEmailFrom = mef;
+	self.marketEmailSubject = mes;
+	self.marketEmailText = met;
+	self.marketEmailSendDate = mesd;
+	self.mondayStart = mons;
+	self.mondayFinish = monf;
+	self.tuesdayStart = tuess;
+	self.tuesdayFinish = tuesf;
+	self.wednesdayStart = weds;
+	self.wednesdayFinish = wedf;
+	self.thursdayStart = thurs;
+	self.thursdayFinish = thurf;
+	self.fridayStart = fris;
+	self.fridayFinish = frif;
+	self.saturdayStart = sats;
+	self.saturdayFinish = satf;
+	self.sundayStart = suns;
+	self.sundayFinish = sunf;
+	
+	return self;
+}
+
+@end

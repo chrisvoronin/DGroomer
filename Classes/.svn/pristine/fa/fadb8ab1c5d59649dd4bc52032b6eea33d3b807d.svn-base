@@ -1,0 +1,98 @@
+//
+//  DailyCloseoutController.m
+//  PSA
+//
+//  Created by Michael Simone on 9/1/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "ClosedOutController.h"
+#import "Closeout.h"
+
+@implementation ClosedOutController
+
+@synthesize appDelegate, myTextView;
+
+extern NSInteger closeoutID;
+
+- (IBAction)back:(id)sender {
+	[self.view removeFromSuperview];
+}
+
+- (void)loadValues {
+	// Load the daily transactions
+	[appDelegate getCloseout:closeoutID];
+	
+	Closeout *closed = [appDelegate.closeouts objectAtIndex:0];
+	
+	NSMutableString *myString = [[NSMutableString alloc] init];
+	[myString appendFormat:@"Cash     $%.2f\n", [closed.receiptCash floatValue]];
+	[myString appendFormat:@"Credit    $%.2f\n", [closed.userVisa floatValue]];
+	[myString appendFormat:@"Checks  $%.2f\n", [closed.receiptCheck floatValue]];
+	[myString appendFormat:@"---------------------\n"];
+	[myString appendFormat:@"Total   $%.2f\n\n", [closed.receiptCash floatValue] + [closed.userVisa floatValue] + [closed.receiptCheck floatValue]];
+	
+	// Display the reciepts section
+	[myString appendFormat:@"Reciepts\n"];
+	[myString appendFormat:@"-------------\n"];
+	[myString appendFormat:@"Cash        $%.2f\n", [closed.receiptCash floatValue]];
+	[myString appendFormat:@"Credit       $%.2f\n", [closed.userVisa floatValue]];
+	[myString appendFormat:@"Checks      $%.2f\n", [closed.receiptCheck floatValue]];
+	[myString appendFormat:@"Coupons   $%.2f\n", [closed.receiptCoupon floatValue]];
+	[myString appendFormat:@"Gift Certs  $%.2f\n", [closed.receiptGift floatValue]];
+	[myString appendFormat:@"---------------------\n"];
+	[myString appendFormat:@"Total   $%.2f\n\n", [closed.receiptCash floatValue] + [closed.userVisa floatValue] + [closed.receiptCheck floatValue] + [closed.receiptCoupon floatValue] + [closed.receiptGift floatValue]];
+	
+	// display the activities section
+	[myString appendFormat:@"Activities\n"];
+	[myString appendFormat:@"-------------\n"];
+	[myString appendFormat:@"Services        $%.2f\n", [closed.salesService floatValue]];
+	[myString appendFormat:@"Retail            $%.2f\n", [closed.salesRetail floatValue]];
+	[myString appendFormat:@"Tips              $%.2f\n", [closed.salesTips floatValue]];
+	[myString appendFormat:@"Sales Tax      $%.2f\n", [closed.salesTax floatValue]];
+	[myString appendFormat:@"Gift Certs       $%.2f\n", [closed.salesGift floatValue]];
+	[myString appendFormat:@"---------------------\n"];
+	[myString appendFormat:@"Total   $%.2f\n\n", [closed.salesService floatValue] + [closed.salesRetail floatValue] + [closed.salesTips floatValue] + [closed.salesTax floatValue] + [closed.salesGift floatValue]];
+		
+	myTextView.text = myString;
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+	
+	// Use the delegate to set/get values
+	appDelegate = (PSAAppDelegate *)[[UIApplication sharedApplication] delegate];
+	
+	// Set the background color to an image
+	self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"PSA_Productpurple.png"]];
+	
+	[self loadValues];
+	
+    [super viewDidLoad];
+}
+
+// Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+	
+	// Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
+}
+
+
+- (void)dealloc {
+	[myTextView release];
+    [super dealloc];
+}
+
+@end

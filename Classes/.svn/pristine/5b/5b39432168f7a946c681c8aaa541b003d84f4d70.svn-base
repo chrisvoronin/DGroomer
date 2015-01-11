@@ -1,0 +1,51 @@
+//
+//  Service.m
+//  PSA
+//
+//  Created by Michael Simone on 7/11/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "Service.h"
+
+// Static variables for compiled SQL queries. This implementation choice is to be able to share a one time
+// compilation of each query across all instances of the class. Each time a query is used, variables may be bound
+// to it, it will be "stepped", and then reset for the next usage. When the application begins to terminate,
+// a class method will be invoked to "finalize" (delete) the compiled queries - this must happen before the database
+// can be closed.
+static sqlite3_stmt *init_statement = nil;
+static sqlite3_stmt *hydrate_statement = nil;
+
+@implementation Service
+
+@synthesize serviceID, groupID, serviceName, price, fee, cost, taxable, startTime, gapTime, endTime, single;
+
+// Finalize (delete) all of the SQLite compiled queries.
++ (void)finalizeStatements {
+    if (init_statement) {
+        sqlite3_finalize(init_statement);
+        init_statement = nil;
+    }
+    if (hydrate_statement) {
+        sqlite3_finalize(hydrate_statement);
+        hydrate_statement = nil;
+	}
+}
+
+- (id)initWithServiceData:(NSInteger)servID gID:(NSInteger)gID servName:(NSString*)servName price:(NSNumber*)p fee:(NSNumber*)f cost:(NSNumber*)c taxabe:(NSInteger)t startTime:(NSInteger)s gapTime:(NSInteger)g endTime:(NSInteger)e single:(NSInteger)sng {
+	self.serviceID = servID;
+	self.groupID = gID;
+	self.serviceName = servName;
+	self.price = p;
+	self.fee = f;
+	self.cost = c;
+	self.taxable = t;
+	self.startTime = s;
+	self.gapTime = g;
+	self.endTime = e;
+	self.single = sng;
+	
+	return self;
+}
+
+@end

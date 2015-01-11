@@ -1,0 +1,71 @@
+//
+//  PSAViewController.h
+//  PSA
+//
+//  Created by Michael Simone on 6/8/09.
+//  Copyright Dropped Pin 2009. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
+
+#import "ScheduleViewController.h"
+#import "WeekViewController.h"
+#import "MonthViewController.h"
+#import "ClientViewController.h"
+#import "AloxxiViewController.h"
+#import "ServiceViewController.h"
+#import "ProductViewController.h"
+#import "AddApptController.h"
+#import "AppointmentViewController.h"
+#import "ReportViewController.h"
+#import "SettingsViewController.h"
+#import "RegisterViewController.h"
+
+@interface PSAViewController : UIViewController <MFMailComposeViewControllerDelegate> {
+	
+	// Controller for other views
+	WeekViewController *weekControl;
+	MonthViewController *monthControl;
+	ScheduleViewController *scheduleControl;
+	ClientViewController *clientControl;
+	AloxxiViewController *formulaControl;
+	ServiceViewController *serviceControl;
+	ProductViewController *productControl;
+	AppointmentViewController	*apptController;
+	AddApptController	*addApptController;
+	ReportViewController *reportControl;
+	SettingsViewController *settingsControl;
+	RegisterViewController *registerControl;
+}
+
+@property (nonatomic, retain) WeekViewController *weekControl;
+@property (nonatomic, retain) MonthViewController *monthControl;
+@property (nonatomic, retain) ScheduleViewController *scheduleControl;
+@property (nonatomic, retain) ClientViewController *clientControl;
+@property (nonatomic, retain) AloxxiViewController *formulaControl;
+@property (nonatomic, retain) ServiceViewController *serviceControl;
+@property (nonatomic, retain) ProductViewController *productControl;
+@property (nonatomic, retain) AppointmentViewController *apptController;
+@property (nonatomic, retain) AddApptController	*addApptController;
+@property (nonatomic, retain) ReportViewController *reportControl;
+@property (nonatomic, retain) SettingsViewController *settingsControl;
+@property (nonatomic, retain) RegisterViewController *registerControl;
+
++ (PSAViewController *) PSAViewControllerSharedController;
+
+- (void)loadControllers;
+- (void)doEmail:(NSString*)type;
+
+- (IBAction)scheduleB:(id)sender;
+- (IBAction)clientsB:(id)sender;
+- (IBAction)formulateB:(id)sender;
+- (IBAction)registerB:(id)sender;
+- (IBAction)reportsB:(id)sender;
+- (IBAction)settingsB:(id)sender;
+- (IBAction)productsB:(id)sender;
+- (IBAction)servicesB:(id)sender;
+- (IBAction)getInfo:(id)sender;
+
+@end
+

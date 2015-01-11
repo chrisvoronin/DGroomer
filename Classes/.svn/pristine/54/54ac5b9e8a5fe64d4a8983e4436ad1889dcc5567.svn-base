@@ -1,0 +1,89 @@
+#import "AddVendorContactController.h"
+
+@implementation AddVendorContactController
+
+@synthesize viewController;
+
+- (IBAction)cancel:(id)sender {
+    [self.view removeFromSuperview];
+}
+
+- (IBAction)save:(id)sender {
+	// Read all the values out of the text fields
+	appDelegate.vendorName = name.text;
+	appDelegate.vendorAddress1 = address1.text;
+	appDelegate.vendorAddress2 = address2.text;
+	appDelegate.vendorCity = city.text;
+	appDelegate.vendorState = state.text;
+	appDelegate.vendorContact = contact.text;
+	appDelegate.vendorEmail = email.text;
+	appDelegate.vendorTelephone = [phoneNumber.text integerValue];
+	appDelegate.vendorFax = [faxNumber.text integerValue];
+	appDelegate.vendorZipcode = [zipcode.text integerValue];
+	
+	[appDelegate saveVendor];
+	
+    [self.view removeFromSuperview];
+	[viewController viewWillAppear:YES];
+}
+
+#pragma mark UIViewController
+
+- (void)viewWillAppear:(BOOL)animated
+{	
+	// Reset all the values
+	appDelegate.vendorName = @"";
+	appDelegate.vendorAddress1 = @"";
+	appDelegate.vendorAddress2 = @"";
+	appDelegate.vendorCity = @"";
+	appDelegate.vendorState = @"";
+	appDelegate.vendorContact = @"";
+	appDelegate.vendorEmail = @"";
+	appDelegate.vendorTelephone = 0;
+	appDelegate.vendorFax = 0;
+	appDelegate.vendorZipcode = 0;
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+	
+	// Use the delegate to set/get values
+	appDelegate = (PSAAppDelegate *)[[UIApplication sharedApplication] delegate];
+	
+	// Set the background color to a nice blue image
+	[self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PSA_Blue.png"]]];
+	
+	[myScrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height * 1.5)];
+	
+	// Reset all the values
+	appDelegate.vendorName = @"";
+	appDelegate.vendorAddress1 = @"";
+	appDelegate.vendorAddress2 = @"";
+	appDelegate.vendorCity = @"";
+	appDelegate.vendorContact = @"";
+	appDelegate.vendorEmail = @"";
+	appDelegate.vendorTelephone = 0;
+	appDelegate.vendorFax = 0;
+	appDelegate.vendorZipcode = 0;
+		
+	[super viewDidLoad];
+}
+
+// Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
+    // Release anything that's not essential, such as cached data
+}
+
+- (void)dealloc {
+	
+    [super dealloc];
+}
+
+@end

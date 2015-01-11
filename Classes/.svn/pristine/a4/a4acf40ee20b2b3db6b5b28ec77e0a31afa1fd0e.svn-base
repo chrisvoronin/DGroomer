@@ -1,0 +1,145 @@
+
+#import "ApptDatePickerViewController.h"
+#import "Service.h"
+
+@implementation ApptDatePickerViewController
+
+@synthesize textValue, editedFieldKey, startDate, endDate, textField, dateFormatter, myTableView, dateHolder, datePicker;
+@synthesize appDelegate, apptController, secondsToAdd;
+
+BOOL cell1;
+
+- (void)viewDidLoad {
+	// Use the delegate to set/get values
+	appDelegate = (PSAAppDelegate *)[[UIApplication sharedApplication] delegate];
+	
+    // Adjust the text field size and font.
+    CGRect frame = textField.frame;
+    frame.size.height += 10;
+    textField.frame = frame;
+    textField.font = [UIFont boldSystemFontOfSize:16];
+    // Set the view background to match the grouped tables in the other views.
+    self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
+		
+	[appDelegate loadService:appDelegate.serviceID];
+	Service *serv = [appDelegate.services objectAtIndex:0];
+	secondsToAdd = serv.startTime + serv.gapTime + serv.endTime;
+		
+	// make sure the current date is restored
+	self.startDate = [NSDate date];
+	self.datePicker.date = self.startDate;
+	self.endDate = [startDate addTimeInterval:secondsToAdd];
+	
+	self.dateHolder = [NSArray arrayWithObjects:startDate, endDate, nil];
+	
+	cell1 = YES;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations.
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)dealloc {
+    [dateFormatter release];
+    [datePicker release];
+    [textValue release];
+    [editedFieldKey release];
+	[startDate release];
+	[endDate release];
+	
+	[appDelegate release];
+	[apptController release];
+	
+    [super dealloc];
+}
+
+- (IBAction)cancel:(id)sender {
+    // cancel edits
+	textField.text = nil;
+    [self.view removeFromSuperview];
+}
+
+- (IBAction)save:(id)sender {
+    // save edits
+	dateFormatter = [[NSDateFormatter alloc] init];
+	[dateFormatter setDateStyle:NSDateFormatterFullStyle];
+	[dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+	
+	appDelegate.apptStartTime = [dateFormatter stringFromDate:self.startDate];
+	appDelegate.apptEndTime = [dateFormatter stringFromDate:self.endDate];
+	
+    [self.view removeFromSuperview];
+	[apptController viewWillAppear:YES];
+}
+
+- (IBAction)dateChanged:(id)sender {
+	if (cell1 == YES) {
+		self.startDate = datePicker.date;
+		// Increment the end date because we always want to be in the future from the start
+		self.endDate = [self.startDate addTimeInterval:secondsToAdd];
+	}
+	else
+		self.endDate = datePicker.date;
+	
+	// Destroy the array an rebuild it with the new values
+	self.dateHolder = [NSArray arrayWithObjects:startDate, endDate, nil];
+	
+	[myTableView reloadData];
+}
+
+#pragma mark TableDelegate methods
+
+- (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [myTableView dequeueReusableCellWithIdentifier:@"TypeCell"];
+    if (cell == nil) {
+        cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"TypeCell"] autorelease];
+    }
+	
+	cell.accessoryType = UITableViewCellAccessoryNone;
+	cell.textLabel.textColor = [UIColor blackColor];
+	cell.textLabel.font = [UIFont boldSystemFontOfSize:12];
+	
+	// Create a date formatter to convert the date to a string format.
+	dateFormatter = [[NSDateFormatter alloc] init];
+	[dateFormatter setDateStyle:NSDateFormatterFullStyle];
+	[dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+	
+	// Use an object array here so that we can change the values later and effect the current view
+	// TODO - still need to add a button for half or all day appointments
+	switch (indexPath.row) {
+		case 0: {
+			cell.textLabel.text = [NSString stringWithFormat:@"Starts: %@", [dateFormatter stringFromDate:[self.dateHolder objectAtIndex:indexPath.row]]];
+			break;
+			}
+		case 1: {
+			cell.textLabel.text = [NSString stringWithFormat:@"Ends: %@", [dateFormatter stringFromDate:[self.dateHolder objectAtIndex:indexPath.row]]];
+			break;
+			}
+		default:
+			break;
+	}
+	
+	return cell;
+}
+
+// The table has one row for each possible type.
+- (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section {
+    return 2;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{		
+	// don't keep the table selection
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+		
+	// We need to determine which one was pressed and get the values back.
+	if (indexPath.row == 0) {
+		cell1 = YES;
+	} else {
+		cell1 = NO;
+	}
+}
+
+@end
+

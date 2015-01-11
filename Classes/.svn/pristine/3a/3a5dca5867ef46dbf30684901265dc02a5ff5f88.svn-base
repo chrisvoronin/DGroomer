@@ -1,0 +1,35 @@
+//
+//  BirthdayController.h
+//  PSA
+//
+//  Created by Michael Simone on 6/6/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "PSAAppDelegate.h"
+
+@interface BirthdayController : UIViewController<UITableViewDelegate, UITableViewDataSource>{
+	
+	IBOutlet UIDatePicker	*birthdayPicker;
+	IBOutlet UITableView	*myTableView;
+	NSDate					*date;
+	
+	// Use the appDelegate for setting and getting values
+	PSAAppDelegate *appDelegate;
+	
+	// Need a controller reference for later use
+	AddClientContactController *contactController;
+}
+
+@property (nonatomic, retain) UIDatePicker *birthdayPicker;
+@property (nonatomic, retain) UITableView *myTableView;
+@property (nonatomic, retain) NSDate *date;
+@property (nonatomic, retain) PSAAppDelegate *appDelegate;
+@property (nonatomic, retain) AddClientContactController *contactController;
+
+- (IBAction)cancel:(id)sender;
+- (IBAction)save:(id)sender;
+- (IBAction)dateChanged:(id)sender;
+
+@end

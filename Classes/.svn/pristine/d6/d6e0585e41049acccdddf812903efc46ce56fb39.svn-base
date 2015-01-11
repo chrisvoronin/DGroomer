@@ -1,0 +1,46 @@
+//
+//  CompanyViewController.h
+//  PSA
+//
+//  Created by Michael Simone on 8/2/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "PSAAppDelegate.h"
+
+@interface CompanyViewController : UIViewController {
+	IBOutlet UITextField *owner;
+	IBOutlet UITextField *name;
+	IBOutlet UITextField *addr1;
+	IBOutlet UITextField *addr2;
+	IBOutlet UITextField *city;
+	IBOutlet UITextField *state;
+	IBOutlet UITextField *zip;
+	IBOutlet UITextField *phone;
+	IBOutlet UITextField *fax;
+	IBOutlet UITextField *email;
+	
+	IBOutlet UIScrollView *myScrollView;
+	
+	// Use the appDelegate for setting and getting values
+	PSAAppDelegate *appDelegate;
+}
+
+@property (assign, nonatomic) UITextField *owner;
+@property (assign, nonatomic) UITextField *name;
+@property (assign, nonatomic) UITextField *addr1;
+@property (assign, nonatomic) UITextField *addr2;
+@property (assign, nonatomic) UITextField *city;
+@property (assign, nonatomic) UITextField *state;
+@property (assign, nonatomic) UITextField *zip;
+@property (assign, nonatomic) UITextField *phone;
+@property (assign, nonatomic) UITextField *fax;
+@property (assign, nonatomic) UITextField *email;
+
+@property (nonatomic, retain) PSAAppDelegate *appDelegate;
+
+- (IBAction)back:(id)sender;
+- (IBAction)save:(id)sender;
+
+@end

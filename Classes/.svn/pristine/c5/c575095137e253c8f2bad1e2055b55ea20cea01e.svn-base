@@ -1,0 +1,35 @@
+//
+//  PaymentController.h
+//  PSA
+//
+//  Created by Michael Simone on 8/16/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "PSAAppDelegate.h"
+
+@interface PaymentController : UIViewController {
+	IBOutlet UILabel *balanceLabel;
+	IBOutlet UITextField *tip;
+	IBOutlet UITextField *totalPayment;
+	IBOutlet UITextField *checkNumber;
+	IBOutlet UITextField *giftCertificateNumber;
+	IBOutlet UIPickerView *paymentPicker;
+	
+	IBOutlet UIScrollView *myScrollView;
+	
+	// Use the appDelegate for setting and getting values
+	PSAAppDelegate *appDelegate;
+	
+	RegisterDetailController *rdControl;
+}
+
+@property (nonatomic, retain) RegisterDetailController *rdControl;
+
+- (IBAction) lowerKeyboard:(id)sender;
+- (IBAction) addTip:(id)sender;
+- (IBAction) cancel:(id)sender;
+- (IBAction) save:(id)sender;
+
+@end

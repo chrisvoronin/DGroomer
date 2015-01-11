@@ -1,0 +1,240 @@
+//
+//  MonthViewController.m
+//  PSA
+//
+//  Created by Michael Simone on 3/5/09.
+//  Copyright Dropped Pin 2009. All rights reserved.
+//
+
+#import "MonthViewController.h"
+#import "PSAViewController.h"
+
+@implementation MonthViewController
+
+@synthesize currentMonth, labelList, appDelegate;
+
+- (IBAction)previousDay:(id)sender {
+	NSAutoreleasePool *localPool = [[NSAutoreleasePool alloc] init];
+	
+	NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+	
+	NSDateComponents *components = [[NSDateComponents alloc] init];
+	components.month = -1;
+	NSDate *nextMonth = [gregorian dateByAddingComponents:components toDate:currentMonth options:0];
+	self.currentMonth = nextMonth;
+	
+	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	[dateFormatter setDateFormat:@"MMMM, yyyy"];
+	
+	monthLabel.text = [dateFormatter stringFromDate:self.currentMonth];
+
+	[components release];
+	[gregorian release];
+	
+	// Remove old calendar
+	for (int i = 0; i < [labelList count]; i++) {
+		[[labelList objectAtIndex:i] removeFromSuperview];
+	}
+	
+	// Show the month
+	[self displayMonth];
+	
+	[localPool release];
+}
+
+- (IBAction)nextDay:(id)sender {
+	NSAutoreleasePool *localPool = [[NSAutoreleasePool alloc] init];
+		
+	NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+	
+	NSDateComponents *components = [[NSDateComponents alloc] init];
+	components.month = 1;
+	NSDate *nextMonth = [gregorian dateByAddingComponents:components toDate:self.currentMonth options:0];
+	self.currentMonth = nextMonth;
+	
+	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	[dateFormatter setDateFormat:@"MMMM, yyyy"];
+	
+	monthLabel.text = [dateFormatter stringFromDate:self.currentMonth];
+	
+	[components release];
+	[gregorian release];
+	
+	// Remove old calendar
+	for (int i = 0; i < [labelList count]; i++) {
+		[[labelList objectAtIndex:i] removeFromSuperview];
+	}
+	
+	// Show the month
+	[self displayMonth];
+	
+	[localPool release];
+}
+
+- (IBAction)cancel:(id)sender {
+	[self.view removeFromSuperview];
+}
+
+// Get the correct nib loaded depending on which action the user wants to take
+- (IBAction)getCalendarEvent:(id)sender {
+	
+	switch ([sender selectedSegmentIndex])
+	{
+		case 0:	// Day
+		{
+			[self.view addSubview:[PSAViewController PSAViewControllerSharedController].scheduleControl.view];
+			break;
+		}
+		case 1: // Week
+		{	
+			[self.view addSubview:[PSAViewController PSAViewControllerSharedController].weekControl.view];
+			break;
+		}
+		case 2:	// Month
+		{
+			[self.view addSubview:[PSAViewController PSAViewControllerSharedController].monthControl.view];
+			break;
+		}
+	}
+}
+- (IBAction)getCurrentDay:(id)sender {
+	NSAutoreleasePool *localPool = [[NSAutoreleasePool alloc] init];
+	
+	self.currentMonth = [NSDate date];
+	
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	[dateFormatter setDateFormat:@"MMMM, yyyy"];
+	
+	monthLabel.text = [dateFormatter stringFromDate:self.currentMonth];
+	
+	// Remove old calendar
+	for (int i = 0; i < [labelList count]; i++) {
+		[[labelList objectAtIndex:i] removeFromSuperview];
+	}
+	
+	// Show the month
+	[self displayMonth];
+	
+	[localPool release];
+}
+
+- (IBAction)addAppointment:(id)sender {
+	
+	// Load the appointment nib
+	[self.view addSubview:[PSAViewController PSAViewControllerSharedController].addApptController.view];
+}
+
+- (void)drawDay:(int)day week:(int)week day:(NSString*)value {
+	// Draw the label
+	UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(INITIAL_X + (LABEL_SIZE * (day-1)), INITIAL_Y + (LABEL_SIZE * (week-1)), LABEL_SIZE, LABEL_SIZE)];
+	label.text = value;
+	[self.view addSubview:label];
+	[labelList addObject:label];
+}
+
+- (void)displayMonth {
+	NSAutoreleasePool *localPool = [[NSAutoreleasePool alloc] init];
+	
+	NSString *dayValue;
+	NSString *weekday;
+	NSArray *listItems;
+	
+	labelList = [[NSMutableArray alloc] init];
+	
+	int week = 1;
+	int dayNum = 1;
+		
+	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	[dateFormatter setDateFormat:@"d EEEE"];
+	NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+	
+	NSDateComponents *monthComponents = [gregorian components:NSYearCalendarUnit | NSMonthCalendarUnit fromDate:self.currentMonth];
+	int month = [monthComponents month];
+	int year = [monthComponents year];
+	
+	NSRange daysRange = [gregorian rangeOfUnit:NSDayCalendarUnit inUnit:NSMonthCalendarUnit forDate:self.currentMonth];
+	NSUInteger days = daysRange.length;
+	NSUInteger day;
+	
+	for (day = 1; day <= days; day++) {
+		NSDateComponents *dayComponents = [[NSDateComponents alloc] init];
+		[dayComponents setDay:day];
+		[dayComponents setMonth:month];
+		[dayComponents setYear:year];
+		NSDate *tmpDay = [gregorian dateFromComponents:dayComponents];
+		NSString *dayString = [dateFormatter stringFromDate:tmpDay];
+		
+		listItems = [dayString componentsSeparatedByString:@" "];
+		dayValue = [listItems objectAtIndex:0];
+		weekday = [listItems objectAtIndex:1];
+		
+		if ([weekday isEqualToString:@"Sunday"]) {
+			if (day != 1) // We don't want to advance the week if the month starts on Sunday.
+				week++;
+			dayNum = 1;
+		}
+		
+		if ([weekday isEqualToString:@"Monday"])
+			dayNum = 2;
+		
+		if ([weekday isEqualToString:@"Tuesday"])
+			dayNum = 3;
+		
+		if ([weekday isEqualToString:@"Wednesday"])
+			dayNum = 4;
+		
+		if ([weekday isEqualToString:@"Thursday"])
+			dayNum = 5;
+		
+		if ([weekday isEqualToString:@"Friday"])
+			dayNum = 6;
+		
+		if ([weekday isEqualToString:@"Saturday"])
+			dayNum = 7;
+			
+		[self drawDay:dayNum week:week day:dayValue];
+		dayNum++;
+	}
+	
+	[gregorian release];
+	
+	[localPool release];
+	
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+		
+	NSAutoreleasePool *localPool = [[NSAutoreleasePool alloc] init];
+	
+	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	[dateFormatter setDateFormat:@"MMMM, yyyy"];
+	NSDate *date =[NSDate date];
+	self.currentMonth = date;
+	monthLabel.text = [dateFormatter stringFromDate:date];
+		
+	// Show the calendar
+	[self displayMonth];
+	
+	[localPool release];
+}
+
+
+// Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
+    // Release anything that's not essential, such as cached data
+}
+
+
+- (void)dealloc {
+    [super dealloc];
+}
+
+@end

@@ -1,0 +1,52 @@
+//
+//  Closeout.m
+//  PSA
+//
+//  Created by Michael Simone on 9/4/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "Closeout.h"
+
+// Static variables for compiled SQL queries. This implementation choice is to be able to share a one time
+// compilation of each query across all instances of the class. Each time a query is used, variables may be bound
+// to it, it will be "stepped", and then reset for the next usage. When the application begins to terminate,
+// a class method will be invoked to "finalize" (delete) the compiled queries - this must happen before the database
+// can be closed.
+static sqlite3_stmt *init_statement = nil;
+static sqlite3_stmt *hydrate_statement = nil;
+
+@implementation Closeout
+
+@synthesize key, dateInfo, userVisa, receiptCash, receiptCheck, receiptCoupon, receiptGift, salesService, salesRetail, salesGift, salesTips, salesTax;
+
+// Finalize (delete) all of the SQLite compiled queries.
++ (void)finalizeStatements {
+    if (init_statement) {
+        sqlite3_finalize(init_statement);
+        init_statement = nil;
+    }
+    if (hydrate_statement) {
+        sqlite3_finalize(hydrate_statement);
+        hydrate_statement = nil;
+	}
+}
+
+- (id)initWithCloseoutData:(NSInteger)keyID date:(NSString*)date credit:(NSNumber*)credit cash:(NSNumber*)cash check:(NSNumber*)check coupon:(NSNumber*)coupon gift:(NSNumber*)gift service:(NSNumber*)service retail:(NSNumber*)retail saleGift:(NSNumber*)saleGift tips:(NSNumber*)tips tax:(NSNumber*)tax {
+	self.key = keyID;
+	self.dateInfo = date;
+	self.userVisa = credit;
+	self.receiptCash = cash;
+	self.receiptCheck = check;
+	self.receiptCoupon = coupon;
+	self.receiptGift = gift;
+	self.salesService = service;
+	self.salesRetail = retail;
+	self.salesGift = saleGift;
+	self.salesTips = tips;
+	self.salesTax = tax;
+	
+	return self;
+}
+
+@end

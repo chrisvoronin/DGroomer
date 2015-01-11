@@ -1,0 +1,478 @@
+//
+//  AddClientContactController.m
+//  PSA
+//
+//  Created by Michael Simone on 6/5/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "AddClientContactController.h"
+#import "ClientViewController.h"
+
+
+@implementation AddClientContactController
+
+@synthesize myTableView, myInfoController, myPhoneController, myAddressController, myEmailController, myBirthdayController, myAnniversaryController;
+@synthesize clientController, appDelegate;
+
+- (IBAction)cancelClient:(id)sender {
+	[self.view removeFromSuperview];
+}
+
+- (IBAction)saveClient:(id)sender {
+	// Error check first
+	if ([self errorCheck] == NO)
+	{
+		// Display alert
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"First Name must be supplied to continue." delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+		[alert show];	
+		[alert release];
+	} else {
+		//Write out data to database
+		[appDelegate saveClient];
+		[self.view removeFromSuperview];
+		[clientController viewWillAppear:YES];
+	}
+}
+
+- (BOOL)errorCheck {
+	if (appDelegate.firstName == nil)
+		return NO;
+	
+	if (appDelegate.lastName == nil)
+		appDelegate.lastName = @" ";
+	
+	if (appDelegate.homePhone == nil)
+		appDelegate.homePhone = @" ";
+	
+	if (appDelegate.workPhone == nil)
+		appDelegate.workPhone = @" ";
+	
+	if (appDelegate.cellPhone == nil)
+		appDelegate.cellPhone = @" ";
+	
+	if (appDelegate.address1 == nil)
+		appDelegate.address1 = @" ";
+	
+	if (appDelegate.address2 == nil);
+		appDelegate.address2 = @" ";
+	
+	if (appDelegate.city == nil)
+		appDelegate.city = @" ";
+	
+	if (appDelegate.stateID == nil)
+		appDelegate.stateID = @" ";
+	
+	if (appDelegate.zipcode == nil)
+		appDelegate.zipcode = 0;
+	
+	if (appDelegate.email == nil)
+		appDelegate.email = @" ";
+	
+	if (appDelegate.birthdate == nil)
+		appDelegate.birthdate = @" ";
+	
+	if (appDelegate.anniversary == nil)
+		appDelegate.anniversary = @" ";
+	
+	if (appDelegate.notes == nil)
+		appDelegate.notes = @" ";
+	
+	return YES;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	
+    // Remove any previous selection.
+    NSIndexPath *tableSelection = [myTableView indexPathForSelectedRow];
+	[myTableView deselectRowAtIndexPath:tableSelection animated:YES];
+    [myTableView reloadData];
+	
+	[super viewWillAppear:animated];
+}
+
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+	// Use the delegate to set/get values
+	appDelegate = (PSAAppDelegate *)[[UIApplication sharedApplication] delegate];
+	
+	// Set the background color to a nice yellow image
+	self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"yellow_PSA.png"]];
+	self.myTableView.backgroundColor = [UIColor clearColor];
+	
+	appDelegate.firstName = @" ";
+	appDelegate.lastName = @" ";
+	appDelegate.homePhone = @" ";
+	appDelegate.workPhone = @" ";
+	appDelegate.cellPhone = @" ";
+	appDelegate.address1 = @" ";
+	appDelegate.address2 = @" ";
+	appDelegate.city = @" ";
+	appDelegate.stateID = @" ";
+	appDelegate.zipcode = 0;
+	appDelegate.email = @" ";
+	appDelegate.birthdate = @" ";
+	appDelegate.anniversary = @" ";
+	appDelegate.notes = @" ";
+	
+	// Remove any previous selection.
+    NSIndexPath *tableSelection = [myTableView indexPathForSelectedRow];
+	[myTableView deselectRowAtIndexPath:tableSelection animated:YES];
+    [myTableView reloadData];
+			
+    [super viewDidLoad];
+}
+
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+	
+	// Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
+}
+
+
+- (void)dealloc {
+	[clientController release];
+	[myTableView release];
+    [super dealloc];
+}
+
+#pragma mark -
+#pragma mark TableViewDelegate
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tv {
+    // 2 sections, one for each property
+    return 2;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+	NSString *title;
+	
+	switch (section)
+	{
+		case 0:
+		{
+			title = @"Import from Contacts:";
+			break;
+		}
+		case 1:
+		{
+			title = @"Contact Information:";
+			break;
+		}
+	}
+	return title;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [myTableView dequeueReusableCellWithIdentifier:@"TypeCell"];
+    if (cell == nil) {
+        cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"TypeCell"] autorelease];
+    }
+	
+	// Load up the cell type values
+	cell.backgroundColor = [UIColor clearColor];
+	cell.textLabel.textColor = [UIColor blackColor];
+	cell.textLabel.font = [UIFont italicSystemFontOfSize:14];
+	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+				
+	// Use an object array here so that we can change the values later and effect the current view
+	switch (indexPath.section) {
+		case 0:
+			cell.textLabel.text = [NSString stringWithFormat:@"Import Existing Contact    "];
+			break;
+		case 1: {
+			switch (indexPath.row) {
+				case 0:
+					if (appDelegate.firstName == nil)
+						cell.textLabel.text = [NSString stringWithFormat:@"First Name: "];
+					else
+						cell.textLabel.text = [NSString stringWithFormat:@"First Name:    %@", appDelegate.firstName];
+					break;
+				case 1:
+					if (appDelegate.lastName == nil)
+						cell.textLabel.text = [NSString stringWithFormat:@"Last Name: "];
+					else
+						cell.textLabel.text = [NSString stringWithFormat:@"Last Name:    %@", appDelegate.lastName];
+					break;
+				case 2:
+					if (appDelegate.workPhone == nil)
+						cell.textLabel.text = [NSString stringWithFormat:@"Work Phone:  "];
+					else
+						cell.textLabel.text = [NSString stringWithFormat:@"Work Phone:    %@", appDelegate.workPhone];
+					break;
+				case 3:
+					if (appDelegate.homePhone == nil)
+						cell.textLabel.text = [NSString stringWithFormat:@"Home Phone: "];
+					else
+						cell.textLabel.text = [NSString stringWithFormat:@"Home Phone:    %@", appDelegate.homePhone];
+					break;
+				case 4:
+					if (appDelegate.cellPhone == nil)
+						cell.textLabel.text = [NSString stringWithFormat:@"Cell Phone: "];
+					else
+						cell.textLabel.text = [NSString stringWithFormat:@"Cell Phone:    %@", appDelegate.cellPhone];
+					break;
+				case 5:
+					if (appDelegate.address1 == nil)
+						cell.textLabel.text = [NSString stringWithFormat:@"Address: "];
+					else
+						cell.textLabel.text = [NSString stringWithFormat:@"Address:    %@", appDelegate.address1];
+					break;
+				case 6:
+					if (appDelegate.address2 == nil)
+						cell.textLabel.text = [NSString stringWithFormat:@"Second Address:    "];
+					else
+						cell.textLabel.text = [NSString stringWithFormat:@"Second Address:    %@", appDelegate.address2];
+					break;
+				case 7:
+					if (appDelegate.city == nil)
+						cell.textLabel.text = [NSString stringWithFormat:@"City: "];
+					else
+						cell.textLabel.text = [NSString stringWithFormat:@"City:    %@", appDelegate.city];
+					break;
+				case 8:
+					if (appDelegate.stateID == nil)
+						cell.textLabel.text = [NSString stringWithFormat:@"State:    "];
+					else
+						cell.textLabel.text = [NSString stringWithFormat:@"State:    %@", appDelegate.stateID];
+					break;
+				case 9:
+					if (appDelegate.zipcode == nil)
+						cell.textLabel.text = [NSString stringWithFormat:@"Postal Code: "];
+					else
+						cell.textLabel.text = [NSString stringWithFormat:@"Postal Code:    %@", appDelegate.zipcode];
+					break;
+				case 10:
+					if (appDelegate.email == nil)
+						cell.textLabel.text = [NSString stringWithFormat:@"E-Mail Address:    "];
+					else
+						cell.textLabel.text = [NSString stringWithFormat:@"E-Mail Address:    %@", appDelegate.email];
+					break;
+				case 11:
+					if (appDelegate.birthdate == nil)
+						cell.textLabel.text = [NSString stringWithFormat:@"Birthdate:    "];
+					else
+						cell.textLabel.text = [NSString stringWithFormat:@"Birthdate:    %@", appDelegate.birthdate];
+					break;
+				case 12:
+					if (appDelegate.anniversary == nil)
+						cell.textLabel.text = [NSString stringWithFormat:@"Anniversary:    "];
+					else
+						cell.textLabel.text = [NSString stringWithFormat:@"Anniversary:    %@", appDelegate.anniversary];
+					break;
+				default:
+					break;
+				}
+			}
+			break;
+	}
+	
+	return cell;
+}
+
+// The table has one row for each possible type.
+- (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section {
+	NSInteger numRows;
+	
+	switch (section) {
+		case 0:
+			numRows = 1;
+			break;
+		case 1:
+			numRows = 13;
+			break;
+	}
+	
+	return numRows;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{		
+	// don't keep the table selection
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	
+	// Load the addNameInfo NIB file
+	if (myInfoController == nil) {
+		myInfoController = [[AddNameInfoController alloc] initWithNibName:@"AddNameInfoView" bundle:[NSBundle mainBundle]];
+		myInfoController.contactController = self;
+	}
+	
+	// Load the phoneNumber NIB file
+	if (myPhoneController == nil) {
+		myPhoneController = [[PhoneNumberController alloc] initWithNibName:@"PhoneNumberView" bundle:[NSBundle mainBundle]];
+		myPhoneController.contactController = self;
+	}
+	
+	// Load the address NIB file
+	if (myAddressController == nil) {
+		myAddressController = [[AddAddressController alloc] initWithNibName:@"AddAddressView" bundle:[NSBundle mainBundle]];
+		myAddressController.contactController = self;
+	}
+	
+	// Load the email address controller NIB file
+	if (myEmailController == nil) {
+		myEmailController = [[EmailAddressController alloc] initWithNibName:@"EmailView" bundle:[NSBundle mainBundle]];
+		myEmailController.contactController = self;
+	}
+	
+	// Load the birthday controller NIB file
+	if (myBirthdayController == nil) {
+		myBirthdayController = [[BirthdayController alloc] initWithNibName:@"BirthdateView" bundle:[NSBundle mainBundle]];
+		myBirthdayController.contactController = self;
+	}
+	
+	// Load the anniversary controller NIB file
+	if (myAnniversaryController == nil) {
+		myAnniversaryController = [[AnniversaryController alloc] initWithNibName:@"AnniversaryView" bundle:[NSBundle mainBundle]];
+		myAnniversaryController.contactController = self;
+	}
+	
+	switch (indexPath.section) {
+		case 0:
+			// We want to import from an existing contact
+			// Open an address book for the import
+			[self openClientList];
+			break;
+		case 1:
+			switch (indexPath.row) {
+				case 0:
+					[self.view addSubview:myInfoController.view];
+					[myInfoController.firstName becomeFirstResponder];
+					break;
+				case 1:
+					[self.view addSubview:myInfoController.view];
+					[myInfoController.lastName becomeFirstResponder];
+					break;
+				case 2:
+					[self.view addSubview:myPhoneController.view];
+					[myPhoneController.workNumber becomeFirstResponder];
+					break;
+				case 3:
+					[self.view addSubview:myPhoneController.view];
+					[myPhoneController.homeNumber becomeFirstResponder];
+					break;
+				case 4:
+					[self.view addSubview:myPhoneController.view];
+					[myPhoneController.cellNumber becomeFirstResponder];
+					break;
+				case 5:
+					[self.view addSubview:myAddressController.view];
+					[myAddressController.address1 becomeFirstResponder];
+					break;
+				case 6:
+					[self.view addSubview:myAddressController.view];
+					[myAddressController.address2 becomeFirstResponder];
+					break;
+				case 7:
+					[self.view addSubview:myAddressController.view];
+					[myAddressController.city becomeFirstResponder];
+					break;
+				case 8:
+					[self.view addSubview:myAddressController.view];
+					[myAddressController.state becomeFirstResponder];
+					break;
+				case 9:
+					[self.view addSubview:myAddressController.view];
+					[myAddressController.zipcode becomeFirstResponder];
+					break;
+				case 10:
+					[self.view addSubview:myEmailController.view];
+					[myEmailController.email becomeFirstResponder];
+					break;
+				case 11:
+					[self.view addSubview:myBirthdayController.view];
+					break;
+				case 12:
+					[self.view addSubview:myAnniversaryController.view];
+					break;
+			}
+			break;
+	}
+}
+
+#pragma mark AddressBook Methods
+- (void)openClientList {
+	ABPeoplePickerNavigationController *picker = [[ABPeoplePickerNavigationController alloc] init]; 
+    picker.peoplePickerDelegate = self;
+	
+	[self presentModalViewController:picker animated:YES]; 
+    [picker release]; 
+}
+
+- (void)peoplePickerNavigationControllerDidCancel: (ABPeoplePickerNavigationController *)peoplePicker { 
+    [self dismissModalViewControllerAnimated:YES]; 
+}
+
+- (BOOL)peoplePickerNavigationController: (ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person { 
+    NSString* firstName = nil; 
+	firstName = (NSString *)ABRecordCopyValue(person, kABPersonFirstNameProperty);
+	
+    NSString *lastName = nil;
+	lastName = (NSString *)ABRecordCopyValue(person, kABPersonLastNameProperty);
+	
+	ABMutableMultiValueRef multiValue = ABRecordCopyValue(person, kABPersonAddressProperty);
+	for (CFIndex i=0;i<ABMultiValueGetCount(multiValue);i++) {
+		CFDictionaryRef dict = ABMultiValueCopyValueAtIndex(multiValue, i);
+		CFStringRef street = CFDictionaryGetValue(dict, kABPersonAddressStreetKey);
+		appDelegate.address1 = (NSString*)street;
+		CFStringRef city = CFDictionaryGetValue(dict, kABPersonAddressCityKey);
+		appDelegate.city = (NSString*)city;
+		CFStringRef state = CFDictionaryGetValue(dict, kABPersonAddressStateKey);
+		appDelegate.stateID = (NSString*)state;
+		CFStringRef zipCode = CFDictionaryGetValue(dict, kABPersonAddressZIPKey);
+		appDelegate.zipcode = (NSString*)zipCode;
+		CFRelease(dict);
+	}
+	
+	multiValue = ABRecordCopyValue(person, kABPersonPhoneProperty);
+	for (CFIndex i=0;i<ABMultiValueGetCount(multiValue);i++) {
+		CFStringRef label = ABMultiValueCopyLabelAtIndex(multiValue, i);
+		
+		if (CFStringCompare(label, kABPersonPhoneMobileLabel, 0) == kCFCompareEqualTo) {
+			CFStringRef number = ABMultiValueCopyValueAtIndex(multiValue, i); 
+			appDelegate.cellPhone = (NSString*)number; 
+			CFRelease(number);
+		}
+		
+		if (CFStringCompare(label, (CFStringRef) @"_$!<Home>!$_", 0) == kCFCompareEqualTo) {
+			CFStringRef number = ABMultiValueCopyValueAtIndex(multiValue, i); 
+			appDelegate.homePhone = (NSString*)number; 
+			CFRelease(number);
+		}
+		
+		if (CFStringCompare(label, (CFStringRef) @"_$!<Work>!$_", 0) == kCFCompareEqualTo) {
+			CFStringRef number = ABMultiValueCopyValueAtIndex(multiValue, i); 
+			appDelegate.workPhone = (NSString*)number; 
+			CFRelease(number);
+		}
+		
+		CFRelease(label);
+	}
+		
+	appDelegate.firstName = firstName;
+	appDelegate.lastName = lastName;
+		
+	[firstName release];
+    [lastName release];
+	
+	
+    [self dismissModalViewControllerAnimated:YES];
+	
+    return NO; 
+}
+
+- (BOOL)peoplePickerNavigationController: (ABPeoplePickerNavigationController *)peoplePicker 
+      shouldContinueAfterSelectingPerson:(ABRecordRef)person 
+                                property:(ABPropertyID)property 
+                              identifier:(ABMultiValueIdentifier)identifier{ 
+    return NO; 
+}
+
+@end

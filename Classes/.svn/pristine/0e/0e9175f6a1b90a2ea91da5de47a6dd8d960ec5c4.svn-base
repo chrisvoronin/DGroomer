@@ -1,0 +1,127 @@
+//
+//  ProductPicker.m
+//  PSA
+//
+//  Created by Michael Simone on 7/20/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "ProductPicker.h"
+#import "PSAAppDelegate.h"
+#import "Type.h"
+
+@implementation ProductPicker
+
+@synthesize myPickerView;
+@synthesize appDelegate;
+@synthesize productsController;
+
+Type *products;
+BOOL usedPicker;
+
+- (IBAction)cancel:(id)sender {
+	// Reset the foil values
+    [self.view removeFromSuperview];
+}
+
+- (IBAction)done:(id)sender {
+	
+	if (usedPicker == NO) {
+		// Load the products
+		[appDelegate loadProductTypes];
+		products = [appDelegate.productTypes objectAtIndex:0];
+		appDelegate.prodTypeID = products.productID;
+		appDelegate.productTypeDescription = products.productDescription;
+	}
+	
+    [self.view removeFromSuperview];
+	
+	[productsController viewWillAppear: YES];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+	
+	
+	// Use the delegate to set/get values
+	appDelegate = (PSAAppDelegate *)[[UIApplication sharedApplication] delegate];
+	
+	usedPicker = NO;
+	
+	// Set the background color to a nice blue image
+	self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"PSA_Blue.png"]];
+	
+	// Let's reset the picker
+	[myPickerView selectRow:0 inComponent:0 animated:NO];
+	
+	
+	[super viewDidLoad];
+}
+
+// Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+	
+	// Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
+}
+
+
+- (void)dealloc {
+	[myPickerView release];
+	[appDelegate release];
+	[products release];
+	
+	[productsController release];
+	
+    [super dealloc];
+}
+
+#pragma mark ---- UIPickerViewDataSource delegate methods ----
+
+// returns the number of columns to display.
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+	return 1;
+	
+}
+
+// returns the number of rows
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+	[appDelegate loadProductTypes];
+	return [appDelegate.productTypes count];
+}
+
+#pragma mark ---- UIPickerViewDelegate delegate methods ----
+
+// returns the title of each row
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+	// Load the product values from the database
+	[appDelegate loadProductTypes];
+	products = [appDelegate.productTypes objectAtIndex:row];
+	
+	return [NSString stringWithFormat:@"%@", products.productDescription];
+}
+
+// gets called when the user settles on a row
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+	usedPicker = YES;
+	
+	// Load the product values from the database
+	[appDelegate loadProductTypes];
+	products = [appDelegate.productTypes objectAtIndex:row];
+	
+	appDelegate.productID = products.productID;
+	appDelegate.productTypeDescription = products.productDescription;
+}
+
+@end

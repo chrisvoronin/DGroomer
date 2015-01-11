@@ -1,0 +1,47 @@
+//
+//  Company.h
+//  PSA
+//
+//  Created by Michael Simone on 8/20/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <sqlite3.h>
+
+@interface Company : NSObject {
+	NSInteger companyID;
+	NSString *companyName;
+	NSNumber *salesTax;
+	NSString *companyAddress1;
+	NSString *companyAddress2;
+	NSString *companyCity;
+	NSString *companyState;
+	NSInteger companyZipCode;
+	NSString *companyEmail;
+	NSInteger companyPhone;
+	NSInteger companyFax;
+	NSInteger monthsOldAppointments;
+	NSInteger OwnerKey;
+}
+
+@property (assign, nonatomic) NSInteger companyID;
+@property (assign, nonatomic) NSString *companyName;
+@property (assign, nonatomic) NSNumber *salesTax;
+@property (assign, nonatomic) NSString *companyAddress1;
+@property (assign, nonatomic) NSString *companyAddress2;
+@property (assign, nonatomic) NSString *companyCity;
+@property (assign, nonatomic) NSString *companyState;
+@property (assign, nonatomic) NSInteger companyZipCode;
+@property (assign, nonatomic) NSString *companyEmail;
+@property (assign, nonatomic) NSInteger companyPhone;
+@property (assign, nonatomic) NSInteger companyFax;
+@property (assign, nonatomic) NSInteger monthsOldAppointments;
+@property (assign, nonatomic) NSInteger OwnerKey;
+
+// Finalize (delete) all of the SQLite compiled queries.
++ (void)finalizeStatements;
+
+- (id)initWithCompanyData:(NSInteger)key name:(NSString*)compName tax:(NSNumber*)tax addr1:(NSString*)addr1 addr2:(NSString*)addr2 city:(NSString*)city state:(NSString*)state zip:(NSInteger)zip email:(NSString*)email phone:(NSInteger)phone fax:(NSInteger)fax appts:(NSInteger)appts owner:(NSInteger)owner;
+
+@end

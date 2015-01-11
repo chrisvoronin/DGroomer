@@ -1,0 +1,90 @@
+//
+//  SetAnnivEmailTextController.m
+//  PSA
+//
+//  Created by Michael Simone on 8/2/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "SetAnnivEmailTextController.h"
+#import "Settings.h"
+
+@implementation SetAnnivEmailTextController
+
+@synthesize appDelegate, emailSubject, textMessage;
+
+BOOL edit;
+NSInteger settingID;
+
+- (IBAction)save:(id)sender {
+	appDelegate.annivEmailFrom = emailFrom.text;
+	appDelegate.annivEmailSubject = emailSubject.text;
+	appDelegate.annivEmailText = textMessage.text;
+	
+	if (edit == YES)
+		[appDelegate updateSettings:settingID];
+	else
+		[appDelegate saveSettings];
+	
+	edit = NO;
+	
+	[self.view removeFromSuperview];
+}
+
+- (IBAction)back:(id)sender {
+	[self.view removeFromSuperview];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+	// Use the delegate to set/get values
+	appDelegate = (PSAAppDelegate *)[[UIApplication sharedApplication] delegate];
+	
+	self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"PSA_SettingsOrange.png"]];
+	
+    [super viewDidLoad];
+	
+	//If there is a company then load it up
+	[appDelegate loadSettings];
+	if ([appDelegate.settings count] != 0) {
+		Settings *setter = [appDelegate.settings objectAtIndex:0];
+		edit = YES;
+		
+		settingID = setter.settingsID;
+		emailFrom.text = setter.annivEmailFrom;
+		emailSubject.text = setter.annivEmailSubject;
+		textMessage.text = setter.annivEmailText;
+	}
+	
+	[self.view setNeedsDisplay];
+
+}
+
+// Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+	
+	// Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
+}
+
+
+- (void)dealloc {
+	[emailSubject release];
+	[textMessage release];
+	
+    [super dealloc];
+}
+
+
+@end

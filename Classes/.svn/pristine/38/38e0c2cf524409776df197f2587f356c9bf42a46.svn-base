@@ -1,0 +1,143 @@
+//
+//  GiftCertificateController.m
+//  PSA
+//
+//  Created by Michael Simone on 8/16/09.
+//  Copyright 2009 Dropped Pin. All rights reserved.
+//
+
+#import "GiftCertificateController.h"
+
+
+@implementation GiftCertificateController
+
+NSNumber *giftValue;
+
+@synthesize rControl, clientControl, expireControl;
+
+- (void) doAlert:(NSString*)message {
+	// open an alert with just an OK button
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+	[alert show];	
+	[alert release];
+}
+
+- (IBAction)cancel:(id)sender {
+    [self.view removeFromSuperview];
+}
+
+- (IBAction)getExpiration:(id)sender {
+    if (expireControl == nil) {
+		expireControl = [[ExpirationDateController alloc] initWithNibName:@"ExpirationDate" bundle:[NSBundle mainBundle]];
+		expireControl.gControl = self;
+	}
+	
+	[purchaser becomeFirstResponder];
+	[self.view addSubview:expireControl.view];
+}
+
+- (IBAction)getPurchaser:(id)sender {
+    if (clientControl == nil) {
+		clientControl = [[ClientViewController alloc] initWithNibName:@"ClientsView" bundle:[NSBundle mainBundle]];
+		clientControl.gControl = self;
+	}
+	
+	[purchaseDate becomeFirstResponder];
+	[self.view addSubview:clientControl.view];
+}
+
+- (IBAction)save:(id)sender {
+	NSAutoreleasePool *localPool = [[NSAutoreleasePool alloc] init];
+	
+	// Set all the values needed for the database save
+	if ([certificateNumber.text length] == 0) {
+		[self doAlert:@"Please enter a gift certificate number."];
+		return;
+	} else
+		appDelegate.giftCertificateNumber = [certificateNumber.text integerValue];
+	
+	if ([recipient.text length] == 0) {
+		[self doAlert:@"Please enter a recipient."];
+		return;
+	} else
+		appDelegate.recipient = [recipient text];
+	
+	if ([amount.text length] == 0) {
+		[self doAlert:@"Please enter an amount."];
+		return;
+	} else {
+		giftValue = appDelegate.currentValue = appDelegate.originalValue = [NSNumber numberWithFloat:[amount.text floatValue]];
+	}
+	
+	if ([purchaser.text length] == 0) {
+		[self doAlert:@"Please enter a purchaser."];
+		return;
+	}
+	
+	appDelegate.giftCertificateMessage = [messageView text];
+	appDelegate.giftCertificateNote = [notesView text];
+	
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+	[dateFormatter setDateStyle:NSDateFormatterShortStyle];
+	
+	appDelegate.purchaseDate = [dateFormatter stringFromDate:[NSDate date]];
+	
+	[appDelegate saveGift];
+	
+    [self.view removeFromSuperview];
+	[self.rControl viewWillAppear:YES];
+	
+	[localPool release];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{	
+	if (appDelegate.clientFirstName != nil) {
+		if (![appDelegate.clientLastName isEqualToString:@" "])
+			purchaser.text = [NSString stringWithFormat:@"%@ %@", appDelegate.clientFirstName, appDelegate.clientLastName];
+		else
+			purchaser.text = [NSString stringWithFormat:@"%@", appDelegate.clientFirstName];
+	}
+	
+	purchaseDate.text = appDelegate.expirationDate;
+	
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+	
+	// Use the delegate to set/get values
+	appDelegate = (PSAAppDelegate *)[[UIApplication sharedApplication] delegate];
+	[self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PSA_RegisterGreen.png"]]];
+	[myScrollView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PSA_RegisterGreen.png"]]];
+	[myScrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height * 1.5)];
+	
+    [super viewDidLoad];
+}
+
+
+// Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+	
+	// Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
+}
+
+
+- (void)dealloc {
+    [super dealloc];
+}
+
+
+@end
