@@ -20,10 +20,11 @@
 
 - (void)viewDidLoad {
 	// Set the background
-	UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundOrange.png"];
+	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundOrange.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
 	[hoursTable setBackgroundColor:bgColor];
-	[bgColor release];
+	[bgColor release];*/
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: self.navigationController.view.tintColor};
 	// Cancel Button
 	UIBarButtonItem *btnCancel = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
 	self.navigationItem.leftBarButtonItem = btnCancel;

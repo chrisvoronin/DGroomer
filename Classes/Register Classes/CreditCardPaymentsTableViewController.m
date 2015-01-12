@@ -22,6 +22,7 @@
 - (void) viewDidLoad {
 	self.title = @"Credit Payments";
 	//
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: self.navigationController.view.tintColor};
 	if( report ) {
 		// Email Button
 		UIBarButtonItem *btnEmail = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(emailReport)];
@@ -292,7 +293,7 @@
 	// Open Email
 	if( [MFMailComposeViewController canSendMail] ) {
 		MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
-		picker.navigationBar.tintColor = [UIColor blackColor];
+		//picker.navigationBar.tintColor = [UIColor blackColor];
 		picker.mailComposeDelegate = self;
 		
 		NSMutableArray *allPayments = [[NSMutableArray alloc] init];

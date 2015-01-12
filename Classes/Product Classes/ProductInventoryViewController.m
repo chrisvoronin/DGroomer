@@ -19,10 +19,10 @@
 - (void)viewDidLoad {
 	self.title = @"Inventory";
 	// Set the background color to a nice blue image
-	UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundRed.png"];
+	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundRed.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
 	[tblInventory setBackgroundColor:bgColor];
-	[bgColor release];
+	[bgColor release];*/
 	// Save Button
 	UIBarButtonItem *btnSave = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save)];
 	self.navigationItem.rightBarButtonItem = btnSave;

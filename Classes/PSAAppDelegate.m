@@ -75,7 +75,7 @@
 	if( property == kABPersonEmailProperty ) {
 		if( [MFMailComposeViewController canSendMail] ) {
 			MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
-			picker.navigationBar.tintColor = [UIColor blackColor];
+			//picker.navigationBar.tintColor = [UIColor blackColor];
 			picker.mailComposeDelegate = self;
 			// Set up the recipients
 			ABMultiValueRef multiValue = ABRecordCopyValue( person, property );

@@ -26,7 +26,7 @@
 	//
 	self.title = @"Payment";
 	//
-	if( isInvoicePayment ) {
+	/*if( isInvoicePayment ) {
 		UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundBlue.png"];
 		UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
 		[tblPayment setBackgroundColor:bgColor];
@@ -36,7 +36,8 @@
 		UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
 		[tblPayment setBackgroundColor:bgColor];
 		[bgColor release];
-	}
+	}*/
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: self.navigationController.view.tintColor};
 	//
 	if( editing ) {
 		// Save Button

@@ -275,7 +275,7 @@
 	// Open Email
 	if( [MFMailComposeViewController canSendMail] ) {
 		MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
-		picker.navigationBar.tintColor = [UIColor blackColor];
+		//picker.navigationBar.tintColor = [UIColor blackColor];
 		picker.mailComposeDelegate = self;
 		
 		Email *email = [[PSADataManager sharedInstance] getAnniversaryEmail];
@@ -333,7 +333,7 @@
 	// Open Email
 	if( [MFMailComposeViewController canSendMail] ) {
 		MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
-		picker.navigationBar.tintColor = [UIColor blackColor];
+		//picker.navigationBar.tintColor = [UIColor blackColor];
 		picker.mailComposeDelegate = self;
 		
 		Email *email = [[PSADataManager sharedInstance] getBirthdayEmail];
@@ -419,7 +419,8 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"ClientCell"] autorelease];
 		cell.selectionStyle = UITableViewCellSelectionStyleGray;
 		if( clientDelegate == self ) {
-			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+			//cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.accessoryType = UITableViewCellAccessoryNone;
 		}
     } else if( cell == nil ) {
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"ClientBDayAnnCell"] autorelease];

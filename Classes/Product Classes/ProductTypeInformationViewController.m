@@ -17,10 +17,11 @@
 - (void) viewDidLoad {
 	self.title = @"Type";
 	// Set the background color to a nice blue image
-	UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundRed.png"];
+	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundRed.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
 	[self.view setBackgroundColor:bgColor];
-	[bgColor release];
+	[bgColor release];*/
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: self.navigationController.view.tintColor};
 	// Save Button
 	UIBarButtonItem *btnSave = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save)];
 	self.navigationItem.rightBarButtonItem = btnSave;
@@ -62,6 +63,14 @@
 		[alert show];	
 		[alert release];
 	}
+}
+
+-(void) cancelAdd {
+    if( self.navigationController.viewControllers.count == 1 ) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 @end

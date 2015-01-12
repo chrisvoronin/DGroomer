@@ -16,10 +16,11 @@
 - (void)viewDidLoad {
 	self.title = @"Quantity";
 	//
-	UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundRed.png"];
+	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundRed.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
 	[self.view setBackgroundColor:bgColor];
-	[bgColor release];
+	[bgColor release];*/
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: self.navigationController.view.tintColor};
 	// Done Button
 	UIBarButtonItem *btnSave = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];
 	self.navigationItem.rightBarButtonItem = btnSave;

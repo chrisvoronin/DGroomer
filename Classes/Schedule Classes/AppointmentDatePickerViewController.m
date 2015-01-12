@@ -19,10 +19,10 @@
 - (void)viewDidLoad {
 	self.title = @"Appt. Date";
     // Set the view background to match the grouped tables in the other views.
-    UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundGray.png"];
+    /*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundGray.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
 	[self.view setBackgroundColor:bgColor];
-	[bgColor release];
+	[bgColor release];*/
 	// Done Button
 	UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];
 	self.navigationItem.rightBarButtonItem = btnDone;

@@ -54,11 +54,26 @@
 	types = [[NSArray alloc] initWithObjects:@"Block", @"Project", @"Single Service", nil];
 #endif
 	// Clear the table background
-	UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundGray.png"];
+	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundGray.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
 	[tblAppointment setBackgroundColor:bgColor];
-	[bgColor release];
+	[bgColor release];*/
 	//
+    //self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor colorWithRed:12/255.0 green:138/255.0 blue:235/255.0 alpha:1.0]};
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: self.navigationController.view.tintColor};
+    //self.navigationController.view.tintColor = [UIColor blueColor];
+    /*if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+        // iOS 6.1 or earlier
+        self.navigationController.navigationBar.tintColor = [UIColor blueColor];
+        //self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
+    } else {
+        // iOS 7.0 or later
+        self.navigationController.navigationBar.tintColor = [UIColor blueColor];
+        self.navigationController.view.tintColor = [UIColor blueColor];
+        //self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
+        self.navigationController.navigationBar.translucent = NO;
+    }*/
+    
 	if( isEditing ) {
 		// Save Button
 		UIBarButtonItem *btnSave = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save)];
@@ -157,7 +172,7 @@
 		[cancel release];
 		cont.isEditing = YES;
 		UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:cont];
-		nav.navigationBar.tintColor = [UIColor blackColor];
+		//nav.navigationBar.tintColor = [UIColor blackColor];
 		[self presentViewController:nav animated:YES completion:nil];
 		[nav release];
 	} else {
@@ -187,7 +202,7 @@
 	// Open Email
 	if( [MFMailComposeViewController canSendMail] ) {
 		MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
-		picker.navigationBar.tintColor = [UIColor blackColor];
+		//picker.navigationBar.tintColor = [UIColor blackColor];
 		picker.mailComposeDelegate = self;
 		
 		Email *email = [[PSADataManager sharedInstance] getAppointmentReminderEmail];
@@ -315,7 +330,7 @@
 	cont.navigationItem.leftBarButtonItem = cancel;
 	[cancel release];
 	UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:cont];
-	nav.navigationBar.tintColor = [UIColor blackColor];
+	//nav.navigationBar.tintColor = [UIColor blackColor];
 	[self presentViewController:nav animated:YES completion:nil];
 	[cont release];
 	[nav release];

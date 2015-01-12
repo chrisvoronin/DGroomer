@@ -16,10 +16,11 @@
 
 - (void)viewDidLoad {
 	// Set the background
-	UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundOrange.png"];
+	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundOrange.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
 	[self.view setBackgroundColor:bgColor];
-	[bgColor release];
+	[bgColor release];*/
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: self.navigationController.view.tintColor};
 	// Add Save Button
 	UIBarButtonItem *btnSave = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save)];
 	self.navigationItem.rightBarButtonItem = btnSave;

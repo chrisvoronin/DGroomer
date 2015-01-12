@@ -110,7 +110,7 @@
 	pvc.navigationItem.leftBarButtonItem = cancel;
 	[cancel release];
 	UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:pvc];
-	nav.navigationBar.tintColor = [UIColor blackColor];
+	//nav.navigationBar.tintColor = [UIColor blackColor];
 	[pvc release];
 	[self presentViewController:nav animated:YES completion:nil];
 	[nav release];

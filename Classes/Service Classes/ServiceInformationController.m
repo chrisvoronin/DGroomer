@@ -25,10 +25,11 @@
 - (void)viewDidLoad {
 	self.title = @"Service";
 	// Set the background color to a nice blue image
-	UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundPurple.png"];
+	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundPurple.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
 	[myTableView setBackgroundColor:bgColor];
-	[bgColor release];
+	[bgColor release];*/
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: self.navigationController.view.tintColor};
 	// Save Button
 	UIBarButtonItem *btnSave = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save)];
 	self.navigationItem.rightBarButtonItem = btnSave;

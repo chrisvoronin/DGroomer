@@ -22,6 +22,7 @@
 		serviceDelegate = self;
 	}
 	serviceToDelete = nil;
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: self.navigationController.view.tintColor};
 	// Add "+" Button
 	UIBarButtonItem *btnAdd = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addService)];
 	self.navigationItem.rightBarButtonItem = btnAdd;
@@ -62,7 +63,7 @@
 	cont.navigationItem.leftBarButtonItem = cancel;
 	[cancel release];
 	UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:cont];
-	nav.navigationBar.tintColor = [UIColor blackColor];
+	//nav.navigationBar.tintColor = [UIColor blackColor];
 	[self presentViewController:nav animated:YES completion:nil];
 	[cont release];
 	[nav release];

@@ -20,5 +20,5 @@
 @property (nonatomic, retain) ProductType	*type;
 
 - (void) save;
-
+- (void) cancelAdd;
 @end

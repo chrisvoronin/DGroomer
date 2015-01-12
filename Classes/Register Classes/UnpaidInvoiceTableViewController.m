@@ -182,7 +182,7 @@
 	// Open Email
 	if( [MFMailComposeViewController canSendMail] ) {
 		MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
-		picker.navigationBar.tintColor = [UIColor blackColor];
+		//picker.navigationBar.tintColor = [UIColor blackColor];
 		picker.mailComposeDelegate = self;
 		
 		// Company Info

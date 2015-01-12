@@ -21,5 +21,5 @@
 
 
 - (void) save;
-
+-(void) cancelAdd;
 @end

@@ -18,10 +18,10 @@
 - (void)viewDidLoad {
 	self.title = @"Service Costs";
 	// Set the background color to a nice blue image
-	UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundPurple.png"];
+	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundPurple.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
 	[self.view setBackgroundColor:bgColor];
-	[bgColor release];
+	[bgColor release];*/
 	// Done Button
 	UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(save)];
 	self.navigationItem.rightBarButtonItem = btnDone;

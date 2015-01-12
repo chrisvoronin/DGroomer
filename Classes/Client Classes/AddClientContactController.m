@@ -22,10 +22,10 @@
 	// Set the navigation bar title
 	self.title = @"Add Client";
 	// Set the background color to a nice yellow image
-	UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundGold.png"];
+	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundGray.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
 	[myTableView setBackgroundColor:bgColor];
-	[bgColor release];
+	[bgColor release];*/
 	//
     [super viewDidLoad];
 }
@@ -99,7 +99,7 @@
 	//
 	if( indexPath.section == 0 ) {
 		ABPeoplePickerNavigationController *picker = [[ABPeoplePickerNavigationController alloc] init];
-		picker.navigationBar.tintColor = [UIColor blackColor];
+		//picker.navigationBar.tintColor = [UIColor blackColor];
 		picker.peoplePickerDelegate = self;
         //picker.delegate = self;
         
@@ -116,7 +116,7 @@
 			sub.backgroundColor = self.myTableView.backgroundColor;
 		}
 		UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:new];
-		nav.navigationBar.tintColor = [UIColor blackColor];
+		//nav.navigationBar.tintColor = [UIColor blackColor];
 		[self presentViewController:nav animated:YES completion:nil];
 		[new release];
 		[nav release];

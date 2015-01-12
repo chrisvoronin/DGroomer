@@ -15,6 +15,7 @@
 
 
 - (void) viewDidLoad {
+    self.title = @"Contact";
 	//
 	NSString *text = [[NSString alloc] initWithFormat:@"Version %@", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
 	lbVersion.text = text;
@@ -23,6 +24,10 @@
     [super viewDidLoad];
 }
 
+
+-(void)viewWillAppear:(BOOL)animated {
+    self.navigationController.navigationBarHidden = NO;
+}
 
 - (void) didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.

@@ -35,6 +35,7 @@
 		self.navigationItem.rightBarButtonItem = btnAdd;
 		[btnAdd release];
 	}
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: self.navigationController.view.tintColor};
 	//
 	formatter = [[NSNumberFormatter alloc] init];
 	[formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
@@ -109,7 +110,7 @@
 	cont.navigationItem.leftBarButtonItem = cancel;
 	[cancel release];
 	UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:cont];
-	nav.navigationBar.tintColor = [UIColor blackColor];
+	//nav.navigationBar.tintColor = [UIColor blackColor];
 	[self presentViewController:nav animated:YES completion:nil];
 	[cont release];
 	[nav release];
@@ -354,7 +355,7 @@
 	// Open Email
 	if( [MFMailComposeViewController canSendMail] ) {
 		MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
-		picker.navigationBar.tintColor = [UIColor blackColor];
+		//picker.navigationBar.tintColor = [UIColor blackColor];
 		picker.mailComposeDelegate = self;
 		
 		// Company Info

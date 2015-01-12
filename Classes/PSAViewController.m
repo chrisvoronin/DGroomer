@@ -180,22 +180,26 @@
 	[UIView setAnimationTransition:([mainView superview] ? UIViewAnimationTransitionFlipFromRight : UIViewAnimationTransitionFlipFromLeft) forView:self.view cache:YES];
 	
 	if ( [self.view.subviews objectAtIndex:self.view.subviews.count-1] != aboutView ) {
-		[aboutController viewWillAppear:YES];
+		/*[aboutController viewWillAppear:YES];
 		[self viewWillDisappear:YES];
 		[self.view addSubview:aboutView];
-		self.navigationController.navigationBarHidden = YES;
+		self.navigationController.navigationBarHidden = NO;
 		[self viewDidDisappear:YES];
 		[aboutController viewDidAppear:YES];
+        ProductsTableViewController *productVC = [[ProductsTableViewController alloc] initWithNibName:@"ProductsTableView" bundle:nil];*/
+        [self.navigationController pushViewController:aboutController animated:YES];
+        //[aboutController release];
 	} else {
-		[self viewWillAppear:YES];
+		/*[self viewWillAppear:YES];
 		[aboutController viewWillDisappear:YES];
-		self.navigationController.navigationBarHidden = NO;
+		//self.navigationController.navigationBarHidden = NO;
 		[aboutView removeFromSuperview];
 		//[self.view addSubview:mainView];
 		[aboutController viewDidDisappear:YES];
-		[self viewDidAppear:YES];
-		[aboutController release];
-		aboutController = nil;
+		[self viewDidAppear:YES];*/
+        
+		//[aboutController release];
+		//aboutController = nil;
 	}
 	[UIView commitAnimations];
 }

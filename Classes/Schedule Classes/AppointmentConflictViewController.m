@@ -18,10 +18,10 @@
 - (void) viewDidLoad {
 	self.title = @"Conflicts";
 	//
-	UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundGray.png"];
+	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundGray.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
 	[tblConflicts setBackgroundColor:bgColor];
-	[bgColor release];
+	[bgColor release];*/
 	// Book Button
 	UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:@"Book" style:UIBarButtonItemStyleBordered target:self action:@selector(book)];
 	self.navigationItem.rightBarButtonItem = btnDone;

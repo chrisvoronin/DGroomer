@@ -15,10 +15,11 @@
 
 - (void)viewDidLoad {
 	// Background
-	UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundGreen.png"];
+	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundGreen.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
 	[self.view setBackgroundColor:bgColor];
-	[bgColor release];
+	[bgColor release];*/
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: self.navigationController.view.tintColor};
 	if( editing ) {
 		// Done Button
 		UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];

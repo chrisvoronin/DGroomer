@@ -31,11 +31,12 @@
 - (void)viewDidLoad {
 	self.title = @"Transaction";
 	//
-	UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundGreen.png"];
+	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundGreen.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
 	[tblTransaction setBackgroundColor:bgColor];
-	[bgColor release];
+	[bgColor release];*/
 	//
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: self.navigationController.view.tintColor};
 	if( isEditing || tblTransaction.editing || transaction == nil || transaction.transactionID < 0 ) {
 		// Save Button
 		UIBarButtonItem *btnSave = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save)];
@@ -362,7 +363,7 @@
 		cont.isEditing = YES;
 		cont.transaction = transaction;
 		UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:cont];
-		nav.navigationBar.tintColor = [UIColor blackColor];
+		//nav.navigationBar.tintColor = [UIColor blackColor];
 		[cont release];
 		[self presentViewController:nav animated:YES completion:nil];
 		[nav release];
@@ -418,7 +419,7 @@
 	// Open Email
 	if( [MFMailComposeViewController canSendMail] ) {
 		MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
-		picker.navigationBar.tintColor = [UIColor blackColor];
+		//picker.navigationBar.tintColor = [UIColor blackColor];
 		picker.mailComposeDelegate = self;
 		// Company Info
 		Company *company = [[PSADataManager sharedInstance] getCompany];
@@ -665,7 +666,7 @@
 		cont.delegate = self;
 		cont.payment = [ccPaymentsToRemove objectAtIndex:0];
 		UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:cont];
-		nav.navigationBar.tintColor = [UIColor blackColor];
+		//nav.navigationBar.tintColor = [UIColor blackColor];
 		[self presentViewController:nav animated:YES completion:nil];
 		[cont.view setBackgroundColor:tblTransaction.backgroundColor];
 		cont.title = @"Refunding Credit";
@@ -1395,7 +1396,7 @@
 					cont.navigationItem.leftBarButtonItem = cancel;
 					[cancel release];
 					UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:cont];
-					nav.navigationBar.tintColor = [UIColor blackColor];
+					//nav.navigationBar.tintColor = [UIColor blackColor];
 					[self presentViewController:nav animated:YES completion:nil];
 					[cont release];
 					[nav release];
@@ -1431,7 +1432,7 @@
 					cont.navigationItem.leftBarButtonItem = cancel;
 					[cancel release];
 					UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:cont];
-					nav.navigationBar.tintColor = [UIColor blackColor];
+					//nav.navigationBar.tintColor = [UIColor blackColor];
 					[self presentViewController:nav animated:YES completion:nil];
 					[cont release];
 					[nav release];
@@ -1454,7 +1455,7 @@
 					cont.navigationItem.leftBarButtonItem = cancel;
 					[cancel release];
 					UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:cont];
-					nav.navigationBar.tintColor = [UIColor blackColor];
+					//nav.navigationBar.tintColor = [UIColor blackColor];
 					[cont.tblCertificate setEditing:YES animated:NO];
 					[self presentViewController:nav animated:YES completion:nil];
 					[cont release];
@@ -1482,7 +1483,7 @@
 						cont.navigationItem.leftBarButtonItem = cancel;
 						[cancel release];
 						UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:cont];
-						nav.navigationBar.tintColor = [UIColor blackColor];
+						//nav.navigationBar.tintColor = [UIColor blackColor];
 						[self presentViewController:nav animated:YES completion:nil];
 						[cont release];
 						[nav release];

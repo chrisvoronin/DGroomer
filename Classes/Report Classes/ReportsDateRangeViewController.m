@@ -23,11 +23,12 @@
 - (void) viewDidLoad {
 	self.title = @"Report Range";
 	//
-	UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundAquamarine.png"];
+	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundAquamarine.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
 	[tblTimes setBackgroundColor:bgColor];
 	[self.view setBackgroundColor:bgColor];
-	[bgColor release];
+	[bgColor release];*/
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: self.navigationController.view.tintColor};
 	// Done Button
 	UIBarButtonItem *btnGenerate = [[UIBarButtonItem alloc] initWithTitle:@"Generate" style:UIBarButtonItemStylePlain target:self action:@selector(generate)];
 	self.navigationItem.rightBarButtonItem = btnGenerate;
@@ -199,7 +200,7 @@
 	} else {
 		cell.backgroundColor = [UIColor whiteColor];
 		cell.detailTextLabel.textColor = [UIColor colorWithRed:.22 green:.33 blue:.53 alpha:1];
-		cell.textLabel.textColor = [UIColor blackColor];
+		//cell.textLabel.textColor = [UIColor blackColor];
 	}
 }
 

@@ -89,7 +89,7 @@
 			cont.navigationItem.leftBarButtonItem = cancel;
 			[cancel release];
 			UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:cont];
-			nav.navigationBar.tintColor = [UIColor blackColor];
+			//nav.navigationBar.tintColor = [UIColor blackColor];
 			[self presentViewController:nav animated:YES completion:nil];
 			[cont release];
 			[nav release];
@@ -99,7 +99,7 @@
 			ProjectInvoice *inv = [[ProjectInvoice alloc] init];
 			inv.projectID = project.projectID;
 			inv.type = iBizProjectInvoice;
-			NSString *name2 = [[NSString alloc] initWithFormat:@"%@ Invoice %d", project.name, [[project.payments objectForKey:[project getKeyForInvoices]] count]+1];
+			NSString *name2 = [[NSString alloc] initWithFormat:@"%@ Invoice %lu", project.name, [[project.payments objectForKey:[project getKeyForInvoices]] count]+1];
 			inv.name = name2;
 			[name2 release];
 
@@ -112,7 +112,7 @@
 			[inv release];
 			cont.isModal = YES;
 			UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:cont];
-			nav.navigationBar.tintColor = [UIColor blackColor];
+			//nav.navigationBar.tintColor = [UIColor blackColor];
 			[self presentViewController:nav animated:YES completion:nil];
 			[cont release];
 			[nav release];

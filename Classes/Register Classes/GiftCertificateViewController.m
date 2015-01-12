@@ -21,10 +21,11 @@
 
 - (void) viewDidLoad {
 	// Background
-	UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundGreen.png"];
+	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundGreen.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
 	[tblCertificate setBackgroundColor:bgColor];
-	[bgColor release];
+	[bgColor release];*/
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: self.navigationController.view.tintColor};
 	// Save Button
 	UIBarButtonItem *btnSave = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save)];
 	self.navigationItem.rightBarButtonItem = btnSave;

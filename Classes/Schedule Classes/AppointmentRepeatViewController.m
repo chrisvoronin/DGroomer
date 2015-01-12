@@ -17,10 +17,10 @@
 - (void) viewDidLoad {
 	self.title = @"Standing Appt.";
 	//
-	UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundGray.png"];
+	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundGray.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
 	[tblRepeat setBackgroundColor:bgColor];
-	[bgColor release];
+	[bgColor release];*/
 	//
     [super viewDidLoad];
 }

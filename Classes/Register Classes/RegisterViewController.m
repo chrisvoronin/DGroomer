@@ -28,10 +28,10 @@
 - (void)viewDidLoad {
 	self.title = @"Get Paid";
 	//
-	UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundGreen.png"];
+	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundGreen.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
 	[tblRegister setBackgroundColor:bgColor];
-	[bgColor release];
+	[bgColor release];*/
 	//
     [super viewDidLoad];
 }
@@ -136,7 +136,7 @@
 				[cancel release];
 				UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:cont];
 				[cont release];
-				nav.navigationBar.tintColor = [UIColor blackColor];
+				//nav.navigationBar.tintColor = [UIColor blackColor];
 				[self presentViewController:nav animated:YES completion:nil];
 				[nav release];
 			} else {

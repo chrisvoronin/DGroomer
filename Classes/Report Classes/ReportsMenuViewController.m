@@ -19,10 +19,10 @@
 - (void)viewDidLoad {
 	self.title = @"Reports";
 	//
-	UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundAquamarine.png"];
+	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundAquamarine.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
 	[tblReports setBackgroundColor:bgColor];
-	[bgColor release];
+	[bgColor release];*/
 	//
     [super viewDidLoad];
 }

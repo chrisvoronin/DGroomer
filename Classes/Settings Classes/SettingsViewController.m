@@ -25,10 +25,10 @@
 - (void)viewDidLoad {
 	self.title = @"Settings";
 	// Set the background
-	UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundOrange.png"];
+	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundOrange.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
 	[settingsTable setBackgroundColor:bgColor];
-	[bgColor release];
+	[bgColor release];*/
 	//
 	[super viewDidLoad];
 }

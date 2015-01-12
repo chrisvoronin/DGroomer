@@ -22,7 +22,7 @@
 - (void)viewDidLoad {
 	self.title = @"Daily Closeout";
 	//
-	UIImage *bg = nil;
+	/*UIImage *bg = nil;
 	if( isCloseoutReport ) {
 		bg = [UIImage imageNamed:@"pinstripeBackgroundAquamarine.png"];
 	} else {
@@ -30,7 +30,8 @@
 	}
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
 	[tblCloseout setBackgroundColor:bgColor];
-	[bgColor release];
+	[bgColor release];*/
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: self.navigationController.view.tintColor};
 	//
 	if( isCloseoutReport ) {
 		// Email Button
@@ -371,7 +372,7 @@
 	// Open Email
 	if( [MFMailComposeViewController canSendMail] ) {
 		MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
-		picker.navigationBar.tintColor = [UIColor blackColor];
+		//picker.navigationBar.tintColor = [UIColor blackColor];
 		picker.mailComposeDelegate = self;
 		
 		// Date Range

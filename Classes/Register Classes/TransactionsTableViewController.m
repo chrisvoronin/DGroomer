@@ -26,6 +26,7 @@
 
 - (void) viewDidLoad {
 	self.title = @"Transactions";
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: self.navigationController.view.tintColor};
 	//
 	if( report ) {
 		// Email Button
@@ -287,7 +288,7 @@
 	// Open Email
 	if( [MFMailComposeViewController canSendMail] ) {
 		MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
-		picker.navigationBar.tintColor = [UIColor blackColor];
+		//picker.navigationBar.tintColor = [UIColor blackColor];
 		picker.mailComposeDelegate = self;
 		
 		NSMutableArray *allTransactions = [[NSMutableArray alloc] init];

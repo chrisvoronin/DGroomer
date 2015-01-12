@@ -17,10 +17,10 @@
 - (void)viewDidLoad {
 	self.title = @"Alerts";
 	// Set the background
-	UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundOrange.png"];
+	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundOrange.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
 	[tblEmail setBackgroundColor:bgColor];
-	[bgColor release];
+	[bgColor release];*/
 	//
 	[super viewDidLoad];
 }

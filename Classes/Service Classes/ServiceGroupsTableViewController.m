@@ -50,11 +50,11 @@
 
 - (void) addServiceGroup {
 	ServiceGroupViewController *cont = [[ServiceGroupViewController alloc] initWithNibName:@"ServiceGroupView" bundle:nil];
-	UIBarButtonItem *cancel  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismissViewControllerAnimated:)];
+	UIBarButtonItem *cancel  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:cont action:@selector(cancelAdd)];
 	cont.navigationItem.leftBarButtonItem = cancel;
 	[cancel release];
 	UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:cont];
-	nav.navigationBar.tintColor = [UIColor blackColor];
+	//nav.navigationBar.tintColor = [UIColor blackColor];
 	[self presentViewController:nav animated:YES completion:nil];
 	[cont release];
 	[nav release];

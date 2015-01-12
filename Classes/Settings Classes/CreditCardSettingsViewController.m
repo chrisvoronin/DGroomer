@@ -20,6 +20,7 @@
 	self.title = @"Gateway Settings";
 	// Fetch settings from keychain/DB
 	settings = [[PSADataManager sharedInstance] getCreditCardSettings];
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: self.navigationController.view.tintColor};
 	// Add Save Button
 	UIBarButtonItem *btnSave = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save)];
 	self.navigationItem.rightBarButtonItem = btnSave;
@@ -228,7 +229,7 @@
 		case 1:
 			if( [MFMailComposeViewController canSendMail] ) {
 				MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
-				picker.navigationBar.tintColor = [UIColor blackColor];
+				//picker.navigationBar.tintColor = [UIColor blackColor];
 				picker.mailComposeDelegate = self;
 				// Company Info
 				Company *company = [[PSADataManager sharedInstance] getCompany];

@@ -57,7 +57,7 @@
 - (IBAction) btnManualPressed:(id)sender {
 	// Load the PeoplePicker
 	ABPeoplePickerNavigationController *picker = [[ABPeoplePickerNavigationController alloc] init];
-	picker.navigationBar.tintColor = [UIColor blackColor];
+	//picker.navigationBar.tintColor = [UIColor blackColor];
 	picker.peoplePickerDelegate = self;
 	[self presentViewController:picker animated:YES completion:nil]; 
 	[picker release];

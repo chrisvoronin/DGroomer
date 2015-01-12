@@ -346,7 +346,7 @@
 				cont.navigationItem.hidesBackButton = YES;
 				[cancel release];
 				UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:cont];
-				nav.navigationBar.tintColor = [UIColor blackColor];
+				//nav.navigationBar.tintColor = [UIColor blackColor];
                 [scheduleViewController presentViewController:nav animated:YES completion:nil];
 				[nav release];
 			} else {

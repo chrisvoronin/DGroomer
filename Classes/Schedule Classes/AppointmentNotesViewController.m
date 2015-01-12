@@ -16,10 +16,10 @@
 - (void) viewDidLoad {
 	self.title = @"Notes";
 	//
-	UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundGray.png"];
+	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundGray.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
 	[tblNotes setBackgroundColor:bgColor];
-	[bgColor release];
+	[bgColor release];*/
 	// Create the UITextView
 	txtNotes = [[UITextView alloc] initWithFrame:CGRectMake(10, 10, 280, 140)];
 	txtNotes.font = [UIFont systemFontOfSize:16];

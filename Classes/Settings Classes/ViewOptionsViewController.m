@@ -18,10 +18,10 @@
 	// Nav Bar Title
 	self.title = @"View Options";
 	// Set the background
-	UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundOrange.png"];
+	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundOrange.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
 	[tblOptions setBackgroundColor:bgColor];
-	[bgColor release];
+	[bgColor release];*/
 	//
     [super viewDidLoad];
 }
