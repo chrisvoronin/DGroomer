@@ -9,6 +9,10 @@
             <connections>
                 <outlet property="chkBtnAgreeCheckMark" destination="0wf-EQ-RIv" id="GvF-YR-Axt"/>
                 <outlet property="lblTerms" destination="72E-Ba-70L" id="Eqx-7g-V2g"/>
+                <outlet property="txtBusinessName" destination="7P1-TZ-FBF" id="wLv-Pu-9Z3"/>
+                <outlet property="txtEmail" destination="M51-Rk-slM" id="Nop-9Y-39C"/>
+                <outlet property="txtName" destination="FYT-It-TxG" id="bbm-xP-IZt"/>
+                <outlet property="txtPhone" destination="2Vb-vx-A79" id="QqD-kF-nH3"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="Hth-n5-7QD"/>
             </connections>
         </placeholder>
@@ -49,13 +53,13 @@
                             <rect key="frame" x="20" y="125" width="280" height="30"/>
                             <color key="backgroundColor" red="0.88527856689999995" green="0.88527856689999995" blue="0.88527856689999995" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                         </textField>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Vb-vx-A79">
                             <rect key="frame" x="20" y="175" width="280" height="30"/>
                             <color key="backgroundColor" red="0.88527856689999995" green="0.88527856689999995" blue="0.88527856689999995" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                         </textField>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5I5-1O-FuQ">
                             <rect key="frame" x="50" y="220" width="102" height="21"/>

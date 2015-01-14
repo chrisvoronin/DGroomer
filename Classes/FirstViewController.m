@@ -9,6 +9,7 @@
 #import "FirstViewController.h"
 #import "PSAActivateAccountViewController.h"
 
+
 @interface FirstViewController ()
 
 @end
@@ -17,7 +18,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view from its nib.
+        
     [self.ctlPage addTarget:self action:@selector(changepage:) forControlEvents:UIControlEventTouchUpInside];
     
     self.mainScroll.delegate        = self;

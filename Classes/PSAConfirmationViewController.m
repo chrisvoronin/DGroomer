@@ -7,7 +7,7 @@
 //
 
 #import "PSAConfirmationViewController.h"
-
+#import "PSAAppDelegate.h"
 
 @interface PSAConfirmationViewController ()
 
@@ -27,6 +27,9 @@
 - (IBAction)clicked_GetStarted:(id)sender {
     //[self.window setRootViewController:navigationController]; // iOS 6 autorotation fix
     //[window addSubview:navigationController.view];
+    
+    [(PSAAppDelegate*)[[UIApplication sharedApplication] delegate] swapClientTabWithNavigation];
+    
 //
 }
 

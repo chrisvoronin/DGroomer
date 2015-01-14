@@ -22,7 +22,17 @@
     self.lblTerms.attributedText = [[NSAttributedString alloc] initWithString:@"Terms & Conditions"
                                                              attributes:underlineAttribute];
     
+    UITapGestureRecognizer *singleFingerTap =
+    [[UITapGestureRecognizer alloc] initWithTarget:self
+                                            action:@selector(handleSingleTap:)];
+    [self.view addGestureRecognizer:singleFingerTap];
+    [singleFingerTap release];
     
+    self.validation = [[ValidationUtility alloc] initWithAlertMessage:@"Please fill out all required fields" andTitle:@"Warning" andValidColor:[UIColor darkGrayColor] andNotValidColor:[UIColor redColor]];
+    [self.validation addValidationModel: [[ValidationModel alloc] initWithField:self.txtName andValidationType:ValidationEmpty]];
+    [self.validation addValidationModel: [[ValidationModel alloc] initWithField:self.txtBusinessName andValidationType:ValidationMinLength andLength:4]];
+    [self.validation addValidationModel: [[ValidationModel alloc] initWithField:self.txtEmail andValidationType:ValidationEmail]];
+    [self.validation addValidationModel: [[ValidationModel alloc] initWithField:self.txtPhone andValidationType:ValidationPhone]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -30,13 +40,21 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
+    //CGPoint location = [recognizer locationInView:[recognizer.view superview]];
+    [self.view endEditing:YES];
+    //Do stuff here...
+}
 
 - (IBAction)clicked_btnNext:(id)sender {
     if (!self.chkBtnAgreeCheckMark.isSelected) {
         return;
     }
     
+    BOOL isValid = [self.validation validateFormAndShowAlert:YES];
+    if (!isValid) {
+        return;
+    }
     //[self dismissViewControllerAnimated:YES completion:^{}];
     
     PSAVerifyViewController *pvc = [[PSAVerifyViewController alloc] initWithNibName:@"PSAVerifyViewController" bundle:nil];
@@ -66,6 +84,10 @@
 - (void)dealloc {
     [_chkBtnAgreeCheckMark release];
     [_lblTerms release];
+    [_txtName release];
+    [_txtBusinessName release];
+    [_txtEmail release];
+    [_txtPhone release];
     [super dealloc];
 }
 @end

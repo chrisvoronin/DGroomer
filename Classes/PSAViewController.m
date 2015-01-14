@@ -102,6 +102,7 @@
     
     btnContact.frame = CGRectMake( 20, 5+40*7+10*7 + 64, 280, 40);
 	btnFreeCardReader.frame = CGRectMake( 20, 5+40*8+10*8 + 64, 280, 40);
+    btnFreeCardReader.hidden = YES;
     
 }
 

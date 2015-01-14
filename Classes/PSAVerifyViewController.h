@@ -10,5 +10,6 @@
 
 @interface PSAVerifyViewController : UIViewController
 @property (retain, nonatomic) IBOutlet UILabel *lblPhoneChange;
+@property (retain, nonatomic) IBOutlet UITextField *txtVerifyCode;
 
 @end

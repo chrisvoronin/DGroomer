@@ -173,6 +173,9 @@
 		B206C1941A65DB0F00AD7DAF /* arrowconfirm.png in Resources */ = {isa = PBXBuildFile; fileRef = B206C1921A65DB0F00AD7DAF /* arrowconfirm.png */; };
 		B206C1951A65DB0F00AD7DAF /* youdone.png in Resources */ = {isa = PBXBuildFile; fileRef = B206C1931A65DB0F00AD7DAF /* youdone.png */; };
 		B206C1971A65DB4D00AD7DAF /* btngetstarted.png in Resources */ = {isa = PBXBuildFile; fileRef = B206C1961A65DB4D00AD7DAF /* btngetstarted.png */; };
+		B206C1991A66E7E100AD7DAF /* imgfreecard1.png in Resources */ = {isa = PBXBuildFile; fileRef = B206C1981A66E7E100AD7DAF /* imgfreecard1.png */; };
+		B206C19B1A66E8EC00AD7DAF /* imgfreecard1.png in Resources */ = {isa = PBXBuildFile; fileRef = B206C19A1A66E8EC00AD7DAF /* imgfreecard1.png */; };
+		B206C19D1A66EBF300AD7DAF /* imgfreecard2.png in Resources */ = {isa = PBXBuildFile; fileRef = B206C19C1A66EBF300AD7DAF /* imgfreecard2.png */; };
 		B2409E621938131B000F6F32 /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = B2409E611938131B000F6F32 /* XMLReader.m */; };
 		B2409E6C193813F8000F6F32 /* DataRegister.m in Sources */ = {isa = PBXBuildFile; fileRef = B2409E65193813F8000F6F32 /* DataRegister.m */; };
 		B2409E6D193813F8000F6F32 /* DateChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = B2409E67193813F8000F6F32 /* DateChecker.m */; };
@@ -4799,6 +4802,9 @@
 		B206C1921A65DB0F00AD7DAF /* arrowconfirm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrowconfirm.png; path = newskin/act/arrowconfirm.png; sourceTree = "<group>"; };
 		B206C1931A65DB0F00AD7DAF /* youdone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = youdone.png; path = newskin/act/youdone.png; sourceTree = "<group>"; };
 		B206C1961A65DB4D00AD7DAF /* btngetstarted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btngetstarted.png; path = newskin/act/btngetstarted.png; sourceTree = "<group>"; };
+		B206C1981A66E7E100AD7DAF /* imgfreecard1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = imgfreecard1.png; path = newskin/act/imgfreecard1.png; sourceTree = "<group>"; };
+		B206C19A1A66E8EC00AD7DAF /* imgfreecard1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = imgfreecard1.png; path = Images/newskin/act/imgfreecard1.png; sourceTree = "<group>"; };
+		B206C19C1A66EBF300AD7DAF /* imgfreecard2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = imgfreecard2.png; path = Images/newskin/act/imgfreecard2.png; sourceTree = "<group>"; };
 		B2409E601938131B000F6F32 /* XMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLReader.h; sourceTree = "<group>"; };
 		B2409E611938131B000F6F32 /* XMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLReader.m; sourceTree = "<group>"; };
 		B2409E64193813F8000F6F32 /* DataRegister.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataRegister.h; sourceTree = "<group>"; };
@@ -5686,6 +5692,8 @@
 		29B97314FDCFA39411CA2CEA /* PSA */ = {
 			isa = PBXGroup;
 			children = (
+				B206C19C1A66EBF300AD7DAF /* imgfreecard2.png */,
+				B206C19A1A66E8EC00AD7DAF /* imgfreecard1.png */,
 				B206C1771A65A29000AD7DAF /* btnactivate.png */,
 				B2FB033E1A61646100D6AD23 /* iTunesArtwork.png */,
 				080E96DDFE201D6D7F000001 /* Classes & Views */,
@@ -5810,6 +5818,7 @@
 		93204F000F607EA900E3BD0D /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B206C1981A66E7E100AD7DAF /* imgfreecard1.png */,
 				B206C1961A65DB4D00AD7DAF /* btngetstarted.png */,
 				B206C1921A65DB0F00AD7DAF /* arrowconfirm.png */,
 				B206C1931A65DB0F00AD7DAF /* youdone.png */,
@@ -8300,6 +8309,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B206C19D1A66EBF300AD7DAF /* imgfreecard2.png in Resources */,
+				B206C19B1A66E8EC00AD7DAF /* imgfreecard1.png in Resources */,
 				B206C1781A65A29000AD7DAF /* btnactivate.png in Resources */,
 				B2FB033F1A61646100D6AD23 /* iTunesArtwork.png in Resources */,
 				B27759C81A4C5B0E0015F6F6 /* btn_blue_clicked.png in Resources */,
@@ -9553,6 +9564,7 @@
 				D9E1555B120753BC007089AB /* TransactionAdjustmentQuantityView.xib in Resources */,
 				D9E1554F120753BC007089AB /* TransactionAdjustmentView.xib in Resources */,
 				D9E155B2120753BC007089AB /* TransactionItemCell.xib in Resources */,
+				B206C1991A66E7E100AD7DAF /* imgfreecard1.png in Resources */,
 				849A88DF1910584300A20B9A /* tabIco_3_1.png in Resources */,
 				D9E155B3120753BC007089AB /* TransactionItemEditCell.xib in Resources */,
 				D9E1555D120753BC007089AB /* TransactionMoneyEntryView.xib in Resources */,

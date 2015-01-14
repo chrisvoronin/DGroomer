@@ -137,11 +137,18 @@
                                 <action selector="signupFlow:" destination="-1" eventType="touchUpInside" id="gII-a6-8cq"/>
                             </connections>
                         </button>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="© 2015 Merchant Account Solutions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FaK-3f-lOZ">
-                            <rect key="frame" x="20" y="520" width="280" height="21"/>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FaK-3f-lOZ">
+                            <rect key="frame" x="20" y="500" width="280" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <attributedString key="attributedText">
+                                <fragment content="© 2015 Merchant Account Solutions">
+                                    <attributes>
+                                        <color key="NSColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <font key="NSFont" size="14" name="HelveticaNeue-Bold"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                    </attributes>
+                                </fragment>
+                            </attributedString>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="A2K-Hz-lsk">
@@ -168,15 +175,15 @@
         </view>
     </objects>
     <resources>
-        <image name="btn_client.png" width="536" height="72"/>
-        <image name="btn_contact.png" width="536" height="72"/>
-        <image name="btn_freecard.png" width="536" height="72"/>
-        <image name="btn_getpaid.png" width="536" height="72"/>
-        <image name="btn_product.png" width="536" height="72"/>
-        <image name="btn_report.png" width="536" height="72"/>
-        <image name="btn_schedule.png" width="536" height="72"/>
-        <image name="btn_services.png" width="536" height="72"/>
-        <image name="btn_setting.png" width="536" height="72"/>
+        <image name="btn_client.png" width="580" height="71"/>
+        <image name="btn_contact.png" width="580" height="70"/>
+        <image name="btn_freecard.png" width="580" height="71"/>
+        <image name="btn_getpaid.png" width="580" height="70"/>
+        <image name="btn_product.png" width="580" height="71"/>
+        <image name="btn_report.png" width="580" height="71"/>
+        <image name="btn_schedule.png" width="580" height="71"/>
+        <image name="btn_services.png" width="580" height="72"/>
+        <image name="btn_setting.png" width="580" height="71"/>
         <image name="nav_first.png" width="640" height="90"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

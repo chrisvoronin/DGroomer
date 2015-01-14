@@ -21,13 +21,7 @@
     UITextField *activeField;
 }
 @property (retain, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (retain, nonatomic) IBOutlet CustomInsetTextField *nameTextField;
-@property (retain, nonatomic) IBOutlet CustomInsetTextField *businessNameTextField;
-@property (retain, nonatomic) IBOutlet CustomInsetTextField *emailTextField;
-@property (retain, nonatomic) IBOutlet CustomInsetTextField *phoneNumTextField;
-@property (retain, nonatomic) IBOutlet CustomInsetTextField *passwordTextField;
-@property (retain, nonatomic) IBOutlet CustomInsetTextField *verifyPassTextField;
-@property (retain, nonatomic) NSString *strLeanId;
+
 
 @property (nonatomic, retain) ValidationUtility *validation;
 
@@ -44,7 +38,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.title = @"Activate Account";
+        self.title = @"ACTIVATE ACCOUNT";
     }
     return self;
 }
@@ -52,7 +46,13 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES];
+    [self.navigationController setNavigationBarHidden:NO];
+    [self.navigationItem setHidesBackButton:YES];
+
+    [self.navigationController.navigationBar setTitleTextAttributes: @{
+                                                            NSForegroundColorAttributeName: [UIColor colorWithRed:12/255.0 green:138/255.0 blue:235/255.0 alpha:1.0],
+                                                            NSFontAttributeName: [UIFont fontWithName:@"Helvetica" size:22.0f]
+                                                            }];
     //[((Cheap_CCPAppDelegate*) [[UIApplication sharedApplication] delegate]) showTabBar:NO];
 }
 
@@ -61,13 +61,7 @@
     [super viewDidLoad];
     
     [self.scrollView setContentSize:self.m_contentView.frame.size];
-    
-    // init values
-    [self initValues];
-    
-    // init validation
-    [self initValidations];
-    
+
     // for dismiss keyboard
     UITapGestureRecognizer *tapScroll = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped)];
     //tapScroll.cancelsTouchesInView = NO;
@@ -86,12 +80,6 @@
 }
 
 - (void)dealloc {
-    [_nameTextField release];
-    [_businessNameTextField release];
-    [_emailTextField release];
-    [_phoneNumTextField release];
-    [_passwordTextField release];
-    [_verifyPassTextField release];
     
     [scrollView release];
     [_m_contentView release];
@@ -110,86 +98,6 @@
     
 }
 
-- (void)initValidations {
-    
-    self.validation = [[ValidationUtility alloc] initWithAlertMessage:@"Validation"
-                                                             andTitle:@"Warning"
-                                                        andValidColor:[UIColor blackColor]
-                                                     andNotValidColor:[UIColor redColor]];
-    
-    [self.validation addValidationModel: [[[ValidationModel alloc]
-                                           initWithField:self.nameTextField
-                                           andValidationType:ValidationEmpty] autorelease]];
-    
-    [self.validation addValidationModel: [[[ValidationModel alloc]
-                                           initWithField:self.businessNameTextField
-                                           andValidationType:ValidationMinLength andLength:4] autorelease]];
-    
-    [self.validation addValidationModel: [[[ValidationModel alloc]
-                                           initWithField:self.emailTextField
-                                           andValidationType:ValidationEmail] autorelease]];
-    
-    [self.validation addValidationModel: [[[ValidationModel alloc]
-                                           initWithField:self.phoneNumTextField
-                                           andValidationType:ValidationPhone] autorelease]];
-    
-    [self.validation addValidationModel: [[[ValidationModel alloc]
-                                           initWithField:self.passwordTextField
-                                           andValidationType:ValidationMinLength andLength:4] autorelease]];
-    
-    [self.validation addValidationModel: [[[ValidationModel alloc]
-                                           initWithField:self.verifyPassTextField
-                                           mustMatch:self.passwordTextField] autorelease]];
-}
-
-#pragma mark - UITextField Delegate
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField
-{
-    activeField = textField;
-    
-    CGRect textFieldRect = [self.m_contentView convertRect:CGRectZero fromView:textField];
-    int delta = textFieldRect.origin.y + 65 + 100 - self.view.frame.size.height + 216;
-    if (delta < 0) {
-        delta = 0;
-    }
-    [self.scrollView  setContentOffset:CGPointMake(0, delta) animated:YES];
-    
-}
-
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    
-    if (textField == self.nameTextField) {
-        [self.businessNameTextField becomeFirstResponder];
-        
-    } else if (textField == self.businessNameTextField) {
-        [self.emailTextField becomeFirstResponder];
-        
-    } else if (textField == self.emailTextField) {
-        [self.phoneNumTextField becomeFirstResponder];
-        
-    } else if (textField == self.phoneNumTextField) {
-        [self.passwordTextField becomeFirstResponder];
-        
-    } else if (textField == self.passwordTextField) {
-        [self.verifyPassTextField becomeFirstResponder];
-    }else if (textField == self.verifyPassTextField) {
-        [self onClick_btnNext:nil];
-    }
-    return NO;
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-    activeField = nil;
-}
-
-#pragma mark - Actions
-
-- (IBAction)onClick_btnBack:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 - (IBAction)onClick_btnNext:(id)sender {
 //    BOOL isValid = [self.validation validateFormAndShowAlert:YES];
 //    if (isValid) {
@@ -198,43 +106,11 @@
 //    }
     
     [self.view endEditing:YES];
-    BOOL isValid = [self.validation validateFormAndShowAlert:YES];
-    if (isValid) {
-        NBPhoneNumberUtil *phoneUtil = [NBPhoneNumberUtil sharedInstance];
-        NSError *aError = nil;
-        NBPhoneNumber *myNumber = [phoneUtil parse:self.phoneNumTextField.text defaultRegion:@"US" error:&aError];
-        
-        NSString *validPhoneNumberString;
-        if (aError == nil) {
-            validPhoneNumberString = [phoneUtil format:myNumber numberFormat:NBEPhoneNumberFormatNATIONAL
-                                                 error:&aError];
-            
-            self.phoneNumTextField.text = validPhoneNumberString;
-        } else {
-            validPhoneNumberString = self.phoneNumTextField.text;
-        }
-        
-        [SVProgressHUD showWithStatus:@"Processing" maskType:SVProgressHUDMaskTypeBlack];
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self sendRequest];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD showSuccessWithStatus:@"Sucessfully Sent!"];
+    NewBusinessInfoViewController *viewCtrl = [[NewBusinessInfoViewController alloc] initWithNibName:@"NewBusinessInfoViewController" bundle:nil];
 
-#if 0
-                Cheap_CCPAppDelegate *appDelegate = (Cheap_CCPAppDelegate*)[UIApplication sharedApplication].delegate;
-                
-                appDelegate.strLeanID = [NSString stringWithFormat:@"%@", self.strLeanId];
-                
-                [appDelegate showMainTabCtrlView:YES tabIndex:1];
-#else
-                NewBusinessInfoViewController *viewCtrl = [[NewBusinessInfoViewController alloc] initWithBusinessName:self.businessNameTextField.text merchantKey:0 phone:self.phoneNumTextField.text];
-                [self.navigationController pushViewController:viewCtrl animated:YES];
-#endif
-            });
-        });
-    }
+    [self.navigationController pushViewController:viewCtrl animated:YES];
 }
-
+/*
 #pragma mark - Network Connection
 
 - (void)sendRequest
@@ -261,6 +137,6 @@
     NSString *myString = [[NSString alloc] initWithData:response1 encoding:NSUTF8StringEncoding];
     NSDictionary *xmlDictionary = [XMLReader dictionaryForXMLString:myString error:&parseError];
     self.strLeanId = [[[xmlDictionary objectForKey:@"ApiResponse"] objectForKey:@"LeadId"] objectForKey:@"text"];
-}
+}*/
 
 @end

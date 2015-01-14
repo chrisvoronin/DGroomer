@@ -10,7 +10,6 @@
 //#import "Cheap_CCPAppDelegate.h"
 #import "DataRegister.h"
 #import "ConfigurationUtility.h"
-#import "DLRadioButton.h"
 @interface NewBusinessInfoViewController ()
 {
     NSArray * stateNames;
@@ -38,7 +37,6 @@
 
 @property (retain, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (retain, nonatomic) IBOutlet UIView *contentView;
-@property (strong, nonatomic) IBOutletCollection(DLRadioButton) NSArray *topRadioButtons;
 
 @end
 
@@ -46,21 +44,12 @@
 
 @synthesize scrollView;
 
-- (id) initWithBusinessName:(NSString *)bussName merchantKey:(long)mKey phone:(NSString *)phone {
-    self = [self initWithNibName:@"NewBusinessInfoViewController" bundle:nil];
-    if (self) {
-        businessName = [[NSString stringWithString:bussName] retain];
-        merchantKey = mKey;
-        phoneNumber = [[NSString stringWithString:phone] retain];
-    }
-    return self;
-}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = @"Business Info";
+        self.title = @"BUSINESS INFO";
         //creating state array
         stateNames = [[NSArray arrayWithObjects:@"AK", @"AL", @"AR", @"AZ", @"CA", @"CO", @"CT", @"DE", @"FL", @"GA", @"HI", @"IA", @"ID", @"IL", @"IN", @"KS", @"KY", @"LA", @"MA", @"MD", @"ME", @"MI", @"MN", @"MO", @"MS", @"MT", @"NC", @"ND", @"NE", @"NH", @"NJ", @"NM", @"NV", @"NY", @"OH", @"OK", @"OR", @"PA", @"RI", @"SC", @"SD", @"TN", @"TX", @"UT", @"VA", @"VT", @"WA", @"WI", @"WV", @"WY", nil] retain];
         
@@ -82,12 +71,10 @@
     self.txtBusinessName.text = businessName;
     self.txtPhoneNumber.text = phoneNumber;
     hasFedTax = YES;
-    // set up button icons
-    /*for (DLRadioButton *radioButton in self.topRadioButtons) {
-        radioButton.ButtonIcon = [UIImage imageNamed:@"RadioButton"];
-        radioButton.ButtonIconSelected = [UIImage imageNamed:@"RadioButtonSelected"];
-    }
-*/
+
+    
+
+    
 }
 
 - (void) initValidations {
@@ -104,7 +91,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self.navigationController setNavigationBarHidden:YES];
+    [self.navigationController setNavigationBarHidden:NO];
     //[((Cheap_CCPAppDelegate*) [[UIApplication sharedApplication] delegate]) showTabBar:NO];
 }
 - (IBAction)btnClick_yes:(id)sender {
@@ -279,7 +266,7 @@
 }
 
 - (IBAction)onClick_btnNext:(id)sender {
-    NSString * federalTaxID = self.txtFedralTaxId.isHidden ? @"" : self.txtFedralTaxId.text;
+    /*NSString * federalTaxID = self.txtFedralTaxId.isHidden ? @"" : self.txtFedralTaxId.text;
     if(federalTaxID.length != 9 && hasFedTax){
         UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Please input 9 digits long tax id." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alertView show];
@@ -295,7 +282,10 @@
     [[DataRegister instance] getBussinessItem].phone = self.txtPhoneNumber.text;
     
     [[DataRegister instance] getBussinessItem].federalTaxID = federalTaxID;
-    [self submitForm];
+    [self submitForm];*/
+    
+    NewPrincipalInfoViewController *viewctrl = [[NewPrincipalInfoViewController alloc] initWithAddress:self.txtAddress.text city:self.txtCity.text state:self.txtState.text zip:self.txtZipCode.text merchantKey:merchantKey];
+    [self.navigationController pushViewController:viewctrl animated:YES];
 }
 
 #pragma mark - Form Submission
@@ -321,7 +311,7 @@
  */
 -(void)progressTask
 {
-    NewPrincipalInfoViewController *viewctrl = [[NewPrincipalInfoViewController alloc] initWithAddress:self.txtAddress.text city:self.txtCity.text state:self.txtState.text zip:self.txtZipCode.text merchantKey:merchantKey];
+    NewPrincipalInfoViewController *viewctrl = [[NewPrincipalInfoViewController alloc] initWithNibName:@"NewPrincipalInfoViewController" bundle:nil];
     [self.navigationController pushViewController:viewctrl animated:YES];
     return;
     

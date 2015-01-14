@@ -7,14 +7,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ActivateAccountViewController">
             <connections>
-                <outlet property="businessNameTextField" destination="wTN-CM-3iX" id="PMZ-oP-ueH"/>
-                <outlet property="emailTextField" destination="C1F-94-29s" id="la5-8H-rHN"/>
-                <outlet property="m_contentView" destination="yVz-Ci-2Cg" id="8y1-dF-Wlt"/>
-                <outlet property="nameTextField" destination="NEN-zP-DGw" id="UXj-UU-lAJ"/>
-                <outlet property="passwordTextField" destination="tPB-J9-OYI" id="0Tv-h8-4SA"/>
-                <outlet property="phoneNumTextField" destination="HNx-3a-Fqr" id="MQx-Ko-Dg7"/>
-                <outlet property="scrollView" destination="cuh-lA-E2S" id="sKk-VP-ftf"/>
-                <outlet property="verifyPassTextField" destination="0hu-e2-YsG" id="KC5-pA-4f8"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -23,206 +15,32 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" id="sgI-zv-5Pa" userLabel="View-titlebar">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7La-Qs-zZv">
+                    <rect key="frame" x="20" y="405" width="280" height="50"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Activate Account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bdB-YA-JIR">
-                            <rect key="frame" x="76" y="30" width="168" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="22"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btn_left_arrow.png" id="Gfm-Nb-gD8">
-                            <rect key="frame" x="9" y="30" width="13" height="22"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="48f-KX-oNb">
-                            <rect key="frame" x="0.0" y="20" width="40" height="40"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="onClick_btnBack:" destination="-1" eventType="touchUpInside" id="jB6-4e-0yA"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                </view>
-                <scrollView autoresizesSubviews="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="cuh-lA-E2S">
-                    <rect key="frame" x="0.0" y="68" width="320" height="500"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <subviews>
-                        <view autoresizesSubviews="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="630" id="yVz-Ci-2Cg">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="630"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create Profile to Receive A Free Card Reader." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="23w-qq-hZo">
-                                    <rect key="frame" x="49" y="11" width="222" height="58"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="20"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <view contentMode="scaleToFill" id="ytQ-CV-0wG" userLabel="View-textfield">
-                                    <rect key="frame" x="15" y="77" width="290" height="38"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="textview_whiteBG.png" id="y4o-ZG-OMU">
-                                            <rect key="frame" x="0.0" y="0.0" width="290" height="38"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        </imageView>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Full Name" minimumFontSize="17" id="NEN-zP-DGw" customClass="CustomInsetTextField">
-                                            <rect key="frame" x="8" y="0.0" width="274" height="38"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                                            <connections>
-                                                <outlet property="delegate" destination="-1" id="gGd-eA-OiQ"/>
-                                            </connections>
-                                        </textField>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <view contentMode="scaleToFill" id="MBb-Kh-wyp" userLabel="View-textfield">
-                                    <rect key="frame" x="15" y="130" width="290" height="38"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="textview_whiteBG.png" id="mHJ-7n-5JK">
-                                            <rect key="frame" x="0.0" y="0.0" width="290" height="38"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        </imageView>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Bussiness Name" minimumFontSize="17" id="wTN-CM-3iX" customClass="CustomInsetTextField">
-                                            <rect key="frame" x="8" y="0.0" width="274" height="38"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                                            <connections>
-                                                <outlet property="delegate" destination="-1" id="18Q-Vl-KgU"/>
-                                            </connections>
-                                        </textField>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <view contentMode="scaleToFill" id="14W-l8-rPq" userLabel="View-textfield">
-                                    <rect key="frame" x="15" y="183" width="290" height="38"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="textview_whiteBG.png" id="58g-rF-Svc">
-                                            <rect key="frame" x="0.0" y="0.0" width="290" height="38"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        </imageView>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" id="C1F-94-29s" customClass="CustomInsetTextField">
-                                            <rect key="frame" x="8" y="0.0" width="274" height="38"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done"/>
-                                            <connections>
-                                                <outlet property="delegate" destination="-1" id="koe-IX-QRT"/>
-                                            </connections>
-                                        </textField>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <view contentMode="scaleToFill" id="zOp-on-t9q" userLabel="View-textfield">
-                                    <rect key="frame" x="15" y="236" width="290" height="38"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="textview_whiteBG.png" id="X7d-Ee-dH0">
-                                            <rect key="frame" x="0.0" y="0.0" width="290" height="38"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        </imageView>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Phone Number" minimumFontSize="17" id="HNx-3a-Fqr" customClass="CustomInsetTextField">
-                                            <rect key="frame" x="8" y="0.0" width="274" height="38"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="done"/>
-                                            <connections>
-                                                <outlet property="delegate" destination="-1" id="s5n-0n-cPi"/>
-                                            </connections>
-                                        </textField>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <view contentMode="scaleToFill" id="e32-BK-WFn" userLabel="View-textfield">
-                                    <rect key="frame" x="15" y="289" width="290" height="38"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="textview_whiteBG.png" id="XyZ-2Y-6og">
-                                            <rect key="frame" x="0.0" y="0.0" width="290" height="38"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        </imageView>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Create Password" minimumFontSize="17" id="tPB-J9-OYI" customClass="CustomInsetTextField">
-                                            <rect key="frame" x="8" y="0.0" width="274" height="38"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
-                                            <connections>
-                                                <outlet property="delegate" destination="-1" id="Sp1-KS-quj"/>
-                                            </connections>
-                                        </textField>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <view contentMode="scaleToFill" id="IVJ-Lc-WYd" userLabel="View-textfield">
-                                    <rect key="frame" x="15" y="342" width="290" height="40"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="textview_whiteBG.png" id="Gsb-MM-n0J">
-                                            <rect key="frame" x="0.0" y="0.0" width="290" height="40"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        </imageView>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm Password" minimumFontSize="17" id="0hu-e2-YsG" customClass="CustomInsetTextField">
-                                            <rect key="frame" x="8" y="0.0" width="274" height="38"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
-                                            <connections>
-                                                <outlet property="delegate" destination="-1" id="NDg-8W-PvR"/>
-                                            </connections>
-                                        </textField>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7La-Qs-zZv">
-                                    <rect key="frame" x="15" y="411" width="290" height="61"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="32"/>
-                                    <state key="normal" title="Next" backgroundImage="btn_blue.png">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <state key="highlighted" backgroundImage="btn_blue_clicked.png"/>
-                                    <connections>
-                                        <action selector="onClick_btnNext:" destination="-1" eventType="touchUpInside" id="ndF-Ob-Bve"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" red="1" green="0.74922406075761638" blue="0.34134479203350965" alpha="1" colorSpace="calibratedRGB"/>
-                        </view>
-                    </subviews>
+                    <state key="normal" image="btnnext.png"/>
+                    <state key="highlighted" backgroundImage="btn_blue_clicked.png"/>
                     <connections>
-                        <outlet property="delegate" destination="-1" id="Wa3-Jf-Iul"/>
+                        <action selector="onClick_btnNext:" destination="-1" eventType="touchUpInside" id="ndF-Ob-Bve"/>
                     </connections>
-                </scrollView>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgfreecard2.png" id="xv6-u7-Hmb">
+                    <rect key="frame" x="22" y="30" width="280" height="105"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgfreecard1.png" id="8WL-mQ-S73">
+                    <rect key="frame" x="32" y="-47" width="257" height="430"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
             </subviews>
-            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
         </view>
     </objects>
     <resources>
-        <image name="btn_blue.png" width="290" height="63"/>
         <image name="btn_blue_clicked.png" width="290" height="63"/>
-        <image name="btn_left_arrow.png" width="13" height="21"/>
-        <image name="textview_whiteBG.png" width="290" height="107"/>
+        <image name="btnnext.png" width="583" height="90"/>
+        <image name="imgfreecard1.png" width="640" height="1136"/>
+        <image name="imgfreecard2.png" width="524" height="183"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
