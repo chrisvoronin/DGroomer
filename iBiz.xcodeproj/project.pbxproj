@@ -147,6 +147,32 @@
 		93CB35131041859A0083F1D0 /* Tax.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB35121041859A0083F1D0 /* Tax.m */; };
 		93DAC5DF100E6CA100FA309C /* ProductInformation.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93DAC5DE100E6CA100FA309C /* ProductInformation.xib */; };
 		93E2F676105000FB0031FCD5 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93E2F675105000FB0031FCD5 /* MessageUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		B206C14F1A658EE800AD7DAF /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B206C14D1A658EE800AD7DAF /* FirstViewController.m */; };
+		B206C1501A658EE800AD7DAF /* FirstViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B206C14E1A658EE800AD7DAF /* FirstViewController.xib */; };
+		B206C1511A658FEC00AD7DAF /* FirstViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B206C14E1A658EE800AD7DAF /* FirstViewController.xib */; };
+		B206C1521A658FEC00AD7DAF /* FirstViewController.h in Resources */ = {isa = PBXBuildFile; fileRef = B206C14C1A658EE800AD7DAF /* FirstViewController.h */; };
+		B206C1531A658FEC00AD7DAF /* FirstViewController.m in Resources */ = {isa = PBXBuildFile; fileRef = B206C14D1A658EE800AD7DAF /* FirstViewController.m */; };
+		B206C1591A6597D000AD7DAF /* clients.png in Resources */ = {isa = PBXBuildFile; fileRef = B206C1541A6597D000AD7DAF /* clients.png */; };
+		B206C15A1A6597D000AD7DAF /* getpaid.png in Resources */ = {isa = PBXBuildFile; fileRef = B206C1551A6597D000AD7DAF /* getpaid.png */; };
+		B206C15B1A6597D000AD7DAF /* products.png in Resources */ = {isa = PBXBuildFile; fileRef = B206C1561A6597D000AD7DAF /* products.png */; };
+		B206C15C1A6597D000AD7DAF /* schedule.png in Resources */ = {isa = PBXBuildFile; fileRef = B206C1571A6597D000AD7DAF /* schedule.png */; };
+		B206C15D1A6597D000AD7DAF /* services.png in Resources */ = {isa = PBXBuildFile; fileRef = B206C1581A6597D000AD7DAF /* services.png */; };
+		B206C1691A6599F000AD7DAF /* btnactivate.png in Resources */ = {isa = PBXBuildFile; fileRef = B206C1681A6599F000AD7DAF /* btnactivate.png */; };
+		B206C1781A65A29000AD7DAF /* btnactivate.png in Resources */ = {isa = PBXBuildFile; fileRef = B206C1771A65A29000AD7DAF /* btnactivate.png */; };
+		B206C17C1A65B0F500AD7DAF /* PSAActivateAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B206C17A1A65B0F500AD7DAF /* PSAActivateAccountViewController.m */; };
+		B206C17D1A65B0F500AD7DAF /* PSAActivateAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B206C17B1A65B0F500AD7DAF /* PSAActivateAccountViewController.xib */; };
+		B206C1811A65C4F300AD7DAF /* btnnext.png in Resources */ = {isa = PBXBuildFile; fileRef = B206C17E1A65C4F300AD7DAF /* btnnext.png */; };
+		B206C1821A65C4F300AD7DAF /* chkbox_checked.png in Resources */ = {isa = PBXBuildFile; fileRef = B206C17F1A65C4F300AD7DAF /* chkbox_checked.png */; };
+		B206C1831A65C4F300AD7DAF /* chkbox_unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = B206C1801A65C4F300AD7DAF /* chkbox_unchecked.png */; };
+		B206C1871A65CB9100AD7DAF /* PSAVerifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B206C1851A65CB9100AD7DAF /* PSAVerifyViewController.m */; };
+		B206C1881A65CB9100AD7DAF /* PSAVerifyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B206C1861A65CB9100AD7DAF /* PSAVerifyViewController.xib */; };
+		B206C18A1A65D11400AD7DAF /* btnverify.png in Resources */ = {isa = PBXBuildFile; fileRef = B206C1891A65D11400AD7DAF /* btnverify.png */; };
+		B206C18C1A65D73D00AD7DAF /* lblPhoneChange.png in Resources */ = {isa = PBXBuildFile; fileRef = B206C18B1A65D73D00AD7DAF /* lblPhoneChange.png */; };
+		B206C1901A65D9D100AD7DAF /* PSAConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B206C18E1A65D9D100AD7DAF /* PSAConfirmationViewController.m */; };
+		B206C1911A65D9D100AD7DAF /* PSAConfirmationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B206C18F1A65D9D100AD7DAF /* PSAConfirmationViewController.xib */; };
+		B206C1941A65DB0F00AD7DAF /* arrowconfirm.png in Resources */ = {isa = PBXBuildFile; fileRef = B206C1921A65DB0F00AD7DAF /* arrowconfirm.png */; };
+		B206C1951A65DB0F00AD7DAF /* youdone.png in Resources */ = {isa = PBXBuildFile; fileRef = B206C1931A65DB0F00AD7DAF /* youdone.png */; };
+		B206C1971A65DB4D00AD7DAF /* btngetstarted.png in Resources */ = {isa = PBXBuildFile; fileRef = B206C1961A65DB4D00AD7DAF /* btngetstarted.png */; };
 		B2409E621938131B000F6F32 /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = B2409E611938131B000F6F32 /* XMLReader.m */; };
 		B2409E6C193813F8000F6F32 /* DataRegister.m in Sources */ = {isa = PBXBuildFile; fileRef = B2409E65193813F8000F6F32 /* DataRegister.m */; };
 		B2409E6D193813F8000F6F32 /* DateChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = B2409E67193813F8000F6F32 /* DateChecker.m */; };
@@ -4746,6 +4772,33 @@
 		93CB35121041859A0083F1D0 /* Tax.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tax.m; path = "Settings Classes/Tax.m"; sourceTree = "<group>"; };
 		93DAC5DE100E6CA100FA309C /* ProductInformation.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ProductInformation.xib; path = ../../NIBS/ProductInformation.xib; sourceTree = "<group>"; };
 		93E2F675105000FB0031FCD5 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		B206C14C1A658EE800AD7DAF /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
+		B206C14D1A658EE800AD7DAF /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		B206C14E1A658EE800AD7DAF /* FirstViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FirstViewController.xib; path = Classes/FirstViewController.xib; sourceTree = "<group>"; };
+		B206C1541A6597D000AD7DAF /* clients.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = clients.png; path = newskin/act/clients.png; sourceTree = "<group>"; };
+		B206C1551A6597D000AD7DAF /* getpaid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = getpaid.png; path = newskin/act/getpaid.png; sourceTree = "<group>"; };
+		B206C1561A6597D000AD7DAF /* products.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = products.png; path = newskin/act/products.png; sourceTree = "<group>"; };
+		B206C1571A6597D000AD7DAF /* schedule.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = schedule.png; path = newskin/act/schedule.png; sourceTree = "<group>"; };
+		B206C1581A6597D000AD7DAF /* services.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = services.png; path = newskin/act/services.png; sourceTree = "<group>"; };
+		B206C1681A6599F000AD7DAF /* btnactivate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btnactivate.png; path = newskin/act/btnactivate.png; sourceTree = "<group>"; };
+		B206C1771A65A29000AD7DAF /* btnactivate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btnactivate.png; path = Images/newskin/act/btnactivate.png; sourceTree = "<group>"; };
+		B206C1791A65B0F500AD7DAF /* PSAActivateAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSAActivateAccountViewController.h; sourceTree = "<group>"; };
+		B206C17A1A65B0F500AD7DAF /* PSAActivateAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSAActivateAccountViewController.m; sourceTree = "<group>"; };
+		B206C17B1A65B0F500AD7DAF /* PSAActivateAccountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PSAActivateAccountViewController.xib; path = Classes/PSAActivateAccountViewController.xib; sourceTree = "<group>"; };
+		B206C17E1A65C4F300AD7DAF /* btnnext.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btnnext.png; path = newskin/act/btnnext.png; sourceTree = "<group>"; };
+		B206C17F1A65C4F300AD7DAF /* chkbox_checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chkbox_checked.png; path = newskin/act/chkbox_checked.png; sourceTree = "<group>"; };
+		B206C1801A65C4F300AD7DAF /* chkbox_unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chkbox_unchecked.png; path = newskin/act/chkbox_unchecked.png; sourceTree = "<group>"; };
+		B206C1841A65CB9100AD7DAF /* PSAVerifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSAVerifyViewController.h; sourceTree = "<group>"; };
+		B206C1851A65CB9100AD7DAF /* PSAVerifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSAVerifyViewController.m; sourceTree = "<group>"; };
+		B206C1861A65CB9100AD7DAF /* PSAVerifyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PSAVerifyViewController.xib; path = Classes/PSAVerifyViewController.xib; sourceTree = "<group>"; };
+		B206C1891A65D11400AD7DAF /* btnverify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btnverify.png; path = newskin/act/btnverify.png; sourceTree = "<group>"; };
+		B206C18B1A65D73D00AD7DAF /* lblPhoneChange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lblPhoneChange.png; path = newskin/act/lblPhoneChange.png; sourceTree = "<group>"; };
+		B206C18D1A65D9D100AD7DAF /* PSAConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSAConfirmationViewController.h; sourceTree = "<group>"; };
+		B206C18E1A65D9D100AD7DAF /* PSAConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSAConfirmationViewController.m; sourceTree = "<group>"; };
+		B206C18F1A65D9D100AD7DAF /* PSAConfirmationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PSAConfirmationViewController.xib; path = Classes/PSAConfirmationViewController.xib; sourceTree = "<group>"; };
+		B206C1921A65DB0F00AD7DAF /* arrowconfirm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrowconfirm.png; path = newskin/act/arrowconfirm.png; sourceTree = "<group>"; };
+		B206C1931A65DB0F00AD7DAF /* youdone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = youdone.png; path = newskin/act/youdone.png; sourceTree = "<group>"; };
+		B206C1961A65DB4D00AD7DAF /* btngetstarted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btngetstarted.png; path = newskin/act/btngetstarted.png; sourceTree = "<group>"; };
 		B2409E601938131B000F6F32 /* XMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLReader.h; sourceTree = "<group>"; };
 		B2409E611938131B000F6F32 /* XMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLReader.m; sourceTree = "<group>"; };
 		B2409E64193813F8000F6F32 /* DataRegister.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataRegister.h; sourceTree = "<group>"; };
@@ -5633,6 +5686,7 @@
 		29B97314FDCFA39411CA2CEA /* PSA */ = {
 			isa = PBXGroup;
 			children = (
+				B206C1771A65A29000AD7DAF /* btnactivate.png */,
 				B2FB033E1A61646100D6AD23 /* iTunesArtwork.png */,
 				080E96DDFE201D6D7F000001 /* Classes & Views */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -5756,6 +5810,20 @@
 		93204F000F607EA900E3BD0D /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B206C1961A65DB4D00AD7DAF /* btngetstarted.png */,
+				B206C1921A65DB0F00AD7DAF /* arrowconfirm.png */,
+				B206C1931A65DB0F00AD7DAF /* youdone.png */,
+				B206C18B1A65D73D00AD7DAF /* lblPhoneChange.png */,
+				B206C1891A65D11400AD7DAF /* btnverify.png */,
+				B206C17E1A65C4F300AD7DAF /* btnnext.png */,
+				B206C17F1A65C4F300AD7DAF /* chkbox_checked.png */,
+				B206C1801A65C4F300AD7DAF /* chkbox_unchecked.png */,
+				B206C1681A6599F000AD7DAF /* btnactivate.png */,
+				B206C1541A6597D000AD7DAF /* clients.png */,
+				B206C1551A6597D000AD7DAF /* getpaid.png */,
+				B206C1561A6597D000AD7DAF /* products.png */,
+				B206C1571A6597D000AD7DAF /* schedule.png */,
+				B206C1581A6597D000AD7DAF /* services.png */,
 				B27759C71A4C5B0E0015F6F6 /* btn_blue_clicked.png */,
 				B2A1A8311A4A8A81009589E0 /* DLRadio */,
 				849A88A61910402000A20B9A /* newskin */,
@@ -6400,6 +6468,12 @@
 		D941B197115D115D00CE557B /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B206C18D1A65D9D100AD7DAF /* PSAConfirmationViewController.h */,
+				B206C18E1A65D9D100AD7DAF /* PSAConfirmationViewController.m */,
+				B206C1841A65CB9100AD7DAF /* PSAVerifyViewController.h */,
+				B206C1851A65CB9100AD7DAF /* PSAVerifyViewController.m */,
+				B206C1791A65B0F500AD7DAF /* PSAActivateAccountViewController.h */,
+				B206C17A1A65B0F500AD7DAF /* PSAActivateAccountViewController.m */,
 				D996E31210C9AA300082A5F8 /* PSAAboutViewController.h */,
 				D996E31310C9AA300082A5F8 /* PSAAboutViewController.m */,
 				1D3623240D0F684500981E51 /* PSAAppDelegate.h */,
@@ -6408,6 +6482,8 @@
 				939853270FE073D8005C75D9 /* PSAViewController.m */,
 				84AA245A18695945004FF1F3 /* PSABaseViewController.h */,
 				84AA245B18695945004FF1F3 /* PSABaseViewController.m */,
+				B206C14C1A658EE800AD7DAF /* FirstViewController.h */,
+				B206C14D1A658EE800AD7DAF /* FirstViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -6936,9 +7012,13 @@
 		D9A05DE21083B95D0002B612 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B206C17B1A65B0F500AD7DAF /* PSAActivateAccountViewController.xib */,
+				B206C14E1A658EE800AD7DAF /* FirstViewController.xib */,
 				D996E30310C9A2D90082A5F8 /* AboutPSAView.xib */,
 				932156C20F8563DE003661E7 /* MainWindow.xib */,
 				939853110FE0734D005C75D9 /* PSAViewController.xib */,
+				B206C1861A65CB9100AD7DAF /* PSAVerifyViewController.xib */,
+				B206C18F1A65D9D100AD7DAF /* PSAConfirmationViewController.xib */,
 			);
 			name = Views;
 			path = ..;
@@ -8220,8 +8300,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B206C1781A65A29000AD7DAF /* btnactivate.png in Resources */,
 				B2FB033F1A61646100D6AD23 /* iTunesArtwork.png in Resources */,
 				B27759C81A4C5B0E0015F6F6 /* btn_blue_clicked.png in Resources */,
+				B206C1591A6597D000AD7DAF /* clients.png in Resources */,
 				B27759C61A4B56090015F6F6 /* ClientNotesView.xib in Resources */,
 				B2A1A82B1A4A7A8A009589E0 /* bankInfo.png in Resources */,
 				D9E14E6012075347007089AB /* AboutPSAView.xib in Resources */,
@@ -8230,6 +8312,9 @@
 				B25754D719371B20004D9350 /* btn_left_arrow.png in Resources */,
 				D9E14E6112075347007089AB /* AppointmentConflictView.xib in Resources */,
 				B25754D019371B20004D9350 /* NewConfirmationViewController.xib in Resources */,
+				B206C15B1A6597D000AD7DAF /* products.png in Resources */,
+				B206C18C1A65D73D00AD7DAF /* lblPhoneChange.png in Resources */,
+				B206C17D1A65B0F500AD7DAF /* PSAActivateAccountViewController.xib in Resources */,
 				D9E14E3612075347007089AB /* AppointmentDatePickerView.xib in Resources */,
 				D9E14EC712075347007089AB /* AppointmentDeleteButtonCell.xib in Resources */,
 				D9E14E5412075347007089AB /* AppointmentNotesView.xib in Resources */,
@@ -8284,6 +8369,7 @@
 				D9E14E7C12075347007089AB /* btnHomeProducts.png in Resources */,
 				D9E14F4112075347007089AB /* btnHomeProducts@2x.png in Resources */,
 				D9E14E7F12075347007089AB /* btnHomeRegister.png in Resources */,
+				B206C18A1A65D11400AD7DAF /* btnverify.png in Resources */,
 				D9E14F4312075347007089AB /* btnHomeRegister@2x.png in Resources */,
 				D9E14E9912075347007089AB /* btnHomeReports.png in Resources */,
 				D9E14F4412075347007089AB /* btnHomeReports@2x.png in Resources */,
@@ -8387,6 +8473,7 @@
 				D9E14E9312075347007089AB /* iconTransactions.png in Resources */,
 				D9E14F3F12075347007089AB /* iconTransactions@2x.png in Resources */,
 				D9E14EFD12075347007089AB /* lbCCAmount.png in Resources */,
+				B206C1971A65DB4D00AD7DAF /* btngetstarted.png in Resources */,
 				D9E14F2612075347007089AB /* lbCCAmount@2x.png in Resources */,
 				D9E14EFE12075347007089AB /* lbCCCardNum.png in Resources */,
 				D9E14F2712075347007089AB /* lbCCCardNum@2x.png in Resources */,
@@ -8413,6 +8500,7 @@
 				D9E14E6B12075347007089AB /* pinstripeBackgroundOrange.png in Resources */,
 				D9E14E6C12075347007089AB /* pinstripeBackgroundPurple.png in Resources */,
 				D9E14E6212075347007089AB /* pinstripeBackgroundRed.png in Resources */,
+				B206C1811A65C4F300AD7DAF /* btnnext.png in Resources */,
 				D9E14E3F12075347007089AB /* ProductAmountView.xib in Resources */,
 				B25754DB19371B20004D9350 /* segBg_first_active.png in Resources */,
 				D9E14E9F12075347007089AB /* ProductHistoryTableCell.xib in Resources */,
@@ -8435,6 +8523,7 @@
 				D9E14E9C12075347007089AB /* ReportsDateRangeView.xib in Resources */,
 				D9E14E9A12075347007089AB /* ReportsMenuView.xib in Resources */,
 				D9E14E4212075347007089AB /* ScheduleView.xib in Resources */,
+				B206C15A1A6597D000AD7DAF /* getpaid.png in Resources */,
 				D9E14E6412075347007089AB /* selectedCellBackground.png in Resources */,
 				D9E14E3D12075347007089AB /* ServiceCostView.xib in Resources */,
 				D9E14E5212075347007089AB /* ServiceGroupsTableView.xib in Resources */,
@@ -8444,6 +8533,7 @@
 				D9E14E3C12075347007089AB /* ServiceNameView.xib in Resources */,
 				D9E14E3912075347007089AB /* ServicesTableView.xib in Resources */,
 				0F14A5E9192863D900B29BE6 /* AppIcon40x40.png in Resources */,
+				B206C15D1A6597D000AD7DAF /* services.png in Resources */,
 				D9E14E4E12075347007089AB /* SetDailyHoursView.xib in Resources */,
 				D9E14E3512075347007089AB /* SettingsView.xib in Resources */,
 				D9E14E5E12075347007089AB /* TablePickerView.xib in Resources */,
@@ -8451,13 +8541,17 @@
 				D9E14E8312075347007089AB /* TransactionAdjustmentView.xib in Resources */,
 				D9E14EE612075347007089AB /* TransactionItemCell.xib in Resources */,
 				D9E14EE712075347007089AB /* TransactionItemEditCell.xib in Resources */,
+				B206C1831A65C4F300AD7DAF /* chkbox_unchecked.png in Resources */,
 				D9E14E9112075347007089AB /* TransactionMoneyEntryView.xib in Resources */,
 				D9E14EE812075347007089AB /* TransactionPaymentCell.xib in Resources */,
 				D9E14EE912075347007089AB /* TransactionPaymentEditCell.xib in Resources */,
 				D9E14E9212075347007089AB /* TransactionPaymentInfoView.xib in Resources */,
 				D9E14E9012075347007089AB /* TransactionPaymentView.xib in Resources */,
+				B206C1951A65DB0F00AD7DAF /* youdone.png in Resources */,
 				D9E14E7A12075347007089AB /* TransactionsTableCell.xib in Resources */,
 				0F14A5F51928664900B29BE6 /* AppIcon57x57.png in Resources */,
+				B206C15C1A6597D000AD7DAF /* schedule.png in Resources */,
+				B206C1821A65C4F300AD7DAF /* chkbox_checked.png in Resources */,
 				D9E14E7912075347007089AB /* TransactionsTableView.xib in Resources */,
 				D9E14E7812075347007089AB /* TransactionView.xib in Resources */,
 				D9E14E9712075347007089AB /* TransactionVoidCell.xib in Resources */,
@@ -8481,8 +8575,10 @@
 				D9E5D8C9125F8795006A7380 /* lbCCCity.png in Resources */,
 				D9E5D8CA125F8795006A7380 /* lbCCCity@2x.png in Resources */,
 				B25754D619371B20004D9350 /* btn_clearx.png in Resources */,
+				B206C1911A65D9D100AD7DAF /* PSAConfirmationViewController.xib in Resources */,
 				D9E5D8CB125F8795006A7380 /* lbCCEmail.png in Resources */,
 				0F14A5F0192863D900B29BE6 /* iTunesArtwork@2x.png in Resources */,
+				B206C1941A65DB0F00AD7DAF /* arrowconfirm.png in Resources */,
 				0F14A5EA192863D900B29BE6 /* AppIcon40x40@2x.png in Resources */,
 				B25754C919371B20004D9350 /* NewAccountInfoViewController.xib in Resources */,
 				D9E5D8CC125F8795006A7380 /* lbCCEmail@2x.png in Resources */,
@@ -8498,6 +8594,8 @@
 				D9E5D8D4125F8795006A7380 /* lbCCStreet@2x.png in Resources */,
 				B25754E019371B20004D9350 /* textview_whiteBG.png in Resources */,
 				0F14A5E7192863D900B29BE6 /* AppIcon29x29.png in Resources */,
+				B206C1881A65CB9100AD7DAF /* PSAVerifyViewController.xib in Resources */,
+				B206C1501A658EE800AD7DAF /* FirstViewController.xib in Resources */,
 				D9E5D8D5125F8795006A7380 /* lbCCZip.png in Resources */,
 				D9E5D8D6125F8795006A7380 /* lbCCZip@2x.png in Resources */,
 			);
@@ -9202,6 +9300,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B206C1691A6599F000AD7DAF /* btnactivate.png in Resources */,
+				B206C1511A658FEC00AD7DAF /* FirstViewController.xib in Resources */,
+				B206C1521A658FEC00AD7DAF /* FirstViewController.h in Resources */,
+				B206C1531A658FEC00AD7DAF /* FirstViewController.m in Resources */,
 				D9E1552C120753BC007089AB /* AboutPSAView.xib in Resources */,
 				D9E15507120753BC007089AB /* AddClientContact.xib in Resources */,
 				D9E15527120753BC007089AB /* AppointmentCell.xib in Resources */,
@@ -10975,6 +11077,7 @@
 				B2409E621938131B000F6F32 /* XMLReader.m in Sources */,
 				B2409E9F193814A2000F6F32 /* OrderItem.m in Sources */,
 				D9E14F7112075347007089AB /* Company.m in Sources */,
+				B206C1871A65CB9100AD7DAF /* PSAVerifyViewController.m in Sources */,
 				B25754F019371B20004D9350 /* ValidationModel.m in Sources */,
 				B25754CF19371B20004D9350 /* NewConfirmationViewController.m in Sources */,
 				B2409E6C193813F8000F6F32 /* DataRegister.m in Sources */,
@@ -11027,6 +11130,7 @@
 				D9E14F6B12075347007089AB /* ProductPriceViewController.m in Sources */,
 				D9E14F6D12075347007089AB /* ProductsTableViewController.m in Sources */,
 				D9E14F6612075347007089AB /* ProductType.m in Sources */,
+				B206C17C1A65B0F500AD7DAF /* PSAActivateAccountViewController.m in Sources */,
 				D9E14F7E12075347007089AB /* ProductTypeInformationViewController.m in Sources */,
 				D9E14F7D12075347007089AB /* ProductTypeTableViewController.m in Sources */,
 				D9E14FAD12075347007089AB /* Project.m in Sources */,
@@ -11094,9 +11198,11 @@
 				D9E14F7B12075347007089AB /* WorkHoursViewController.m in Sources */,
 				D9E7F0A812109D7B00EB7F19 /* ProjectDateEntryViewController.m in Sources */,
 				D9E7F0A912109D7B00EB7F19 /* ProjectNameEntryViewController.m in Sources */,
+				B206C14F1A658EE800AD7DAF /* FirstViewController.m in Sources */,
 				D9E7F0AA12109D7B00EB7F19 /* ProjectNotesEntryViewController.m in Sources */,
 				D9E7F0AB12109D7B00EB7F19 /* ProjectEstimateInvoicePickerViewController.m in Sources */,
 				D9E7F0AC12109D7B00EB7F19 /* ProjectEstimateInvoiceViewController.m in Sources */,
+				B206C1901A65D9D100AD7DAF /* PSAConfirmationViewController.m in Sources */,
 				B25754D419371B20004D9350 /* URLRequestBuilder.m in Sources */,
 				D9E7F0AD12109D7B00EB7F19 /* ProjectEstimatesViewController.m in Sources */,
 				D9E7F0AE12109D7B00EB7F19 /* ProjectPaymentsViewController.m in Sources */,

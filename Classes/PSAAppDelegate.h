@@ -26,6 +26,7 @@
 	UITabBarController *clientTabBarController;
 	// Opaque reference to the SQLite database.
 	sqlite3 *database;
+    BOOL firstRun;
 }
 
 // Good Properties (verified by Dave)

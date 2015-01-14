@@ -19,7 +19,7 @@
 #import "PSAAppDelegate.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <QuartzCore/QuartzCore.h>
-
+#import "FirstViewController.h"
 
 
 @implementation PSAAppDelegate
@@ -355,10 +355,10 @@
 
 - (void) showActivityIndicator {
 	if( !activityIndicatorView ) {
-		activityIndicatorView = [[UIView alloc] initWithFrame:CGRectMake( 0, 0, 320, 480 )];
+		activityIndicatorView = [[UIView alloc] initWithFrame:CGRectMake( 0, 0, 320, 568 )];
 		activityIndicatorView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.5];
 		UIActivityIndicatorView *aiv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-		aiv.center = CGPointMake( 160, 240 );
+		aiv.center = CGPointMake( 160, 284 );
 		[aiv startAnimating];
 		[activityIndicatorView addSubview:aiv];
 		[aiv release];
@@ -382,8 +382,30 @@
 	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 	// Make sure we have a writable copy of the database
     [[PSADataManager sharedInstance] loadDatabase];
-    // Add the navigation controller's current view as a subview of the window
-    [self.window setRootViewController:navigationController]; // iOS 6 autorotation fix
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (![defaults objectForKey:@"firstRun"]){
+        //flag doesnt exist then this IS the first run
+        self->firstRun = TRUE;
+        //store the flag so it exists the next time the app starts
+        [defaults setObject:[NSDate date] forKey:@"firstRun"];
+    }else{
+        //flag does exist so this ISNT the first run
+        self->firstRun = FALSE;
+    }
+    //call synchronize to save default - where its saved is managed by iOS - varies by device and iOS/Mac
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    if (self->firstRun) {
+        FirstViewController *viewController = [[FirstViewController alloc] initWithNibName:@"FirstViewController" bundle:nil];
+        self.window.rootViewController = viewController;
+    }
+    else{
+        // Add the navigation controller's current view as a subview of the window
+        [self.window setRootViewController:navigationController]; // iOS 6 autorotation fix
+    }
+    
     //[window addSubview:navigationController.view];
 	[window makeKeyAndVisible];
 }
