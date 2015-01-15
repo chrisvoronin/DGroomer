@@ -20,8 +20,11 @@
 		delegate = self;
 	}
 	// Set the navigation bar title
-	self.title = @"Service Groups";
+	self.title = @"SERVICE GROUPS";
 	//typeToDelete = nil;
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Back";
+    self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
 	// Add "+" Button
 	UIBarButtonItem *btnAdd = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addServiceGroup)];
 	self.navigationItem.rightBarButtonItem = btnAdd;

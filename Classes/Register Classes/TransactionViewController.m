@@ -29,7 +29,7 @@
 @synthesize cellItem, cellItemEdit, cellPayment, cellPaymentEdit;
 
 - (void)viewDidLoad {
-	self.title = @"Transaction";
+	self.title = @"TRANSACTIONS";
 	//
 	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundGreen.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];

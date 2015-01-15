@@ -20,7 +20,10 @@
 //	Setup some elements and properties before the view displays
 - (void)viewDidLoad {
 	// Set the navigation bar title
-	self.title = @"Add Client";
+	self.title = @"ADD CLIENT";
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Back";
+    self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
 	// Set the background color to a nice yellow image
 	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundGray.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];

@@ -25,8 +25,11 @@
 @synthesize report, segViewOptions, tblTransactions, transactionsCell;
 
 - (void) viewDidLoad {
-	self.title = @"Transactions";
+	self.title = @"TRANSACTIONS";
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: self.navigationController.view.tintColor};
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Back";
+    self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
 	//
 	if( report ) {
 		// Email Button

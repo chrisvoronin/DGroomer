@@ -15,7 +15,7 @@
 
 
 - (void) viewDidLoad {
-	self.title = @"Color";
+	self.title = @"COLOR";
 	// Set the background color to a nice blue image
 	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundPurple.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];

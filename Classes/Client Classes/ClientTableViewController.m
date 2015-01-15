@@ -29,9 +29,9 @@
 	clientToDelete = nil;
 	// Set the navigation bar title
 	if( isSwappingContacts ) {
-		self.title = @"Swap Contacts";
+		self.title = @"SWAP CONTACTS";
 	} else {
-		self.title = @"Clients";
+		self.title = @"CLIENTS";
 		// Add "+" Button
 		UIBarButtonItem *btnAdd = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(btnAddTouchUp:)];
 		self.navigationItem.rightBarButtonItem = btnAdd;
@@ -145,16 +145,16 @@
 	if( sortedKeys )	[sortedKeys release];
 	// Determine the dictionary to load based on the segDisplay control
 	if( segDisplay.selectedSegmentIndex == 0 ) {
-		self.title = @"Clients";
+		self.title = @"CLIENTS";
 		clients = [[PSADataManager sharedInstance] getClientsDictionaryWithArray:theArray];
 		sortedKeys = [[[clients allKeys] sortedArrayUsingSelector:@selector(compare:)] retain];
 		[self checkForMissingPersons];
 	} else if( segDisplay.selectedSegmentIndex == 1 ) {
-		self.title = @"Birthdays";
+		self.title = @"BIRTHDAY";
 		clients = [[PSADataManager sharedInstance] getClientsDictionaryWithArray:theArray isBirthday:YES];
 		sortedKeys = [[NSArray alloc] initWithObjects:@"Today", @"Tomorrow", @"Next 7 Days", nil];
 	} else if( segDisplay.selectedSegmentIndex == 2 ) {
-		self.title = @"Anniversaries";
+		self.title = @"ANNIVERSARIES";
 		clients = [[PSADataManager sharedInstance] getClientsDictionaryWithArray:theArray isBirthday:NO];
 		sortedKeys = [[NSArray alloc] initWithObjects:@"Today", @"Tomorrow", @"Next 7 Days", nil];
 	}

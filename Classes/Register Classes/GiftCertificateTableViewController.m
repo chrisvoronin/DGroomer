@@ -18,8 +18,12 @@
 - (void) viewDidLoad {
 	if( !delegate )	delegate = self;
 	//
-	self.title = @"Gift Certificates";
-	//
+	self.title = @"GIFT CERTIFICATES";
+    //self.navigationController.navigationBar.backItem.title = @"TEXT";
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Back";
+    self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
+    //
 	formatter = [[NSNumberFormatter alloc] init];
 	[formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
 	//

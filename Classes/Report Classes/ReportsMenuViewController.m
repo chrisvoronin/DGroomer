@@ -17,7 +17,7 @@
 
 
 - (void)viewDidLoad {
-	self.title = @"Reports";
+	self.title = @"REPORTS";
 	//
 	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundAquamarine.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];

@@ -17,7 +17,10 @@
 @synthesize productHistoryCell, products, report, tblProducts;
 
 - (void) viewDidLoad {
-	self.title = @"Product History";
+	self.title = @"PRODUCT HISTORY";
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Back";
+    self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: self.navigationController.view.tintColor};
 	// Email Button
 	UIBarButtonItem *btnEmail = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(emailReport)];

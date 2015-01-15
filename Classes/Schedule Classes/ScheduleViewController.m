@@ -24,7 +24,7 @@
 
 
 - (void) viewDidLoad {
-	self.title = @"Appointments";
+	self.title = @"APPOINTMENT";
 	// Default to today!
 	if( !currentDate ) {
 		self.currentDate = [NSDate date];

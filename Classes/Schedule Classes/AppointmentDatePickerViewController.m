@@ -17,7 +17,7 @@
 
 
 - (void)viewDidLoad {
-	self.title = @"Appt. Date";
+	self.title = @"APPT. DATE";
     // Set the view background to match the grouped tables in the other views.
     /*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundGray.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];

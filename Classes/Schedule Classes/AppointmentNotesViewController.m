@@ -14,7 +14,7 @@
 
 
 - (void) viewDidLoad {
-	self.title = @"Notes";
+	self.title = @"NOTES";
 	//
 	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundGray.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];

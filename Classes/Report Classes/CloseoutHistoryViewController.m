@@ -21,7 +21,10 @@
 @synthesize closeoutCell, closeouts, report, tblCloseouts;
 
 - (void) viewDidLoad {
-	self.title = @"Daily Closeouts";
+	self.title = @"DAILY CLOSEOUTS";
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Back";
+    self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: self.navigationController.view.tintColor};
 	// Email Button
 	UIBarButtonItem *btnEmail = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(emailReport)];

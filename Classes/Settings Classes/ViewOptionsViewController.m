@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad {
 	// Nav Bar Title
-	self.title = @"View Options";
+	self.title = @"VIEW OPTIONS";
 	// Set the background
 	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundOrange.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];

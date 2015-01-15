@@ -22,7 +22,7 @@
 
 
 - (void)viewDidLoad {
-	self.title = @"Product";
+	self.title = @"ADD PRODUCT";
 	// Set the background color to a nice blue image
 	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundRed.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];

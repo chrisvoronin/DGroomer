@@ -16,7 +16,7 @@
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
-	self.title = @"Service Costs";
+	self.title = @"SERVICE COSTS";
 	// Set the background color to a nice blue image
 	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundPurple.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];

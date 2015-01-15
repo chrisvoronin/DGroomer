@@ -33,7 +33,7 @@
 		} else if( [transactionItem.item isKindOfClass:[Service class]] ) {
 			self.title = ((Service*)transactionItem.item).serviceName;
 		} else if( [transactionItem.item isKindOfClass:[GiftCertificate class]] ) {
-			self.title = @"Gift Certificate";
+			self.title = @"GIFT CERTIFICATE";
 			lbSetup.hidden = YES;
 			lbSetupDollarSign.hidden = YES;
 			txtSetupFee.hidden = YES;

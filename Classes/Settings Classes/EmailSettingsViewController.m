@@ -15,7 +15,7 @@
 @synthesize tblEmail;
 
 - (void)viewDidLoad {
-	self.title = @"Alerts";
+	self.title = @"ALERTS";
 	// Set the background
 	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundOrange.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];

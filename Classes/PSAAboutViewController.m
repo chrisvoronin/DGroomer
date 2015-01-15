@@ -15,7 +15,7 @@
 
 
 - (void) viewDidLoad {
-    self.title = @"Contact";
+    self.title = @"CONTACT";
 	//
 	NSString *text = [[NSString alloc] initWithFormat:@"Version %@", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
 	lbVersion.text = text;

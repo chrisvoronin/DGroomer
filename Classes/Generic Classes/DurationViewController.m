@@ -16,7 +16,7 @@
 @synthesize appointment, picker, tblTimes, service, lbHours, lbMinutes, tableIndexEditing;
 
 - (void) viewDidLoad {
-	self.title = @"Durations";
+	self.title = @"DURATIONS";
 	// Done Button
 	UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];
 	self.navigationItem.rightBarButtonItem = btnDone;

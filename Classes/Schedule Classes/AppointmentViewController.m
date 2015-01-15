@@ -46,7 +46,7 @@
 }
 
 - (void) viewDidLoad {
-	self.title = @"Appointment";
+	self.title = @"APPOINTMENT";
 	//
 #ifdef PROJECT_NOT_INCLUDED
 	types = [[NSArray alloc] initWithObjects:@"Block", @"Single Service", nil];
@@ -829,7 +829,7 @@
 				if( indexPath.row == 0 ) {
 					// Pick the type
 					TablePickerViewController *picker = [[TablePickerViewController alloc] initWithNibName:@"TablePickerView" bundle:nil];
-					picker.title = @"Appointment Type";
+					picker.title = @"APPOINTMENT TYPE";
 					picker.pickerDelegate = self;
 #ifdef PROJECT_NOT_INCLUDED
 					if( appointment.type == iBizAppointmentTypeSingleService ) {

@@ -16,7 +16,7 @@
 
 - (void) viewDidLoad {
 	//
-	self.title = @"Repeat Until";
+	self.title = @"REPEAT UNTIL";
 	//
     /*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundGray.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];

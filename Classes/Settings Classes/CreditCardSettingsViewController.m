@@ -17,9 +17,12 @@
 @synthesize segProcessingType, swEmail, txtAPILogin, txtTransactionKey, alertText;
 
 - (void) viewDidLoad {
-	self.title = @"Gateway Settings";
+	self.title = @"GATEWAY SETTINGS";
 	// Fetch settings from keychain/DB
 	settings = [[PSADataManager sharedInstance] getCreditCardSettings];
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Back";
+    self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: self.navigationController.view.tintColor};
 	// Add Save Button
 	UIBarButtonItem *btnSave = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save)];

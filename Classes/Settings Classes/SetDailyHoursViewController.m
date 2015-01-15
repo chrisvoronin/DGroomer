@@ -48,37 +48,37 @@
 	NSDateFormatterStyle format = [manager getWorkHoursDateFormat];
 	switch (dayOfTheWeek) {
 		case DailyHoursDayOfTheWeekSunday:
-			self.title = @"Sunday";
+			self.title = @"SUNDAY";
 			if( settings.sundayStart )	start = [[manager getTimeForString:settings.sundayStart withFormat:format] retain];
 			if( settings.sundayFinish )	finish = [[manager getTimeForString:settings.sundayFinish withFormat:format] retain];
 			break;
 		case DailyHoursDayOfTheWeekMonday:
-			self.title = @"Monday";
+			self.title = @"MONDAY";
 			if( settings.mondayStart )	start = [[manager getTimeForString:settings.mondayStart withFormat:format] retain];
 			if( settings.mondayFinish )	finish = [[manager getTimeForString:settings.mondayFinish withFormat:format] retain];
 			break;
 		case DailyHoursDayOfTheWeekTuesday:
-			self.title = @"Tuesday";
+			self.title = @"TUESDAY";
 			if( settings.tuesdayStart )		start = [[manager getTimeForString:settings.tuesdayStart withFormat:format] retain];
 			if( settings.tuesdayFinish )	finish = [[manager getTimeForString:settings.tuesdayFinish withFormat:format] retain];
 			break;
 		case DailyHoursDayOfTheWeekWednesday:
-			self.title = @"Wednesday";
+			self.title = @"WEDNESDAY";
 			if( settings.wednesdayStart )	start = [[manager getTimeForString:settings.wednesdayStart withFormat:format] retain];
 			if( settings.wednesdayFinish )	finish = [[manager getTimeForString:settings.wednesdayFinish withFormat:format] retain];
 			break;
 		case DailyHoursDayOfTheWeekThursday:
-			self.title = @"Thursday";
+			self.title = @"THURSDAY";
 			if( settings.thursdayStart )	start = [[manager getTimeForString:settings.thursdayStart withFormat:format] retain];
 			if( settings.thursdayFinish )	finish = [[manager getTimeForString:settings.thursdayFinish withFormat:format] retain];
 			break;
 		case DailyHoursDayOfTheWeekFriday:
-			self.title = @"Friday";
+			self.title = @"FRIDAY";
 			if( settings.fridayStart )	start = [[manager getTimeForString:settings.fridayStart withFormat:format] retain];
 			if( settings.fridayFinish )	finish = [[manager getTimeForString:settings.fridayFinish withFormat:format] retain];
 			break;
 		case DailyHoursDayOfTheWeekSaturday:
-			self.title = @"Saturday";
+			self.title = @"SATURDAY";
 			if( settings.saturdayStart )	start = [[manager getTimeForString:settings.saturdayStart withFormat:format] retain];
 			if( settings.saturdayFinish )	finish = [[manager getTimeForString:settings.saturdayFinish withFormat:format] retain];
 			break;

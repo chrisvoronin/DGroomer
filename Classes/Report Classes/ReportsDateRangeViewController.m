@@ -21,13 +21,16 @@
 @synthesize report, picker, swEntire, tblTimes;
 
 - (void) viewDidLoad {
-	self.title = @"Report Range";
+	self.title = @"REPORT RANGE";
 	//
 	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundAquamarine.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
 	[tblTimes setBackgroundColor:bgColor];
 	[self.view setBackgroundColor:bgColor];
 	[bgColor release];*/
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Back";
+    self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: self.navigationController.view.tintColor};
 	// Done Button
 	UIBarButtonItem *btnGenerate = [[UIBarButtonItem alloc] initWithTitle:@"Generate" style:UIBarButtonItemStylePlain target:self action:@selector(generate)];
@@ -134,6 +137,7 @@
 		cell.accessoryType = UITableViewCellAccessoryNone;
 		cell.selectionStyle = UITableViewCellSelectionStyleGray;
 		cell.detailTextLabel.font = [UIFont boldSystemFontOfSize:14];
+        
     }
 	
 	switch ( indexPath.row ) {
@@ -199,7 +203,8 @@
 		cell.detailTextLabel.backgroundColor = [UIColor clearColor];
 	} else {
 		cell.backgroundColor = [UIColor whiteColor];
-		cell.detailTextLabel.textColor = [UIColor colorWithRed:.22 green:.33 blue:.53 alpha:1];
+		cell.textLabel.textColor = [UIColor colorWithRed:.22 green:.33 blue:.53 alpha:1];
+        cell.detailTextLabel.textColor = [UIColor colorWithRed:.22 green:.33 blue:.53 alpha:1];
 		//cell.textLabel.textColor = [UIColor blackColor];
 	}
 }

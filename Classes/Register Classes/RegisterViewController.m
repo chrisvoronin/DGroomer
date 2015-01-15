@@ -26,7 +26,7 @@
 }
 
 - (void)viewDidLoad {
-	self.title = @"Get Paid";
+	self.title = @"GET PAID";
 	//
 	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundGreen.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];

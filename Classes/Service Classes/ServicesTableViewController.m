@@ -16,7 +16,7 @@
 
 
 - (void)viewDidLoad {
-	self.title = @"Services";
+	self.title = @"SERVICES";
 	//
 	if( !serviceDelegate ) {
 		serviceDelegate = self;

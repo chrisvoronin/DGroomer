@@ -30,16 +30,19 @@
 	UIBarButtonItem *btnSave = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save)];
 	self.navigationItem.rightBarButtonItem = btnSave;
 	[btnSave release];
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Back";
+    self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
 	//
 	if( !certificate ) {
 		// Make a blank (new) certificate
 		certificate = [[GiftCertificate alloc] init];
 		certificate.certificateID = newID;
-		self.title = @"New Certificate";
+		self.title = @"NEW CERTIFICATES";
 		tblCertificate.allowsSelectionDuringEditing = YES;
 		isEditing = YES;
 	} else {
-		self.title = @"Gift Certificate";
+		self.title = @"GIFT CERTIFICATES";
 		self.navigationItem.rightBarButtonItem = nil;
 		isEditing = NO;
 	}

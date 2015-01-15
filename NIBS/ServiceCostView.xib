@@ -152,9 +152,9 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText">Taxed</string>
-						<object class="NSColor" key="IBUITextColor" id="581280479">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MSAxIDEAA</bytes>
+						<object class="NSColor" key="IBUITextColor" id="843634266">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
 						</object>
 						<nil key="IBUIHighlightedColor"/>
 						<object class="NSColor" key="IBUIShadowColor" id="322552132">
@@ -189,7 +189,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText">Cost</string>
-						<reference key="IBUITextColor" ref="581280479"/>
+						<reference key="IBUITextColor" ref="843634266"/>
 						<nil key="IBUIHighlightedColor"/>
 						<reference key="IBUIShadowColor" ref="322552132"/>
 						<string key="IBUIShadowOffset">{0, 1}</string>
@@ -211,7 +211,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText">Setup Fee</string>
-						<reference key="IBUITextColor" ref="581280479"/>
+						<reference key="IBUITextColor" ref="843634266"/>
 						<nil key="IBUIHighlightedColor"/>
 						<reference key="IBUIShadowColor" ref="322552132"/>
 						<string key="IBUIShadowOffset">{0, 1}</string>
@@ -233,7 +233,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText">Price</string>
-						<reference key="IBUITextColor" ref="581280479"/>
+						<reference key="IBUITextColor" ref="843634266"/>
 						<nil key="IBUIHighlightedColor"/>
 						<reference key="IBUIShadowColor" ref="322552132"/>
 						<string key="IBUIShadowOffset">{0, 1}</string>

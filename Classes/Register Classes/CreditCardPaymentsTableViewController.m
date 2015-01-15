@@ -20,8 +20,11 @@
 @synthesize report, segViewOptions, tblPayments, ccPaymentsCell;
 
 - (void) viewDidLoad {
-	self.title = @"Credit Payments";
+	self.title = @"CREDIT PAYMENTS";
 	//
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Back";
+    self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: self.navigationController.view.tintColor};
 	if( report ) {
 		// Email Button

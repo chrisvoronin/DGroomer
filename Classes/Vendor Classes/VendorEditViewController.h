@@ -43,5 +43,6 @@
 @property (nonatomic, assign) id currentResponder;
 
 - (void) save;
+- (void) cancelEdit;
 
 @end

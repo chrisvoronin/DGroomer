@@ -24,7 +24,7 @@
 
 - (void) viewDidLoad {
 	//
-	self.title = @"Payment";
+	self.title = @"PAYMENT";
 	//
 	/*if( isInvoicePayment ) {
 		UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundBlue.png"];

@@ -18,7 +18,7 @@
 
 - (void) viewDidLoad {
 	// Nav Bar Title
-	self.title = @"Working Hours";
+	self.title = @"WORKING HOURS";
 	// Set the background
 	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundOrange.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];

@@ -20,8 +20,11 @@
 		typeDelegate = self;
 	}
 	// Set the navigation bar title
-	self.title = @"Product Types";
+	self.title = @"PRODUCT TYPES";
 	typeToDelete = nil;
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Back";
+    self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
 	// Add "+" Button
 	UIBarButtonItem *btnAdd = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addProductType)];
 	self.navigationItem.rightBarButtonItem = btnAdd;

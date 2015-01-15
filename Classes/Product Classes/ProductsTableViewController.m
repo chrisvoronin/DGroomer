@@ -23,13 +23,13 @@
 	}
 	productToDelete = nil;
 	if( isInventoryReport ) {
-		self.title = @"Product Inventory";
+		self.title = @"PRODUCT INVENTORY";
 		// Email Button
 		UIBarButtonItem *btnEmail = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(emailReport)];
 		self.navigationItem.rightBarButtonItem = btnEmail;
 		[btnEmail release];
 	} else {
-		self.title = @"Products";
+		self.title = @"PRODUCTS";
 		// Add "+" Button
 		UIBarButtonItem *btnAdd = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addProduct)];
 		self.navigationItem.rightBarButtonItem = btnAdd;

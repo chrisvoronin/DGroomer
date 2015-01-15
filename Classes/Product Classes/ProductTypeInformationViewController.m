@@ -15,7 +15,7 @@
 @synthesize type, txtField;
 
 - (void) viewDidLoad {
-	self.title = @"Type";
+	self.title = @"TYPE";
 	// Set the background color to a nice blue image
 	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundRed.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];

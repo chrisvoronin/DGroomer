@@ -397,7 +397,7 @@
     //call synchronize to save default - where its saved is managed by iOS - varies by device and iOS/Mac
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    if (!self->firstRun) {
+    if (self->firstRun) {
         FirstViewController *viewController = [[FirstViewController alloc] initWithNibName:@"FirstViewController" bundle:nil];
         
         self.window.rootViewController = viewController;
