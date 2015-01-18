@@ -1,3 +1,4 @@
+
 //
 //  LoginDAL.m
 //  SmartSwipe
@@ -9,10 +10,14 @@
 #import "ServiceDAL.h"
 #import "Reachability.h"
 #import "URLRequestBuilder.h"
+#import "DataRegister.h"
+#import "ConfigurationUtility.h"
+#import "ErrorXmlParser.h"
+//#import "AppDelegate.h"
 
-#define SENDREQUEST_TYPE_POST   0
-#define SENDREQUEST_TYPE_GET    1
-#define SENDREQUEST_TYPE_DELETE  2
+#define SENDREQUEST_TYPE_POST       0
+#define SENDREQUEST_TYPE_GET        1
+#define SENDREQUEST_TYPE_DELETE     2
 
 
 @implementation ServiceDAL
@@ -29,15 +34,34 @@
 
 - (NSNumber*)getMerchantIdForUrl:(NSString*)urlStr
 {
+    if([urlStr isEqualToString:URL_MERCHANT_REGISTER])
+        return [NSNumber numberWithInt:987];
+    if([urlStr isEqualToString:URL_MERCHANT_BUSINESSINFO] ||
+       [urlStr isEqualToString:URL_MERCHANT_PRINCIPALINFO] ||
+       [urlStr isEqualToString:URL_MERCHANT_ACCOUNTINFO])
+    {
+        return [NSNumber numberWithInt:[[DataRegister instance] getMerchantItem].MerchantID];
+    }
+
     return [NSNumber numberWithInt:8];
 }
+
 - (NSString*)getEmailAddressForUrl:(NSString*)urlStr
 {
+
+
+    if([urlStr isEqualToString:URL_MERCHANT_BUSINESSINFO] ||
+       [urlStr isEqualToString:URL_MERCHANT_PRINCIPALINFO] ||
+       [urlStr isEqualToString:URL_MERCHANT_ACCOUNTINFO])
+        return [[DataRegister instance] getMerchantItem].EMail;
 
     return @"aa@aa.com";
 }
 - (NSNumber*)getUserIdForUrl:(NSString*)urlStr
 {
+    if([urlStr isEqualToString:URL_MERCHANT_BUSINESSINFO] || [urlStr isEqualToString:URL_MERCHANT_REGISTER])
+        [NSNumber numberWithInt:987];
+
     return [NSNumber numberWithInt:987];
 }
 
@@ -46,25 +70,20 @@
     self = [super init];
     if (self)
     {
+    
         send_request_type = SENDREQUEST_TYPE_POST;
         
+        
+        
         postData = [NSMutableDictionary new];
-        NSDictionary * dict2 = @{
+        /*NSDictionary * dict2 = @{
                                  @"mid" : [self getMerchantIdForUrl:urlString],
-                                 @"uem" : [self getEmailAddressForUrl:urlString],
+                                 @"uem" : [self getEmailAddressForUrl:urlString] != nil ? [self getEmailAddressForUrl:urlString] : @"",
                                  @"uid" : [self getUserIdForUrl:urlString],
-                                 @"ldk" : @"aa"
-                                 };
-        /*********test
-        NSDictionary * dict2 = @{
-                                 @"mid" : @"9000",
-                                 @"uem" : @"aa@aa.com",
-                                 @"uid" : @"987",
-                                 @"ldk" : @"Swipe"
-                                 };
-         ****************/
-        [postData setObject:data forKey:@"rqd"];
-        [postData setObject:dict2 forKey:@"sd"];
+                                 @"ldk" : [ConfigurationUtility getLeadKey],
+                                 };*/
+        [postData setObject:data forKey:@""];
+        //[postData setObject:dict2 forKey:@"sd"];
 
         delegate = del;
         url = urlString;
@@ -81,7 +100,10 @@
         postData = [NSMutableDictionary new];
         NSDictionary * dict2 = @{
                                  @"mid" : [self getMerchantIdForUrl:urlString],
-                                 @"ldk" : @"aa",
+                                 @"ldk" : [ConfigurationUtility getLeadKey],
+//                                 @"uem" : [self getEmailAddressForUrl:urlString],
+//                                 @"uid" : [self getUserIdForUrl:urlString],
+
                                  };
         [postData setObject:data forKey:@"rqd"];
         [postData setObject:dict2 forKey:@"sd"];
@@ -91,19 +113,71 @@
     }
     return self;
 }
+-(id)initWiThDelData:(NSDictionary*)data urlString:(NSString*)urlString delegate:(id<ServiceProtocol>)del
+{
+    self = [super init];
+    if (self)
+    {
+        send_request_type = SENDREQUEST_TYPE_DELETE;
+        
+        postData = [NSMutableDictionary new];
+        NSDictionary * dict2 = @{
+                                 @"mid" : [self getMerchantIdForUrl:urlString],
+                                 @"uem" : [self getEmailAddressForUrl:urlString],
+                                 @"uid" : [self getUserIdForUrl:urlString],
+                                 @"ldk" : [ConfigurationUtility getLeadKey],
+                                 };
+        [postData setObject:data forKey:@"rqd"];
+        [postData setObject:dict2 forKey:@"sd"];
+        
+        delegate = del;
+        url = urlString;
+    }
+    return self;
+
+}
 
 -(void)startAsync
 {
     
+    /// test for v3
+    /*if([DeviceMgr is_SmartSwipeV3_Version]){
+        [delegate handleServiceResponseWithDict:nil];return;
+    }*/
+    
+    
     receivedData = [[NSMutableData alloc]init];
     // build request
     NSMutableURLRequest * request;
-    if(send_request_type == SENDREQUEST_TYPE_POST){
-        request = [URLRequestBuilder createRequestWithURLString:url postData:postData];
-    }else if(send_request_type == SENDREQUEST_TYPE_GET){
-        request = [URLRequestBuilder createRequestWithURLString:url getData:postData];
+    
+    switch(send_request_type){
+            
+        case SENDREQUEST_TYPE_POST:
+            request = [URLRequestBuilder createRequestWithURLString:url postData:postData];
+            break;
+            
+        case SENDREQUEST_TYPE_GET:
+            request = [URLRequestBuilder createRequestWithURLString:url getData:postData];
+            break;
+            
+        case SENDREQUEST_TYPE_DELETE:
+            request = [URLRequestBuilder createRequestWithURLString:url delData:postData];
+            break;
+            
+        default:
+            request = nil;
+            return;
+            break;
+            
     }
-    // start url connection
+    
+//    if(send_request_type == SENDREQUEST_TYPE_POST || send_request_type == SENDREQUEST_TYPE_GET){
+//        request = [URLRequestBuilder createRequestWithURLString:url postData:postData];
+//    }else if(send_request_type == SENDREQUEST_TYPE_DELETE){
+//        request = [URLRequestBuilder createRequestWithURLString:url delData:postData];
+//    }
+
+// start url connection
     urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
     if(!urlConnection)
     {
@@ -122,6 +196,25 @@
 }
 
 #pragma mark - NSURLConnectionDelegate
+
+//- (BOOL)connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace {
+//    return YES;
+//}
+//
+//- (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
+//    if ([challenge previousFailureCount] > 0) {
+//        // do something may be alert message
+//    }
+//    else
+//    {
+//        
+//        NSURLCredential *credential = [NSURLCredential credentialWithUser:@"username"
+//                                                                 password:@"password"
+//                                                              persistence:NSURLCredentialPersistenceForSession];
+//        [[challenge sender] useCredential:credential forAuthenticationChallenge:challenge];
+//    }
+//
+//}
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {

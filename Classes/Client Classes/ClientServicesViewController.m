@@ -22,6 +22,11 @@
     if (self) { 
         self.title = @"Schedule";
 		self.tabBarItem.image = [UIImage imageNamed:@"iconServices.png"];
+        
+        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+        barButton.title = @"Back";
+        self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
+        [barButton release];
     } 
     return self; 
 } 
@@ -30,7 +35,11 @@
 	// + Button
 	UIBarButtonItem *btnAdd = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAppointmentButtonTouchUp)];
 	self.navigationItem.rightBarButtonItem = btnAdd;
-	[btnAdd release];
+    [btnAdd release];
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Back";
+    self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
+    [barButton release];
 	//
 	//[super viewDidLoad];
 }
@@ -41,6 +50,11 @@
 	[[PSADataManager sharedInstance] showActivityIndicator];
 	[[PSADataManager sharedInstance] setDelegate:self];
 	[[PSADataManager sharedInstance] getAppointmentsForClient:client];
+    
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(goBackToClients)];
+    barButton.title = @"Back";
+    self.navigationController.navigationBar.topItem.leftBarButtonItem = barButton;
+    [barButton release];
 }
 
 - (void) didReceiveMemoryWarning {

@@ -22,6 +22,10 @@
         self.title = @"Projects";
 		self.tabBarItem.image = [UIImage imageNamed:@"iconFormulations.png"];
 		//
+        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+        barButton.title = @"Back";
+        self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
+        [barButton release];
     } 
     return self; 
 } 
@@ -32,6 +36,10 @@
 	UIBarButtonItem *btnAdd = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonTouchUp)];
 	self.navigationItem.rightBarButtonItem = btnAdd;
 	[btnAdd release];
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Back";
+    self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
+    [barButton release];
 	//
 	formatter = [[NSNumberFormatter alloc] init];
 	[formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
@@ -47,6 +55,11 @@
 		[[PSADataManager sharedInstance] setDelegate:self];
 		[[PSADataManager sharedInstance] getArrayOfProjectsForClient:client];
 	}
+    
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Back";
+    self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
+    [barButton release];
 }
 
 - (void)didReceiveMemoryWarning {

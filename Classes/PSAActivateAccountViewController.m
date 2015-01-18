@@ -8,6 +8,7 @@
 
 #import "PSAActivateAccountViewController.h"
 #import "PSAVerifyViewController.h"
+#import "ConfigurationUtility.h"
 
 @interface PSAActivateAccountViewController ()
 
@@ -45,6 +46,10 @@
     [self.view endEditing:YES];
     //Do stuff here...
 }
+- (IBAction)clicked_terms:(id)sender {
+    TermsAndConditionsViewController *pvc = [[TermsAndConditionsViewController alloc] initWithNibName:@"TermsAndConditionsViewController" bundle:nil];
+    [self presentViewController:pvc animated:NO completion:nil];
+}
 
 - (IBAction)clicked_btnNext:(id)sender {
     if (!self.chkBtnAgreeCheckMark.isSelected) {
@@ -57,13 +62,51 @@
     }
     //[self dismissViewControllerAnimated:YES completion:^{}];
     
-    PSAVerifyViewController *pvc = [[PSAVerifyViewController alloc] initWithNibName:@"PSAVerifyViewController" bundle:nil];
-    [self presentViewController:pvc animated:NO completion:nil];
+    [self submitForm];
+    
+    
     
     
     
     
 }
+
+- (void) progressTask
+{
+    NSDictionary * dict = nil;
+    dict = @{
+             @"source" : @"ApiTest",
+             @"originator" : @"1029",
+             @"returnType" : @"redirect",
+             @"businessName" : self.txtBusinessName.text,
+             @"contactName" : self.txtName.text,
+             @"phone" : self.txtPhone.text,
+             @"email" : self.txtEmail.text,
+             @"phoneAlt" : @""
+             
+             };
+    
+    self.dal = [[ServiceDAL alloc] initWiThPostData:dict urlString:URL_MERCHANT_ACTIVEACCOUNT delegate:self];
+    [self.dal startAsync];
+}
+
+- (void) handleServiceResponseErrorMessage:(NSString *)error
+{
+    [self.progress hide:YES];
+    
+    if (error != nil && ![error isEqualToString:@""])
+        [[[UIAlertView alloc] initWithTitle:@"Unexpected Server Error!" message:error delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil] show];
+}
+
+- (void) handleServiceResponseWithDict:(NSDictionary *)dictionary
+{
+    [self.progress hide:YES];
+    
+    PSAVerifyViewController *pvc = [[PSAVerifyViewController alloc] initWithNibName:@"PSAVerifyViewController" bundle:nil];
+    [self presentViewController:pvc animated:NO completion:nil];
+    
+}
+
 - (IBAction)clicked_Agree:(id)sender {
     [self.chkBtnAgreeCheckMark setSelected:!self.chkBtnAgreeCheckMark.isSelected];
 }

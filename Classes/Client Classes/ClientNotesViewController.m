@@ -35,16 +35,30 @@
     
     [btnAdd release];
     
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Back";
+    self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
+    [barButton release];
+    
 	[super viewDidLoad];
 }
 
 - (void) viewDidAppear:(BOOL)animated {
 
     //[self.view setUserInteractionEnabled:NO];
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Back";
+    self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
+    [barButton release];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
 	textView.text = client.notes;
+    
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Back";
+    self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
+    [barButton release];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "ValidationUtility.h"
+#import "BaseRegistrationViewController.h"
+#import "TermsAndConditionsViewController.h"
 
-@interface PSAActivateAccountViewController : UIViewController
+@interface PSAActivateAccountViewController : BaseRegistrationViewController
 @property (retain, nonatomic) IBOutlet UILabel *lblTerms;
 @property (retain, nonatomic) IBOutlet UIButton *chkBtnAgreeCheckMark;
 @property (nonatomic, strong) ValidationUtility* validation;

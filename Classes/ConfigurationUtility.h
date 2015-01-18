@@ -21,6 +21,9 @@
 ///test define
 #define UTL_MERCHANT_ORDERINFO  @"/services/order/"
 
+
+#define URL_MERCHANT_ACTIVEACCOUNT  @"/AddLead/"
+
 @interface ConfigurationUtility : NSObject
 
 +(NSString*)getBaseURL;

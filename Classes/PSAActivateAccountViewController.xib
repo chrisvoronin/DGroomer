@@ -8,7 +8,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PSAActivateAccountViewController">
             <connections>
                 <outlet property="chkBtnAgreeCheckMark" destination="0wf-EQ-RIv" id="GvF-YR-Axt"/>
-                <outlet property="lblTerms" destination="72E-Ba-70L" id="Eqx-7g-V2g"/>
                 <outlet property="txtBusinessName" destination="7P1-TZ-FBF" id="wLv-Pu-9Z3"/>
                 <outlet property="txtEmail" destination="M51-Rk-slM" id="Nop-9Y-39C"/>
                 <outlet property="txtName" destination="FYT-It-TxG" id="bbm-xP-IZt"/>
@@ -74,19 +73,6 @@
                             </attributedString>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="72E-Ba-70L">
-                            <rect key="frame" x="154" y="220" width="152" height="21"/>
-                            <attributedString key="attributedText">
-                                <fragment content="Terms &amp; Conditions">
-                                    <attributes>
-                                        <color key="NSColor" red="0.49167455808080807" green="0.49167455808080807" blue="0.49167455808080807" alpha="1" colorSpace="calibratedRGB"/>
-                                        <font key="NSFont" size="17" name="HelveticaNeue"/>
-                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" hyphenationFactor="0.0099999997764825821"/>
-                                    </attributes>
-                                </fragment>
-                            </attributedString>
-                            <nil key="highlightedColor"/>
-                        </label>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l97-WC-LqC">
                             <rect key="frame" x="20" y="405" width="280" height="50"/>
                             <state key="normal" image="btnnext.png">
@@ -115,6 +101,15 @@
                                 <action selector="clicked_Terms:" destination="-1" eventType="touchUpInside" id="Oep-9Q-WPa"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M09-Ia-Rs4">
+                            <rect key="frame" x="148" y="220" width="160" height="24"/>
+                            <state key="normal" image="termsconditions.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="clicked_terms:" destination="-1" eventType="touchUpInside" id="bwc-WF-pkN"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.96103965112687828" green="0.95982027178086959" blue="0.98111979166666663" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
@@ -127,5 +122,6 @@
         <image name="btnnext.png" width="583" height="90"/>
         <image name="chkbox_checked.png" width="44" height="44"/>
         <image name="chkbox_unchecked.png" width="44" height="44"/>
+        <image name="termsconditions.png" width="287" height="41"/>
     </resources>
 </document>

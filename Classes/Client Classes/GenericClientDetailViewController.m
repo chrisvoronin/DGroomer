@@ -16,10 +16,14 @@
 
 - (void) viewDidLoad {
 	// Set the background color to a nice yellow image
-	UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundGold.png"];
+	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundGold.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
 	[self.view setBackgroundColor:bgColor];
-	[bgColor release];
+	[bgColor release];*/
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Back";
+    self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
+    [barButton release];
 }
 
 - (void) didReceiveMemoryWarning {
@@ -29,7 +33,7 @@
 
 - (void) viewDidUnload {
 	self.client = nil;
-	self.bbiBack = nil;
+	//self.bbiBack = nil;
 	[super viewDidUnload];
 }
 

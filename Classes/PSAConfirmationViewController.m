@@ -27,7 +27,9 @@
 - (IBAction)clicked_GetStarted:(id)sender {
     //[self.window setRootViewController:navigationController]; // iOS 6 autorotation fix
     //[window addSubview:navigationController.view];
-    
+    //store the flag so it exists the next time the app starts
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[NSDate date] forKey:@"firstRun"];
     [(PSAAppDelegate*)[[UIApplication sharedApplication] delegate] swapClientTabWithNavigation];
     
 //

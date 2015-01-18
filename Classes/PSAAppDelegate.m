@@ -308,7 +308,7 @@
 		} else {
 			// There is no cancel button when editing, however.
 			personVC.navigationItem.leftBarButtonItem = bbiBack;
-			personVC.navigationItem.backBarButtonItem = nil;
+			//personVC.navigationItem.backBarButtonItem = nil;
 		}
 		[bbiBack release];
 		
@@ -388,8 +388,7 @@
     if (![defaults objectForKey:@"firstRun"]){
         //flag doesnt exist then this IS the first run
         self->firstRun = TRUE;
-        //store the flag so it exists the next time the app starts
-        [defaults setObject:[NSDate date] forKey:@"firstRun"];
+        
     }else{
         //flag does exist so this ISNT the first run
         self->firstRun = FALSE;
