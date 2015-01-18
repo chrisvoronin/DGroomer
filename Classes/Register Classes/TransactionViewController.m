@@ -1412,7 +1412,7 @@
 			case 2: {
 				TransactionMoneyEntryViewController *cont = [[TransactionMoneyEntryViewController alloc] initWithNibName:@"TransactionMoneyEntryView" bundle:nil];
 				cont.delegate = self;
-				cont.title = @"Tip";
+				cont.title = @"TIP";
 				NSNumberFormatter *formatter2 = [[NSNumberFormatter alloc] init];
 				[formatter2 setNumberStyle:NSNumberFormatterCurrencyStyle];
 				[formatter2 setCurrencySymbol:@""];

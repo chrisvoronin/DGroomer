@@ -386,8 +386,8 @@
                     clientEmail = [appointment.client getEmailAddressAny];
                 }
             }
-            
-            if(clientEmail == nil)
+            NSString *clientname = [appointment.client getClientName];
+            if(clientEmail == nil && ![clientname isEqualToString:@"Guest"])
             {
                 NSString *message = [[NSString alloc] initWithString:@"This contact does not have an email."];
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
@@ -602,7 +602,12 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if( indexPath.section == 5 ) {
 		if( appointment.type == iBizAppointmentTypeSingleService ) {
-			return 140;
+            if (!isEditing) {
+                return 92;
+            }
+            else{
+                return 44;
+            }
 		} else if( appointment.type == iBizAppointmentTypeProject ) {
 			return 92;
 		} else {
@@ -629,8 +634,9 @@
 		case 4:		return 1;
 		case 5:	{
 			// Hide the buttons if this appointment is new or in editing
-			if(appointment.appointmentID > -1 && !isEditing)	return 1;
-			else								return 0;
+            return 1;
+			//if(appointment.appointmentID > -1 )	return 1;
+			//else								return 0;
 		}
 	}
 	return 2;
@@ -640,7 +646,10 @@
     NSString *identifier = nil;
 	if( indexPath.section == 5 ) {
 		if( appointment.type == iBizAppointmentTypeSingleService ) {
-			identifier = @"AppointmentServiceButtonsCell";
+            if(!isEditing)
+                identifier = @"AppointmentServiceButtonsCell";
+            else
+                identifier = @"AppointmentDeleteButtonCell";
 		} else if( appointment.type == iBizAppointmentTypeProject ) {
 			identifier = @"AppointmentProjectButtonsCell";
 		} else {
@@ -665,14 +674,17 @@
 				cell = buttonsCell;
 				self.buttonsCell = nil;
 			}
+             cell.backgroundColor = cell.contentView.backgroundColor;
+             cell.separatorInset = UIEdgeInsetsMake(0.f, 0.f, 0.f, cell.bounds.size.width);
 		} else {
 			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier] autorelease];
 			cell.selectionStyle = UITableViewCellSelectionStyleGray;
 			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.separatorInset = UIEdgeInsetsMake(0.f, 0.f, 0.f, cell.bounds.size.width);
 		}
     }
 	
-	if( isEditing ) {
+	if( isEditing && indexPath.section != 5) {
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
 	} else {

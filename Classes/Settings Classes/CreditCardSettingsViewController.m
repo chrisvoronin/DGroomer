@@ -197,8 +197,8 @@
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     
-    NSLog(@"Range: %@", NSStringFromRange(range));
-    return ( range.location < 4 );
+    //NSLog(@"Range: %@", NSStringFromRange(range));
+    return YES;//( range.location < 4 );
     
 }
 /*

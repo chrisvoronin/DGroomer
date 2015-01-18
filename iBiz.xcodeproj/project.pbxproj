@@ -176,6 +176,9 @@
 		B206C1991A66E7E100AD7DAF /* imgfreecard1.png in Resources */ = {isa = PBXBuildFile; fileRef = B206C1981A66E7E100AD7DAF /* imgfreecard1.png */; };
 		B206C19B1A66E8EC00AD7DAF /* imgfreecard1.png in Resources */ = {isa = PBXBuildFile; fileRef = B206C19A1A66E8EC00AD7DAF /* imgfreecard1.png */; };
 		B206C19D1A66EBF300AD7DAF /* imgfreecard2.png in Resources */ = {isa = PBXBuildFile; fileRef = B206C19C1A66EBF300AD7DAF /* imgfreecard2.png */; };
+		B20D4A0C1A69FD0400A1BD4A /* btndeleteappt.png in Resources */ = {isa = PBXBuildFile; fileRef = B20D4A091A69FD0400A1BD4A /* btndeleteappt.png */; };
+		B20D4A0D1A69FD0400A1BD4A /* btnsendreminder.png in Resources */ = {isa = PBXBuildFile; fileRef = B20D4A0A1A69FD0400A1BD4A /* btnsendreminder.png */; };
+		B20D4A0F1A6A016600A1BD4A /* btn_checkout.png in Resources */ = {isa = PBXBuildFile; fileRef = B20D4A0E1A6A016500A1BD4A /* btn_checkout.png */; };
 		B2409E621938131B000F6F32 /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = B2409E611938131B000F6F32 /* XMLReader.m */; };
 		B2409E6C193813F8000F6F32 /* DataRegister.m in Sources */ = {isa = PBXBuildFile; fileRef = B2409E65193813F8000F6F32 /* DataRegister.m */; };
 		B2409E6D193813F8000F6F32 /* DateChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = B2409E67193813F8000F6F32 /* DateChecker.m */; };
@@ -473,7 +476,6 @@
 		D986A6B7120348180001B53C /* TransactionPaymentInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9F0C32110F512A60074A760 /* TransactionPaymentInfoView.xib */; };
 		D986A6B8120348180001B53C /* iconTransactions.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FE963E10FB160F0043ED3E /* iconTransactions.png */; };
 		D986A6B9120348180001B53C /* btnVoid.png in Resources */ = {isa = PBXBuildFile; fileRef = D994225C10FB5AA900E8CC02 /* btnVoid.png */; };
-		D986A6BA120348180001B53C /* btnCheckOut.png in Resources */ = {isa = PBXBuildFile; fileRef = D994227B10FB5B8000E8CC02 /* btnCheckOut.png */; };
 		D986A6BB120348180001B53C /* AppointmentServiceButtonsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D994228210FB5C8600E8CC02 /* AppointmentServiceButtonsCell.xib */; };
 		D986A6BC120348180001B53C /* TransactionVoidCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D99422B010FB635E00E8CC02 /* TransactionVoidCell.xib */; };
 		D986A6BD120348180001B53C /* ProductInventoryQuantityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A5D06C10FCD70A00ADA94A /* ProductInventoryQuantityView.xib */; };
@@ -603,7 +605,6 @@
 		D986A740120348180001B53C /* btnCellEmailDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9211EF563A0025906A /* btnCellEmailDown@2x.png */; };
 		D986A741120348180001B53C /* btnCellEmailUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9311EF563A0025906A /* btnCellEmailUp@2x.png */; };
 		D986A742120348180001B53C /* btnChargeCreditCard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9411EF563A0025906A /* btnChargeCreditCard@2x.png */; };
-		D986A743120348180001B53C /* btnCheckOut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9511EF563A0025906A /* btnCheckOut@2x.png */; };
 		D986A744120348180001B53C /* btnClearDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9611EF563A0025906A /* btnClearDown@2x.png */; };
 		D986A745120348180001B53C /* btnClearUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9711EF563A0025906A /* btnClearUp@2x.png */; };
 		D986A746120348180001B53C /* btnClientAutomaticRecovery@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9811EF563A0025906A /* btnClientAutomaticRecovery@2x.png */; };
@@ -851,7 +852,6 @@
 		D993456510A9FD50004BCB26 /* ServiceGroupsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D993456410A9FD50004BCB26 /* ServiceGroupsTableViewController.m */; };
 		D9938DF110BDF216006357C2 /* AppointmentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9938DF010BDF216006357C2 /* AppointmentCell.xib */; };
 		D994225D10FB5AA900E8CC02 /* btnVoid.png in Resources */ = {isa = PBXBuildFile; fileRef = D994225C10FB5AA900E8CC02 /* btnVoid.png */; };
-		D994227C10FB5B8000E8CC02 /* btnCheckOut.png in Resources */ = {isa = PBXBuildFile; fileRef = D994227B10FB5B8000E8CC02 /* btnCheckOut.png */; };
 		D994228310FB5C8600E8CC02 /* AppointmentServiceButtonsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D994228210FB5C8600E8CC02 /* AppointmentServiceButtonsCell.xib */; };
 		D99422B110FB635E00E8CC02 /* TransactionVoidCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D99422B010FB635E00E8CC02 /* TransactionVoidCell.xib */; };
 		D994A76C10BC49DB00899AFA /* calendarArrowLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = D994A76A10BC49DB00899AFA /* calendarArrowLeft.png */; };
@@ -980,7 +980,6 @@
 		D9E14E9212075347007089AB /* TransactionPaymentInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9F0C32110F512A60074A760 /* TransactionPaymentInfoView.xib */; };
 		D9E14E9312075347007089AB /* iconTransactions.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FE963E10FB160F0043ED3E /* iconTransactions.png */; };
 		D9E14E9412075347007089AB /* btnVoid.png in Resources */ = {isa = PBXBuildFile; fileRef = D994225C10FB5AA900E8CC02 /* btnVoid.png */; };
-		D9E14E9512075347007089AB /* btnCheckOut.png in Resources */ = {isa = PBXBuildFile; fileRef = D994227B10FB5B8000E8CC02 /* btnCheckOut.png */; };
 		D9E14E9612075347007089AB /* AppointmentServiceButtonsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D994228210FB5C8600E8CC02 /* AppointmentServiceButtonsCell.xib */; };
 		D9E14E9712075347007089AB /* TransactionVoidCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D99422B010FB635E00E8CC02 /* TransactionVoidCell.xib */; };
 		D9E14E9812075347007089AB /* ProductInventoryQuantityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A5D06C10FCD70A00ADA94A /* ProductInventoryQuantityView.xib */; };
@@ -1049,7 +1048,6 @@
 		D9E14F1512075347007089AB /* btnCellEmailDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9211EF563A0025906A /* btnCellEmailDown@2x.png */; };
 		D9E14F1612075347007089AB /* btnCellEmailUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9311EF563A0025906A /* btnCellEmailUp@2x.png */; };
 		D9E14F1712075347007089AB /* btnChargeCreditCard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9411EF563A0025906A /* btnChargeCreditCard@2x.png */; };
-		D9E14F1812075347007089AB /* btnCheckOut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9511EF563A0025906A /* btnCheckOut@2x.png */; };
 		D9E14F1912075347007089AB /* btnClearDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9611EF563A0025906A /* btnClearDown@2x.png */; };
 		D9E14F1A12075347007089AB /* btnClearUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9711EF563A0025906A /* btnClearUp@2x.png */; };
 		D9E14F1B12075347007089AB /* btnClientAutomaticRecovery@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9811EF563A0025906A /* btnClientAutomaticRecovery@2x.png */; };
@@ -1299,7 +1297,6 @@
 		D9E150481207539B007089AB /* TransactionPaymentInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9F0C32110F512A60074A760 /* TransactionPaymentInfoView.xib */; };
 		D9E150491207539B007089AB /* iconTransactions.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FE963E10FB160F0043ED3E /* iconTransactions.png */; };
 		D9E1504A1207539B007089AB /* btnVoid.png in Resources */ = {isa = PBXBuildFile; fileRef = D994225C10FB5AA900E8CC02 /* btnVoid.png */; };
-		D9E1504B1207539B007089AB /* btnCheckOut.png in Resources */ = {isa = PBXBuildFile; fileRef = D994227B10FB5B8000E8CC02 /* btnCheckOut.png */; };
 		D9E1504C1207539B007089AB /* AppointmentServiceButtonsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D994228210FB5C8600E8CC02 /* AppointmentServiceButtonsCell.xib */; };
 		D9E1504D1207539B007089AB /* TransactionVoidCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D99422B010FB635E00E8CC02 /* TransactionVoidCell.xib */; };
 		D9E1504E1207539B007089AB /* ProductInventoryQuantityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A5D06C10FCD70A00ADA94A /* ProductInventoryQuantityView.xib */; };
@@ -1374,7 +1371,6 @@
 		D9E150CB1207539B007089AB /* btnCellEmailDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9211EF563A0025906A /* btnCellEmailDown@2x.png */; };
 		D9E150CC1207539B007089AB /* btnCellEmailUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9311EF563A0025906A /* btnCellEmailUp@2x.png */; };
 		D9E150CD1207539B007089AB /* btnChargeCreditCard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9411EF563A0025906A /* btnChargeCreditCard@2x.png */; };
-		D9E150CE1207539B007089AB /* btnCheckOut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9511EF563A0025906A /* btnCheckOut@2x.png */; };
 		D9E150CF1207539B007089AB /* btnClearDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9611EF563A0025906A /* btnClearDown@2x.png */; };
 		D9E150D01207539B007089AB /* btnClearUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9711EF563A0025906A /* btnClearUp@2x.png */; };
 		D9E150D11207539B007089AB /* btnClientAutomaticRecovery@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9811EF563A0025906A /* btnClientAutomaticRecovery@2x.png */; };
@@ -1625,7 +1621,6 @@
 		D9E151FA120753A7007089AB /* TransactionPaymentInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9F0C32110F512A60074A760 /* TransactionPaymentInfoView.xib */; };
 		D9E151FB120753A7007089AB /* iconTransactions.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FE963E10FB160F0043ED3E /* iconTransactions.png */; };
 		D9E151FC120753A7007089AB /* btnVoid.png in Resources */ = {isa = PBXBuildFile; fileRef = D994225C10FB5AA900E8CC02 /* btnVoid.png */; };
-		D9E151FD120753A7007089AB /* btnCheckOut.png in Resources */ = {isa = PBXBuildFile; fileRef = D994227B10FB5B8000E8CC02 /* btnCheckOut.png */; };
 		D9E151FE120753A7007089AB /* AppointmentServiceButtonsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D994228210FB5C8600E8CC02 /* AppointmentServiceButtonsCell.xib */; };
 		D9E151FF120753A7007089AB /* TransactionVoidCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D99422B010FB635E00E8CC02 /* TransactionVoidCell.xib */; };
 		D9E15200120753A7007089AB /* ProductInventoryQuantityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A5D06C10FCD70A00ADA94A /* ProductInventoryQuantityView.xib */; };
@@ -1700,7 +1695,6 @@
 		D9E1527D120753A7007089AB /* btnCellEmailDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9211EF563A0025906A /* btnCellEmailDown@2x.png */; };
 		D9E1527E120753A7007089AB /* btnCellEmailUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9311EF563A0025906A /* btnCellEmailUp@2x.png */; };
 		D9E1527F120753A7007089AB /* btnChargeCreditCard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9411EF563A0025906A /* btnChargeCreditCard@2x.png */; };
-		D9E15280120753A7007089AB /* btnCheckOut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9511EF563A0025906A /* btnCheckOut@2x.png */; };
 		D9E15281120753A7007089AB /* btnClearDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9611EF563A0025906A /* btnClearDown@2x.png */; };
 		D9E15282120753A7007089AB /* btnClearUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9711EF563A0025906A /* btnClearUp@2x.png */; };
 		D9E15283120753A7007089AB /* btnClientAutomaticRecovery@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9811EF563A0025906A /* btnClientAutomaticRecovery@2x.png */; };
@@ -1952,7 +1946,6 @@
 		D9E153AC120753B1007089AB /* TransactionPaymentInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9F0C32110F512A60074A760 /* TransactionPaymentInfoView.xib */; };
 		D9E153AD120753B1007089AB /* iconTransactions.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FE963E10FB160F0043ED3E /* iconTransactions.png */; };
 		D9E153AE120753B1007089AB /* btnVoid.png in Resources */ = {isa = PBXBuildFile; fileRef = D994225C10FB5AA900E8CC02 /* btnVoid.png */; };
-		D9E153AF120753B1007089AB /* btnCheckOut.png in Resources */ = {isa = PBXBuildFile; fileRef = D994227B10FB5B8000E8CC02 /* btnCheckOut.png */; };
 		D9E153B0120753B1007089AB /* AppointmentServiceButtonsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D994228210FB5C8600E8CC02 /* AppointmentServiceButtonsCell.xib */; };
 		D9E153B1120753B1007089AB /* TransactionVoidCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D99422B010FB635E00E8CC02 /* TransactionVoidCell.xib */; };
 		D9E153B2120753B1007089AB /* ProductInventoryQuantityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A5D06C10FCD70A00ADA94A /* ProductInventoryQuantityView.xib */; };
@@ -2027,7 +2020,6 @@
 		D9E1542F120753B1007089AB /* btnCellEmailDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9211EF563A0025906A /* btnCellEmailDown@2x.png */; };
 		D9E15430120753B1007089AB /* btnCellEmailUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9311EF563A0025906A /* btnCellEmailUp@2x.png */; };
 		D9E15431120753B1007089AB /* btnChargeCreditCard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9411EF563A0025906A /* btnChargeCreditCard@2x.png */; };
-		D9E15432120753B1007089AB /* btnCheckOut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9511EF563A0025906A /* btnCheckOut@2x.png */; };
 		D9E15433120753B1007089AB /* btnClearDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9611EF563A0025906A /* btnClearDown@2x.png */; };
 		D9E15434120753B1007089AB /* btnClearUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9711EF563A0025906A /* btnClearUp@2x.png */; };
 		D9E15435120753B1007089AB /* btnClientAutomaticRecovery@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9811EF563A0025906A /* btnClientAutomaticRecovery@2x.png */; };
@@ -2282,7 +2274,6 @@
 		D9E1555E120753BC007089AB /* TransactionPaymentInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9F0C32110F512A60074A760 /* TransactionPaymentInfoView.xib */; };
 		D9E1555F120753BC007089AB /* iconTransactions.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FE963E10FB160F0043ED3E /* iconTransactions.png */; };
 		D9E15560120753BC007089AB /* btnVoid.png in Resources */ = {isa = PBXBuildFile; fileRef = D994225C10FB5AA900E8CC02 /* btnVoid.png */; };
-		D9E15561120753BC007089AB /* btnCheckOut.png in Resources */ = {isa = PBXBuildFile; fileRef = D994227B10FB5B8000E8CC02 /* btnCheckOut.png */; };
 		D9E15562120753BC007089AB /* AppointmentServiceButtonsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D994228210FB5C8600E8CC02 /* AppointmentServiceButtonsCell.xib */; };
 		D9E15563120753BC007089AB /* TransactionVoidCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D99422B010FB635E00E8CC02 /* TransactionVoidCell.xib */; };
 		D9E15564120753BC007089AB /* ProductInventoryQuantityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A5D06C10FCD70A00ADA94A /* ProductInventoryQuantityView.xib */; };
@@ -2377,7 +2368,6 @@
 		D9E155E1120753BC007089AB /* btnCellEmailDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9211EF563A0025906A /* btnCellEmailDown@2x.png */; };
 		D9E155E2120753BC007089AB /* btnCellEmailUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9311EF563A0025906A /* btnCellEmailUp@2x.png */; };
 		D9E155E3120753BC007089AB /* btnChargeCreditCard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9411EF563A0025906A /* btnChargeCreditCard@2x.png */; };
-		D9E155E4120753BC007089AB /* btnCheckOut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9511EF563A0025906A /* btnCheckOut@2x.png */; };
 		D9E155E5120753BC007089AB /* btnClearDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9611EF563A0025906A /* btnClearDown@2x.png */; };
 		D9E155E6120753BC007089AB /* btnClearUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9711EF563A0025906A /* btnClearUp@2x.png */; };
 		D9E155E7120753BC007089AB /* btnClientAutomaticRecovery@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9811EF563A0025906A /* btnClientAutomaticRecovery@2x.png */; };
@@ -2666,7 +2656,6 @@
 		D9E15710120753C7007089AB /* TransactionPaymentInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9F0C32110F512A60074A760 /* TransactionPaymentInfoView.xib */; };
 		D9E15711120753C7007089AB /* iconTransactions.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FE963E10FB160F0043ED3E /* iconTransactions.png */; };
 		D9E15712120753C7007089AB /* btnVoid.png in Resources */ = {isa = PBXBuildFile; fileRef = D994225C10FB5AA900E8CC02 /* btnVoid.png */; };
-		D9E15713120753C7007089AB /* btnCheckOut.png in Resources */ = {isa = PBXBuildFile; fileRef = D994227B10FB5B8000E8CC02 /* btnCheckOut.png */; };
 		D9E15714120753C7007089AB /* AppointmentServiceButtonsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D994228210FB5C8600E8CC02 /* AppointmentServiceButtonsCell.xib */; };
 		D9E15715120753C7007089AB /* TransactionVoidCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D99422B010FB635E00E8CC02 /* TransactionVoidCell.xib */; };
 		D9E15716120753C7007089AB /* ProductInventoryQuantityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A5D06C10FCD70A00ADA94A /* ProductInventoryQuantityView.xib */; };
@@ -2796,7 +2785,6 @@
 		D9E15793120753C7007089AB /* btnCellEmailDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9211EF563A0025906A /* btnCellEmailDown@2x.png */; };
 		D9E15794120753C7007089AB /* btnCellEmailUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9311EF563A0025906A /* btnCellEmailUp@2x.png */; };
 		D9E15795120753C7007089AB /* btnChargeCreditCard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9411EF563A0025906A /* btnChargeCreditCard@2x.png */; };
-		D9E15796120753C7007089AB /* btnCheckOut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9511EF563A0025906A /* btnCheckOut@2x.png */; };
 		D9E15797120753C7007089AB /* btnClearDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9611EF563A0025906A /* btnClearDown@2x.png */; };
 		D9E15798120753C7007089AB /* btnClearUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9711EF563A0025906A /* btnClearUp@2x.png */; };
 		D9E15799120753C7007089AB /* btnClientAutomaticRecovery@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9811EF563A0025906A /* btnClientAutomaticRecovery@2x.png */; };
@@ -3085,7 +3073,6 @@
 		D9E158C2120753D0007089AB /* TransactionPaymentInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9F0C32110F512A60074A760 /* TransactionPaymentInfoView.xib */; };
 		D9E158C3120753D0007089AB /* iconTransactions.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FE963E10FB160F0043ED3E /* iconTransactions.png */; };
 		D9E158C4120753D0007089AB /* btnVoid.png in Resources */ = {isa = PBXBuildFile; fileRef = D994225C10FB5AA900E8CC02 /* btnVoid.png */; };
-		D9E158C5120753D0007089AB /* btnCheckOut.png in Resources */ = {isa = PBXBuildFile; fileRef = D994227B10FB5B8000E8CC02 /* btnCheckOut.png */; };
 		D9E158C6120753D0007089AB /* AppointmentServiceButtonsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D994228210FB5C8600E8CC02 /* AppointmentServiceButtonsCell.xib */; };
 		D9E158C7120753D0007089AB /* TransactionVoidCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D99422B010FB635E00E8CC02 /* TransactionVoidCell.xib */; };
 		D9E158C8120753D0007089AB /* ProductInventoryQuantityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A5D06C10FCD70A00ADA94A /* ProductInventoryQuantityView.xib */; };
@@ -3215,7 +3202,6 @@
 		D9E15945120753D0007089AB /* btnCellEmailDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9211EF563A0025906A /* btnCellEmailDown@2x.png */; };
 		D9E15946120753D0007089AB /* btnCellEmailUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9311EF563A0025906A /* btnCellEmailUp@2x.png */; };
 		D9E15947120753D0007089AB /* btnChargeCreditCard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9411EF563A0025906A /* btnChargeCreditCard@2x.png */; };
-		D9E15948120753D0007089AB /* btnCheckOut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9511EF563A0025906A /* btnCheckOut@2x.png */; };
 		D9E15949120753D0007089AB /* btnClearDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9611EF563A0025906A /* btnClearDown@2x.png */; };
 		D9E1594A120753D0007089AB /* btnClearUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9711EF563A0025906A /* btnClearUp@2x.png */; };
 		D9E1594B120753D0007089AB /* btnClientAutomaticRecovery@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9811EF563A0025906A /* btnClientAutomaticRecovery@2x.png */; };
@@ -3503,7 +3489,6 @@
 		D9E15A74120753DB007089AB /* TransactionPaymentInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9F0C32110F512A60074A760 /* TransactionPaymentInfoView.xib */; };
 		D9E15A75120753DB007089AB /* iconTransactions.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FE963E10FB160F0043ED3E /* iconTransactions.png */; };
 		D9E15A76120753DB007089AB /* btnVoid.png in Resources */ = {isa = PBXBuildFile; fileRef = D994225C10FB5AA900E8CC02 /* btnVoid.png */; };
-		D9E15A77120753DB007089AB /* btnCheckOut.png in Resources */ = {isa = PBXBuildFile; fileRef = D994227B10FB5B8000E8CC02 /* btnCheckOut.png */; };
 		D9E15A78120753DB007089AB /* AppointmentServiceButtonsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D994228210FB5C8600E8CC02 /* AppointmentServiceButtonsCell.xib */; };
 		D9E15A79120753DB007089AB /* TransactionVoidCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D99422B010FB635E00E8CC02 /* TransactionVoidCell.xib */; };
 		D9E15A7A120753DB007089AB /* ProductInventoryQuantityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A5D06C10FCD70A00ADA94A /* ProductInventoryQuantityView.xib */; };
@@ -3598,7 +3583,6 @@
 		D9E15AF7120753DB007089AB /* btnCellEmailDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9211EF563A0025906A /* btnCellEmailDown@2x.png */; };
 		D9E15AF8120753DB007089AB /* btnCellEmailUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9311EF563A0025906A /* btnCellEmailUp@2x.png */; };
 		D9E15AF9120753DB007089AB /* btnChargeCreditCard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9411EF563A0025906A /* btnChargeCreditCard@2x.png */; };
-		D9E15AFA120753DB007089AB /* btnCheckOut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9511EF563A0025906A /* btnCheckOut@2x.png */; };
 		D9E15AFB120753DB007089AB /* btnClearDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9611EF563A0025906A /* btnClearDown@2x.png */; };
 		D9E15AFC120753DB007089AB /* btnClearUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9711EF563A0025906A /* btnClearUp@2x.png */; };
 		D9E15AFD120753DB007089AB /* btnClientAutomaticRecovery@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9811EF563A0025906A /* btnClientAutomaticRecovery@2x.png */; };
@@ -4036,7 +4020,6 @@
 		D9E72BB411EF563A0025906A /* btnCellEmailDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9211EF563A0025906A /* btnCellEmailDown@2x.png */; };
 		D9E72BB511EF563A0025906A /* btnCellEmailUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9311EF563A0025906A /* btnCellEmailUp@2x.png */; };
 		D9E72BB611EF563A0025906A /* btnChargeCreditCard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9411EF563A0025906A /* btnChargeCreditCard@2x.png */; };
-		D9E72BB711EF563A0025906A /* btnCheckOut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9511EF563A0025906A /* btnCheckOut@2x.png */; };
 		D9E72BB811EF563A0025906A /* btnClearDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9611EF563A0025906A /* btnClearDown@2x.png */; };
 		D9E72BB911EF563A0025906A /* btnClearUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9711EF563A0025906A /* btnClearUp@2x.png */; };
 		D9E72BBA11EF563A0025906A /* btnClientAutomaticRecovery@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9811EF563A0025906A /* btnClientAutomaticRecovery@2x.png */; };
@@ -4178,7 +4161,6 @@
 		D9E7ECD6121061AC00EB7F19 /* TransactionPaymentInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9F0C32110F512A60074A760 /* TransactionPaymentInfoView.xib */; };
 		D9E7ECD7121061AC00EB7F19 /* iconTransactions.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FE963E10FB160F0043ED3E /* iconTransactions.png */; };
 		D9E7ECD8121061AC00EB7F19 /* btnVoid.png in Resources */ = {isa = PBXBuildFile; fileRef = D994225C10FB5AA900E8CC02 /* btnVoid.png */; };
-		D9E7ECD9121061AC00EB7F19 /* btnCheckOut.png in Resources */ = {isa = PBXBuildFile; fileRef = D994227B10FB5B8000E8CC02 /* btnCheckOut.png */; };
 		D9E7ECDA121061AC00EB7F19 /* AppointmentServiceButtonsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D994228210FB5C8600E8CC02 /* AppointmentServiceButtonsCell.xib */; };
 		D9E7ECDB121061AC00EB7F19 /* TransactionVoidCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D99422B010FB635E00E8CC02 /* TransactionVoidCell.xib */; };
 		D9E7ECDC121061AC00EB7F19 /* ProductInventoryQuantityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A5D06C10FCD70A00ADA94A /* ProductInventoryQuantityView.xib */; };
@@ -4253,7 +4235,6 @@
 		D9E7ED59121061AC00EB7F19 /* btnCellEmailDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9211EF563A0025906A /* btnCellEmailDown@2x.png */; };
 		D9E7ED5A121061AC00EB7F19 /* btnCellEmailUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9311EF563A0025906A /* btnCellEmailUp@2x.png */; };
 		D9E7ED5B121061AC00EB7F19 /* btnChargeCreditCard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9411EF563A0025906A /* btnChargeCreditCard@2x.png */; };
-		D9E7ED5C121061AC00EB7F19 /* btnCheckOut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9511EF563A0025906A /* btnCheckOut@2x.png */; };
 		D9E7ED5D121061AC00EB7F19 /* btnClearDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9611EF563A0025906A /* btnClearDown@2x.png */; };
 		D9E7ED5E121061AC00EB7F19 /* btnClearUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9711EF563A0025906A /* btnClearUp@2x.png */; };
 		D9E7ED5F121061AC00EB7F19 /* btnClientAutomaticRecovery@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72B9811EF563A0025906A /* btnClientAutomaticRecovery@2x.png */; };
@@ -4805,6 +4786,9 @@
 		B206C1981A66E7E100AD7DAF /* imgfreecard1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = imgfreecard1.png; path = newskin/act/imgfreecard1.png; sourceTree = "<group>"; };
 		B206C19A1A66E8EC00AD7DAF /* imgfreecard1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = imgfreecard1.png; path = Images/newskin/act/imgfreecard1.png; sourceTree = "<group>"; };
 		B206C19C1A66EBF300AD7DAF /* imgfreecard2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = imgfreecard2.png; path = Images/newskin/act/imgfreecard2.png; sourceTree = "<group>"; };
+		B20D4A091A69FD0400A1BD4A /* btndeleteappt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btndeleteappt.png; path = Images/newskin/act/btndeleteappt.png; sourceTree = "<group>"; };
+		B20D4A0A1A69FD0400A1BD4A /* btnsendreminder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btnsendreminder.png; path = Images/newskin/act/btnsendreminder.png; sourceTree = "<group>"; };
+		B20D4A0E1A6A016500A1BD4A /* btn_checkout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btn_checkout.png; path = Images/newskin/act/btn_checkout.png; sourceTree = "<group>"; };
 		B2409E601938131B000F6F32 /* XMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLReader.h; sourceTree = "<group>"; };
 		B2409E611938131B000F6F32 /* XMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLReader.m; sourceTree = "<group>"; };
 		B2409E64193813F8000F6F32 /* DataRegister.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataRegister.h; sourceTree = "<group>"; };
@@ -5153,7 +5137,6 @@
 		D993456410A9FD50004BCB26 /* ServiceGroupsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ServiceGroupsTableViewController.m; path = "Classes/Service Classes/ServiceGroupsTableViewController.m"; sourceTree = "<group>"; };
 		D9938DF010BDF216006357C2 /* AppointmentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = AppointmentCell.xib; path = NIBS/AppointmentCell.xib; sourceTree = "<group>"; };
 		D994225C10FB5AA900E8CC02 /* btnVoid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btnVoid.png; sourceTree = "<group>"; };
-		D994227B10FB5B8000E8CC02 /* btnCheckOut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btnCheckOut.png; sourceTree = "<group>"; };
 		D994228210FB5C8600E8CC02 /* AppointmentServiceButtonsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = AppointmentServiceButtonsCell.xib; path = NIBS/AppointmentServiceButtonsCell.xib; sourceTree = "<group>"; };
 		D99422B010FB635E00E8CC02 /* TransactionVoidCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TransactionVoidCell.xib; path = NIBS/TransactionVoidCell.xib; sourceTree = SOURCE_ROOT; };
 		D994A76A10BC49DB00899AFA /* calendarArrowLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendarArrowLeft.png; sourceTree = "<group>"; };
@@ -5255,7 +5238,6 @@
 		D9E72B9211EF563A0025906A /* btnCellEmailDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnCellEmailDown@2x.png"; sourceTree = "<group>"; };
 		D9E72B9311EF563A0025906A /* btnCellEmailUp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnCellEmailUp@2x.png"; sourceTree = "<group>"; };
 		D9E72B9411EF563A0025906A /* btnChargeCreditCard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnChargeCreditCard@2x.png"; sourceTree = "<group>"; };
-		D9E72B9511EF563A0025906A /* btnCheckOut@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnCheckOut@2x.png"; sourceTree = "<group>"; };
 		D9E72B9611EF563A0025906A /* btnClearDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnClearDown@2x.png"; sourceTree = "<group>"; };
 		D9E72B9711EF563A0025906A /* btnClearUp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnClearUp@2x.png"; sourceTree = "<group>"; };
 		D9E72B9811EF563A0025906A /* btnClientAutomaticRecovery@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnClientAutomaticRecovery@2x.png"; sourceTree = "<group>"; };
@@ -5692,6 +5674,9 @@
 		29B97314FDCFA39411CA2CEA /* PSA */ = {
 			isa = PBXGroup;
 			children = (
+				B20D4A0E1A6A016500A1BD4A /* btn_checkout.png */,
+				B20D4A091A69FD0400A1BD4A /* btndeleteappt.png */,
+				B20D4A0A1A69FD0400A1BD4A /* btnsendreminder.png */,
 				B206C19C1A66EBF300AD7DAF /* imgfreecard2.png */,
 				B206C19A1A66E8EC00AD7DAF /* imgfreecard1.png */,
 				B206C1771A65A29000AD7DAF /* btnactivate.png */,
@@ -6932,8 +6917,6 @@
 				D9E72B9311EF563A0025906A /* btnCellEmailUp@2x.png */,
 				D9FEC01111B7FE6500D5E845 /* btnChargeCreditCard.png */,
 				D9E72B9411EF563A0025906A /* btnChargeCreditCard@2x.png */,
-				D994227B10FB5B8000E8CC02 /* btnCheckOut.png */,
-				D9E72B9511EF563A0025906A /* btnCheckOut@2x.png */,
 				D9FEC01211B7FE6500D5E845 /* btnClearDown.png */,
 				D9E72B9611EF563A0025906A /* btnClearDown@2x.png */,
 				D9FEC01311B7FE6500D5E845 /* btnClearUp.png */,
@@ -7724,8 +7707,6 @@
 				D9E72BB511EF563A0025906A /* btnCellEmailUp@2x.png in Resources */,
 				D9FEC01F11B7FE6500D5E845 /* btnChargeCreditCard.png in Resources */,
 				D9E72BB611EF563A0025906A /* btnChargeCreditCard@2x.png in Resources */,
-				D994227C10FB5B8000E8CC02 /* btnCheckOut.png in Resources */,
-				D9E72BB711EF563A0025906A /* btnCheckOut@2x.png in Resources */,
 				D9FEC02011B7FE6500D5E845 /* btnClearDown.png in Resources */,
 				D9E72BB811EF563A0025906A /* btnClearDown@2x.png in Resources */,
 				D9FEC02111B7FE6500D5E845 /* btnClearUp.png in Resources */,
@@ -8030,8 +8011,6 @@
 				D986A741120348180001B53C /* btnCellEmailUp@2x.png in Resources */,
 				D986A71F120348180001B53C /* btnChargeCreditCard.png in Resources */,
 				D986A742120348180001B53C /* btnChargeCreditCard@2x.png in Resources */,
-				D986A6BA120348180001B53C /* btnCheckOut.png in Resources */,
-				D986A743120348180001B53C /* btnCheckOut@2x.png in Resources */,
 				D986A720120348180001B53C /* btnClearDown.png in Resources */,
 				D986A744120348180001B53C /* btnClearDown@2x.png in Resources */,
 				D986A721120348180001B53C /* btnClearUp.png in Resources */,
@@ -8309,6 +8288,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B20D4A0F1A6A016600A1BD4A /* btn_checkout.png in Resources */,
+				B20D4A0C1A69FD0400A1BD4A /* btndeleteappt.png in Resources */,
+				B20D4A0D1A69FD0400A1BD4A /* btnsendreminder.png in Resources */,
 				B206C19D1A66EBF300AD7DAF /* imgfreecard2.png in Resources */,
 				B206C19B1A66E8EC00AD7DAF /* imgfreecard1.png in Resources */,
 				B206C1781A65A29000AD7DAF /* btnactivate.png in Resources */,
@@ -8355,8 +8337,6 @@
 				D9E14EF912075347007089AB /* btnChargeCreditCard.png in Resources */,
 				B25754D819371B20004D9350 /* checkbox_active.png in Resources */,
 				D9E14F1712075347007089AB /* btnChargeCreditCard@2x.png in Resources */,
-				D9E14E9512075347007089AB /* btnCheckOut.png in Resources */,
-				D9E14F1812075347007089AB /* btnCheckOut@2x.png in Resources */,
 				D9E14EFA12075347007089AB /* btnClearDown.png in Resources */,
 				D9E14F1912075347007089AB /* btnClearDown@2x.png in Resources */,
 				D9E14EFB12075347007089AB /* btnClearUp.png in Resources */,
@@ -8643,8 +8623,6 @@
 				D9E150CC1207539B007089AB /* btnCellEmailUp@2x.png in Resources */,
 				D9E150AF1207539B007089AB /* btnChargeCreditCard.png in Resources */,
 				D9E150CD1207539B007089AB /* btnChargeCreditCard@2x.png in Resources */,
-				D9E1504B1207539B007089AB /* btnCheckOut.png in Resources */,
-				D9E150CE1207539B007089AB /* btnCheckOut@2x.png in Resources */,
 				D9E150B01207539B007089AB /* btnClearDown.png in Resources */,
 				D9E150CF1207539B007089AB /* btnClearDown@2x.png in Resources */,
 				D9E150B11207539B007089AB /* btnClearUp.png in Resources */,
@@ -8874,8 +8852,6 @@
 				D9E1527E120753A7007089AB /* btnCellEmailUp@2x.png in Resources */,
 				D9E15261120753A7007089AB /* btnChargeCreditCard.png in Resources */,
 				D9E1527F120753A7007089AB /* btnChargeCreditCard@2x.png in Resources */,
-				D9E151FD120753A7007089AB /* btnCheckOut.png in Resources */,
-				D9E15280120753A7007089AB /* btnCheckOut@2x.png in Resources */,
 				D9E15262120753A7007089AB /* btnClearDown.png in Resources */,
 				D9E15281120753A7007089AB /* btnClearDown@2x.png in Resources */,
 				D9E15263120753A7007089AB /* btnClearUp.png in Resources */,
@@ -9105,8 +9081,6 @@
 				D9E15430120753B1007089AB /* btnCellEmailUp@2x.png in Resources */,
 				D9E15413120753B1007089AB /* btnChargeCreditCard.png in Resources */,
 				D9E15431120753B1007089AB /* btnChargeCreditCard@2x.png in Resources */,
-				D9E153AF120753B1007089AB /* btnCheckOut.png in Resources */,
-				D9E15432120753B1007089AB /* btnCheckOut@2x.png in Resources */,
 				D9E15414120753B1007089AB /* btnClearDown.png in Resources */,
 				D9E15433120753B1007089AB /* btnClearDown@2x.png in Resources */,
 				D9E15415120753B1007089AB /* btnClearUp.png in Resources */,
@@ -9343,8 +9317,6 @@
 				D9E155E2120753BC007089AB /* btnCellEmailUp@2x.png in Resources */,
 				D9E155C5120753BC007089AB /* btnChargeCreditCard.png in Resources */,
 				D9E155E3120753BC007089AB /* btnChargeCreditCard@2x.png in Resources */,
-				D9E15561120753BC007089AB /* btnCheckOut.png in Resources */,
-				D9E155E4120753BC007089AB /* btnCheckOut@2x.png in Resources */,
 				D9E155C6120753BC007089AB /* btnClearDown.png in Resources */,
 				D9E155E5120753BC007089AB /* btnClearDown@2x.png in Resources */,
 				D9E155C7120753BC007089AB /* btnClearUp.png in Resources */,
@@ -9683,8 +9655,6 @@
 				D9E15794120753C7007089AB /* btnCellEmailUp@2x.png in Resources */,
 				D9E15777120753C7007089AB /* btnChargeCreditCard.png in Resources */,
 				D9E15795120753C7007089AB /* btnChargeCreditCard@2x.png in Resources */,
-				D9E15713120753C7007089AB /* btnCheckOut.png in Resources */,
-				D9E15796120753C7007089AB /* btnCheckOut@2x.png in Resources */,
 				D9E15778120753C7007089AB /* btnClearDown.png in Resources */,
 				D9E15797120753C7007089AB /* btnClearDown@2x.png in Resources */,
 				D9E15779120753C7007089AB /* btnClearUp.png in Resources */,
@@ -9989,8 +9959,6 @@
 				D9E15946120753D0007089AB /* btnCellEmailUp@2x.png in Resources */,
 				D9E15929120753D0007089AB /* btnChargeCreditCard.png in Resources */,
 				D9E15947120753D0007089AB /* btnChargeCreditCard@2x.png in Resources */,
-				D9E158C5120753D0007089AB /* btnCheckOut.png in Resources */,
-				D9E15948120753D0007089AB /* btnCheckOut@2x.png in Resources */,
 				D9E1592A120753D0007089AB /* btnClearDown.png in Resources */,
 				D9E15949120753D0007089AB /* btnClearDown@2x.png in Resources */,
 				D9E1592B120753D0007089AB /* btnClearUp.png in Resources */,
@@ -10295,8 +10263,6 @@
 				D9E15AF8120753DB007089AB /* btnCellEmailUp@2x.png in Resources */,
 				D9E15ADB120753DB007089AB /* btnChargeCreditCard.png in Resources */,
 				D9E15AF9120753DB007089AB /* btnChargeCreditCard@2x.png in Resources */,
-				D9E15A77120753DB007089AB /* btnCheckOut.png in Resources */,
-				D9E15AFA120753DB007089AB /* btnCheckOut@2x.png in Resources */,
 				D9E15ADC120753DB007089AB /* btnClearDown.png in Resources */,
 				D9E15AFB120753DB007089AB /* btnClearDown@2x.png in Resources */,
 				D9E15ADD120753DB007089AB /* btnClearUp.png in Resources */,
@@ -10564,8 +10530,6 @@
 				D9E7ED5A121061AC00EB7F19 /* btnCellEmailUp@2x.png in Resources */,
 				D9E7ED3D121061AC00EB7F19 /* btnChargeCreditCard.png in Resources */,
 				D9E7ED5B121061AC00EB7F19 /* btnChargeCreditCard@2x.png in Resources */,
-				D9E7ECD9121061AC00EB7F19 /* btnCheckOut.png in Resources */,
-				D9E7ED5C121061AC00EB7F19 /* btnCheckOut@2x.png in Resources */,
 				D9E7ED3E121061AC00EB7F19 /* btnClearDown.png in Resources */,
 				D9E7ED5D121061AC00EB7F19 /* btnClearDown@2x.png in Resources */,
 				D9E7ED3F121061AC00EB7F19 /* btnClearUp.png in Resources */,
