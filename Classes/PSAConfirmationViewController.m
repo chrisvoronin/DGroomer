@@ -30,6 +30,10 @@
     //store the flag so it exists the next time the app starts
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:[NSDate date] forKey:@"firstRun"];
+    //call synchronize to save default - where its saved is managed by iOS - varies by device and iOS/Mac
+    [[NSUserDefaults standardUserDefaults] synchronize];
+   
+
     [(PSAAppDelegate*)[[UIApplication sharedApplication] delegate] swapClientTabWithNavigation];
     
 //

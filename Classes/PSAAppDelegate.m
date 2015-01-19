@@ -385,18 +385,17 @@
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    if ([defaults objectForKey:@"firstRun"]){
+    if (![defaults objectForKey:@"firstRun"]){
         //flag doesnt exist then this IS the first run
-        self->firstRun = TRUE;
+        self->firstRun = YES;
         
     }else{
         //flag does exist so this ISNT the first run
-        self->firstRun = FALSE;
+        self->firstRun = NO;
     }
-    //call synchronize to save default - where its saved is managed by iOS - varies by device and iOS/Mac
-    [[NSUserDefaults standardUserDefaults] synchronize];
     
-    if (!self->firstRun) {
+    
+    if (self->firstRun) {
         FirstViewController *viewController = [[FirstViewController alloc] initWithNibName:@"FirstViewController" bundle:nil];
         
         self.window.rootViewController = viewController;
