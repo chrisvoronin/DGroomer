@@ -163,6 +163,8 @@
 }
 
 - (void) selectionMadeWithString:(NSString*)theValue {
+    
+    PSATransactionPaymentType payOldType = payment.paymentType;
 	payment.paymentType = [payment typeForString:theValue];
 	
 	if( payment.paymentType == PSATransactionPaymentCreditCardForProcessing ) {
@@ -174,6 +176,7 @@
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Internet Connection Required" message:@"Credit card processing requires a Wi-Fi or 3G connection in order to function. " delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
 			[alert show];
 			[alert release];
+            payment.paymentType = payOldType;
 		} else {
             
             CreditCardSettings	*settings = [[PSADataManager sharedInstance] getCreditCardSettings];
@@ -188,6 +191,7 @@
                 [alert show];
                 [alert release];
                 [message release];
+                payment.paymentType = payOldType;
                 return;
             }
             

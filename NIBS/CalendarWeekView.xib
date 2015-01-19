@@ -141,7 +141,7 @@
                     <color key="backgroundColor" red="0.60000001999999997" green="0.40000001000000002" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" id="15">
-                    <rect key="frame" x="0.0" y="45" width="320" height="479"/>
+                    <rect key="frame" x="0.0" y="45" width="320" height="419"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <button clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="16" customClass="CalendarWeekBackgroundView">

@@ -16,7 +16,7 @@
 @class Client, Transaction, TransactionItem;
 
 @interface TransactionViewController : UIViewController 
-<MFMailComposeViewControllerDelegate, PSAClientTableDelegate, PSAGiftCertificateDelegate, PSAProductTableDelegate, 
+<MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate, PSAClientTableDelegate, PSAGiftCertificateDelegate, PSAProductTableDelegate,
 PSATransactionMoneyEntryDelegate, PSATransactionPaymentDelegate, PSAServiceTableDelegate, UIActionSheetDelegate, 
 UITableViewDelegate, UITableViewDataSource> 
 {
@@ -61,6 +61,7 @@ UITableViewDelegate, UITableViewDataSource>
 - (BOOL)				checkForNewCreditPayments;
 - (TransactionItem*)	createNewTransactionItemWithItem:(NSObject*)theItem;
 - (void)				emailReceipt;
+- (void)                smsReceipt;
 - (void)				refundAllCreditPayments;
 - (void)				refundAllNewCreditPayments;
 - (void)				refundCreditPayment;

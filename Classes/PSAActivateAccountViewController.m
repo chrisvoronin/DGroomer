@@ -77,14 +77,16 @@
     dict = @{
              @"source" : @"ApiTest",
              @"originator" : @"1029",
-             @"returnType" : @"redirect",
+             @"returnType" : @"jsonP",
              @"businessName" : self.txtBusinessName.text,
              @"contactName" : self.txtName.text,
              @"phone" : self.txtPhone.text,
              @"email" : self.txtEmail.text,
-             @"phoneAlt" : @""
-             
+             @"phoneAlt" : @"",
+             @"traceId" : @"test"
              };
+    
+    /*NSString *strDict = [[NSString allc] initWithFormat:@"source=ApiTest&originator=1029&returnType=xml&phoneAlt=&businessName=%@&contactName=%@&phone=%@&email=%@&", self.txtBusinessName.text, self.txtName.text, self.txtPhone.text, self.txtEmail.text];*/
     
     self.dal = [[ServiceDAL alloc] initWiThPostData:dict urlString:URL_MERCHANT_ACTIVEACCOUNT delegate:self];
     [self.dal startAsync];

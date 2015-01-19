@@ -25,7 +25,7 @@
 - (void) viewDidLoad {
 	
     //self.title = @"Credit";
-    self.title = @"CREDIT CARD";
+    self.title = @"PAYMENT";
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
     barButton.title = @"Back";
     self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;

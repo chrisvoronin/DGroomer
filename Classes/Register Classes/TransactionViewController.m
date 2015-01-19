@@ -333,25 +333,24 @@
 			
 			if( isClosed ) {
 				// Action sheet
-				/*UIActionSheet *alert = [[UIActionSheet alloc] initWithTitle:@"This transaction is fully paid for. Email receipt?" delegate:self cancelButtonTitle:@"No" destructiveButtonTitle:nil otherButtonTitles:@"Yes", nil];
+				UIActionSheet *alert = [[UIActionSheet alloc] initWithTitle:@"Do you want to send a receipt?" delegate:self cancelButtonTitle:@"No" destructiveButtonTitle:nil otherButtonTitles:@"Email", @"Text", @"Both", nil];
+                alert.tag = 100;
 				[alert showInView:self.view];	
-				[alert release];*/
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+				[alert release];
+                /*UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
                                                                 message:@"Please input email address."
                                                                delegate:self
                                                       cancelButtonTitle:@"Cancel"
-                                                      otherButtonTitles:@"Ok", nil];
+                                                      otherButtonTitles:@"Ok", nil];*/
                 
                 
-                alert.alertViewStyle = UIAlertViewStylePlainTextInput;
                 
-                [[alert textFieldAtIndex:0] setKeyboardType:UIKeyboardTypeDefault];
-                alert.tag = 100;
+                
                 
                 //alertText.delegate=txtAPILogin.delegate;
                 //alert.tag=100;
                 
-                [alert show];
+                //[alert show];
 			} else {
 				[self removeThisView];
 			}
@@ -447,7 +446,9 @@
 			[picker setBccRecipients:bccRecipients];
 		}
 		// Subject
-		NSString *subject = [[NSString alloc] initWithFormat:@"Receipt #%ld %@ %@", (long)transaction.transactionID, (company.companyName) ? @"From" : @"", (company.companyName) ? company.companyName : @""];
+		NSString *subject = [[NSString alloc] initWithFormat:@"Receipt %@ %@", (company.companyName) ? @"From" : @"", (company.companyName) ? company.companyName : @""];
+        
+        //NSString *subject = [[NSString alloc] initWithFormat:@"Receipt #%ld %@ %@", (long)transaction.transactionID, (company.companyName) ? @"From" : @"", (company.companyName) ? company.companyName : @""];
 		[picker setSubject:subject];
 		[subject release];
 		// HTML message
@@ -636,6 +637,20 @@
 		[alert show];	
 		[alert release];
 	}
+}
+
+- (void) smsReceipt {
+    // Open sms
+    
+    
+    if( [MFMessageComposeViewController canSendText] ) {
+        MFMessageComposeViewController *picker = [[MFMessageComposeViewController alloc] init];
+        picker.body = @"sms body";
+        
+        picker.messageComposeDelegate = self;
+        [self presentViewController:picker animated:YES completion:nil];
+        
+    }
 }
 
 - (void) refundAllCreditPayments {
@@ -891,6 +906,11 @@
 	tmp.taxed = theService.taxable;
 	tmp.cost = theService.serviceCost;
 	tmp.setupFee = theService.serviceSetupFee;
+    if(!theService.serviceIsFlatRate)
+    {
+        NSInteger tmpPrice = [theService.servicePrice integerValue] * theService.duration / 3600;
+        tmp.itemPrice = [NSNumber numberWithInteger:tmpPrice];
+    }
 	
 	// Show the detail view... curl animation
 	[self.presentedViewController.view setUserInteractionEnabled:NO];
@@ -925,6 +945,13 @@
 	[self removeThisView];
 }
 
+#pragma mark - MFMessageComposeViewControllerDelegate
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+    [self removeThisView];
+}
+
 #pragma mark -
 #pragma mark UIActionSheet Delegate Methods
 #pragma mark -
@@ -951,7 +978,11 @@
 	} else {
 		if( buttonIndex == 0 ) {
 			[self emailReceipt];
-		} else {
+		}else if(buttonIndex == 1)
+        {
+            [self smsReceipt];
+        }
+        else {
 			// Normal view removal
 			[self removeThisView];
 		}

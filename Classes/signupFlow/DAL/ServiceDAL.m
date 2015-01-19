@@ -82,9 +82,9 @@
                                  @"uid" : [self getUserIdForUrl:urlString],
                                  @"ldk" : [ConfigurationUtility getLeadKey],
                                  };*/
-        [postData setObject:data forKey:@""];
+        //[postData setObject:data forKey:@"rqd"];
         //[postData setObject:dict2 forKey:@"sd"];
-
+        postData = [data mutableCopy];
         delegate = del;
         url = urlString;
     }
