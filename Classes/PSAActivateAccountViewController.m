@@ -9,6 +9,7 @@
 #import "PSAActivateAccountViewController.h"
 #import "PSAVerifyViewController.h"
 #import "ConfigurationUtility.h"
+#import "DataRegister.h"
 
 @interface PSAActivateAccountViewController ()
 
@@ -73,7 +74,7 @@
 
 - (void) progressTask
 {
-    NSDictionary * dict = nil;
+    /*NSDictionary * dict = nil;
     dict = @{
              @"source" : @"ApiTest",
              @"originator" : @"1029",
@@ -84,11 +85,11 @@
              @"email" : self.txtEmail.text,
              @"phoneAlt" : @"",
              @"traceId" : @"test"
-             };
+             };*/
     
-    /*NSString *strDict = [[NSString allc] initWithFormat:@"source=ApiTest&originator=1029&returnType=xml&phoneAlt=&businessName=%@&contactName=%@&phone=%@&email=%@&", self.txtBusinessName.text, self.txtName.text, self.txtPhone.text, self.txtEmail.text];*/
+    NSString *strDict = [NSString stringWithFormat:@"source=ApiTest&originator=1029&returnType=xml&phoneAlt=&businessName=%@&contactName=%@&phone=%@&email=%@&", self.txtBusinessName.text, self.txtName.text, self.txtPhone.text, self.txtEmail.text];
     
-    self.dal = [[ServiceDAL alloc] initWiThPostData:dict urlString:URL_MERCHANT_ACTIVEACCOUNT delegate:self];
+    self.dal = [[ServiceDAL alloc] initWiThHttpPostData:strDict urlString:URL_MERCHANT_ACTIVEACCOUNT delegate:self];
     [self.dal startAsync];
 }
 
@@ -104,7 +105,27 @@
 {
     [self.progress hide:YES];
     
+    if ([ErrorXmlParser checkResponseError:dictionary :URL_MERCHANT_ACTIVEACCOUNT]) {
+        NSString *strSucess = [[[[dictionary objectForKey:@"ApiResponse"] objectForKey:@"Success"] objectForKey:@"text"] substringFromIndex:3];
+        NSString *strLeanId = [[[[dictionary objectForKey:@"ApiResponse"] objectForKey:@"LeadId"] objectForKey:@"text"] substringFromIndex:3];
+        if([strSucess isEqualToString:@"true"])
+        {
+            self.LeadId = strLeanId;
+        }
+        else{
+            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@""
+                                                             message:@"Failed to send verification code."
+                                                            delegate:nil
+                                                   cancelButtonTitle:@"OK"
+                                                   otherButtonTitles: nil];
+            [alert show];
+            [alert release];
+            return;
+        }
+    }
+    
     PSAVerifyViewController *pvc = [[PSAVerifyViewController alloc] initWithNibName:@"PSAVerifyViewController" bundle:nil];
+    pvc.LeadId = self.LeadId;
     [self presentViewController:pvc animated:NO completion:nil];
     
 }

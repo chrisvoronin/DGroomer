@@ -13,16 +13,19 @@
 #import "DataRegister.h"
 #import "ConfigurationUtility.h"
 #import "ErrorXmlParser.h"
+#import "XMLReader.h"
 //#import "AppDelegate.h"
 
 #define SENDREQUEST_TYPE_POST       0
 #define SENDREQUEST_TYPE_GET        1
 #define SENDREQUEST_TYPE_DELETE     2
+#define SENDREQUEST_TYPE_HTTP_POST       3
 
 
 @implementation ServiceDAL
 {
     __strong NSMutableDictionary * postData;
+    __strong NSString * httppostData;
     __strong NSURLConnection *urlConnection;
 	__strong NSMutableData *receivedData;
     __strong id<ServiceProtocol> delegate;
@@ -85,6 +88,20 @@
         //[postData setObject:data forKey:@"rqd"];
         //[postData setObject:dict2 forKey:@"sd"];
         postData = [data mutableCopy];
+        delegate = del;
+        url = urlString;
+    }
+    return self;
+}
+
+-(id)initWiThHttpPostData:(NSString*)data urlString:(NSString*)urlString delegate:(id<ServiceProtocol>)del
+{
+    self = [super init];
+    if (self)
+    {
+        
+        send_request_type = SENDREQUEST_TYPE_HTTP_POST;
+        httppostData = data;
         delegate = del;
         url = urlString;
     }
@@ -155,7 +172,10 @@
         case SENDREQUEST_TYPE_POST:
             request = [URLRequestBuilder createRequestWithURLString:url postData:postData];
             break;
+        case SENDREQUEST_TYPE_HTTP_POST:
+            request = [URLRequestBuilder createActivateHttpRequestWithURLString:url postData:httppostData];
             
+            break;
         case SENDREQUEST_TYPE_GET:
             request = [URLRequestBuilder createRequestWithURLString:url getData:postData];
             break;
@@ -232,7 +252,18 @@
     urlConnection = nil;
     NSString *responseString = [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding];
     NSLog(@"response - %@",responseString);
-    NSDictionary *response = [NSJSONSerialization JSONObjectWithData:receivedData options:0 error:nil];
+    NSDictionary *response = nil;
+    if (![url isEqualToString:URL_MERCHANT_ACTIVEACCOUNT]) {
+        response  = [NSJSONSerialization JSONObjectWithData:receivedData options:0 error:nil];
+    }
+    else{
+        NSError *parseError = nil;
+        
+        
+        response = [XMLReader dictionaryForXMLString:responseString error:&parseError];
+    }
+   
+    
     
     bool success = YES;
     

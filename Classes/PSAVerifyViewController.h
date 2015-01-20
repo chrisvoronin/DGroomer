@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseRegistrationViewController.h"
 
-@interface PSAVerifyViewController : UIViewController
+@interface PSAVerifyViewController : BaseRegistrationViewController
 @property (retain, nonatomic) IBOutlet UILabel *lblPhoneChange;
 @property (retain, nonatomic) IBOutlet UITextField *txtVerifyCode;
 

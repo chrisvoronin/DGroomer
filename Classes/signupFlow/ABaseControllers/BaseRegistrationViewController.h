@@ -17,6 +17,7 @@
 @property (nonatomic, strong) ServiceDAL *dal;
 @property (nonatomic, strong) MBProgressHUD* progress;
 @property (nonatomic, strong) ValidationUtility* validation;
+@property (nonatomic, retain) NSString * LeadId;
 
 -(void)startTaskWithProgressTitle:(NSString*)title;
 

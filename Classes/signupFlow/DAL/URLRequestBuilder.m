@@ -33,6 +33,28 @@
     return request;
 }
 
++(NSMutableURLRequest*)createActivateHttpRequestWithURLString:(NSString*)urlString postData:(NSString*)postData
+{
+    // build json data
+    NSData * json = [postData dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *responseString = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
+    NSLog(@"request:%@ - %@",urlString,responseString);
+    // build request
+    NSString *baseURLString = @"https://www.icsleads.com/Api";//[ConfigurationUtility getBaseURL];
+    baseURLString = [baseURLString stringByAppendingString:urlString];
+    
+    NSURL * baseURL = [NSURL URLWithString:baseURLString];
+    NSURL * url = baseURL;
+    NSMutableURLRequest * request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:20.0];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)json.length] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody:json];
+    
+    return request;
+}
+
 +(NSMutableURLRequest*)createRequestWithURLString:(NSString*)urlString getData:(NSMutableDictionary*)getData
 {
     // build json data

@@ -49,7 +49,7 @@
         [alertView show];
         return;
     }
-    if(![strCode isEqualToString:@"8808"])
+    if(![strCode isEqualToString:self.LeadId])
     {
         UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Incorrect verification code." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alertView show];
