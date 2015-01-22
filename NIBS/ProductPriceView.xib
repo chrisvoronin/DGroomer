@@ -124,13 +124,9 @@
 						<string key="IBUIText">Taxable</string>
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MSAxIDEAA</bytes>
+							<bytes key="NSRGB">MC40OTE2NzQ1NTgxIDAuNDkxNjc0NTU4MSAwLjQ5MTY3NDU1ODEAA</bytes>
 						</object>
 						<nil key="IBUIHighlightedColor"/>
-						<object class="NSColor" key="IBUIShadowColor" id="255249705">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC41MDE5NjA4MSAwLjUwMTk2MDgxIDAuNTAxOTYwODEAA</bytes>
-						</object>
 						<string key="IBUIShadowOffset">{0, 1}</string>
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">10</float>
@@ -161,13 +157,9 @@
 						<string key="IBUIText">Cost</string>
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MSAxIDEAA</bytes>
-							<object class="NSColorSpace" key="NSCustomColorSpace" id="817147468">
-								<int key="NSID">1</int>
-							</object>
+							<bytes key="NSRGB">MC40OTE2NzQ1NTgxIDAuNDkxNjc0NTU4MSAwLjQ5MTY3NDU1ODEAA</bytes>
 						</object>
 						<nil key="IBUIHighlightedColor"/>
-						<reference key="IBUIShadowColor" ref="255249705"/>
 						<string key="IBUIShadowOffset">{0, 1}</string>
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">10</float>
@@ -189,11 +181,9 @@
 						<string key="IBUIText">Price</string>
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MSAxIDEAA</bytes>
-							<reference key="NSCustomColorSpace" ref="817147468"/>
+							<bytes key="NSRGB">MC40OTE2NzQ1NTgxIDAuNDkxNjc0NTU4MSAwLjQ5MTY3NDU1ODEAA</bytes>
 						</object>
 						<nil key="IBUIHighlightedColor"/>
-						<reference key="IBUIShadowColor" ref="255249705"/>
 						<string key="IBUIShadowOffset">{0, 1}</string>
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">10</float>

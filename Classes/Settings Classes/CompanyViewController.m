@@ -20,7 +20,7 @@
 	// ScrollView size
 	[myScrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height * 1.5)];
 	// Nav Bar Title
-	self.title = @"COMPANY INFO.";
+	self.title = @"COMPANY INFO";
 	// Set the background
 	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundOrange.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];

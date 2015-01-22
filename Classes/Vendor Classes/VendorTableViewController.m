@@ -54,7 +54,7 @@
 
 - (void) addVendor {
 	VendorEditViewController *cont = [[VendorEditViewController alloc] initWithNibName:@"VendorEditView" bundle:nil];
-	UIBarButtonItem *cancel  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismissViewControllerAnimated:)];
+	UIBarButtonItem *cancel  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:cont action:@selector(cancelEdit)];
 	cont.navigationItem.leftBarButtonItem = cancel;
 	[cancel release];
 	UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:cont];
@@ -100,6 +100,15 @@
 	}
 	[vendorToDelete release];
 	vendorToDelete = nil;
+}
+
+- (void) cancelEdit
+{
+    if( self.navigationController.viewControllers.count == 1 ) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 #pragma mark -

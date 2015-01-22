@@ -91,7 +91,7 @@
 				cell.textLabel.text = @"Alerts";
 				break;
 			case 3:
-				cell.textLabel.text = @"Rates";
+				cell.textLabel.text = @"Sales Tax";
 				break;
 			case 4:
 				cell.textLabel.text = @"View Options";

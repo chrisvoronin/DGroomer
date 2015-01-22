@@ -29,9 +29,8 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.49167455809999999" green="0.49167455809999999" blue="0.49167455809999999" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
-                    <color key="shadowColor" red="0.50196081000000004" green="0.50196081000000004" blue="0.50196081000000004" alpha="1" colorSpace="calibratedRGB"/>
                     <size key="shadowOffset" width="0.0" height="1"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Price" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" id="41">
@@ -39,9 +38,8 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.49167455809999999" green="0.49167455809999999" blue="0.49167455809999999" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
-                    <color key="shadowColor" red="0.50196081000000004" green="0.50196081000000004" blue="0.50196081000000004" alpha="1" colorSpace="calibratedRGB"/>
                     <size key="shadowOffset" width="0.0" height="1"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="-" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" id="42">
@@ -49,9 +47,8 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.49167455809999999" green="0.49167455809999999" blue="0.49167455809999999" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
-                    <color key="shadowColor" red="0.50196081000000004" green="0.50196081000000004" blue="0.50196081000000004" alpha="1" colorSpace="calibratedRGB"/>
                     <size key="shadowOffset" width="0.0" height="1"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="$" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" id="43">
@@ -59,9 +56,8 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.49167455809999999" green="0.49167455809999999" blue="0.49167455809999999" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
-                    <color key="shadowColor" red="0.50196081000000004" green="0.50196081000000004" blue="0.50196081000000004" alpha="1" colorSpace="calibratedRGB"/>
                     <size key="shadowOffset" width="0.0" height="1"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="$" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" id="44">
@@ -69,9 +65,8 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.49167455809999999" green="0.49167455809999999" blue="0.49167455809999999" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
-                    <color key="shadowColor" red="0.50196081000000004" green="0.50196081000000004" blue="0.50196081000000004" alpha="1" colorSpace="calibratedRGB"/>
                     <size key="shadowOffset" width="0.0" height="1"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="$ 8888.88" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" id="45">
@@ -87,9 +82,8 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.49167455809999999" green="0.49167455809999999" blue="0.49167455809999999" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
-                    <color key="shadowColor" red="0.50196081000000004" green="0.50196081000000004" blue="0.50196081000000004" alpha="1" colorSpace="calibratedRGB"/>
                     <size key="shadowOffset" width="0.0" height="1"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="$ 888888.88" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" id="47">
@@ -105,9 +99,8 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.49167455809999999" green="0.49167455809999999" blue="0.49167455809999999" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
-                    <color key="shadowColor" red="0.50196081000000004" green="0.50196081000000004" blue="0.50196081000000004" alpha="1" colorSpace="calibratedRGB"/>
                     <size key="shadowOffset" width="0.0" height="1"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Setup Fee" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" id="49">
@@ -115,9 +108,8 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.49167455809999999" green="0.49167455809999999" blue="0.49167455809999999" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
-                    <color key="shadowColor" red="0.50196081000000004" green="0.50196081000000004" blue="0.50196081000000004" alpha="1" colorSpace="calibratedRGB"/>
                     <size key="shadowOffset" width="0.0" height="1"/>
                 </label>
                 <textField opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" borderStyle="roundedRect" textAlignment="right" clearsOnBeginEditing="YES" minimumFontSize="17" id="50">

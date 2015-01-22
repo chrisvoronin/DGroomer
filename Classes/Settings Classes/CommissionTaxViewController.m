@@ -14,12 +14,12 @@
 
 @implementation CommissionTaxViewController
 
-@synthesize commissionRate, saleTaxPercent;
+@synthesize saleTaxPercent;
 
 
 - (void)viewDidLoad {
 	// Nav Bar Title
-	self.title = @"RATES";
+	self.title = @"SALES TAX";
 	// Set the background
 	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundOrange.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
@@ -36,7 +36,7 @@
 	// Get the company
 	company = [[PSADataManager sharedInstance] getCompany];
 	//
-	commissionRate.frame = CGRectMake( commissionRate.frame.origin.x, commissionRate.frame.origin.y, commissionRate.frame.size.width, 50);
+	//commissionRate.frame = CGRectMake( commissionRate.frame.origin.x, commissionRate.frame.origin.y, commissionRate.frame.size.width, 50);
 	saleTaxPercent.frame = CGRectMake( saleTaxPercent.frame.origin.x, saleTaxPercent.frame.origin.y, saleTaxPercent.frame.size.width, 50);
 	//
 	[super viewDidLoad];
@@ -50,11 +50,11 @@
 			saleTaxPercent.text = tax;
 			[tax release];
 		}
-		if( company.commissionRate ) {
+		/*if( company.commissionRate ) {
 			NSString *comm = [[NSString alloc] initWithFormat:@"%.2f", [company.commissionRate doubleValue]];
 			commissionRate.text = comm;
 			[comm release];
-		}
+		}*/
 	}
 }
 
@@ -64,7 +64,7 @@
 }
 
 - (void)dealloc {
-	self.commissionRate = nil;
+	//self.commissionRate = nil;
 	self.saleTaxPercent = nil;
 	[company release];
     [super dealloc];
@@ -72,11 +72,11 @@
 
 
 - (void) save {
-	NSNumber *commission = [[NSNumber alloc] initWithDouble:[commissionRate.text doubleValue]];
+	//NSNumber *commission = [[NSNumber alloc] initWithDouble:[commissionRate.text doubleValue]];
 	NSNumber *tax = [[NSNumber alloc] initWithDouble:[saleTaxPercent.text doubleValue]];
-	company.commissionRate = commission;
+	//company.commissionRate = commission;
 	company.salesTax = tax;
-	[commission release];
+	//[commission release];
 	[tax release];
 	// Save object to DB
 	[[PSADataManager sharedInstance] updateCompany:company];

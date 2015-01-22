@@ -40,8 +40,8 @@
     NSString *responseString = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
     NSLog(@"request:%@ - %@",urlString,responseString);
     // build request
-    NSString *baseURLString = @"https://www.icsleads.com/Api";//[ConfigurationUtility getBaseURL];
-    baseURLString = [baseURLString stringByAppendingString:urlString];
+    NSString *baseURLString = urlString;//[ConfigurationUtility getBaseURL];
+    //baseURLString = [baseURLString stringByAppendingString:urlString];
     
     NSURL * baseURL = [NSURL URLWithString:baseURLString];
     NSURL * url = baseURL;
@@ -51,6 +51,35 @@
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)json.length] forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody:json];
+    
+    return request;
+}
+
++(NSMutableURLRequest*)createActivateHttpRequestGetWithURLString:(NSString*)urlString getData:(NSString*)getData
+{
+    // build json data
+    NSData * json = [getData dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSString *responseString = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
+    NSLog(@"%@", responseString);
+    //NSData* data = [responseString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    // build request
+    NSString *baseURLString =urlString; //@"https://www.icsleads.com/Api";//[ConfigurationUtility getBaseURL];
+    baseURLString = [baseURLString stringByAppendingString:responseString];
+    //    baseURLString = [baseURLString stringByAppendingFormat:@"?%@",responseString];
+    
+    NSLog(@"request:%@",baseURLString);
+    
+    NSURL * baseURL = [NSURL URLWithString:baseURLString];
+    NSURL * url = baseURL;
+    NSMutableURLRequest * request = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:20.0];
+    
+    [request setHTTPMethod:@"GET"];
+    [request setValue:@"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8" forHTTPHeaderField:@"Accept"];
+    //[request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    //[request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)json.length] forHTTPHeaderField:@"Content-Length"];
+    //[request setHTTPBody:json];
     
     return request;
 }

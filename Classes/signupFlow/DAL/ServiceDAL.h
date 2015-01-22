@@ -16,6 +16,7 @@
 -(id)initWiThDelData:(NSDictionary*)data urlString:(NSString*)urlString delegate:(id<ServiceProtocol>)del;
 
 -(id)initWiThHttpPostData:(NSString*)data urlString:(NSString*)urlString delegate:(id<ServiceProtocol>)del;
+-(id)initWiThHttpGetData:(NSString*)data urlString:(NSString*)urlString delegate:(id<ServiceProtocol>)del;
 
 -(void)startAsync;
 -(void)cancelAsync;

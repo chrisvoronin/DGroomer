@@ -15,6 +15,7 @@
 #import "ServiceInformationController.h"
 
 
+
 @implementation ServiceInformationController
 
 @synthesize myTableView, service;
@@ -200,6 +201,7 @@
 					cont.service = service;
 					[self.navigationController pushViewController:cont animated:YES];
 					[cont release];
+
 					break;
 				}
 				default: {

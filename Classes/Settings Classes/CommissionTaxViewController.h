@@ -20,7 +20,7 @@
 	BOOL		newCompany;
 }
 
-@property (nonatomic, retain) UITextField *commissionRate;
+//@property (nonatomic, retain) UITextField *commissionRate;
 @property (nonatomic, retain) UITextField *saleTaxPercent;
 
 

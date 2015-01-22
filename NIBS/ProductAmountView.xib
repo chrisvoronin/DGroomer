@@ -108,15 +108,11 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText">Minimum Inventory</string>
-						<object class="NSColor" key="IBUITextColor" id="759164630">
+						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MSAxIDEAA</bytes>
+							<bytes key="NSRGB">MC40OTE2NzQ1NTgxIDAuNDkxNjc0NTU4MSAwLjQ5MTY3NDU1ODEAA</bytes>
 						</object>
 						<nil key="IBUIHighlightedColor"/>
-						<object class="NSColor" key="IBUIShadowColor" id="361693846">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC41MDE5NjA4MSAwLjUwMTk2MDgxIDAuNTAxOTYwODEAA</bytes>
-						</object>
 						<string key="IBUIShadowOffset">{0, 1}</string>
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">10</float>
@@ -145,9 +141,11 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText">Maximum Inventory</string>
-						<reference key="IBUITextColor" ref="759164630"/>
+						<object class="NSColor" key="IBUITextColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC40OTE2NzQ1NTgxIDAuNDkxNjc0NTU4MSAwLjQ5MTY3NDU1ODEAA</bytes>
+						</object>
 						<nil key="IBUIHighlightedColor"/>
-						<reference key="IBUIShadowColor" ref="361693846"/>
 						<string key="IBUIShadowOffset">{0, 1}</string>
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">10</float>

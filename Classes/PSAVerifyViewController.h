@@ -12,5 +12,9 @@
 @interface PSAVerifyViewController : BaseRegistrationViewController
 @property (retain, nonatomic) IBOutlet UILabel *lblPhoneChange;
 @property (retain, nonatomic) IBOutlet UITextField *txtVerifyCode;
-
+@property (nonatomic, retain) NSString * txtBusinessName;
+@property (nonatomic, retain) NSString * txtName;
+@property (nonatomic, retain) NSString * txtEmail;
+@property (nonatomic, retain) NSString * txtPhone;
+@property (nonatomic, retain) NSString * txtCode;
 @end

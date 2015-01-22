@@ -28,5 +28,5 @@
 @property (nonatomic, assign) id <PSAVendorTableDelegate> delegate;
 
 - (void) addVendor;
-
+- (void) cancelEdit;
 @end

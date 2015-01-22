@@ -15,13 +15,14 @@
 @synthesize myScrollView, address2, address1, city, contact, email, faxNumber, name, phoneNumber, state, zipcode;
 
 - (void)viewDidLoad {
-	self.title = @"Vendor";
+	self.title = @"VENDOR";
 	// Set the background color to a nice blue image
 	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundBlue.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
 	[self.view setBackgroundColor:bgColor];
 	[bgColor release];*/
 	// Save Button
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: self.navigationController.view.tintColor};
 	UIBarButtonItem *btnSave = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save)];
 	self.navigationItem.rightBarButtonItem = btnSave;
 	[btnSave release];

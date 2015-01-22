@@ -8,6 +8,8 @@
 
 #import "PSAConfirmationViewController.h"
 #import "PSAAppDelegate.h"
+#import "ConfigurationUtility.h"
+#import "DataRegister.h"
 
 @interface PSAConfirmationViewController ()
 

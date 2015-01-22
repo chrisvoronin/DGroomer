@@ -22,7 +22,8 @@
 #define UTL_MERCHANT_ORDERINFO  @"/services/order/"
 
 
-#define URL_MERCHANT_ACTIVEACCOUNT  @"/AddLead/"
+#define URL_MERCHANT_ACTIVEACCOUNT  @"https://www.icsleads.com/Api/AddLead/"
+#define URL_MERCHANT_SENDMESSAGE  @"http://smart-swipe.com/Public/api/Message"
 
 @interface ConfigurationUtility : NSObject
 

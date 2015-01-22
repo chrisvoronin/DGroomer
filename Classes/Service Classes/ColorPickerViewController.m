@@ -11,7 +11,7 @@
 
 @implementation ColorPickerViewController
 
-@synthesize picker, service;
+@synthesize picker, service, m_colorSelected;
 
 
 - (void) viewDidLoad {
@@ -63,34 +63,55 @@
 }
 
 - (void) viewWillAppear:(BOOL)animated {
-	if( service ) {
-		// Select the color in the picker
-		for( int i=0; i < colors.count; i++ ){
-			if( [service.color isEqual:[colors objectAtIndex:i]] ) {
-				[picker selectRow:i inComponent:0 animated:NO];
-			}
-		}
-	}
+
 }
 
 - (void) didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
 }
+- (IBAction)onSelectedColor:(id)sender {
+    int tag = ((UIButton*)sender).tag;
+    //    self.m_colorSelected = tag == 0 ? nil : ((UIButton*)sender).backgroundColor;//[self imageWithColor:((UIButton*)sender).backgroundColor size:((UIButton*)sender).frame.size];
+    UIColor *selectedColor = ((UIButton*)sender).backgroundColor;
+    const CGFloat *c = CGColorGetComponents(selectedColor.CGColor);
+    self.m_colorSelected = [[NSString alloc] initWithFormat:@"%f::%f::%f", c[0], c[1], c[2]];
+    
+    //self.m_colorSelected = tag;
+    
+    UIButton * selectButton = [[UIButton alloc]initWithFrame:CGRectMake(70, 70, 20, 20)];
+    [selectButton setBackgroundImage:[UIImage imageNamed:@"chkbox_checked.png"] forState:UIControlStateNormal];
+    [((UIButton*)sender) addSubview:selectButton];
+    
+    for(UIView * subView in self.m_buttonContainer.subviews)
+    {
+        if([subView isKindOfClass:[UIButton class]])
+        {
+            int curTag = ((UIButton*)subView).tag;
+            if(curTag != tag)
+            {
+                for(UIView * subViewButton in subView.subviews)
+                {
+                    if([subViewButton isKindOfClass:[UIButton class]])
+                    {
+                        [subViewButton removeFromSuperview];
+                    }
+                }
+            }
+        }
+    }
+}
 
 - (void) dealloc {
-	self.picker = nil;
 	[colors release];
 	[service release];
+    [_m_buttonContainer release];
+    [m_colorSelected release];
     [super dealloc];
 }
 
 - (void) done {
-	UIColor *selectedColor = (UIColor*)[colors objectAtIndex:[picker selectedRowInComponent:0]];
-	const CGFloat *c = CGColorGetComponents(selectedColor.CGColor);
-	NSString *colorString = [[NSString alloc] initWithFormat:@"%f::%f::%f", c[0], c[1], c[2]];
-	[service setColorWithString:colorString];
-	[colorString release];
+	[service setColorWithString:m_colorSelected];
 	[self.navigationController popViewControllerAnimated:YES];
 }
 

@@ -8,6 +8,9 @@
 
 #import "PSAVerifyViewController.h"
 #import "PSAConfirmationViewController.h"
+#import "ConfigurationUtility.h"
+#import "DataRegister.h"
+
 
 @interface PSAVerifyViewController ()
 
@@ -49,19 +52,79 @@
         [alertView show];
         return;
     }
-    if(![strCode isEqualToString:self.LeadId])
+    if(![strCode isEqualToString:self.txtCode])
     {
         UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Incorrect verification code." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alertView show];
         return;
     }
-    PSAConfirmationViewController *pvc = [[PSAConfirmationViewController alloc] initWithNibName:@"PSAConfirmationViewController" bundle:nil];
-    [self presentViewController:pvc animated:NO completion:nil];
+    
+    [self submitForm];
+    
 }
 - (IBAction)clicked_back:(id)sender {
     [self dismissViewControllerAnimated:NO completion:^{}];
 }
 
+
+- (void) progressTask
+{
+    /*NSDictionary * dict = nil;
+     dict = @{
+     @"source" : @"ApiTest",
+     @"originator" : @"1029",
+     @"returnType" : @"jsonP",
+     @"businessName" : self.txtBusinessName.text,
+     @"contactName" : self.txtName.text,
+     @"phone" : self.txtPhone.text,
+     @"email" : self.txtEmail.text,
+     @"phoneAlt" : @"",
+     @"traceId" : @"test"
+     };*/
+    
+    NSString *strDict = [NSString stringWithFormat:@"source=DOGG&originator=1030&returnType=xml&phoneAlt=&businessName=%@&contactName=%@&phone=%@&email=%@&", self.txtBusinessName, self.txtName, self.txtPhone, self.txtEmail];
+    
+    self.dal = [[ServiceDAL alloc] initWiThHttpPostData:strDict urlString:URL_MERCHANT_ACTIVEACCOUNT delegate:self];
+    [self.dal startAsync];
+}
+
+- (void) handleServiceResponseErrorMessage:(NSString *)error
+{
+    [self.progress hide:YES];
+    
+    if (error != nil && ![error isEqualToString:@""])
+        [[[UIAlertView alloc] initWithTitle:@"Unexpected Server Error!" message:error delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil] show];
+}
+
+- (void) handleServiceResponseWithDict:(NSDictionary *)dictionary
+{
+    [self.progress hide:YES];
+    
+    if ([ErrorXmlParser checkResponseError:dictionary :URL_MERCHANT_ACTIVEACCOUNT]) {
+        NSString *strSucess = [[[[dictionary objectForKey:@"ApiResponse"] objectForKey:@"Success"] objectForKey:@"text"] substringFromIndex:3];
+        NSString *strLeanId = [[[[dictionary objectForKey:@"ApiResponse"] objectForKey:@"LeadId"] objectForKey:@"text"] substringFromIndex:3];
+        if([strSucess isEqualToString:@"true"])
+        {
+            self.LeadId = strLeanId;
+            [[DataRegister instance] getBussinessItem].businessName = self.txtBusinessName;
+            [[DataRegister instance] getBussinessItem].email = self.txtEmail;
+            [[DataRegister instance] getBussinessItem].phone = self.txtPhone;
+        }
+        else{
+            /*UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@""
+                                                             message:@"Failed to send verification code."
+                                                            delegate:nil
+                                                   cancelButtonTitle:@"OK"
+                                                   otherButtonTitles: nil];
+            [alert show];
+            [alert release];
+            return;*/
+        }
+    }
+    
+    PSAConfirmationViewController *pvc = [[PSAConfirmationViewController alloc] initWithNibName:@"PSAConfirmationViewController" bundle:nil];
+    [self presentViewController:pvc animated:NO completion:nil];
+}
 /*
 #pragma mark - Navigation
 

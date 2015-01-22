@@ -12,11 +12,12 @@
 @class Service;
 
 @interface ColorPickerViewController : PSABaseViewController <UIPickerViewDelegate, UIPickerViewDataSource> {
-	IBOutlet UIPickerView	*picker;
 	Service					*service;
 	NSArray					*colors;
+    
 }
-
+@property (retain, nonatomic) IBOutlet UIView *m_buttonContainer;
+@property (readwrite, nonatomic) NSString *m_colorSelected;
 @property (nonatomic, retain) Service		*service;
 @property (nonatomic, retain) UIPickerView	*picker;
 

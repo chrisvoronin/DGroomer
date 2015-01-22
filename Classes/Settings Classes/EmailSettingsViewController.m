@@ -92,7 +92,7 @@
 	switch (indexPath.row) {
 		case 0: {
 			EmailMessageViewController *vc = [[EmailMessageViewController alloc] initWithNibName:@"EmailMessageView" bundle:nil];
-			vc.title = @"Anniversary";
+			vc.title = @"ANNIVERSARY";
 			Email *mail = [[PSADataManager sharedInstance] getAnniversaryEmail];
 			vc.email = mail;
 			[mail release];
@@ -102,7 +102,7 @@
 		}
 		case 1: {
 			EmailMessageViewController *vc = [[EmailMessageViewController alloc] initWithNibName:@"EmailMessageView" bundle:nil];
-			vc.title = @"Appt. Reminder";
+			vc.title = @"APPT.REMINDER";
 			Email *mail = [[PSADataManager sharedInstance] getAppointmentReminderEmail];
 			vc.email = mail;
 			[mail release];
@@ -112,7 +112,7 @@
 		}
 		case 2: {
 			EmailMessageViewController *vc = [[EmailMessageViewController alloc] initWithNibName:@"EmailMessageView" bundle:nil];
-			vc.title = @"Birthday";
+			vc.title = @"BIRTHDAY";
 			Email *mail = [[PSADataManager sharedInstance] getBirthdayEmail];
 			vc.email = mail;
 			[mail release];

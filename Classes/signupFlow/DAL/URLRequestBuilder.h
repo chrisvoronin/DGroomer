@@ -15,6 +15,7 @@
 +(NSMutableURLRequest*)createRequestWithURLString:(NSString*)urlString delData:(NSMutableDictionary*)delData;
 
 +(NSMutableURLRequest*)createActivateHttpRequestWithURLString:(NSString*)urlString postData:(NSString*)postData;
++(NSMutableURLRequest*)createActivateHttpRequestGetWithURLString:(NSString*)urlString getData:(NSString*)getData;
 
 
 @end

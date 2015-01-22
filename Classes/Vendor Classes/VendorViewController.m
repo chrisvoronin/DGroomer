@@ -15,13 +15,17 @@
 @synthesize tblVendor, vendor;
 
 - (void) viewDidLoad {
-	self.title = @"Vendor";
+	self.title = @"VENDOR";
 	// Set the background color to a nice blue image
-	UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundBlue.png"];
+	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundBlue.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
 	[tblVendor setBackgroundColor:bgColor];
-	[bgColor release];
+	[bgColor release];*/
 	// Edit Button
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Back";
+    self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
+    
 	UIBarButtonItem *btnEdit = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(edit)];
 	self.navigationItem.rightBarButtonItem = btnEdit;
 	[btnEdit release];
@@ -48,7 +52,7 @@
 - (void) edit {
 	VendorEditViewController *cont = [[VendorEditViewController alloc] initWithNibName:@"VendorEditView" bundle:nil];
 	cont.vendor = vendor;
-	UIBarButtonItem *cancel  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelEdit)];
+	UIBarButtonItem *cancel  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:cont action:@selector(cancelEdit)];
 	cont.navigationItem.leftBarButtonItem = cancel;
 	[cancel release];
 	UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:cont];
@@ -98,7 +102,7 @@
 - (UITableViewCell *) tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:@"VendorCell"];
     if( cell == nil ) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:@"VendorCell"] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"VendorCell"] autorelease];
 		cell.selectionStyle = UITableViewCellSelectionStyleGray;
 		cell.accessoryType = UITableViewCellAccessoryNone;
 		//

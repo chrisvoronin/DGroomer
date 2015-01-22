@@ -12,6 +12,9 @@
 #import "TermsAndConditionsViewController.h"
 
 @interface PSAActivateAccountViewController : BaseRegistrationViewController
+{
+    int m_code;
+}
 @property (retain, nonatomic) IBOutlet UILabel *lblTerms;
 @property (retain, nonatomic) IBOutlet UIButton *chkBtnAgreeCheckMark;
 @property (nonatomic, strong) ValidationUtility* validation;

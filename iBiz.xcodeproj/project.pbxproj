@@ -261,6 +261,7 @@
 		B2A1A83B1A4A8B3D009589E0 /* RadioButtonSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = B2A1A8371A4A8B3D009589E0 /* RadioButtonSelected.png */; };
 		B2A1A83C1A4A8CBC009589E0 /* DLRadioButton.h in Sources */ = {isa = PBXBuildFile; fileRef = B2A1A82E1A4A8518009589E0 /* DLRadioButton.h */; };
 		B2A1A83D1A4A8CBC009589E0 /* DLRadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A1A82F1A4A8518009589E0 /* DLRadioButton.m */; };
+		B2AEE7EC1A714A9F0076804A /* Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = B2AEE7EB1A714A9F0076804A /* Selected.png */; };
 		B2B3CD3D1A6BE55E00582CD2 /* termsconditions.png in Resources */ = {isa = PBXBuildFile; fileRef = B2B3CD3C1A6BE55E00582CD2 /* termsconditions.png */; };
 		B2C3728A1A637529001A49AE /* pinstripeBackgroundnew.png in Resources */ = {isa = PBXBuildFile; fileRef = B2C372891A637529001A49AE /* pinstripeBackgroundnew.png */; };
 		B2FB033F1A61646100D6AD23 /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = B2FB033E1A61646100D6AD23 /* iTunesArtwork.png */; };
@@ -4921,6 +4922,7 @@
 		B2A1A8341A4A8B3D009589E0 /* RadioButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RadioButton.png; sourceTree = "<group>"; };
 		B2A1A8361A4A8B3D009589E0 /* Contents.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Contents.json; sourceTree = "<group>"; };
 		B2A1A8371A4A8B3D009589E0 /* RadioButtonSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RadioButtonSelected.png; sourceTree = "<group>"; };
+		B2AEE7EB1A714A9F0076804A /* Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Selected.png; path = Images/Selected.png; sourceTree = "<group>"; };
 		B2B3CD3C1A6BE55E00582CD2 /* termsconditions.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = termsconditions.png; path = Images/newskin/act/termsconditions.png; sourceTree = "<group>"; };
 		B2C372891A637529001A49AE /* pinstripeBackgroundnew.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pinstripeBackgroundnew.png; path = backgrounds/pinstripeBackgroundnew.png; sourceTree = "<group>"; };
 		B2D390EE1A41FBFD000ABDC2 /* CardIODetectionMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardIODetectionMode.h; sourceTree = "<group>"; };
@@ -5676,6 +5678,7 @@
 		29B97314FDCFA39411CA2CEA /* PSA */ = {
 			isa = PBXGroup;
 			children = (
+				B2AEE7EB1A714A9F0076804A /* Selected.png */,
 				B2B3CD3C1A6BE55E00582CD2 /* termsconditions.png */,
 				B20D4A0E1A6A016500A1BD4A /* btn_checkout.png */,
 				B20D4A091A69FD0400A1BD4A /* btndeleteappt.png */,
@@ -8291,6 +8294,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2AEE7EC1A714A9F0076804A /* Selected.png in Resources */,
 				B2B3CD3D1A6BE55E00582CD2 /* termsconditions.png in Resources */,
 				B20D4A0F1A6A016600A1BD4A /* btn_checkout.png in Resources */,
 				B20D4A0C1A69FD0400A1BD4A /* btndeleteappt.png in Resources */,

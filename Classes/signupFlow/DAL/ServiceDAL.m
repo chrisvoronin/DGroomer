@@ -20,12 +20,13 @@
 #define SENDREQUEST_TYPE_GET        1
 #define SENDREQUEST_TYPE_DELETE     2
 #define SENDREQUEST_TYPE_HTTP_POST       3
-
+#define SENDREQUEST_TYPE_HTTP_GET       4
 
 @implementation ServiceDAL
 {
     __strong NSMutableDictionary * postData;
     __strong NSString * httppostData;
+    __strong NSString * httpgetData;
     __strong NSURLConnection *urlConnection;
 	__strong NSMutableData *receivedData;
     __strong id<ServiceProtocol> delegate;
@@ -107,6 +108,20 @@
     }
     return self;
 }
+
+-(id)initWiThHttpGetData:(NSString*)data urlString:(NSString*)urlString delegate:(id<ServiceProtocol>)del
+{
+    self = [super init];
+    if (self)
+    {
+        
+        send_request_type = SENDREQUEST_TYPE_HTTP_GET;
+        httpgetData = data;
+        delegate = del;
+        url = urlString;
+    }
+    return self;
+}
 -(id)initWiThGetData:(NSDictionary*)data urlString:(NSString*)urlString delegate:(id<ServiceProtocol>)del
 {
     self = [super init];
@@ -174,6 +189,10 @@
             break;
         case SENDREQUEST_TYPE_HTTP_POST:
             request = [URLRequestBuilder createActivateHttpRequestWithURLString:url postData:httppostData];
+            
+            break;
+        case SENDREQUEST_TYPE_HTTP_GET:
+            request = [URLRequestBuilder createActivateHttpRequestGetWithURLString:url getData:httpgetData];
             
             break;
         case SENDREQUEST_TYPE_GET:

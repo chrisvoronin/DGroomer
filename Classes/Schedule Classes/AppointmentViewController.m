@@ -634,9 +634,9 @@
 		case 4:		return 1;
 		case 5:	{
 			// Hide the buttons if this appointment is new or in editing
-            return 1;
-			//if(appointment.appointmentID > -1 )	return 1;
-			//else								return 0;
+            //return 1;
+			if(appointment.appointmentID > -1 )	return 1;
+			else								return 0;
 		}
 	}
 	return 2;

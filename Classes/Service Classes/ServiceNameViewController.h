@@ -15,6 +15,7 @@
 	IBOutlet UITextField	*txtName;
 	IBOutlet UISwitch		*swActive;
 	Service	*service;
+    
 }
 
 @property (nonatomic, retain) UISwitch		*swActive;

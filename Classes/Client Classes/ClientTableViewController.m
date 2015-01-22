@@ -29,7 +29,11 @@
 	clientToDelete = nil;
 	// Set the navigation bar title
 	if( isSwappingContacts ) {
-		self.title = @"SWAP CONTACTS";
+		//self.title = @"SWAP CONTACTS";
+        self.title = @"CLIENTS";
+        UIBarButtonItem *btnAdd = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(btnAddTouchUp:)];
+        self.navigationItem.rightBarButtonItem = btnAdd;
+        [btnAdd release];
 	} else {
 		self.title = @"CLIENTS";
 		// Add "+" Button

@@ -86,10 +86,10 @@
              @"phoneAlt" : @"",
              @"traceId" : @"test"
              };*/
+    m_code = arc4random() % 9000 + 1000;
+    NSString *strDict = [NSString stringWithFormat:@"?phone=%@&text=%ld&token=raj12345", self.txtPhone.text, (long)m_code];
     
-    NSString *strDict = [NSString stringWithFormat:@"source=ApiTest&originator=1029&returnType=xml&phoneAlt=&businessName=%@&contactName=%@&phone=%@&email=%@&", self.txtBusinessName.text, self.txtName.text, self.txtPhone.text, self.txtEmail.text];
-    
-    self.dal = [[ServiceDAL alloc] initWiThHttpPostData:strDict urlString:URL_MERCHANT_ACTIVEACCOUNT delegate:self];
+    self.dal = [[ServiceDAL alloc] initWiThHttpGetData:strDict urlString:URL_MERCHANT_SENDMESSAGE delegate:self];
     [self.dal startAsync];
 }
 
@@ -105,7 +105,7 @@
 {
     [self.progress hide:YES];
     
-    if ([ErrorXmlParser checkResponseError:dictionary :URL_MERCHANT_ACTIVEACCOUNT]) {
+    /*if ([ErrorXmlParser checkResponseError:dictionary :URL_MERCHANT_ACTIVEACCOUNT]) {
         NSString *strSucess = [[[[dictionary objectForKey:@"ApiResponse"] objectForKey:@"Success"] objectForKey:@"text"] substringFromIndex:3];
         NSString *strLeanId = [[[[dictionary objectForKey:@"ApiResponse"] objectForKey:@"LeadId"] objectForKey:@"text"] substringFromIndex:3];
         if([strSucess isEqualToString:@"true"])
@@ -122,10 +122,14 @@
             [alert release];
             return;
         }
-    }
+    }*/
     
     PSAVerifyViewController *pvc = [[PSAVerifyViewController alloc] initWithNibName:@"PSAVerifyViewController" bundle:nil];
-    pvc.LeadId = self.LeadId;
+    pvc.txtCode = [NSString stringWithFormat:@"%d", m_code];
+    pvc.txtBusinessName = self.txtBusinessName.text;
+    pvc.txtName = self.txtName.text;
+    pvc.txtPhone = self.txtPhone.text;
+    pvc.txtEmail = self.txtEmail.text;
     [self presentViewController:pvc animated:NO completion:nil];
     
 }
