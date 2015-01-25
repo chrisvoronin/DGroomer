@@ -16,6 +16,11 @@
 - (void) viewDidLoad {
 	//
     [super viewDidLoad];
+    
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Back";
+    self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
+    [barButton release];
 }
 
 - (void) didReceiveMemoryWarning {

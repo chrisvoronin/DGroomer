@@ -11,10 +11,11 @@
 
 @class GiftCertificate;
 
-@interface GiftCertificateTextViewController : PSABaseViewController {
+@interface GiftCertificateTextViewController : PSABaseViewController<UITextViewDelegate> {
 	GiftCertificate	*certificate;
 	BOOL			editing;
 	UITextView		*tvText;
+    IBOutlet UILabel			*placeholderLabel;
 }
 
 @property (nonatomic, retain) GiftCertificate		*certificate;

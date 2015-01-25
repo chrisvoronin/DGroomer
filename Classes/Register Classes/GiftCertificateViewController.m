@@ -262,7 +262,9 @@
 				GiftCertificateTextViewController *cont = [[GiftCertificateTextViewController alloc] initWithNibName:@"GiftCertificateTextView" bundle:nil];
 				cont.certificate = certificate;
 				cont.editing = isEditing;
-				cont.title = @"Message";
+				cont.title = @"MESSAGE";
+                //cont.tvText setplace
+                cont.tvText.delegate = cont;
 				[self.navigationController pushViewController:cont animated:YES];
 				[cont release];
 				break;
@@ -280,7 +282,7 @@
 				GiftCertificateTextViewController *cont = [[GiftCertificateTextViewController alloc] initWithNibName:@"GiftCertificateTextView" bundle:nil];
 				cont.certificate = certificate;
 				cont.editing = isEditing;
-				cont.title = @"Notes";
+				cont.title = @"NOTES";
 				[self.navigationController pushViewController:cont animated:YES];
 				[cont release];
 				break;

@@ -596,11 +596,11 @@
 #pragma mark -
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
-	return 6;
+	return 3;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if( indexPath.section == 5 ) {
+	if( indexPath.section == 2 ) {
 		if( appointment.type == iBizAppointmentTypeSingleService ) {
             if (!isEditing) {
                 return 92;
@@ -617,6 +617,29 @@
 	return 44;
 }
 
+- (CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section == 2) {
+        return 10.0;
+    }
+    
+    return 30.0;
+}
+
+- (CGFloat)tableView:(UITableView*)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 5.0;
+}
+
+- (UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section
+{
+    return [[UIView alloc] initWithFrame:CGRectZero];
+}
+
+- (UIView*)tableView:(UITableView*)tableView viewForFooterInSection:(NSInteger)section
+{
+    return [[UIView alloc] initWithFrame:CGRectZero];
+}
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	switch (section) {
 		case 0:	{
@@ -624,15 +647,9 @@
 			if( appointment.type == iBizAppointmentTypeProject )	return 2;
 			return 3;
 		}
-		case 1:		return 1;
-		case 2:		return 1;
-		case 3:	{
-			// Don't show "Repeat Until" unless they're repeating
-			if( appointment.standingRepeat == iBizAppointmentRepeatNever )	return 1;
-			return 2;
-		}
-		case 4:		return 1;
-		case 5:	{
+		case 1:		if( appointment.standingRepeat == iBizAppointmentRepeatNever )	return 4;
+            return 5;
+		case 2:	{
 			// Hide the buttons if this appointment is new or in editing
             //return 1;
 			if(appointment.appointmentID > -1 )	return 1;
@@ -644,7 +661,7 @@
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *identifier = nil;
-	if( indexPath.section == 5 ) {
+	if( indexPath.section == 2 ) {
 		if( appointment.type == iBizAppointmentTypeSingleService ) {
             if(!isEditing)
                 identifier = @"AppointmentServiceButtonsCell";
@@ -660,7 +677,7 @@
 	}
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
-		if( indexPath.section == 5 ) {
+		if( indexPath.section == 2 ) {
 			if( appointment.type == iBizAppointmentTypeSingleService ) {
 				[[NSBundle mainBundle] loadNibNamed:identifier owner:self options:nil];
 				cell = buttonsCell;
@@ -674,17 +691,20 @@
 				cell = buttonsCell;
 				self.buttonsCell = nil;
 			}
-             cell.backgroundColor = cell.contentView.backgroundColor;
-             cell.separatorInset = UIEdgeInsetsMake(0.f, 0.f, 0.f, cell.bounds.size.width);
+             //cell.backgroundColor = cell.contentView.backgroundColor;
+             //cell.separatorInset = UIEdgeInsetsMake(0.f, 0.f, 0.f, 0);
+            //cell.bounds.size = CGSizeMake(0,0);
+            //cell.backgroundColor = [UIColor clearColor];
+            cell.backgroundView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
 		} else {
 			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier] autorelease];
 			cell.selectionStyle = UITableViewCellSelectionStyleGray;
-			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.separatorInset = UIEdgeInsetsMake(0.f, 0.f, 0.f, cell.bounds.size.width);
+			//cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            //cell.separatorInset = UIEdgeInsetsMake(0.f, 0.f, 0.f, cell.bounds.size.width);
 		}
     }
 	
-	if( isEditing && indexPath.section != 5) {
+	if( isEditing && indexPath.section != 2) {
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
 	} else {
@@ -755,6 +775,7 @@
 			}
 			break;
 		case 1:
+            if( appointment.standingRepeat == iBizAppointmentRepeatNever ){
 			if( indexPath.row == 0 ) {
 				cell.textLabel.text = @"Date";
 				if( appointment.dateTime ) {
@@ -763,60 +784,113 @@
 					cell.detailTextLabel.text = @"None";
 				}
 			}
-			break;
-		case 2:
-			cell.textLabel.text = @"Duration";
-			cell.detailTextLabel.text = [[PSADataManager sharedInstance] getStringOfHoursAndMinutesForSeconds:appointment.duration];
-			break;
-		case 3:
-			if( indexPath.row == 0 ) {
-				cell.textLabel.text = @"Standing Appt.";
-				switch ( appointment.standingRepeat ) {
-					case 0:
-						cell.detailTextLabel.text = @"Never";
-						break;
-					case 1:
-						cell.detailTextLabel.text = @"Daily";
-						break;
-					case 2:
-						cell.detailTextLabel.text = @"Weekly";
-						break;
-					case 3:
-						cell.detailTextLabel.text = @"Monthly";
-						break;
-					case 4:
-						cell.detailTextLabel.text = @"Yearly";
-						break;
-					case 5:
-						cell.detailTextLabel.text = @"Every 2 Weeks";
-						break;
-					case 6:
-						cell.detailTextLabel.text = @"Every 3 Weeks";
-						break;
-					case 7:
-						cell.detailTextLabel.text = @"Every 4 Weeks";
-						break;
-				}
-			} else if( indexPath.row == 1 ) {
-				cell.textLabel.text = @"Repeat Until";
-				if( appointment.standingRepeatUntilDate ) {
-					cell.detailTextLabel.text = [[PSADataManager sharedInstance] getStringForDate:appointment.standingRepeatUntilDate withFormat:NSDateFormatterMediumStyle];
-				} else {
-					cell.detailTextLabel.text = @"Never";
-				}
-			}
-			break;
-		case 4:
-			cell.textLabel.text = @"Notes";
-			if( appointment.notes != nil ) {
-				cell.detailTextLabel.text = @"...";
-			} else {
-				cell.detailTextLabel.text = @"None";
-			}
-            if( isEditing ) {
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            } else {
-                cell.accessoryType = UITableViewCellAccessoryNone;
+            else if(indexPath.row == 1){
+                cell.textLabel.text = @"Duration";
+                cell.detailTextLabel.text = [[PSADataManager sharedInstance] getStringOfHoursAndMinutesForSeconds:appointment.duration];
+            }
+            else if( indexPath.row == 2 ) {
+                cell.textLabel.text = @"Standing Appt.";
+                switch ( appointment.standingRepeat ) {
+                    case 0:
+                        cell.detailTextLabel.text = @"Never";
+                        break;
+                    case 1:
+                        cell.detailTextLabel.text = @"Daily";
+                        break;
+                    case 2:
+                        cell.detailTextLabel.text = @"Weekly";
+                        break;
+                    case 3:
+                        cell.detailTextLabel.text = @"Monthly";
+                        break;
+                    case 4:
+                        cell.detailTextLabel.text = @"Yearly";
+                        break;
+                    case 5:
+                        cell.detailTextLabel.text = @"Every 2 Weeks";
+                        break;
+                    case 6:
+                        cell.detailTextLabel.text = @"Every 3 Weeks";
+                        break;
+                    case 7:
+                        cell.detailTextLabel.text = @"Every 4 Weeks";
+                        break;
+                }
+            }
+            else if(indexPath.row == 3){
+                cell.textLabel.text = @"Notes";
+                if( appointment.notes != nil ) {
+                    cell.detailTextLabel.text = @"...";
+                } else {
+                    cell.detailTextLabel.text = @"None";
+                }
+                if( isEditing ) {
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                } else {
+                    cell.accessoryType = UITableViewCellAccessoryNone;
+                }
+            }} else{
+                if( indexPath.row == 0 ) {
+                    cell.textLabel.text = @"Date";
+                    if( appointment.dateTime ) {
+                        cell.detailTextLabel.text = [[PSADataManager sharedInstance] getStringForAppointmentDate:appointment.dateTime];
+                    } else {
+                        cell.detailTextLabel.text = @"None";
+                    }
+                }
+                else if(indexPath.row == 1){
+                    cell.textLabel.text = @"Duration";
+                    cell.detailTextLabel.text = [[PSADataManager sharedInstance] getStringOfHoursAndMinutesForSeconds:appointment.duration];
+                }
+                else if( indexPath.row == 2 ) {
+                    cell.textLabel.text = @"Standing Appt.";
+                    switch ( appointment.standingRepeat ) {
+                        case 0:
+                            cell.detailTextLabel.text = @"Never";
+                            break;
+                        case 1:
+                            cell.detailTextLabel.text = @"Daily";
+                            break;
+                        case 2:
+                            cell.detailTextLabel.text = @"Weekly";
+                            break;
+                        case 3:
+                            cell.detailTextLabel.text = @"Monthly";
+                            break;
+                        case 4:
+                            cell.detailTextLabel.text = @"Yearly";
+                            break;
+                        case 5:
+                            cell.detailTextLabel.text = @"Every 2 Weeks";
+                            break;
+                        case 6:
+                            cell.detailTextLabel.text = @"Every 3 Weeks";
+                            break;
+                        case 7:
+                            cell.detailTextLabel.text = @"Every 4 Weeks";
+                            break;
+                    }
+                } else if( indexPath.row == 3 ) {
+                    cell.textLabel.text = @"Repeat Until";
+                    if( appointment.standingRepeatUntilDate ) {
+                        cell.detailTextLabel.text = [[PSADataManager sharedInstance] getStringForDate:appointment.standingRepeatUntilDate withFormat:NSDateFormatterMediumStyle];
+                    } else {
+                        cell.detailTextLabel.text = @"Never";
+                    }
+                }
+                else if(indexPath.row == 4){
+                    cell.textLabel.text = @"Notes";
+                    if( appointment.notes != nil ) {
+                        cell.detailTextLabel.text = @"...";
+                    } else {
+                        cell.detailTextLabel.text = @"None";
+                    }
+                    if( isEditing ) {
+                        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    } else {
+                        cell.accessoryType = UITableViewCellAccessoryNone;
+                    }
+                }
             }
 			break;
 	}
@@ -825,7 +899,7 @@
 }
 
 - (void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-	if( indexPath.section == 5 ) {
+	if( indexPath.section == 2 ) {
 		// Get rid of background and border
 		[cell setBackgroundView:nil];
 	}
@@ -886,51 +960,79 @@
 				}
 				break;
 			case 1: {
+                if( appointment.standingRepeat == iBizAppointmentRepeatNever ){
 				if( indexPath.row == 0 ) {
 					// Date/Time picker
 					AppointmentDatePickerViewController *cont = [[AppointmentDatePickerViewController alloc] initWithNibName:@"AppointmentDatePickerView" bundle:nil];
 					cont.appointment = appointment;
 					[self.navigationController pushViewController:cont animated:YES];
 					[cont release];
-				}
-				break;
-			}
-			case 2: {
-				// Duration picker
-				DurationViewController *cont = [[DurationViewController alloc] initWithNibName:@"DurationView" bundle:nil];
-				cont.view.backgroundColor = self.tblAppointment.backgroundColor;
-				cont.appointment = appointment;
-				if( indexPath.row == 2 ) {
-					cont.tableIndexEditing = 1;
-				} else if( indexPath.row == 3 ) {
-					cont.tableIndexEditing = 2;
-				}
-				[self.navigationController pushViewController:cont animated:YES];
-				[cont release];
-				break;
-			}
-			case 3: {
-				if( indexPath.row == 0 ) {
-					// Standing Appointment Table of Repeats
-					AppointmentRepeatViewController *cont = [[AppointmentRepeatViewController alloc] initWithNibName:@"AppointmentRepeatView" bundle:nil];
-					cont.appointment = appointment;
-					[self.navigationController pushViewController:cont animated:YES];
-					[cont release];
-				} else if( indexPath.row == 1 ) {
-					AppointmentRepeatUntilViewController *cont = [[AppointmentRepeatUntilViewController alloc] initWithNibName:@"AppointmentRepeatUntilView" bundle:nil];
-					cont.appointment = appointment;
-					[self.navigationController pushViewController:cont animated:YES];
-					[cont release];
-				}
-				break;
-			}
-			case 4: {
-				// Note filler-outer
-				AppointmentNotesViewController *cont = [[AppointmentNotesViewController alloc] initWithNibName:@"AppointmentNotesView" bundle:nil];
-				cont.isEditable = YES;
-				cont.appointment = appointment;
-				[self.navigationController pushViewController:cont animated:YES];
-				[cont release];
+                } else if( indexPath.row == 1 ) {
+                    // Duration picker
+                    DurationViewController *cont = [[DurationViewController alloc] initWithNibName:@"DurationView" bundle:nil];
+                    cont.view.backgroundColor = self.tblAppointment.backgroundColor;
+                    cont.appointment = appointment;
+                    if( indexPath.row == 1 ) {
+                        cont.tableIndexEditing = 1;
+                    } else if( indexPath.row == 2 ) {
+                        cont.tableIndexEditing = 2;
+                    }
+                    [self.navigationController pushViewController:cont animated:YES];
+                    [cont release];
+                } else if( indexPath.row == 2 ) {
+                    // Standing Appointment Table of Repeats
+                    AppointmentRepeatViewController *cont = [[AppointmentRepeatViewController alloc] initWithNibName:@"AppointmentRepeatView" bundle:nil];
+                    cont.appointment = appointment;
+                    [self.navigationController pushViewController:cont animated:YES];
+                    [cont release];
+                } else if( indexPath.row == 3) {
+                    // Note filler-outer
+                    AppointmentNotesViewController *cont = [[AppointmentNotesViewController alloc] initWithNibName:@"AppointmentNotesView" bundle:nil];
+                    cont.isEditable = YES;
+                    cont.appointment = appointment;
+                    [self.navigationController pushViewController:cont animated:YES];
+                    [cont release];
+                }
+                }
+                else{
+                    if( indexPath.row == 0 ) {
+                        // Date/Time picker
+                        AppointmentDatePickerViewController *cont = [[AppointmentDatePickerViewController alloc] initWithNibName:@"AppointmentDatePickerView" bundle:nil];
+                        cont.appointment = appointment;
+                        [self.navigationController pushViewController:cont animated:YES];
+                        [cont release];
+                    } else if( indexPath.row == 1 ) {
+                        // Duration picker
+                        DurationViewController *cont = [[DurationViewController alloc] initWithNibName:@"DurationView" bundle:nil];
+                        cont.view.backgroundColor = self.tblAppointment.backgroundColor;
+                        cont.appointment = appointment;
+                        if( indexPath.row == 1 ) {
+                            cont.tableIndexEditing = 1;
+                        } else if( indexPath.row == 2 ) {
+                            cont.tableIndexEditing = 2;
+                        }
+                        [self.navigationController pushViewController:cont animated:YES];
+                        [cont release];
+                    } else if( indexPath.row == 2 ) {
+                        // Standing Appointment Table of Repeats
+                        AppointmentRepeatViewController *cont = [[AppointmentRepeatViewController alloc] initWithNibName:@"AppointmentRepeatView" bundle:nil];
+                        cont.appointment = appointment;
+                        [self.navigationController pushViewController:cont animated:YES];
+                        [cont release];
+                    } else if( indexPath.row == 3 ) {
+                        AppointmentRepeatUntilViewController *cont = [[AppointmentRepeatUntilViewController alloc] initWithNibName:@"AppointmentRepeatUntilView" bundle:nil];
+                        cont.appointment = appointment;
+                        [self.navigationController pushViewController:cont animated:YES];
+                        [cont release];
+                    } else if( indexPath.row == 4) {
+                        // Note filler-outer
+                        AppointmentNotesViewController *cont = [[AppointmentNotesViewController alloc] initWithNibName:@"AppointmentNotesView" bundle:nil];
+                        cont.isEditable = YES;
+                        cont.appointment = appointment;
+                        [self.navigationController pushViewController:cont animated:YES];
+                        [cont release];
+                    }
+                }
 				break;
 			}
 		}

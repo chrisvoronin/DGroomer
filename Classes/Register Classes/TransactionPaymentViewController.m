@@ -139,7 +139,7 @@
 		num = [formatter2 numberFromString:value];
 	}
 
-	if( [title isEqualToString:@"Amount"] ) {
+	if( [title isEqualToString:@"AMOUNT"] ) {
 		if( payment.transactionPaymentID > -1 && payment.paymentType == PSATransactionPaymentGiftCertificate ) {
 			// Keep track of the old value by storing the new one
 			if( !payment.amountOriginal ) {
@@ -341,7 +341,7 @@
 			case 0: {
 				if( indexPath.row == 0 ) {
 					TablePickerViewController *picker = [[TablePickerViewController alloc] initWithNibName:@"TablePickerView" bundle:nil];
-					picker.title = @"Payment Type";
+					picker.title = @"PAYMENT TYPE";
 					picker.pickerDelegate = self;
 					picker.selectedValue = [payment stringForType:payment.paymentType];
 					picker.pickerValues = [payment getPaymentTypes];
@@ -373,7 +373,7 @@
 					TransactionMoneyEntryViewController *cont = [[TransactionMoneyEntryViewController alloc] initWithNibName:@"TransactionMoneyEntryView" bundle:nil];
 					cont.delegate = self;
 					if( indexPath.row == 0 ) {
-						cont.title = @"Amount";
+						cont.title = @"AMOUNT";
 						NSNumberFormatter *formatter2 = [[NSNumberFormatter alloc] init];
 						[formatter2 setNumberStyle:NSNumberFormatterCurrencyStyle];
 						[formatter2 setCurrencySymbol:@""];

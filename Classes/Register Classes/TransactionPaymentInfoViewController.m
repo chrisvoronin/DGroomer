@@ -14,7 +14,7 @@
 @synthesize lbFieldName, lbInstructions, payment, txtInfo;
 
 - (void)viewDidLoad {
-	self.title = @"Extra Info.";
+	self.title = @"EXTRA INFO.";
 	// Background
 	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundGreen.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
@@ -30,16 +30,16 @@
 	// Change the labels
 	switch (payment.paymentType) {
 		case PSATransactionPaymentGiftCertificate:
-			lbFieldName.text = @"Certificate Number";
+			txtInfo.placeholder = @"Certificate Number";
 			break;
 		case PSATransactionPaymentCheck:
-			lbFieldName.text = @"Check Number";
+			txtInfo.placeholder = @"Check Number";
 			break;
 		case PSATransactionPaymentCoupon:
-			lbFieldName.text = @"Coupon Info.";
+			txtInfo.placeholder = @"Coupon Info.";
 			break;
 		case PSATransactionPaymentCredit:
-			lbFieldName.text = @"Last 4 Digits";
+			txtInfo.placeholder = @"Last 4 Digits";
 			break;
 	}
 	//
