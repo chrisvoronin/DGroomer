@@ -20,6 +20,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <QuartzCore/QuartzCore.h>
 #import "FirstViewController.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 
 @implementation PSAAppDelegate
@@ -395,7 +396,7 @@
     }
     
     
-    if (!self->firstRun) {
+    if (self->firstRun) {
         FirstViewController *viewController = [[FirstViewController alloc] initWithNibName:@"FirstViewController" bundle:nil];
         
         self.window.rootViewController = viewController;
@@ -416,6 +417,13 @@
 - (void) applicationWillTerminate:(UIApplication *)application {
 	// Save and close the database
     [[PSADataManager sharedInstance] prepareForExit];
+}
+
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    //[FBSettings setDefaultAppID:FACEBookAppID];
+    //[FBAppEvents activateApp];
+
 }
 
 

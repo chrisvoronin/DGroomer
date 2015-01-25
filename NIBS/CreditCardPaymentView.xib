@@ -8,35 +8,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreditCardPaymentViewController">
             <connections>
                 <outlet property="activityView" destination="95" id="96"/>
-                <outlet property="btnCancelVoidRefund" destination="35" id="85"/>
                 <outlet property="btnCharge" destination="43" id="58"/>
-                <outlet property="btnContacts" destination="101" id="102"/>
-                <outlet property="lbAmount" destination="77" id="82"/>
-                <outlet property="lbAmountTitle" destination="31" id="90"/>
-                <outlet property="lbDate" destination="78" id="83"/>
-                <outlet property="lbDateTitle" destination="32" id="89"/>
-                <outlet property="lbOwed" destination="72" id="74"/>
-                <outlet property="lbStatus" destination="76" id="81"/>
-                <outlet property="lbTotal" destination="73" id="75"/>
-                <outlet property="lbTransID" destination="79" id="84"/>
-                <outlet property="lbTransIDTitle" destination="33" id="91"/>
                 <outlet property="mainContainer" destination="fdS-4v-4NM" id="BF8-B0-gqE"/>
-                <outlet property="notesView" destination="104" id="123"/>
-                <outlet property="scrollClient" destination="107" id="124"/>
-                <outlet property="tvError" destination="93" id="94"/>
-                <outlet property="txtAddressCity" destination="118" id="137"/>
-                <outlet property="txtAddressState" destination="121" id="139"/>
-                <outlet property="txtAddressStreet" destination="116" id="135"/>
-                <outlet property="txtAddressZip" destination="122" id="141"/>
                 <outlet property="txtAmount" destination="37" id="47"/>
                 <outlet property="txtCVV" destination="42" id="51"/>
                 <outlet property="txtCardNumber" destination="39" id="49"/>
-                <outlet property="txtDateMonth" destination="40" id="55"/>
-                <outlet property="txtDateYear" destination="41" id="57"/>
-                <outlet property="txtEmail" destination="109" id="131"/>
-                <outlet property="txtNameFirst" destination="110" id="128"/>
-                <outlet property="txtNameLast" destination="111" id="127"/>
-                <outlet property="txtPhone" destination="108" id="133"/>
                 <outlet property="txtTip" destination="38" id="53"/>
                 <outlet property="view" destination="1" id="62"/>
             </connections>
@@ -53,7 +29,7 @@
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Amount" textAlignment="right" clearsOnBeginEditing="YES" minimumFontSize="16" id="37">
                             <rect key="frame" x="20" y="10" width="160" height="31"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.8500631313" green="0.8500631313" blue="0.8500631313" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.88527856689999995" green="0.88527856689999995" blue="0.88527856689999995" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
                             <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -61,10 +37,10 @@
                                 <outlet property="delegate" destination="-1" id="46"/>
                             </connections>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Card Number" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="16" clearButtonMode="whileEditing" id="39">
-                            <rect key="frame" x="20" y="87" width="180" height="31"/>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Card Holder" adjustsFontSizeToFit="NO" minimumFontSize="16" clearButtonMode="whileEditing" id="39">
+                            <rect key="frame" x="20" y="110" width="280" height="31"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.8500631313" green="0.8500631313" blue="0.8500631313" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.88527856689999995" green="0.88527856689999995" blue="0.88527856689999995" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
                             <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -72,21 +48,10 @@
                                 <outlet property="delegate" destination="-1" id="48"/>
                             </connections>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="CVV" textAlignment="right" clearsOnBeginEditing="YES" adjustsFontSizeToFit="NO" minimumFontSize="8" id="42">
-                            <rect key="frame" x="225" y="87" width="85" height="31"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.8500631313" green="0.8500631313" blue="0.8500631313" alpha="1" colorSpace="calibratedRGB"/>
-                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
-                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                            <connections>
-                                <outlet property="delegate" destination="-1" id="50"/>
-                            </connections>
-                        </textField>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Tip" textAlignment="right" clearsOnBeginEditing="YES" minimumFontSize="16" id="38">
-                            <rect key="frame" x="205" y="10" width="105" height="31"/>
+                            <rect key="frame" x="196" y="10" width="100" height="31"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.8500631313" green="0.8500631313" blue="0.8500631313" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.88527856689999995" green="0.88527856689999995" blue="0.88527856689999995" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
                             <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -94,34 +59,12 @@
                                 <outlet property="delegate" destination="-1" id="52"/>
                             </connections>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="" textAlignment="center" clearsOnBeginEditing="YES" adjustsFontSizeToFit="NO" minimumFontSize="16" id="40">
-                            <rect key="frame" x="20" y="142" width="50" height="31"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.8500631313" green="0.8500631313" blue="0.8500631313" alpha="1" colorSpace="calibratedRGB"/>
-                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
-                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                            <connections>
-                                <outlet property="delegate" destination="-1" id="54"/>
-                            </connections>
-                        </textField>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="" textAlignment="center" clearsOnBeginEditing="YES" adjustsFontSizeToFit="NO" minimumFontSize="16" id="41">
-                            <rect key="frame" x="76" y="142" width="50" height="31"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.8500631313" green="0.8500631313" blue="0.8500631313" alpha="1" colorSpace="calibratedRGB"/>
-                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
-                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                            <connections>
-                                <outlet property="delegate" destination="-1" id="56"/>
-                            </connections>
-                        </textField>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="43">
-                            <rect key="frame" x="200" y="143" width="110" height="44"/>
+                            <rect key="frame" x="20" y="366" width="280" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="btnChargeCreditCard.png">
+                            <state key="normal" image="btnchargenew.png">
                                 <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -132,320 +75,66 @@
                                 <action selector="charge:" destination="-1" eventType="touchUpInside" id="64"/>
                             </connections>
                         </button>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" id="72" userLabel="Owed Label">
-                            <rect key="frame" x="15" y="60" width="158" height="19"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                            <color key="shadowColor" red="0.50196081000000004" green="0.50196081000000004" blue="0.50196081000000004" alpha="1" colorSpace="calibratedRGB"/>
-                            <size key="shadowOffset" width="0.0" height="1"/>
-                        </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" id="73" userLabel="Total Label">
-                            <rect key="frame" x="183" y="60" width="117" height="19"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                            <color key="shadowColor" red="0.50196081000000004" green="0.50196081000000004" blue="0.50196081000000004" alpha="1" colorSpace="calibratedRGB"/>
-                            <size key="shadowOffset" width="0.0" height="1"/>
-                        </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Amount:" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" id="31">
-                            <rect key="frame" x="6" y="255" width="72" height="20"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                            <color key="shadowColor" red="0.50196081000000004" green="0.50196081000000004" blue="0.50196081000000004" alpha="1" colorSpace="calibratedRGB"/>
-                            <size key="shadowOffset" width="0.0" height="1"/>
-                        </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Date:" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" id="32">
-                            <rect key="frame" x="6" y="232" width="72" height="20"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                            <color key="shadowColor" red="0.50196081000000004" green="0.50196081000000004" blue="0.50196081000000004" alpha="1" colorSpace="calibratedRGB"/>
-                            <size key="shadowOffset" width="0.0" height="1"/>
-                        </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Trans. ID:" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" id="33">
-                            <rect key="frame" x="6" y="278" width="72" height="20"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                            <color key="shadowColor" red="0.50196081000000004" green="0.50196081000000004" blue="0.50196081000000004" alpha="1" colorSpace="calibratedRGB"/>
-                            <size key="shadowOffset" width="0.0" height="1"/>
-                        </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Status:" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" id="30">
-                            <rect key="frame" x="5" y="209" width="72" height="20"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                            <color key="shadowColor" red="0.50196081000000004" green="0.50196081000000004" blue="0.50196081000000004" alpha="1" colorSpace="calibratedRGB"/>
-                            <size key="shadowOffset" width="0.0" height="1"/>
-                        </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="" lineBreakMode="tailTruncation" minimumFontSize="12" id="76" userLabel="Status Label">
-                            <rect key="frame" x="85" y="209" width="225" height="20"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                            <color key="shadowColor" red="0.50196081000000004" green="0.50196081000000004" blue="0.50196081000000004" alpha="1" colorSpace="calibratedRGB"/>
-                            <size key="shadowOffset" width="0.0" height="1"/>
-                        </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="" lineBreakMode="tailTruncation" minimumFontSize="12" id="77" userLabel="Amount Label">
-                            <rect key="frame" x="85" y="255" width="225" height="20"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                            <color key="shadowColor" red="0.50196081000000004" green="0.50196081000000004" blue="0.50196081000000004" alpha="1" colorSpace="calibratedRGB"/>
-                            <size key="shadowOffset" width="0.0" height="1"/>
-                        </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="" lineBreakMode="tailTruncation" minimumFontSize="12" id="79" userLabel="Transaction ID Label">
-                            <rect key="frame" x="85" y="278" width="225" height="20"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                            <color key="shadowColor" red="0.50196081000000004" green="0.50196081000000004" blue="0.50196081000000004" alpha="1" colorSpace="calibratedRGB"/>
-                            <size key="shadowOffset" width="0.0" height="1"/>
-                        </label>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="35">
-                            <rect key="frame" x="10" y="413" width="300" height="44"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="btnCancel.png">
-                                <color key="titleColor" red="0.19607843" green="0.30980393000000001" blue="0.52156866000000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <state key="highlighted">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="cancelVoidRefund:" destination="-1" eventType="touchUpInside" id="86"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="101">
-                            <rect key="frame" x="141" y="142" width="45" height="45"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="btnContacts.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="editNotes:" destination="-1" eventType="touchUpInside" id="103"/>
-                            </connections>
-                        </button>
-                        <view contentMode="scaleToFill" id="59">
-                            <rect key="frame" x="0.0" y="201" width="320" height="2"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        </view>
-                        <view contentMode="scaleToFill" id="63">
-                            <rect key="frame" x="0.0" y="203" width="320" height="1"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.50196081000000004" green="0.50196081000000004" blue="0.50196081000000004" alpha="1" colorSpace="calibratedRGB"/>
-                        </view>
-                        <textView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" id="93" userLabel="Error Text">
-                            <rect key="frame" x="20" y="255" width="280" height="98"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <textInputTraits key="textInputTraits" autocorrectionType="no"/>
-                        </textView>
                         <activityIndicatorView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" id="95">
                             <rect key="frame" x="141" y="278" width="37" height="37"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </activityIndicatorView>
-                        <view hidden="YES" contentMode="scaleToFill" id="104">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="ccViewBackground.png" id="105">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </imageView>
-                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" id="107">
-                                    <rect key="frame" x="0.0" y="5" width="320" height="190"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <subviews>
-                                        <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" image="lbCCName.png" id="114">
-                                            <rect key="frame" x="20" y="30" width="12" height="45"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </imageView>
-                                        <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" image="lbCCPhone.png" id="113">
-                                            <rect key="frame" x="20" y="85" width="12" height="45"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </imageView>
-                                        <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" image="lbCCEmail.png" id="112">
-                                            <rect key="frame" x="20" y="140" width="12" height="45"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </imageView>
-                                        <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" image="lbCCStreet.png" id="115">
-                                            <rect key="frame" x="20" y="195" width="12" height="45"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </imageView>
-                                        <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" image="lbCCCity.png" id="117">
-                                            <rect key="frame" x="20" y="250" width="12" height="45"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </imageView>
-                                        <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" image="lbCCState.png" id="119">
-                                            <rect key="frame" x="20" y="305" width="12" height="45"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </imageView>
-                                        <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" image="lbCCZip.png" id="120">
-                                            <rect key="frame" x="20" y="360" width="12" height="45"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </imageView>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last" textAlignment="right" minimumFontSize="17" clearButtonMode="whileEditing" id="111">
-                                            <rect key="frame" x="158" y="30" width="134" height="31"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
-                                            <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardType="alphabet"/>
-                                            <connections>
-                                                <outlet property="delegate" destination="-1" id="126"/>
-                                            </connections>
-                                        </textField>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First" textAlignment="right" minimumFontSize="17" clearButtonMode="whileEditing" id="110">
-                                            <rect key="frame" x="34" y="30" width="121" height="31"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
-                                            <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardType="alphabet"/>
-                                            <connections>
-                                                <outlet property="delegate" destination="-1" id="129"/>
-                                            </connections>
-                                        </textField>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="right" minimumFontSize="17" clearButtonMode="whileEditing" id="109">
-                                            <rect key="frame" x="34" y="140" width="258" height="31"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
-                                            <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
-                                            <connections>
-                                                <outlet property="delegate" destination="-1" id="130"/>
-                                            </connections>
-                                        </textField>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone" textAlignment="right" minimumFontSize="17" clearButtonMode="whileEditing" id="108">
-                                            <rect key="frame" x="34" y="85" width="258" height="31"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
-                                            <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardType="numbersAndPunctuation"/>
-                                            <connections>
-                                                <outlet property="delegate" destination="-1" id="132"/>
-                                            </connections>
-                                        </textField>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Street" textAlignment="right" minimumFontSize="17" clearButtonMode="whileEditing" id="116">
-                                            <rect key="frame" x="34" y="195" width="258" height="31"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
-                                            <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardType="alphabet"/>
-                                            <connections>
-                                                <outlet property="delegate" destination="-1" id="134"/>
-                                            </connections>
-                                        </textField>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City" textAlignment="right" minimumFontSize="17" clearButtonMode="whileEditing" id="118">
-                                            <rect key="frame" x="34" y="250" width="258" height="31"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
-                                            <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardType="alphabet"/>
-                                            <connections>
-                                                <outlet property="delegate" destination="-1" id="136"/>
-                                            </connections>
-                                        </textField>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="State" textAlignment="right" minimumFontSize="17" clearButtonMode="whileEditing" id="121">
-                                            <rect key="frame" x="34" y="305" width="258" height="31"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
-                                            <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardType="alphabet"/>
-                                            <connections>
-                                                <outlet property="delegate" destination="-1" id="138"/>
-                                            </connections>
-                                        </textField>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Zip" textAlignment="right" minimumFontSize="17" clearButtonMode="whileEditing" id="122">
-                                            <rect key="frame" x="34" y="360" width="258" height="31"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
-                                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                            <connections>
-                                                <outlet property="delegate" destination="-1" id="140"/>
-                                            </connections>
-                                        </textField>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="106">
-                                            <rect key="frame" x="0.0" y="-5" width="40" height="45"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                                            <state key="normal" image="btnClose.png">
-                                                <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <state key="highlighted">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="closeNotes:" destination="-1" eventType="touchUpInside" id="125"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                </scrollView>
-                            </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        </view>
                         <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="JUb-XJ-aEA">
-                            <rect key="frame" x="10" y="361" width="300" height="44"/>
+                            <rect key="frame" x="20" y="428" width="280" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" title="Scan Credit Card" backgroundImage="default_blueBtn.png">
+                            <state key="normal" backgroundImage="btnscannew.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
                                 <action selector="onScanCard:" destination="-1" eventType="touchUpInside" id="erR-bE-3hX"/>
                             </connections>
                         </button>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="" lineBreakMode="tailTruncation" minimumFontSize="12" id="78" userLabel="Date Label">
-                            <rect key="frame" x="85" y="232" width="225" height="20"/>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Full Name" minimumFontSize="17" id="ORg-Is-36Z" userLabel="Full Name">
+                            <rect key="frame" x="20" y="60" width="280" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                            <color key="shadowColor" red="0.50196081000000004" green="0.50196081000000004" blue="0.50196081000000004" alpha="1" colorSpace="calibratedRGB"/>
-                            <size key="shadowOffset" width="0.0" height="1"/>
-                        </label>
+                            <color key="backgroundColor" red="0.88527856689999995" green="0.88527856689999995" blue="0.88527856689999995" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Exp. Date" minimumFontSize="17" id="bt2-XU-RA8" userLabel="Exp. Date">
+                            <rect key="frame" x="177" y="162" width="123" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.88527856689999995" green="0.88527856689999995" blue="0.88527856689999995" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="CVV" clearsOnBeginEditing="YES" adjustsFontSizeToFit="NO" minimumFontSize="8" id="42">
+                            <rect key="frame" x="20" y="162" width="140" height="31"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.88527856689999995" green="0.88527856689999995" blue="0.88527856689999995" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
+                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="50"/>
+                            </connections>
+                        </textField>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="EVh-ei-fY7">
+                            <rect key="frame" x="20" y="217" width="280" height="128"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.88527856689999995" green="0.88527856689999995" blue="0.88527856689999995" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
                     </subviews>
-                    <color key="backgroundColor" red="0.88527856689999995" green="0.88527856689999995" blue="0.88527856689999995" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.9610396511" green="0.95982027179999996" blue="0.98111979169999997" alpha="1" colorSpace="calibratedRGB"/>
                 </scrollView>
             </subviews>
-            <color key="backgroundColor" red="0.88527856689999995" green="0.88527856689999995" blue="0.88527856689999995" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.9610396511" green="0.95982027179999996" blue="0.98111979169999997" alpha="1" colorSpace="calibratedRGB"/>
         </view>
     </objects>
     <resources>
-        <image name="btnCancel.png" width="300" height="44"/>
-        <image name="btnChargeCreditCard.png" width="110" height="44"/>
-        <image name="btnClose.png" width="28" height="28"/>
-        <image name="btnContacts.png" width="20" height="20"/>
-        <image name="ccViewBackground.png" width="320" height="245"/>
-        <image name="default_blueBtn.png" width="536" height="72"/>
-        <image name="lbCCCity.png" width="12" height="45"/>
-        <image name="lbCCEmail.png" width="12" height="45"/>
-        <image name="lbCCName.png" width="12" height="45"/>
-        <image name="lbCCPhone.png" width="12" height="45"/>
-        <image name="lbCCState.png" width="12" height="45"/>
-        <image name="lbCCStreet.png" width="12" height="45"/>
-        <image name="lbCCZip.png" width="12" height="45"/>
+        <image name="btnchargenew.png" width="580" height="90"/>
+        <image name="btnscannew.png" width="580" height="90"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
