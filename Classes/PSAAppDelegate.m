@@ -395,7 +395,7 @@
     }
     
     
-    if (self->firstRun) {
+    if (!self->firstRun) {
         FirstViewController *viewController = [[FirstViewController alloc] initWithNibName:@"FirstViewController" bundle:nil];
         
         self.window.rootViewController = viewController;

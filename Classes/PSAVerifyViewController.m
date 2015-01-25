@@ -40,6 +40,13 @@
     [self.view endEditing:YES];
     //Do stuff here...
 }
+- (IBAction)txtChanged:(id)sender {
+    if (self.txtVerifyCode.text.length == 5) {
+        NSString *str = self.txtVerifyCode.text;
+        self.txtVerifyCode.text = [str substringToIndex:4];
+        [self.txtVerifyCode resignFirstResponder];
+    }
+}
 
 - (IBAction)clicked_changephone:(id)sender {
     [self dismissViewControllerAnimated:NO completion:^{}];

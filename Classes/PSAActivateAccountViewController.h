@@ -11,9 +11,10 @@
 #import "BaseRegistrationViewController.h"
 #import "TermsAndConditionsViewController.h"
 
-@interface PSAActivateAccountViewController : BaseRegistrationViewController
+@interface PSAActivateAccountViewController : BaseRegistrationViewController<UITextFieldDelegate>
 {
     int m_code;
+    NSString *phone;
 }
 @property (retain, nonatomic) IBOutlet UILabel *lblTerms;
 @property (retain, nonatomic) IBOutlet UIButton *chkBtnAgreeCheckMark;

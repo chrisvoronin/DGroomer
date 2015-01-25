@@ -85,7 +85,7 @@
 				cell.textLabel.text = @"Company Information";
 				break;
 			case 1:
-				cell.textLabel.text = @"Credit Card Settings";
+				cell.textLabel.text = @"Credit Card Processing";
 				break;
 			case 2:
 				cell.textLabel.text = @"Alerts";
@@ -104,7 +104,7 @@
 	else if( indexPath.section == 1 ) {
 		switch (indexPath.row) {
 			case 0:
-				cell.textLabel.text = @"Client AddressBook Contacts";
+				cell.textLabel.text = @"Clients";
 				break;
 			case 1:
 				cell.textLabel.text = @"Product Types";

@@ -91,6 +91,7 @@
     [lblMerchant release];
     [btnHelpMerchant release];
     [btnEditGateway release];
+    [btnSignup release];
     [super dealloc];
 }
 
@@ -108,6 +109,7 @@
     txtTransactionKey.hidden = YES;
     
     btnEditGateway.hidden = NO;
+    btnSignup.hidden = NO;
 }
 
 - (void) hideControls{
@@ -124,6 +126,7 @@
     txtTransactionKey.hidden = NO;
     
     btnEditGateway.hidden = YES;
+    btnSignup.hidden = YES;
 }
 /*
  *	Get rid of the keyboard when the user touches outside the textField
@@ -156,10 +159,19 @@
 /*
  *	Show an alert describing the Transaction Key field.
  */
-- (IBAction) helpTransactionKey:(id)sender {
-	UIAlertView	*alert = [[UIAlertView alloc] initWithTitle:@"Transaction Key" message:@"This is a key that Authorize.Net will give you that is sent along with the API Login when processing transactions." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+- (IBAction) helpGateway:(id)sender {
+	UIAlertView	*alert = [[UIAlertView alloc] initWithTitle:@"Gateway Sends Receipt" message:@"This allows the gateway to send you transaction confirmation via email." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
 	[alert show];
 	[alert release];
+}
+
+/*
+ *	Show an alert describing the Gateway Sends Receipt.
+ */
+- (IBAction) helpTransactionKey:(id)sender {
+    UIAlertView	*alert = [[UIAlertView alloc] initWithTitle:@"Transaction Key" message:@"This is a key that Authorize.Net will give you that is sent along with the API Login when processing transactions." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+    [alert release];
 }
 
 /*
@@ -205,7 +217,7 @@
  *	Alert to possibilities
  */
 - (IBAction) signUp:(id)sender {
-	UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"NetPay requires a signature to complete sign-up, and will not work on this device. Please call NetPay to assist you, or email the signup link to your flash enabled desktop computer." delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Call", @"Email Link", nil];
+	UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Merchant Account Solutions requires a signature to complete sign-up, and will not work on this device. Please call Merchant Account Solutions to assist you, or email the sign-up link to your computer." delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Call", @"Email Link", nil];
 	[sheet showInView:self.view];
 	[sheet release];
 }
@@ -240,7 +252,7 @@
 				[picker setToRecipients:toRecipients];
 				// Subject
 				[picker setSubject:@"Credit Card Processing Signup"];
-				[picker setMessageBody:@"http://www.netpaybankcard.com/admin/onlineapplication.php?mid=58" isHTML:NO];
+				[picker setMessageBody:@"https://www.icsapplications.com/?p=wj3Wb%2fCk1oAONIva24Fcfw%3d%3d" isHTML:NO];
 				[company release];
 				// Present the mail composition interface. 
 				[self presentViewController:picker animated:YES completion:nil]; 

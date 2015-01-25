@@ -16,6 +16,7 @@
 @end
 
 @implementation PSAActivateAccountViewController
+@synthesize txtPhone;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,7 +35,9 @@
     [self.validation addValidationModel: [[ValidationModel alloc] initWithField:self.txtName andValidationType:ValidationEmpty]];
     [self.validation addValidationModel: [[ValidationModel alloc] initWithField:self.txtBusinessName andValidationType:ValidationMinLength andLength:4]];
     [self.validation addValidationModel: [[ValidationModel alloc] initWithField:self.txtEmail andValidationType:ValidationEmail]];
-    [self.validation addValidationModel: [[ValidationModel alloc] initWithField:self.txtPhone andValidationType:ValidationPhone]];
+    //[self.validation addValidationModel: [[ValidationModel alloc] initWithField:self.txtPhone andValidationType:ValidationPhone]];
+    self.txtPhone.delegate = self;
+    [self.chkBtnAgreeCheckMark setSelected:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,6 +57,8 @@
 
 - (IBAction)clicked_btnNext:(id)sender {
     if (!self.chkBtnAgreeCheckMark.isSelected) {
+        UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Pleasae read and agree Terms & Conditions." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alertView show];
         return;
     }
     
@@ -74,20 +79,9 @@
 
 - (void) progressTask
 {
-    /*NSDictionary * dict = nil;
-    dict = @{
-             @"source" : @"ApiTest",
-             @"originator" : @"1029",
-             @"returnType" : @"jsonP",
-             @"businessName" : self.txtBusinessName.text,
-             @"contactName" : self.txtName.text,
-             @"phone" : self.txtPhone.text,
-             @"email" : self.txtEmail.text,
-             @"phoneAlt" : @"",
-             @"traceId" : @"test"
-             };*/
     m_code = arc4random() % 9000 + 1000;
-    NSString *strDict = [NSString stringWithFormat:@"?phone=%@&text=%ld&token=raj12345", self.txtPhone.text, (long)m_code];
+    NSString *strDict = [[NSString stringWithFormat:@"?phone=%@&text=Here is your activation code. %ld. Thank you for choosing Dog Groomer!&token=raj12345", self.txtPhone.text, (long)m_code] stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    //[strDict stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
     
     self.dal = [[ServiceDAL alloc] initWiThHttpGetData:strDict urlString:URL_MERCHANT_SENDMESSAGE delegate:self];
     [self.dal startAsync];
@@ -105,25 +99,8 @@
 {
     [self.progress hide:YES];
     
-    /*if ([ErrorXmlParser checkResponseError:dictionary :URL_MERCHANT_ACTIVEACCOUNT]) {
-        NSString *strSucess = [[[[dictionary objectForKey:@"ApiResponse"] objectForKey:@"Success"] objectForKey:@"text"] substringFromIndex:3];
-        NSString *strLeanId = [[[[dictionary objectForKey:@"ApiResponse"] objectForKey:@"LeadId"] objectForKey:@"text"] substringFromIndex:3];
-        if([strSucess isEqualToString:@"true"])
-        {
-            self.LeadId = strLeanId;
-        }
-        else{
-            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@""
-                                                             message:@"Failed to send verification code."
-                                                            delegate:nil
-                                                   cancelButtonTitle:@"OK"
-                                                   otherButtonTitles: nil];
-            [alert show];
-            [alert release];
-            return;
-        }
-    }*/
-    
+   
+ 
     PSAVerifyViewController *pvc = [[PSAVerifyViewController alloc] initWithNibName:@"PSAVerifyViewController" bundle:nil];
     pvc.txtCode = [NSString stringWithFormat:@"%d", m_code];
     pvc.txtBusinessName = self.txtBusinessName.text;
@@ -141,6 +118,45 @@
 
 }
 
+
+
+
+/*- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    // enter closes the keyboard
+    if(textField == self.txtPhone)
+    {
+        
+        if(self.txtPhone.text.length>9)
+        {
+            self.txtPhone.text = phone;
+            [textField resignFirstResponder];
+            return NO;
+        }
+        else
+            phone = self.txtPhone.text;
+    }
+    return YES;
+}
+*/
+
+- (IBAction)txtchanged:(id)sender {
+    if (self.txtPhone.text.length == 11) {
+        NSString *str = self.txtPhone.text;
+        self.txtPhone.text = [str substringToIndex:10];
+        [self.txtPhone resignFirstResponder];
+    }
+}
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    NSLog(@"textFieldShouldBeginEditing");
+    //textField.backgroundColor = [UIColor colorWithRed:220.0f/255.0f green:220.0f/255.0f blue:220.0f/255.0f alpha:1.0f];
+    return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+    NSLog(@"textFieldDidBeginEditing");
+}
+
 /*
 #pragma mark - Navigation
 
@@ -156,8 +172,8 @@
     [_lblTerms release];
     [_txtName release];
     [_txtBusinessName release];
-    [_txtEmail release];
-    [_txtPhone release];
+    [txtPhone release];
+    
     [super dealloc];
 }
 @end

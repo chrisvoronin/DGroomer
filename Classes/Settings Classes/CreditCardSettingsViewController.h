@@ -29,6 +29,7 @@
     IBOutlet UILabel *lblMerchant;
     IBOutlet UIButton *btnHelpMerchant;
     IBOutlet UIButton *btnEditGateway;
+    IBOutlet UIButton *btnSignup;
 }
 
 @property (nonatomic, retain) IBOutlet UISegmentedControl	*segProcessingType;
@@ -41,6 +42,7 @@
 - (IBAction)	helpAPILogin:(id)sender;
 - (IBAction)	helpMerchantAccount:(id)sender;
 - (IBAction)	helpTransactionKey:(id)sender;
+- (IBAction)	helpGateway:(id)sender;
 - (void)		save;
 - (IBAction)	signUp:(id)sender;
 - (void)        showControls;
