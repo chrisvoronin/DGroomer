@@ -446,6 +446,8 @@
 			[picker setBccRecipients:bccRecipients];
 		}
 		// Subject
+        //[[PSADataManager sharedInstance] getBussinessItem];
+        //NSString *strBusiness = [[PSADataManager sharedInstance] getBussinessItem].businessName;
 		NSString *subject = [[NSString alloc] initWithFormat:@"Receipt %@ %@", (company.companyName) ? @"From" : @"", (company.companyName) ? company.companyName : @""];
         
         //NSString *subject = [[NSString alloc] initWithFormat:@"Receipt #%ld %@ %@", (long)transaction.transactionID, (company.companyName) ? @"From" : @"", (company.companyName) ? company.companyName : @""];

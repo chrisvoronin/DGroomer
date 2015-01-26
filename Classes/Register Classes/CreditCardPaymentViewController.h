@@ -14,7 +14,7 @@
 
 @class TransactionPayment;
 
-@interface CreditCardPaymentViewController : PSABaseViewController <CreditCardProcessingViewDelegate, UITextFieldDelegate,CardIOPaymentViewControllerDelegate> {
+@interface CreditCardPaymentViewController : PSABaseViewController <CreditCardProcessingViewDelegate, UITextFieldDelegate,CardIOPaymentViewControllerDelegate, UITextViewDelegate> {
 	NSNumber			*owed;
 	TransactionPayment	*payment;
 	// Entry
@@ -31,13 +31,12 @@
 	UITextField	*txtAmount;
 	UITextField	*txtCardNumber;
 	UITextField	*txtCVV;
-	UITextField	*txtDateMonth;
-	UITextField	*txtDateYear;
 	UITextField	*txtEmail;
 	UITextField	*txtNameFirst;
 	UITextField	*txtNameLast;
 	UITextField	*txtPhone;
 	UITextField	*txtTip;
+    UITextField *txtExpDate;
 	// Status Labels
 	UILabel		*lbAmount;
 	UILabel		*lbDate;
@@ -57,6 +56,11 @@
 	BOOL		autoRefunding;
 	UIButton	*doneButton;
 	BOOL		nonRefundable;
+    NSString    *strYear;
+    NSString    *strMonth;
+    
+    IBOutlet UILabel			*placeholderLabel;
+    IBOutlet UITextView         *tvNotes;
 }
 
 @property (nonatomic, retain) NSNumber				*owed;
@@ -76,13 +80,13 @@
 @property (nonatomic, retain) IBOutlet UITextField	*txtAmount;
 @property (nonatomic, retain) IBOutlet UITextField	*txtCardNumber;
 @property (nonatomic, retain) IBOutlet UITextField	*txtCVV;
-@property (nonatomic, retain) IBOutlet UITextField	*txtDateMonth;
-@property (nonatomic, retain) IBOutlet UITextField	*txtDateYear;
 @property (nonatomic, retain) IBOutlet UITextField	*txtEmail;
 @property (nonatomic, retain) IBOutlet UITextField	*txtNameFirst;
 @property (nonatomic, retain) IBOutlet UITextField	*txtNameLast;
 @property (nonatomic, retain) IBOutlet UITextField	*txtPhone;
 @property (nonatomic, retain) IBOutlet UITextField	*txtTip;
+@property (retain, nonatomic) IBOutlet UITextView  *tvNotes;
+@property (retain, nonatomic) IBOutlet UITextField *txtExpDate;
 
 @property (nonatomic, retain) IBOutlet UIView		*notesView;
 @property (nonatomic, retain) IBOutlet UIScrollView	*scrollClient;
@@ -116,6 +120,7 @@
 - (void)		keyboardWillHide:(NSNotification *)note;
 - (void)		keyboardWillShow:(NSNotification *)note;
 - (void)		updateTotal;
+
 
 
 @end

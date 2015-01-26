@@ -18,9 +18,9 @@
 @implementation CreditCardPaymentViewController
 
 @synthesize owed, payment, delegate, autoRefunding, nonRefundable, notesView, scrollClient;
-@synthesize btnCancelVoidRefund, btnCharge, btnContacts, ivTip, lbOwed, lbTotal, txtAmount, txtCardNumber, txtCVV, txtDateMonth, txtDateYear, txtTip;
+@synthesize btnCancelVoidRefund, btnCharge, btnContacts, ivTip, lbOwed, lbTotal, txtAmount, txtCardNumber, txtCVV, txtTip, txtExpDate;
 @synthesize activityView, lbAmount, lbAmountTitle, lbDate, lbDateTitle, tvError, lbStatus, lbTransID, lbTransIDTitle;
-@synthesize txtAddressStreet, txtAddressCity, txtAddressState, txtAddressZip, txtEmail, txtNameFirst, txtNameLast, txtPhone;
+@synthesize txtAddressStreet, txtAddressCity, txtAddressState, txtAddressZip, txtEmail, txtNameFirst, txtNameLast, txtPhone, tvNotes;
 
 - (void) viewDidLoad {
 	
@@ -35,20 +35,8 @@
 	//
 	tvError.font = [UIFont boldSystemFontOfSize:14];	
 	// Resize the text fields
-	txtAddressCity.frame = CGRectMake( txtAddressCity.frame.origin.x, txtAddressCity.frame.origin.y, txtAddressCity.frame.size.width, 45 );
-	txtAddressState.frame = CGRectMake( txtAddressState.frame.origin.x, txtAddressState.frame.origin.y, txtAddressState.frame.size.width, 45 );
-	txtAddressStreet.frame = CGRectMake( txtAddressStreet.frame.origin.x, txtAddressStreet.frame.origin.y, txtAddressStreet.frame.size.width, 45 );
-	txtAddressZip.frame = CGRectMake( txtAddressZip.frame.origin.x, txtAddressZip.frame.origin.y, txtAddressZip.frame.size.width, 45 );
-	txtAmount.frame = CGRectMake( txtAmount.frame.origin.x, txtAmount.frame.origin.y, txtAmount.frame.size.width, 45 );
-	txtCardNumber.frame = CGRectMake( txtCardNumber.frame.origin.x, txtCardNumber.frame.origin.y, txtCardNumber.frame.size.width, 45 );
-	txtCVV.frame = CGRectMake( txtCVV.frame.origin.x, txtCVV.frame.origin.y, txtCVV.frame.size.width, 45 );
-	txtDateMonth.frame = CGRectMake( txtDateMonth.frame.origin.x, txtDateMonth.frame.origin.y, txtDateMonth.frame.size.width, 45 );
-	txtDateYear.frame = CGRectMake( txtDateYear.frame.origin.x, txtDateYear.frame.origin.y, txtDateYear.frame.size.width, 45 );
-	txtEmail.frame = CGRectMake( txtEmail.frame.origin.x, txtEmail.frame.origin.y, txtEmail.frame.size.width, 45 );
-	txtNameFirst.frame = CGRectMake( txtNameFirst.frame.origin.x, txtNameFirst.frame.origin.y, txtNameFirst.frame.size.width, 45 );
-	txtNameLast.frame = CGRectMake( txtNameLast.frame.origin.x, txtNameLast.frame.origin.y, txtNameLast.frame.size.width, 45 );
-	txtPhone.frame = CGRectMake( txtPhone.frame.origin.x, txtPhone.frame.origin.y, txtPhone.frame.size.width, 45 );
-	txtTip.frame = CGRectMake( txtTip.frame.origin.x, txtTip.frame.origin.y, txtTip.frame.size.width, 45 );
+	
+	
 	//
 	scrollClient.contentSize = CGSizeMake( 320, 410 );
 	//
@@ -73,6 +61,22 @@
     [self.view addGestureRecognizer:singleTap];
     [singleTap release];
     
+    tvNotes.layer.cornerRadius = 5.0;
+    tvNotes.clipsToBounds = YES;
+    // you might have to play around a little with numbers in CGRectMake method
+    // they work fine with my settings
+    placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, tvNotes.frame.size.width - 20.0, 34.0)];
+    [placeholderLabel setText:@"Notes"];
+    // placeholderLabel is instance variable retained by view controller
+    [placeholderLabel setBackgroundColor:[UIColor clearColor]];
+    //[placeholderLabel setFont:[challengeDescription font]];
+    [placeholderLabel setTextColor:[UIColor lightGrayColor]];
+    // textView is UITextView object you want add placeholder text to
+    [tvNotes addSubview:placeholderLabel];
+    tvNotes.delegate = self;
+    
+    strYear = @"";
+    strMonth = @"";
     [self.mainContainer setContentSize:CGSizeMake(320, 680)];
 
 }
@@ -105,8 +109,8 @@
 		txtTip.text = tip;
 		[tip release];
 		txtCVV.text = @"***";
-		txtDateMonth.text = @"**";
-		txtDateYear.text = @"**";
+		strYear = @"**";
+		strMonth = @"**";
 		
 		NSString *cc = [[NSString alloc] initWithFormat:@"Ending in %@", payment.creditCardPayment.ccNumber];
 		txtCardNumber.text = cc;
@@ -169,8 +173,7 @@
 	self.txtAmount = nil;
 	self.txtCardNumber = nil;
 	self.txtCVV = nil;
-	self.txtDateMonth = nil;
-	self.txtDateYear = nil;
+
 	self.txtEmail = nil;
 	self.txtNameFirst = nil;
 	self.txtNameLast = nil;
@@ -192,6 +195,9 @@
 	[owed release];
 	[payment release];
     [_mainContainer release];
+    [tvNotes release];
+    [txtExpDate release];
+
     [super dealloc];
 }
 
@@ -233,21 +239,23 @@
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incomplete Payment" message:@"You must enter the credit card security code (CVV2/CVC2/CID)!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
 		[alert show];
 		[alert release];
-	} else if( [txtDateMonth.text integerValue] <= 0 ) {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incomplete Payment" message:@"You must enter an expiration month!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-		[alert show];
-		[alert release];
-	} else if( [txtDateYear.text integerValue] <= 0 ) {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incomplete Payment" message:@"You must enter an expiration year!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-		[alert show];
-		[alert release];
-	} else {
+	}    else if( txtExpDate.text.length <= 3 ) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incomplete Payment" message:@"You must enter an expiration month/year!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+    }
+    else {
+        
+        if( txtExpDate.text.length > 4 ) {
+            strMonth = [txtExpDate.text substringToIndex:2];
+            strYear = [[NSString alloc] initWithFormat:@"20%@", [txtExpDate.text substringFromIndex:3]];
+        }
+        
 		// Hide the keyboard (to show statuses)
 		[txtAmount resignFirstResponder];
 		[txtCardNumber resignFirstResponder];
 		[txtCVV resignFirstResponder];
-		[txtDateMonth resignFirstResponder];
-		[txtDateYear resignFirstResponder];
+		[txtExpDate resignFirstResponder];
 		[txtTip resignFirstResponder];
 		// Make uneditable
 		[self disableTextFields];
@@ -259,8 +267,8 @@
 		payment.creditCardPayment.tip = tip;
 		[tip release];
 		payment.creditCardPayment.ccCVV = txtCVV.text;
-		payment.creditCardPayment.ccExpirationMonth = txtDateMonth.text;
-		payment.creditCardPayment.ccExpirationYear = txtDateYear.text;
+		payment.creditCardPayment.ccExpirationMonth = strMonth;
+		payment.creditCardPayment.ccExpirationYear = strMonth;
 		payment.creditCardPayment.ccNumber = txtCardNumber.text;
 		// Charge or Alert
 		if( payment.creditCardPayment ) {
@@ -288,8 +296,7 @@
 	txtAmount.text = @"";
 	txtCardNumber.text = @"";
 	txtCVV.text = @"";
-	txtDateMonth.text = @"";
-	txtDateYear.text = @"";
+	txtExpDate.text = @"";
 	txtTip.text = @"";
 }
 
@@ -329,8 +336,7 @@
 	txtAmount.userInteractionEnabled = NO;
 	txtCardNumber.userInteractionEnabled = NO;
 	txtCVV.userInteractionEnabled = NO;
-	txtDateMonth.userInteractionEnabled = NO;
-	txtDateYear.userInteractionEnabled = NO;
+	txtExpDate.userInteractionEnabled = NO;
 	txtEmail.userInteractionEnabled = NO;
 	txtNameFirst.userInteractionEnabled = NO;
 	txtNameLast.userInteractionEnabled = NO;
@@ -346,8 +352,7 @@
 	[txtAmount resignFirstResponder];
 	[txtCardNumber resignFirstResponder];
 	[txtCVV resignFirstResponder];
-	[txtDateMonth resignFirstResponder];
-	[txtDateYear resignFirstResponder];
+	[txtExpDate resignFirstResponder];
 	[txtEmail resignFirstResponder];
 	[txtNameFirst resignFirstResponder];
 	[txtNameLast resignFirstResponder];
@@ -368,8 +373,7 @@
 	txtAmount.userInteractionEnabled = YES;
 	txtCardNumber.userInteractionEnabled = YES;
 	txtCVV.userInteractionEnabled = YES;
-	txtDateMonth.userInteractionEnabled = YES;
-	txtDateYear.userInteractionEnabled = YES;
+	txtExpDate.userInteractionEnabled = YES;
 	txtTip.userInteractionEnabled = YES;
 	txtEmail.userInteractionEnabled = YES;
 	txtNameFirst.userInteractionEnabled = YES;
@@ -384,7 +388,7 @@
 	payment.creditCardPayment.ccNumber = [payment.creditCardPayment.ccNumber substringFromIndex:payment.creditCardPayment.ccNumber.length-4];
 	[[PSADataManager sharedInstance] saveCreditCardPayment:payment.creditCardPayment];
 	// Set the extraInfo to the creditCardPaymentID
-	payment.extraInfo = [NSString stringWithFormat:@"%d", payment.creditCardPayment.ccPaymentID];
+	payment.extraInfo = [NSString stringWithFormat:@"%ld", (long)payment.creditCardPayment.ccPaymentID];
 	NSNumber *total = [[NSNumber alloc] initWithDouble:[payment.creditCardPayment.amount doubleValue]+[payment.creditCardPayment.tip doubleValue]];
 	payment.amount = total;
 	[total release];
@@ -394,12 +398,13 @@
 
 - (IBAction)onScanCard:(id)sender {
     
-    [txtAmount resignFirstResponder];
+    /*[txtAmount resignFirstResponder];
     [txtCardNumber resignFirstResponder];
     [txtCVV resignFirstResponder];
     [txtDateMonth resignFirstResponder];
     [txtDateYear resignFirstResponder];
-    [txtTip resignFirstResponder];
+    [txtTip resignFirstResponder];*/
+    [self.view endEditing:YES];
     
     //if([CardIOPaymentViewController canReadCardWithCamera])
     {
@@ -428,12 +433,11 @@
     // Do whatever needs to be done to deliver the purchased items.
     [self dismissViewControllerAnimated:YES completion:nil];
     txtCardNumber.text=info.redactedCardNumber;
-    txtDateMonth.text = [NSString stringWithFormat:@"%02lu",(unsigned long)info.expiryMonth];
     
-    NSString *strYear = [NSString stringWithFormat:@"%d", info.expiryYear];
-    txtDateYear.text = [strYear substringFromIndex:2];
-
-    //txtDateYear.text = [NSString stringWithFormat:@"%lu", (unsigned long)info.expiryYear];
+    strYear = [NSString stringWithFormat:@"%lu", (unsigned long)info.expiryYear];
+    strMonth = [NSString stringWithFormat:@"%02lu", (unsigned long)info.expiryMonth];
+    self.txtExpDate.text = [NSString stringWithFormat:@"%@/%@", strMonth, [strYear substringFromIndex:2]];
+   
     txtCVV.text = info.cvv;
 }
 
@@ -548,19 +552,37 @@
 		[new2 release];
 		[self updateTotal];
 		return NO;
-	} else if( textField == txtDateYear ) {
+	} else if( textField == txtExpDate) {
 		if( ![string isEqualToString:@""] ) {
-			if( textField.text.length > 1 ) {
+            NSString *new = [textField.text stringByReplacingCharactersInRange:range withString:string];
+			if( textField.text.length > 4 ) {
+                strMonth = [textField.text substringToIndex:2];
+                strYear = [[NSString alloc] initWithFormat:@"20%@", [textField.text substringFromIndex:3]];
 				return NO;
 			}
+            if(new.length==5)
+            {
+                strMonth = [new substringToIndex:2];
+                strYear = [[NSString alloc] initWithFormat:@"20%@", [new substringFromIndex:3]];
+            }
+            
+            if (textField.text.length < 1 && [new integerValue] > 1) {
+                NSString *new2 = [[NSString alloc] initWithFormat:@"%02ld/", (long)[new integerValue]];
+                textField.text = new2;
+                [new2 release];
+                return NO;
+            } else if(textField.text.length==1)
+            {
+                if ([new integerValue] > 12) {
+                    return NO;
+                }
+                NSString *new2 = [[NSString alloc] initWithFormat:@"%02ld/", (long)[new integerValue]];
+                textField.text = new2;
+                [new2 release];
+                return NO;
+            }
 		}
-	} else if( textField == txtDateMonth ) {
-		if( ![string isEqualToString:@""] ) {
-			NSString *new = [textField.text stringByReplacingCharactersInRange:range withString:string];
-			if( textField.text.length > 1 || [new integerValue] > 12 ) {
-				return NO;
-			}
-		}
+
 	}
 	return YES;
 }
@@ -902,10 +924,40 @@
 - (void)resignOnTap:(id)iSender {
     [self.currentResponder resignFirstResponder];
     [self.mainContainer setContentOffset:CGPointMake(0, 0)];
+    [self.view endEditing:YES];
 }
 
 - (void)viewDidUnload {
     [self setMainContainer:nil];
     [super viewDidUnload];
+}
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+    if(![tvNotes hasText]) {
+        [tvNotes addSubview:placeholderLabel];
+        [UIView animateWithDuration:0.15 animations:^{
+            placeholderLabel.alpha = 1.0;
+        }];
+    } else if ([[tvNotes subviews] containsObject:placeholderLabel]) {
+        
+        [UIView animateWithDuration:0.15 animations:^{
+            placeholderLabel.alpha = 0.0;
+        } completion:^(BOOL finished) {
+            [placeholderLabel removeFromSuperview];
+        }];
+    }
+    //return YES;
+}
+
+
+- (void)textViewDidEndEditing:(UITextView *)theTextView
+{
+    if (![tvNotes hasText]) {
+        [tvNotes addSubview:placeholderLabel];
+        [UIView animateWithDuration:0.15 animations:^{
+            placeholderLabel.alpha = 1.0;
+        }];
+    }
 }
 @end

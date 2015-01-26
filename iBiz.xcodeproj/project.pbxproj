@@ -248,6 +248,7 @@
 		B25754EF19371B20004D9350 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = B25754BA19371B20004D9350 /* SVProgressHUD.m */; };
 		B25754F019371B20004D9350 /* ValidationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B25754BD19371B20004D9350 /* ValidationModel.m */; };
 		B25754F119371B20004D9350 /* ValidationUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B25754BF19371B20004D9350 /* ValidationUtility.m */; };
+		B272E5161A75DC8F00069877 /* imgswipecardatanytime.png in Resources */ = {isa = PBXBuildFile; fileRef = B272E5151A75DC8F00069877 /* imgswipecardatanytime.png */; };
 		B27759C51A4B525E0015F6F6 /* ClientNotesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B27759C41A4B525E0015F6F6 /* ClientNotesView.xib */; };
 		B27759C61A4B56090015F6F6 /* ClientNotesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B27759C41A4B525E0015F6F6 /* ClientNotesView.xib */; };
 		B27759C81A4C5B0E0015F6F6 /* btn_blue_clicked.png in Resources */ = {isa = PBXBuildFile; fileRef = B27759C71A4C5B0E0015F6F6 /* btn_blue_clicked.png */; };
@@ -5148,6 +5149,7 @@
 		B25754BD19371B20004D9350 /* ValidationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValidationModel.m; sourceTree = "<group>"; };
 		B25754BE19371B20004D9350 /* ValidationUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValidationUtility.h; sourceTree = "<group>"; };
 		B25754BF19371B20004D9350 /* ValidationUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValidationUtility.m; sourceTree = "<group>"; };
+		B272E5151A75DC8F00069877 /* imgswipecardatanytime.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = imgswipecardatanytime.png; path = Images/imgswipecardatanytime.png; sourceTree = "<group>"; };
 		B27759C41A4B525E0015F6F6 /* ClientNotesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ClientNotesView.xib; path = NIBS/ClientNotesView.xib; sourceTree = "<group>"; };
 		B27759C71A4C5B0E0015F6F6 /* btn_blue_clicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btn_blue_clicked.png; path = ../Classes/signupFlow/images/btn_blue_clicked.png; sourceTree = "<group>"; };
 		B2A1A8251A48BF18009589E0 /* NewBusinessInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewBusinessInfoViewController.m; sourceTree = "<group>"; };
@@ -6149,6 +6151,7 @@
 		29B97314FDCFA39411CA2CEA /* PSA */ = {
 			isa = PBXGroup;
 			children = (
+				B272E5151A75DC8F00069877 /* imgswipecardatanytime.png */,
 				B2B772E41A75D08B00525D60 /* btnchargenew.png */,
 				B2B772E51A75D08B00525D60 /* btnscannew.png */,
 				B2AEE7EB1A714A9F0076804A /* Selected.png */,
@@ -9346,6 +9349,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B272E5161A75DC8F00069877 /* imgswipecardatanytime.png in Resources */,
 				B2B772E61A75D08B00525D60 /* btnchargenew.png in Resources */,
 				B2B772E71A75D08B00525D60 /* btnscannew.png in Resources */,
 				B2AEE7EC1A714A9F0076804A /* Selected.png in Resources */,

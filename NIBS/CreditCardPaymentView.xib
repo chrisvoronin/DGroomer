@@ -10,9 +10,11 @@
                 <outlet property="activityView" destination="95" id="96"/>
                 <outlet property="btnCharge" destination="43" id="58"/>
                 <outlet property="mainContainer" destination="fdS-4v-4NM" id="BF8-B0-gqE"/>
+                <outlet property="tvNotes" destination="EVh-ei-fY7" id="JgT-R4-Gfh"/>
                 <outlet property="txtAmount" destination="37" id="47"/>
                 <outlet property="txtCVV" destination="42" id="51"/>
                 <outlet property="txtCardNumber" destination="39" id="49"/>
+                <outlet property="txtExpDate" destination="bt2-XU-RA8" id="s2Z-na-ts2"/>
                 <outlet property="txtTip" destination="38" id="53"/>
                 <outlet property="view" destination="1" id="62"/>
             </connections>
@@ -23,7 +25,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="fdS-4v-4NM">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="558"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Amount" textAlignment="right" clearsOnBeginEditing="YES" minimumFontSize="16" id="37">
@@ -98,14 +100,25 @@
                             <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Exp. Date" minimumFontSize="17" id="bt2-XU-RA8" userLabel="Exp. Date">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Exp. Date" clearsOnBeginEditing="YES" adjustsFontSizeToFit="NO" minimumFontSize="17" id="bt2-XU-RA8" userLabel="Exp. Date">
                             <rect key="frame" x="177" y="162" width="123" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.88527856689999995" green="0.88527856689999995" blue="0.88527856689999995" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="w9i-Ih-XTT"/>
+                            </connections>
                         </textField>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="EVh-ei-fY7">
+                            <rect key="frame" x="20" y="220" width="280" height="128"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.88527856689999995" green="0.88527856689999995" blue="0.88527856689999995" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="CVV" clearsOnBeginEditing="YES" adjustsFontSizeToFit="NO" minimumFontSize="8" id="42">
                             <rect key="frame" x="20" y="162" width="140" height="31"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -117,17 +130,13 @@
                                 <outlet property="delegate" destination="-1" id="50"/>
                             </connections>
                         </textField>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="EVh-ei-fY7">
-                            <rect key="frame" x="20" y="217" width="280" height="128"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.88527856689999995" green="0.88527856689999995" blue="0.88527856689999995" alpha="1" colorSpace="calibratedRGB"/>
-                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                        </textView>
                     </subviews>
                     <color key="backgroundColor" red="0.9610396511" green="0.95982027179999996" blue="0.98111979169999997" alpha="1" colorSpace="calibratedRGB"/>
                 </scrollView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgswipecardatanytime.png" id="daS-Hb-4br">
+                    <rect key="frame" x="0.0" y="522" width="320" height="46"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" red="0.9610396511" green="0.95982027179999996" blue="0.98111979169999997" alpha="1" colorSpace="calibratedRGB"/>
         </view>
@@ -135,6 +144,7 @@
     <resources>
         <image name="btnchargenew.png" width="580" height="90"/>
         <image name="btnscannew.png" width="580" height="90"/>
+        <image name="imgswipecardatanytime.png" width="640" height="90"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

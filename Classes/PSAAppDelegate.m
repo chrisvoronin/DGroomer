@@ -421,8 +421,8 @@
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    //[FBSettings setDefaultAppID:FACEBookAppID];
-    //[FBAppEvents activateApp];
+    [FBSettings setDefaultAppID:@"421132574681288"];
+    [FBAppEvents activateApp];
 
 }
 
