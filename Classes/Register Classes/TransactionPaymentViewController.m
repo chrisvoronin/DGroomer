@@ -381,7 +381,7 @@
 						[formatter2 release];
 					}
 					[self.navigationController pushViewController:cont animated:YES];
-					[cont.view setBackgroundColor:tblPayment.backgroundColor];
+					//[cont.view setBackgroundColor:tblPayment.backgroundColor];
 					if( amountOwed ) {
 						double amt = [amountOwed doubleValue];
 						if( amt < 0.0 || amt == -0.0 ) {

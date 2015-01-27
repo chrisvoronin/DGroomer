@@ -17,7 +17,8 @@
 
 @interface TransactionMoneyEntryViewController : PSABaseViewController {
 	id				delegate;
-	UILabel			*lbBalance;
+
+    IBOutlet UILabel *lbBalance;
 	NSString		*value;
 	UITextField		*txtAmount;
 }

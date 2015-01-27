@@ -10,7 +10,8 @@
 #import "PSAConfirmationViewController.h"
 #import "ConfigurationUtility.h"
 #import "DataRegister.h"
-
+#import "Company.h"
+#import "PSADataManager.h"
 
 @interface PSAVerifyViewController ()
 
@@ -116,6 +117,12 @@
             [[DataRegister instance] getBussinessItem].businessName = self.txtBusinessName;
             [[DataRegister instance] getBussinessItem].email = self.txtEmail;
             [[DataRegister instance] getBussinessItem].phone = self.txtPhone;
+            
+            Company	*company = [[PSADataManager sharedInstance] getCompany];
+            company.companyName = self.txtBusinessName;
+            company.companyEmail = self.txtEmail;
+            company.companyPhone = self.txtPhone;
+            [[PSADataManager sharedInstance] updateCompany:company];
         }
         else{
             /*UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@""

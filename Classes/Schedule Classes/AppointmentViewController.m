@@ -203,6 +203,8 @@
 	if( [MFMailComposeViewController canSendMail] ) {
 		MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
 		//picker.navigationBar.tintColor = [UIColor blackColor];
+        //
+        [[picker navigationBar] setTitleTextAttributes:[NSDictionary dictionaryWithObject:self.navigationController.view.tintColor forKey:NSForegroundColorAttributeName]];
 		picker.mailComposeDelegate = self;
 		
 		Email *email = [[PSADataManager sharedInstance] getAppointmentReminderEmail];

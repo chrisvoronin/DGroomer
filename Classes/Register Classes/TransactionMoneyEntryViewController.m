@@ -20,6 +20,9 @@
 	[self.view setBackgroundColor:bgColor];
 	[bgColor release];*/
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: self.navigationController.view.tintColor};
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Back";
+    self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
 	// Done Button
 	UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];
 	self.navigationItem.rightBarButtonItem = btnDone;
@@ -54,6 +57,7 @@
 	self.lbBalance = nil;
 	self.txtAmount = nil;
 	[value release];
+    [lbBalance release];
     [super dealloc];
 }
 

@@ -20,8 +20,8 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <QuartzCore/QuartzCore.h>
 #import "FirstViewController.h"
-#import <FacebookSDK/FacebookSDK.h>
-
+#import "FacebookSDK/FacebookSDK.h"
+#import "DataRegister.h"
 
 @implementation PSAAppDelegate
 
@@ -408,6 +408,8 @@
     
     //[window addSubview:navigationController.view];
 	[window makeKeyAndVisible];
+    
+    
 }
 
 /*
