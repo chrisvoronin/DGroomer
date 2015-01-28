@@ -141,9 +141,9 @@
 */
 
 - (IBAction)txtchanged:(id)sender {
-    if (self.txtPhone.text.length == 11) {
-        NSString *str = self.txtPhone.text;
-        self.txtPhone.text = [str substringToIndex:10];
+    if (self.txtPhone.text.length == 10) {
+        //NSString *str = self.txtPhone.text;
+        //self.txtPhone.text = [str substringToIndex:10];
         [self.txtPhone resignFirstResponder];
     }
 }

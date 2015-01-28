@@ -37,7 +37,16 @@
 	company = [[PSADataManager sharedInstance] getCompany];
 	//
 	//commissionRate.frame = CGRectMake( commissionRate.frame.origin.x, commissionRate.frame.origin.y, commissionRate.frame.size.width, 50);
-	saleTaxPercent.frame = CGRectMake( saleTaxPercent.frame.origin.x, saleTaxPercent.frame.origin.y, saleTaxPercent.frame.size.width, 50);
+  
+    UILabel *lbCurrency = [[UILabel alloc] initWithFrame:CGRectMake( 0, 2, 40, 55)];
+    lbCurrency.font = saleTaxPercent.font;
+    lbCurrency.text = @"%";
+ 
+    saleTaxPercent.rightView = lbCurrency;
+    saleTaxPercent.rightViewMode = UITextFieldViewModeAlways;
+    [lbCurrency release];
+    // Resize
+    saleTaxPercent.frame = CGRectMake( saleTaxPercent.frame.origin.x, saleTaxPercent.frame.origin.y, saleTaxPercent.frame.size.width, 60);
 	//
 	[super viewDidLoad];
 }

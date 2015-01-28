@@ -19,12 +19,14 @@
 	id				delegate;
 
     IBOutlet UILabel *lbBalance;
+    NSString		*owedValue;
 	NSString		*value;
 	UITextField		*txtAmount;
 }
 
 @property (nonatomic, assign) id <PSATransactionMoneyEntryDelegate> delegate;
 @property (nonatomic, retain) IBOutlet UILabel		*lbBalance;
+@property (nonatomic, retain) NSString				*owedValue;
 @property (nonatomic, retain) NSString				*value;
 @property (nonatomic, retain) IBOutlet UITextField	*txtAmount;
 

@@ -30,6 +30,7 @@
     IBOutlet UIButton *btnHelpMerchant;
     IBOutlet UIButton *btnEditGateway;
     IBOutlet UIButton *btnSignup;
+    IBOutlet UIButton *btnHelpGateway;
 }
 
 @property (nonatomic, retain) IBOutlet UISegmentedControl	*segProcessingType;

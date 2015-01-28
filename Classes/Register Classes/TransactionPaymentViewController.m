@@ -382,17 +382,20 @@
 					}
 					[self.navigationController pushViewController:cont animated:YES];
 					//[cont.view setBackgroundColor:tblPayment.backgroundColor];
+                    NSString *bal = nil;
 					if( amountOwed ) {
 						double amt = [amountOwed doubleValue];
 						if( amt < 0.0 || amt == -0.0 ) {
 							amt = 0.0;
 						}
-						NSString *bal = [[NSString alloc] initWithFormat:@"Owed: %@", [formatter stringFromNumber:[NSNumber numberWithFloat:amt]]];
+						bal = [[NSString alloc] initWithFormat:@"Owed: %@", [formatter stringFromNumber:[NSNumber numberWithFloat:amt]]];
 						cont.lbBalance.text = bal;
-						[bal release];
+						//[bal release];
 					} else {
 						cont.lbBalance.text = @"Owed: Unknown";
+                        bal = @"Owed: Unknown";
 					}
+                    cont.owedValue = bal;
 					[cont release];
 				}
 				break;

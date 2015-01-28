@@ -16,53 +16,69 @@
 
 - (void) viewDidLoad {
 	self.title = @"COLOR";
-	// Set the background color to a nice blue image
-	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundPurple.png"];
-	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
-	[self.view setBackgroundColor:bgColor];
-	[bgColor release];*/
 	// Done Button
 	UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];
 	self.navigationItem.rightBarButtonItem = btnDone;
 	[btnDone release];
 	// Colors
 	colors = [[NSArray alloc] initWithObjects:
-												[UIColor colorWithRed:1 green:.8 blue:.4 alpha:.7],	// Canteloupe
-												[UIColor colorWithRed:1 green:.5 blue:0 alpha:.7],	// Orange
-												[UIColor colorWithRed:.6 green:.4 blue:.2 alpha:.7],	// Brown
+												[UIColor colorWithRed:.6 green:.6 blue:.6 alpha:1],
+												[UIColor colorWithRed:1 green:.8 blue:.2 alpha:1],
+												[UIColor colorWithRed:1 green:.6 blue:0 alpha:1],
 			  
-												[UIColor colorWithRed:1 green:.67 blue:.81 alpha:.7],	// Pink
-												[UIColor colorWithRed:1 green:.44 blue:.81 alpha:.7],	// Carnation
-												[UIColor colorWithRed:1 green:0 blue:1 alpha:.7],		// Magenta
-												[UIColor colorWithRed:1 green:0 blue:0 alpha:.7],		// Red
-												[UIColor colorWithRed:.78 green:.64 blue:.78 alpha:.7],	// Lilac
-												[UIColor colorWithRed:.5 green:0 blue:.5 alpha:.7],		// Purple
+												[UIColor colorWithRed:1 green:.33 blue:.12 alpha:1],
+												[UIColor colorWithRed:.89 green:0 blue:.11 alpha:1],
+												[UIColor colorWithRed:.84 green:.18 blue:.39 alpha:1],
+												[UIColor colorWithRed:.39 green:.18 blue:.44 alpha:1],
+												[UIColor colorWithRed:.29 green:.15 blue:.58 alpha:1],
+												[UIColor colorWithRed:.15 green:.27 blue:.69 alpha:1],
 			  
-												[UIColor colorWithRed:.4 green:.8 blue:1 alpha:.7],	// Sky
-												[UIColor colorWithRed:0 green:1 blue:1 alpha:.7],	// Cyan
-												[UIColor colorWithRed:0 green:0 blue:1 alpha:.7],	// Blue
-												[UIColor colorWithRed:0 green:.25 blue:.5 alpha:.7],	// Ocean
-												[UIColor colorWithRed:0 green:0 blue:.5 alpha:.7],	// Midnight
-												
-												[UIColor colorWithRed:.8 green:1 blue:.4 alpha:.7],	// Honeydew
-												[UIColor colorWithRed:.5 green:1 blue:0 alpha:.7],	// Lime
-												[UIColor colorWithRed:0 green:1 blue:0 alpha:.7],	// Green
-												[UIColor colorWithRed:0 green:.5 blue:0 alpha:.7],	// Clover
-			  
-												[UIColor colorWithRed:1 green:1 blue:.4 alpha:.7],	// Banana
-												[UIColor colorWithRed:1 green:1 blue:0 alpha:.7],	// Yellow
-												[UIColor colorWithRed:.5 green:.5 blue:0 alpha:.7],	// Asparagus
-												
-												[UIColor colorWithRed:.9 green:.9 blue:.9 alpha:.7],	// Mercury
-												[UIColor colorWithRed:.8 green:.8 blue:.8 alpha:.7],	// Silver
-												[UIColor colorWithRed:.6 green:.6 blue:.6 alpha:.7],	// Aluminum
-												[UIColor colorWithRed:.5 green:.5 blue:.5 alpha:.7],	// Nickel
-												[UIColor colorWithRed:0 green:0 blue:0 alpha:.7], nil];
+												[UIColor colorWithRed:.15 green:.63 blue:.8 alpha:1],
+												[UIColor colorWithRed:.13 green:.76 blue:.51 alpha:1],
+												[UIColor colorWithRed:.09 green:.61 blue:.2 alpha:1],
+												[UIColor colorWithRed:.36 green:.74 blue:.32 alpha:1],
+												[UIColor colorWithRed:.84 green:.9 blue:.18 alpha:1],
+                                                [UIColor colorWithRed:.85 green:.85 blue:.85 alpha:1], nil];
 	//
+    
+
     [super viewDidLoad];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
+    for(UIView * subView in self.m_buttonContainer.subviews)
+    {
+        if([subView isKindOfClass:[UIButton class]])
+        {
+            ((UIButton*)subView).backgroundColor = colors[((UIButton*)subView).tag];
+        }
+    }
+    
+    for(UIView * subView in self.m_buttonContainer.subviews)
+    {
+        if([subView isKindOfClass:[UIButton class]])
+        {
+            const CGFloat *clr0 = CGColorGetComponents(((UIButton*)subView).backgroundColor.CGColor);
+            
+            const CGFloat *clr1 = CGColorGetComponents(service.color.CGColor);
+           
+            CGFloat distance = sqrtf(powf((clr0[0] - clr1[0]), 2) + powf((clr0[1] - clr1[1]), 2) + powf((clr0[2] - clr1[2]), 2) );
+            if(distance<=0.001){
+                UIButton * selectButton = [[UIButton alloc]initWithFrame:CGRectMake(70, 70, 20, 20)];
+                [selectButton setBackgroundImage:[UIImage imageNamed:@"chkbox_checked.png"] forState:UIControlStateNormal];
+                [((UIButton*)subView) addSubview:selectButton];
+                
+                self.m_colorSelected = [[NSString alloc] initWithFormat:@"%f::%f::%f", clr1[0], clr1[1], clr1[2]];
+            }
+            /*//if([((UIButton*)subView).backgroundColor isEqual:service.color])
+            if(CGColorEqualToColor(((UIButton*)subView).backgroundColor.CGColor, service.color.CGColor))
+            {
+                UIButton * selectButton = [[UIButton alloc]initWithFrame:CGRectMake(70, 70, 20, 20)];
+                [selectButton setBackgroundImage:[UIImage imageNamed:@"chkbox_checked.png"] forState:UIControlStateNormal];
+                [((UIButton*)subView) addSubview:selectButton];
+            }*/
+        }
+    }
 
 }
 
@@ -76,8 +92,6 @@
     UIColor *selectedColor = ((UIButton*)sender).backgroundColor;
     const CGFloat *c = CGColorGetComponents(selectedColor.CGColor);
     self.m_colorSelected = [[NSString alloc] initWithFormat:@"%f::%f::%f", c[0], c[1], c[2]];
-    
-    //self.m_colorSelected = tag;
     
     UIButton * selectButton = [[UIButton alloc]initWithFrame:CGRectMake(70, 70, 20, 20)];
     [selectButton setBackgroundImage:[UIImage imageNamed:@"chkbox_checked.png"] forState:UIControlStateNormal];

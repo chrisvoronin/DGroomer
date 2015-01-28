@@ -1452,7 +1452,23 @@
 				cont.value = [formatter2 stringFromNumber:transaction.tip];
 				[formatter2 release];
 				[self.navigationController pushViewController:cont animated:YES];
-				cont.lbBalance.hidden = YES;
+				cont.lbBalance.hidden = NO;
+                NSNumber *owed = [[NSNumber alloc] initWithDouble:([[transaction getTotal] doubleValue])];
+                NSString *bal = nil;
+                if( owed ) {
+                    double amt = [owed doubleValue];
+                    if( amt < 0.0 || amt == -0.0 ) {
+                        amt = 0.0;
+                    }
+                    bal = [[NSString alloc] initWithFormat:@"Owed: %@", [formatter stringFromNumber:[NSNumber numberWithFloat:amt]]];
+                    cont.lbBalance.text = bal;
+                    //[bal release];
+                } else {
+                    cont.lbBalance.text = @"Owed: Unknown";
+                    bal = @"Owed: Unknown";
+                }
+                cont.owedValue = [[NSString alloc] initWithFormat:@"%@", bal];
+                
 				[cont release];
 				break;
 			}
@@ -1507,7 +1523,7 @@
 					if( transaction.client ) {
 						// Add Payment
 						TransactionPaymentViewController *cont = [[TransactionPaymentViewController alloc] initWithNibName:@"TransactionPaymentView" bundle:nil];
-						NSNumber *owed = [[NSNumber alloc] initWithDouble:([[transaction getChangeDue] doubleValue]*-1)];
+						NSNumber *owed = [[NSNumber alloc] initWithDouble:([[transaction getTotal] doubleValue])];
 						cont.amountOwed = owed;
 						[owed release];
 						cont.delegate = self;

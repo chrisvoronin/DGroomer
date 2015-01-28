@@ -92,6 +92,7 @@
     [btnHelpMerchant release];
     [btnEditGateway release];
     [btnSignup release];
+    [btnHelpGateway release];
     [super dealloc];
 }
 
@@ -107,6 +108,7 @@
     swEmail.hidden = YES;
     txtAPILogin.hidden = YES;
     txtTransactionKey.hidden = YES;
+    btnHelpGateway.hidden = YES;
     
     btnEditGateway.hidden = NO;
     btnSignup.hidden = NO;
@@ -124,6 +126,7 @@
     swEmail.hidden = NO;
     txtAPILogin.hidden = NO;
     txtTransactionKey.hidden = NO;
+    btnHelpGateway.hidden = NO;
     
     btnEditGateway.hidden = YES;
     btnSignup.hidden = YES;

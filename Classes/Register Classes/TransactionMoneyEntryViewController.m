@@ -11,7 +11,7 @@
 
 @implementation TransactionMoneyEntryViewController
 
-@synthesize delegate, lbBalance, value, txtAmount;
+@synthesize delegate, lbBalance, value, txtAmount, owedValue;
 
 - (void)viewDidLoad {
 	// Background
@@ -46,6 +46,8 @@
 	if( value ) {
 		txtAmount.text = value;
 	}
+    
+    lbBalance.text = owedValue;
 }
 
 - (void)didReceiveMemoryWarning {

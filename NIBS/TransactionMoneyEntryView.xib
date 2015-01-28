@@ -44,7 +44,7 @@
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<string key="IBUIText"/>
 						<int key="IBUIBorderStyle">3</int>
-						<object class="NSColor" key="IBUITextColor" id="694613619">
+						<object class="NSColor" key="IBUITextColor" id="320176688">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC4zMzMzMzMzMzMzAA</bytes>
 						</object>
@@ -69,7 +69,7 @@
 							<int key="NSfFlags">16</int>
 						</object>
 					</object>
-					<object class="IBUILabel" id="685263305">
+					<object class="IBUILabel" id="43602222">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{69, 36}, {182, 27}}</string>
@@ -81,7 +81,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText"/>
-						<reference key="IBUITextColor" ref="694613619"/>
+						<reference key="IBUITextColor" ref="320176688"/>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">0</int>
 						<int key="IBUITextAlignment">1</int>
@@ -99,7 +99,7 @@
 					</object>
 				</array>
 				<string key="NSFrame">{{0, 20}, {320, 548}}</string>
-				<reference key="NSNextKeyView" ref="685263305"/>
+				<reference key="NSNextKeyView" ref="43602222"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">1</int>
 					<bytes key="NSRGB">MC45NjEwMzk2NTExIDAuOTU5ODIwMjcxOCAwLjk4MTExOTc5MTcAA</bytes>
@@ -147,7 +147,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">lbBalance</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="685263305"/>
+						<reference key="destination" ref="43602222"/>
 					</object>
 					<int key="connectionID">11</int>
 				</object>
@@ -165,7 +165,7 @@
 						<reference key="object" ref="191373211"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="1025515004"/>
-							<reference ref="685263305"/>
+							<reference ref="43602222"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -187,7 +187,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">9</int>
-						<reference key="object" ref="685263305"/>
+						<reference key="object" ref="43602222"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 				</array>

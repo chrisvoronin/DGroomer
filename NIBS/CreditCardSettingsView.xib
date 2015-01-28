@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="btnEditGateway" destination="UR0-gh-gai" id="ePo-vD-wJZ"/>
                 <outlet property="btnHelpAPILogin" destination="11" id="Bqg-sj-es6"/>
+                <outlet property="btnHelpGateway" destination="R6O-Lq-p1R" id="CiC-JO-NqQ"/>
                 <outlet property="btnHelpMerchant" destination="21" id="Mfg-bK-Yk1"/>
                 <outlet property="btnHelpTransactionKey" destination="12" id="KiL-5i-CZI"/>
                 <outlet property="btnSignup" destination="20" id="a1B-vd-Ffz"/>

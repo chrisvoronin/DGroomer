@@ -126,6 +126,7 @@
 - (void)resignOnTap:(UITapGestureRecognizer*)recog
 {
     [self.currentResponder resignFirstResponder];
+    [myScrollView setContentOffset:CGPointMake(0, -65)];
 }
 
 - (void) textFieldDidBeginEditing:(UITextField *)textField {
@@ -138,7 +139,7 @@
     
     CGRect textFieldRect = textField.frame;
     CGRect convertRect = [self.view convertRect:textFieldRect fromView:myScrollView];
-    int delta = myScrollView.frame.size.height - convertRect.origin.y - convertRect.size.height - 230;
+    int delta = myScrollView.frame.size.height - convertRect.origin.y - convertRect.size.height - 320;
     if(delta < 0){
         [myScrollView setContentOffset:CGPointMake(0, myScrollView.contentOffset.y-delta)];
     }
