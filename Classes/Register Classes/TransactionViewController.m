@@ -1035,6 +1035,20 @@
 	return 1;
 }
 
+- (CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section == 2) {
+        return 10.0;
+    }
+    
+    return 30.0;
+}
+
+- (CGFloat)tableView:(UITableView*)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 5.0;
+}
+
 /*
  *	Creates or reuses a cell, sets it's values, and returns for display
  */
@@ -1064,6 +1078,8 @@
 			cell = voidCell;
 			self.voidCell = nil;
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.backgroundView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+            
 		} else if( indexPath.section == 1 || indexPath.section == 3 ) {
 			if( tblTransaction.editing ) {
 				[[NSBundle mainBundle] loadNibNamed:identifier owner:self options:nil];
@@ -1085,6 +1101,11 @@
 				self.cellPayment = nil;
 			}
 		} else {
+            if(indexPath.section==8)
+            {
+                cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier] autorelease];
+                cell.selectionStyle = UITableViewCellSelectionStyleGray;
+            } else {
 			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier] autorelease];
 			
 			cell.selectionStyle = UITableViewCellSelectionStyleGray;
@@ -1099,6 +1120,7 @@
 			
 			cell.textLabel.textAlignment = NSTextAlignmentLeft;
 			cell.detailTextLabel.textAlignment = NSTextAlignmentRight;
+            }
 		}
     }
 	
@@ -1612,6 +1634,16 @@
 		}
 	}
 	
+}
+
+- (UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section
+{
+    return [[UIView alloc] initWithFrame:CGRectZero];
+}
+
+- (UIView*)tableView:(UITableView*)tableView viewForFooterInSection:(NSInteger)section
+{
+    return [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 - (void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {

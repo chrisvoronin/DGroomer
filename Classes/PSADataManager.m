@@ -2418,6 +2418,18 @@ static PSADataManager *mySharedDelegate = nil;
  *
  */
 - (void) saveAppointmentThreaded:(Appointment*)theAppointment updateStanding:(BOOL)updateStanding ignoreConflicts:(BOOL)ignoreConflicts {
+    //Create reminders.
+    UIUserNotificationType types = UIUserNotificationTypeSound | UIUserNotificationTypeBadge | UIUserNotificationTypeAlert;
+    UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
+    
+    
+    UILocalNotification * theNotification = [[UILocalNotification alloc] init];
+    theNotification.alertBody = theAppointment.description;
+    theNotification.alertAction = @"Ok";
+    theNotification.fireDate = [theAppointment.dateTime dateByAddingTimeInterval:-3600];
+    theNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
+    [[UIApplication sharedApplication] scheduleLocalNotification:theNotification];
 	// Create invocation for the threaded method
 	NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[self methodSignatureForSelector:@selector(_saveAppointment:updateStanding:ignoreConflicts:)]];
 	[invocation setTarget:self];

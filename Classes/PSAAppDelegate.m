@@ -410,8 +410,41 @@
 	[window makeKeyAndVisible];
     
     
+    
+    /**/
 }
 
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    
+    UIApplicationState state = [application applicationState];
+    if (state == UIApplicationStateActive) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Reminder"
+                                                        message:notification.alertBody
+                                                       delegate:self cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
+    
+    // Set icon badge number to zero
+    application.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] - 1;
+}
+
+/*- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+    NSDate *alertTime = [NSDate dateWithTimeIntervalSinceNow:5];
+    UIApplication* app = [UIApplication sharedApplication];
+    UILocalNotification* notifyAlarm = [[UILocalNotification alloc]
+                                        init];
+    if (notifyAlarm)
+    {
+        notifyAlarm.fireDate = alertTime;
+        notifyAlarm.timeZone = [NSTimeZone defaultTimeZone];
+        notifyAlarm.repeatInterval = 0;
+        notifyAlarm.soundName = @"bell_tree.mp3";
+        notifyAlarm.alertBody = @"Staff meeting in 30 minutes";
+        [app scheduleLocalNotification:notifyAlarm];
+    }
+}*/
 /*
  *	applicationWillTerminate:
  *	Called before the app closes

@@ -264,6 +264,7 @@
 		B2A1A83D1A4A8CBC009589E0 /* DLRadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A1A82F1A4A8518009589E0 /* DLRadioButton.m */; };
 		B2AEE7EC1A714A9F0076804A /* Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = B2AEE7EB1A714A9F0076804A /* Selected.png */; };
 		B2B3CD3D1A6BE55E00582CD2 /* termsconditions.png in Resources */ = {isa = PBXBuildFile; fileRef = B2B3CD3C1A6BE55E00582CD2 /* termsconditions.png */; };
+		B2B4EE761A828D8900B45D3F /* Void_Normal.png in Resources */ = {isa = PBXBuildFile; fileRef = B2B4EE751A828D8900B45D3F /* Void_Normal.png */; };
 		B2B771041A75C74300525D60 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2B771031A75C74300525D60 /* FacebookSDK.framework */; };
 		B2B772211A75C76C00525D60 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2B771061A75C76B00525D60 /* Bolts.framework */; };
 		B2B772221A75C76C00525D60 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2B771071A75C76B00525D60 /* FacebookSDK.framework */; };
@@ -5163,6 +5164,7 @@
 		B2A1A8371A4A8B3D009589E0 /* RadioButtonSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RadioButtonSelected.png; sourceTree = "<group>"; };
 		B2AEE7EB1A714A9F0076804A /* Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Selected.png; path = Images/Selected.png; sourceTree = "<group>"; };
 		B2B3CD3C1A6BE55E00582CD2 /* termsconditions.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = termsconditions.png; path = Images/newskin/act/termsconditions.png; sourceTree = "<group>"; };
+		B2B4EE751A828D8900B45D3F /* Void_Normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Void_Normal.png; path = Images/newskin/Void_Normal.png; sourceTree = "<group>"; };
 		B2B771031A75C74300525D60 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = Classes/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		B2B771061A75C76B00525D60 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		B2B771071A75C76B00525D60 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
@@ -6151,6 +6153,7 @@
 		29B97314FDCFA39411CA2CEA /* PSA */ = {
 			isa = PBXGroup;
 			children = (
+				B2B4EE751A828D8900B45D3F /* Void_Normal.png */,
 				B272E5151A75DC8F00069877 /* imgswipecardatanytime.png */,
 				B2B772E41A75D08B00525D60 /* btnchargenew.png */,
 				B2B772E51A75D08B00525D60 /* btnscannew.png */,
@@ -9349,6 +9352,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2B4EE761A828D8900B45D3F /* Void_Normal.png in Resources */,
 				B272E5161A75DC8F00069877 /* imgswipecardatanytime.png in Resources */,
 				B2B772E61A75D08B00525D60 /* btnchargenew.png in Resources */,
 				B2B772E71A75D08B00525D60 /* btnscannew.png in Resources */,
