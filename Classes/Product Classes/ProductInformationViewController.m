@@ -14,7 +14,7 @@
 #import "PSADataManager.h"
 #import "Vendor.h"
 #import "ProductInformationViewController.h"
-
+#import "ProductStockTableViewCell.h"
 
 @implementation ProductInformationViewController
 
@@ -22,7 +22,8 @@
 
 
 - (void)viewDidLoad {
-	self.title = @"ADD PRODUCT";
+    if(self.title.length<1)
+        self.title = @"ADD PRODUCT";
 	// Set the background color to a nice blue image
 	/*UIImage *bg = [UIImage imageNamed:@"pinstripeBackgroundRed.png"];
 	UIColor *bgColor = [[UIColor alloc] initWithPatternImage:bg];
@@ -33,6 +34,11 @@
 	UIBarButtonItem *btnSave = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save)];
 	self.navigationItem.rightBarButtonItem = btnSave;
 	[btnSave release];
+    
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Back";
+    self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
+
 	//
 	formatter = [[NSNumberFormatter alloc] init];
 	[formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
@@ -40,6 +46,9 @@
 	[super viewDidLoad];
 }
 
+- (void) setTitleName:(NSString*)strName{
+    self.title = strName;
+}
 - (void)viewWillAppear:(BOOL)animated {
 	if( product == nil )	product = [[Product alloc] init];
 	[myTableView reloadData];
@@ -185,19 +194,19 @@
 				case 0:
 					cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 					cell.textLabel.text = @"In Stock";
-					NSString *stock = [[NSString alloc] initWithFormat:@"%d", product.productInStock];
+					NSString *stock = [[NSString alloc] initWithFormat:@"%ld", (long)product.productInStock];
 					cell.detailTextLabel.text = stock;
 					[stock release];
 					break;
 				case 1:
 					cell.textLabel.text = @"Min. Inventory";
-					NSString *min = [[NSString alloc] initWithFormat:@"%d", product.productMin];
+					NSString *min = [[NSString alloc] initWithFormat:@"%ld", (long)product.productMin];
 					cell.detailTextLabel.text = min;
 					[min release];
 					break;
 				case 2:
 					cell.textLabel.text = @"Max. Inventory";
-					NSString *max = [[NSString alloc] initWithFormat:@"%d", product.productMax];
+					NSString *max = [[NSString alloc] initWithFormat:@"%ld", (long)product.productMax];
 					cell.detailTextLabel.text = max;
 					[max release];
 					break;
@@ -253,17 +262,49 @@
 				[self.navigationController pushViewController:amt animated:YES];
 				[amt release];
 				break;
-			}
+            } else {
+                ProductInventoryViewController *cont = [[ProductInventoryViewController alloc] initWithNibName:@"ProductInventoryView" bundle:nil];
+                cont.product = product;
+                [self.navigationController pushViewController:cont animated:YES];
+                [cont release];
+            }
 		}
 	}	
 }
 
+/*- (UIView *)createAccessoryView {
+    
+    UIView *accessoryView = [[UIView alloc] initWithFrame:CGRectZero];
+    UIButton *disclosureButton = [UIButton buttonWithType:UITableViewCellAccessoryDetailDisclosureButton];
+    
+    disclosureButton.tag = 100;
+    [disclosureButton addTarget:self action:@selector(pressedAccessory:) forControlEvents:UIControlEventTouchUpInside];
+    CGRect r = disclosureButton.frame;
+    r.origin.x -= 80;
+    disclosureButton.frame = r;
+    UIActivityIndicatorView *aiv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    aiv.tag = 101;
+    aiv.alpha = 0.0;
+    aiv.center = disclosureButton.center;
+    
+    accessoryView.bounds = disclosureButton.bounds;
+    [accessoryView addSubview:aiv];
+    [accessoryView addSubview:disclosureButton];
+    return accessoryView;
+}
+
+- (void)pressedAccessory:(UIButton *)sender {
+    
+    
+}*/
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-	ProductInventoryViewController *cont = [[ProductInventoryViewController alloc] initWithNibName:@"ProductInventoryView" bundle:nil];
-	cont.product = product;
-	[self.navigationController pushViewController:cont animated:YES];
-	[cont release];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
+                                                    message:@"This gives you the ability to add inventory, record it if you use it in the store or record it if you forgot to add it to a transaction."
+                                                   delegate:self
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
 }
 
 @end

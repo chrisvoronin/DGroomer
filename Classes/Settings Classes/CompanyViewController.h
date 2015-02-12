@@ -40,7 +40,7 @@
 @property (nonatomic, retain) UITextField *fax;
 @property (nonatomic, retain) UITextField *email;
 
-
+@property (nonatomic, assign) id currentResponder;
 - (void) save;
 
 @end

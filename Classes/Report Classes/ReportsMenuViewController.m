@@ -156,6 +156,13 @@
 			}
 		}
 		// Go!
+        theReport.dateEnd = [NSDate date];
+        NSDate *today = [NSDate date]; // Or however you get it.
+        unsigned unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay;
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDateComponents *comps = [calendar components:unitFlags fromDate:today];
+        comps.day   = 1;
+        theReport.dateStart = [calendar dateFromComponents:comps];
 		cont.report = theReport;
 		[theReport release];
 		[self.navigationController pushViewController:cont animated:YES];

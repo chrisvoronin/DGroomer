@@ -265,6 +265,12 @@
 		B2AEE7EC1A714A9F0076804A /* Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = B2AEE7EB1A714A9F0076804A /* Selected.png */; };
 		B2B3CD3D1A6BE55E00582CD2 /* termsconditions.png in Resources */ = {isa = PBXBuildFile; fileRef = B2B3CD3C1A6BE55E00582CD2 /* termsconditions.png */; };
 		B2B4EE761A828D8900B45D3F /* Void_Normal.png in Resources */ = {isa = PBXBuildFile; fileRef = B2B4EE751A828D8900B45D3F /* Void_Normal.png */; };
+		B2B654791A8CF78900A1AF2C /* ProductStockTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B654771A8CF78900A1AF2C /* ProductStockTableViewCell.m */; };
+		B2B6547A1A8CF78900A1AF2C /* ProductStockTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2B654781A8CF78900A1AF2C /* ProductStockTableViewCell.xib */; };
+		B2B654851A8CF96100A1AF2C /* TableCellInfoBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = B2B654841A8CF96100A1AF2C /* TableCellInfoBtn.png */; };
+		B2B654861A8D018A00A1AF2C /* ProductStockTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2B654781A8CF78900A1AF2C /* ProductStockTableViewCell.xib */; };
+		B2B654881A8D0E4700A1AF2C /* Void_2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B2B654871A8D0E4700A1AF2C /* Void_2x.png */; };
+		B2B654891A8D0E9600A1AF2C /* Void_2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B2B654871A8D0E4700A1AF2C /* Void_2x.png */; };
 		B2B771041A75C74300525D60 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2B771031A75C74300525D60 /* FacebookSDK.framework */; };
 		B2B772211A75C76C00525D60 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2B771061A75C76B00525D60 /* Bolts.framework */; };
 		B2B772221A75C76C00525D60 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2B771071A75C76B00525D60 /* FacebookSDK.framework */; };
@@ -5165,6 +5171,11 @@
 		B2AEE7EB1A714A9F0076804A /* Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Selected.png; path = Images/Selected.png; sourceTree = "<group>"; };
 		B2B3CD3C1A6BE55E00582CD2 /* termsconditions.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = termsconditions.png; path = Images/newskin/act/termsconditions.png; sourceTree = "<group>"; };
 		B2B4EE751A828D8900B45D3F /* Void_Normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Void_Normal.png; path = Images/newskin/Void_Normal.png; sourceTree = "<group>"; };
+		B2B654761A8CF78900A1AF2C /* ProductStockTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductStockTableViewCell.h; sourceTree = "<group>"; };
+		B2B654771A8CF78900A1AF2C /* ProductStockTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductStockTableViewCell.m; sourceTree = "<group>"; };
+		B2B654781A8CF78900A1AF2C /* ProductStockTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductStockTableViewCell.xib; sourceTree = "<group>"; };
+		B2B654841A8CF96100A1AF2C /* TableCellInfoBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TableCellInfoBtn.png; sourceTree = "<group>"; };
+		B2B654871A8D0E4700A1AF2C /* Void_2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Void_2x.png; path = newskin/act/Void_2x.png; sourceTree = "<group>"; };
 		B2B771031A75C74300525D60 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = Classes/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		B2B771061A75C76B00525D60 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		B2B771071A75C76B00525D60 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
@@ -6289,6 +6300,8 @@
 		93204F000F607EA900E3BD0D /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B2B654871A8D0E4700A1AF2C /* Void_2x.png */,
+				B2B654841A8CF96100A1AF2C /* TableCellInfoBtn.png */,
 				B206C1981A66E7E100AD7DAF /* imgfreecard1.png */,
 				B206C1961A65DB4D00AD7DAF /* btngetstarted.png */,
 				B206C1921A65DB0F00AD7DAF /* arrowconfirm.png */,
@@ -7738,6 +7751,9 @@
 				D98D547B10A200F900DE0797 /* ProductsTableView.xib */,
 				D98A21F910A33B8800D453B0 /* ProductTypeTextFieldView.xib */,
 				D98A210D10A3285C00D453B0 /* ProductTypeTableView.xib */,
+				B2B654761A8CF78900A1AF2C /* ProductStockTableViewCell.h */,
+				B2B654771A8CF78900A1AF2C /* ProductStockTableViewCell.m */,
+				B2B654781A8CF78900A1AF2C /* ProductStockTableViewCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -9352,6 +9368,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2B654891A8D0E9600A1AF2C /* Void_2x.png in Resources */,
+				B2B654861A8D018A00A1AF2C /* ProductStockTableViewCell.xib in Resources */,
 				B2B4EE761A828D8900B45D3F /* Void_Normal.png in Resources */,
 				B272E5161A75DC8F00069877 /* imgswipecardatanytime.png in Resources */,
 				B2B772E61A75D08B00525D60 /* btnchargenew.png in Resources */,
@@ -10370,6 +10388,7 @@
 				B2B772341A75C76C00525D60 /* LaunchScreen.xib in Resources */,
 				849A88CC19104E7900A20B9A /* newskin_logo.png in Resources */,
 				B2B7727A1A75C76C00525D60 /* RPSFriendsViewController_iPhone.xib in Resources */,
+				B2B654851A8CF96100A1AF2C /* TableCellInfoBtn.png in Resources */,
 				B2B772581A75C76C00525D60 /* HFViewController_iPad.xib in Resources */,
 				D9E15520120753BC007089AB /* AppointmentNotesView.xib in Resources */,
 				D9E15594120753BC007089AB /* AppointmentProjectButtonsCell.xib in Resources */,
@@ -10417,6 +10436,7 @@
 				D9E155E8120753BC007089AB /* btnClientManualRecovery@2x.png in Resources */,
 				849A88DA1910575C00A20B9A /* tabIco_1_1.png in Resources */,
 				D9E1558A120753BC007089AB /* btnCompleteProject.png in Resources */,
+				B2B6547A1A8CF78900A1AF2C /* ProductStockTableViewCell.xib in Resources */,
 				D9E155FC120753BC007089AB /* btnCompleteProject@2x.png in Resources */,
 				B2B772601A75C76C00525D60 /* Icon.png in Resources */,
 				0F14A5E5192863A100B29BE6 /* iTunesArtwork in Resources */,
@@ -10710,6 +10730,7 @@
 				D9E155B9120753BC007089AB /* UnapprovedEstimateCell.xib in Resources */,
 				D9E155B7120753BC007089AB /* UnapprovedEstimatesTableView.xib in Resources */,
 				B2B772611A75C76C00525D60 /* Icon@2x.png in Resources */,
+				B2B654881A8D0E4700A1AF2C /* Void_2x.png in Resources */,
 				D9E155BA120753BC007089AB /* UnpaidInvoiceCell.xib in Resources */,
 				D9E155AB120753BC007089AB /* UnpaidInvoiceTableView.xib in Resources */,
 				D9E15513120753BC007089AB /* VendorEditView.xib in Resources */,
@@ -12852,6 +12873,7 @@
 				D9E1568B120753BC007089AB /* CurrentInvoicePaymentsViewController.m in Sources */,
 				D9E15662120753BC007089AB /* DailyCloseoutViewController.m in Sources */,
 				B2B772701A75C76C00525D60 /* PPAppDelegate.m in Sources */,
+				B2B654791A8CF78900A1AF2C /* ProductStockTableViewCell.m in Sources */,
 				D9E1562B120753BC007089AB /* DurationViewController.m in Sources */,
 				B2B772881A75C76C00525D60 /* main.m in Sources */,
 				D9E15674120753BC007089AB /* Email.m in Sources */,
@@ -13957,8 +13979,8 @@
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_NAME = "Dog Groomer";
-				PROVISIONING_PROFILE = "d569d704-9b6f-4631-969e-ac52471b63d3";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "d569d704-9b6f-4631-969e-ac52471b63d3";
+				PROVISIONING_PROFILE = "64be8aa7-757a-4863-8df1-8890f23472a1";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "64be8aa7-757a-4863-8df1-8890f23472a1";
 				SDKROOT = iphoneos7.0;
 			};
 			name = Debug;
@@ -13991,8 +14013,8 @@
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_NAME = "Dog Groomer";
-				PROVISIONING_PROFILE = "d569d704-9b6f-4631-969e-ac52471b63d3";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "d569d704-9b6f-4631-969e-ac52471b63d3";
+				PROVISIONING_PROFILE = "64be8aa7-757a-4863-8df1-8890f23472a1";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "64be8aa7-757a-4863-8df1-8890f23472a1";
 				SDKROOT = iphoneos7.0;
 			};
 			name = Release;
@@ -14025,8 +14047,8 @@
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_NAME = "Dog Groomer";
-				PROVISIONING_PROFILE = "d569d704-9b6f-4631-969e-ac52471b63d3";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "d569d704-9b6f-4631-969e-ac52471b63d3";
+				PROVISIONING_PROFILE = "64be8aa7-757a-4863-8df1-8890f23472a1";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "64be8aa7-757a-4863-8df1-8890f23472a1";
 				SDKROOT = iphoneos7.0;
 			};
 			name = Distribution;
@@ -14060,8 +14082,8 @@
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_NAME = "Dog Groomer";
-				PROVISIONING_PROFILE = "d569d704-9b6f-4631-969e-ac52471b63d3";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "d569d704-9b6f-4631-969e-ac52471b63d3";
+				PROVISIONING_PROFILE = "64be8aa7-757a-4863-8df1-8890f23472a1";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "64be8aa7-757a-4863-8df1-8890f23472a1";
 				SDKROOT = iphoneos7.0;
 			};
 			name = "Ad-Hoc";

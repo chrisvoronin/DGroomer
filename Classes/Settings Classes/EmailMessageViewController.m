@@ -31,10 +31,22 @@
 	// Set the font of the UITextView
 	txtMessage.font = txtSubject.font;
 	//
+    txtSubject.delegate = self;
 	txtSubject.frame = CGRectMake( txtSubject.frame.origin.x, txtSubject.frame.origin.y, txtSubject.frame.size.width, 36);
 	[scrollView setContentSize:CGSizeMake( scrollView.frame.size.width, scrollView.frame.size.height )];
 	//
 	[super viewDidLoad];
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resignOnTap:)];
+    [singleTap setNumberOfTapsRequired:1];
+    [singleTap setNumberOfTouchesRequired:1];
+    [self.view addGestureRecognizer:singleTap];
+    [singleTap release];
+}
+
+- (void)resignOnTap:(UITapGestureRecognizer*)recog
+{
+    [self.currentResponder resignFirstResponder];
+    [scrollView setContentOffset:CGPointMake(0, 0)];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -128,15 +140,27 @@
 #pragma mark Delegate Methods
 #pragma mark -
 - (void) textFieldDidBeginEditing:(UITextField *)textField {
-	if( scrollView.frame.size.height != 200 ) {
-		scrollView.frame = CGRectMake( 0, 0, scrollView.frame.size.width, 200 );
-	}
+    self.currentResponder = textField;
+    
+    
+    CGRect textFieldRect = textField.frame;
+    CGRect convertRect = [self.view convertRect:textFieldRect fromView:scrollView];
+    int delta = scrollView.frame.size.height - convertRect.origin.y - convertRect.size.height - 320;
+    if(delta < 0){
+        [scrollView setContentOffset:CGPointMake(0, scrollView.contentOffset.y-delta)];
+    }
 }
 
 - (void) textViewDidBeginEditing:(UITextView *)textView {
-	if( scrollView.frame.size.height != 200 ) {
-		scrollView.frame = CGRectMake( 0, 0, scrollView.frame.size.width, 200 );
-	}	
+    self.currentResponder = textView;
+    
+    
+    CGRect textFieldRect = textView.frame;
+    CGRect convertRect = [self.view convertRect:textFieldRect fromView:scrollView];
+    int delta = scrollView.frame.size.height - convertRect.origin.y - convertRect.size.height - 360;
+    if(delta < 0){
+        [scrollView setContentOffset:CGPointMake(0, scrollView.contentOffset.y-delta)];
+    }
 }
 
 

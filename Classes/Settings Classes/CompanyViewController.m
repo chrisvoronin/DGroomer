@@ -17,6 +17,8 @@
 
 
 - (void)viewDidLoad {
+    [super viewDidLoad];
+    
 	// ScrollView size
 	[myScrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height * 1.5)];
 	// Nav Bar Title
@@ -37,7 +39,19 @@
 	// Get the company
 	company = [[PSADataManager sharedInstance] getCompany];
 	//
-    [super viewDidLoad];
+    
+    
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resignOnTap:)];
+    [singleTap setNumberOfTapsRequired:1];
+    [singleTap setNumberOfTouchesRequired:1];
+    [self.view addGestureRecognizer:singleTap];
+    [singleTap release];
+}
+
+- (void)resignOnTap:(UITapGestureRecognizer*)recog
+{
+    [self.currentResponder resignFirstResponder];
+    [myScrollView setContentOffset:CGPointMake(0, 0)];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -52,7 +66,7 @@
 		phone.text = company.companyPhone;
 		fax.text = company.companyFax;
 		if ( company.companyZipCode != 0 ) {
-			NSString *zippy = [[NSString alloc] initWithFormat:@"%i", company.companyZipCode];
+			NSString *zippy = [[NSString alloc] initWithFormat:@"%li", (long)company.companyZipCode];
 			zip.text = zippy;
 			[zippy release];
 		}	
@@ -126,10 +140,19 @@
  */
 
 - (void) textFieldDidBeginEditing:(UITextField *)textField {
-	if( myScrollView.frame.size.height != 200 ) {
+	/*if( myScrollView.frame.size.height != 200 ) {
 		myScrollView.frame = CGRectMake( 0, 0, myScrollView.frame.size.width, 200 );
 	}
-	[myScrollView scrollRectToVisible:textField.frame animated:YES];	
+	[myScrollView scrollRectToVisible:textField.frame animated:YES];*/
+    self.currentResponder = textField;
+    
+    
+    CGRect textFieldRect = textField.frame;
+    CGRect convertRect = [self.view convertRect:textFieldRect fromView:myScrollView];
+    int delta = myScrollView.frame.size.height - convertRect.origin.y - convertRect.size.height - 320;
+    if(delta < 0){
+        [myScrollView setContentOffset:CGPointMake(0, myScrollView.contentOffset.y-delta)];
+    }
 }
 
 @end

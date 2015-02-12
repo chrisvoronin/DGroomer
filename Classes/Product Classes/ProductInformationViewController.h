@@ -23,4 +23,5 @@
 
 - (void) save;
 - (void) cancelEdit;
+- (void) setTitleName:(NSString*)strName;
 @end

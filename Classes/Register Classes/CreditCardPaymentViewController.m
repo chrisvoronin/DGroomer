@@ -66,7 +66,7 @@
     // you might have to play around a little with numbers in CGRectMake method
     // they work fine with my settings
     placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, tvNotes.frame.size.width - 20.0, 34.0)];
-    [placeholderLabel setText:@"Notes"];
+    [placeholderLabel setText:@"Notes:"];
     // placeholderLabel is instance variable retained by view controller
     [placeholderLabel setBackgroundColor:[UIColor clearColor]];
     //[placeholderLabel setFont:[challengeDescription font]];
@@ -130,7 +130,7 @@
 			[self processingDidChangeState];
 		} else {
 			// Show the keyboard if a new payment
-			[txtAmount becomeFirstResponder];
+			//[txtAmount becomeFirstResponder];
 		}
 	}
 	if( owed ) {

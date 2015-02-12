@@ -42,6 +42,7 @@ UITableViewDelegate, UITableViewDataSource>
 	NSInteger		refundingMethodCall;	// 99 == void, 98 == cancel, 97 == refund w/out void/cancel
     BOOL            isEmailSet;
     NSString        *strEmail;
+    bool            isSelectedBoth;
 }
 
 @property (nonatomic, assign) BOOL						isEditing;

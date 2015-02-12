@@ -21,7 +21,7 @@
 #import "TransactionItem.h"
 #import "TransactionPayment.h"
 #import "TransactionViewController.h"
-
+#import "PSAAppDelegate.h"
 
 @implementation TransactionViewController
 
@@ -75,6 +75,8 @@
 	isDismissing = NO;
 	//
     self.isFirstTime = YES;
+    
+    isSelectedBoth = NO;
     
     [super viewDidLoad];
 }
@@ -254,6 +256,8 @@
 		}
 		[self dismissViewControllerAnimated:YES completion:nil];
 	}
+    
+    //[(PSAAppDelegate*)[[UIApplication sharedApplication] delegate] swapClientTabWithNavigation];
 }
 
 /*
@@ -943,8 +947,14 @@
 #pragma mark MessageUI Delegate Methods
 #pragma mark -
 - (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
-	// 
-	[self removeThisView];
+	//
+    [self removeThisView];
+    
+    if(isSelectedBoth)
+    {
+        [self smsReceipt];
+        isSelectedBoth = NO;
+    }
 }
 
 #pragma mark - MFMessageComposeViewControllerDelegate
@@ -983,6 +993,10 @@
 		}else if(buttonIndex == 1)
         {
             [self smsReceipt];
+        }else if(buttonIndex==2)
+        {
+            [self emailReceipt];
+            isSelectedBoth = YES;
         }
         else {
 			// Normal view removal
@@ -1078,7 +1092,7 @@
 			cell = voidCell;
 			self.voidCell = nil;
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.backgroundView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+            //cell.backgroundView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
             
 		} else if( indexPath.section == 1 || indexPath.section == 3 ) {
 			if( tblTransaction.editing ) {
@@ -1134,7 +1148,8 @@
 				if( transaction.client ) {
 					cell.detailTextLabel.text = [transaction.client getClientName];
 				} else {
-					cell.detailTextLabel.text = @"None";
+                    transaction.client = [[Client alloc] initWithID:0 personID:-1 isActive:YES];
+					cell.detailTextLabel.text = [transaction.client getClientName];
 				}
 			} else if( indexPath.row == 1 ) {
 				cell.textLabel.text = @"Project";
@@ -1649,7 +1664,8 @@
 - (void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
 	if( indexPath.section == 8 ) {
 		// Get rid of background and border
-		[cell setBackgroundView:nil];
+		//[cell setBackgroundView:nil];
+        [cell setBackgroundColor:tblTransaction.backgroundColor];
 	}
 }
 

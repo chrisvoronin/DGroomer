@@ -173,6 +173,7 @@
 - (void) selectionMadeWithProduct:(Product*)theProduct {
 	ProductInformationViewController *tmp = [[ProductInformationViewController alloc] initWithNibName:@"ProductInformation" bundle:nil];
 	tmp.product = theProduct;
+    [tmp setTitleName:theProduct.productName];
 	[self.navigationController pushViewController:tmp animated:YES];
 	[tmp release];
 }

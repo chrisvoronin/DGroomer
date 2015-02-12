@@ -10,7 +10,7 @@
 
 @class Email;
 
-@interface EmailMessageViewController : PSABaseViewController <UIActionSheetDelegate> {
+@interface EmailMessageViewController : PSABaseViewController <UIActionSheetDelegate, UITextFieldDelegate> {
 	Email			*email;
 	UIButton		*btnInsertField;
 	UISwitch		*swBccSelf;
@@ -28,5 +28,5 @@
 
 - (IBAction)	btnInsertFieldTouchUp:(id)sender;
 - (void)		save;
-
+@property (nonatomic, assign) id currentResponder;
 @end
