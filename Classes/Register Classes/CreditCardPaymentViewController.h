@@ -58,13 +58,15 @@
 	BOOL		nonRefundable;
     NSString    *strYear;
     NSString    *strMonth;
-    
+    NSString    *strCVV;
+    NSString	*strCardNum;
     IBOutlet UILabel			*placeholderLabel;
     IBOutlet UITextView         *tvNotes;
 }
 
 @property (nonatomic, retain) NSNumber				*owed;
 @property (nonatomic, retain) TransactionPayment	*payment;
+
 
 @property (retain, nonatomic) IBOutlet UIScrollView *mainContainer;
 @property (nonatomic, retain) IBOutlet UIButton		*btnCancelVoidRefund;
@@ -100,10 +102,13 @@
 @property (nonatomic, retain) IBOutlet UILabel		*lbDateTitle;
 @property (nonatomic, retain) IBOutlet UILabel		*lbTransIDTitle;
 
+@property (retain, nonatomic) IBOutlet UITextField *txtFullName;
+
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView	*activityView;
 @property (nonatomic, assign) id <PSATransactionPaymentDelegate> delegate;
 @property (nonatomic, assign) BOOL	autoRefunding;
 @property (nonatomic, assign) BOOL	nonRefundable;
+@property (nonatomic, assign) BOOL	editing;
 
 @property (nonatomic, assign) id currentResponder;
 
@@ -120,7 +125,7 @@
 - (void)		keyboardWillHide:(NSNotification *)note;
 - (void)		keyboardWillShow:(NSNotification *)note;
 - (void)		updateTotal;
-
+- (void)        save;
 
 
 @end

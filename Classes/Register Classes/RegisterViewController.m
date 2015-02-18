@@ -131,6 +131,7 @@
 				// Single (new) transaction
 				TransactionViewController *cont = [[TransactionViewController alloc] initWithNibName:@"TransactionView" bundle:nil];
 				cont.isEditing = YES;
+                cont.parent = self;
 				UIBarButtonItem *cancel  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismissViewControllerAnimated:)];
 				cont.navigationItem.leftBarButtonItem = cancel;
 				[cancel release];
@@ -188,6 +189,14 @@
 			break;
 		}
 	}
+}
+
+-(void)cancelEdit{
+    if( self.navigationController.viewControllers.count == 1 ) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 @end

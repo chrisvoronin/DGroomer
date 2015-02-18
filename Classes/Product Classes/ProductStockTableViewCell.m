@@ -20,6 +20,12 @@
     // Configure the view for the selected state
 }
 - (IBAction)clicked_infoBtn:(id)sender {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
+                                                    message:@"This gives you the ability to add inventory, record it if you use it in the store or record it if you forgot to add it to a transaction."
+                                                   delegate:self
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
 }
 
 - (void)dealloc {

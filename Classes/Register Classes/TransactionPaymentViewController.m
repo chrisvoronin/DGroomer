@@ -52,6 +52,14 @@
     [super viewDidLoad];
 }
 
+- (void) cancelEdit{
+    if( self.navigationController.viewControllers.count == 1 ) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
 - (void) viewWillAppear:(BOOL)animated {
 	if( !payment ) {
 		payment = [[TransactionPayment alloc] init];

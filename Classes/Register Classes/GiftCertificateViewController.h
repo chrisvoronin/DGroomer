@@ -35,5 +35,6 @@
 @property (nonatomic, retain) Transaction			*transaction;
 
 - (void) save;
+- (void) cancelEdit;
 
 @end

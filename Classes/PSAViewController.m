@@ -114,6 +114,7 @@
 	ScheduleViewController *scheduleControl = [[ScheduleViewController alloc] initWithNibName:@"ScheduleView" bundle:[NSBundle mainBundle]];
 	[self.navigationController pushViewController:scheduleControl animated:YES];
 	[scheduleControl release];
+    
 }
 
 - (IBAction) clientsB:(id)sender {

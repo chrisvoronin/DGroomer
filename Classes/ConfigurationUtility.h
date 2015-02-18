@@ -24,7 +24,8 @@
 
 #define URL_MERCHANT_ACTIVEACCOUNT  @"https://www.icsleads.com/Api/AddLead/"
 #define URL_MERCHANT_SENDMESSAGE  @"http://smart-swipe.com/Public/api/Message"
-
+#define URL_MERCHANT_SENDREMINDER @"https://api.smart-swipe.com/beta/services/doggroomer"
+#define URL_SEND_RECEIPT                @"https://api.smart-swipe.com/beta/services/notify/"
 @interface ConfigurationUtility : NSObject
 
 +(NSString*)getBaseURL;

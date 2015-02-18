@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ProductStockTableViewCell : UITableViewCell
-//@property (retain, nonatomic) IBOutlet UILabel *lblText;
+@property (retain, nonatomic) IBOutlet UILabel *lblText;
 
 @end

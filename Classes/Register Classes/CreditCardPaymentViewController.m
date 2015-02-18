@@ -20,7 +20,7 @@
 @synthesize owed, payment, delegate, autoRefunding, nonRefundable, notesView, scrollClient;
 @synthesize btnCancelVoidRefund, btnCharge, btnContacts, ivTip, lbOwed, lbTotal, txtAmount, txtCardNumber, txtCVV, txtTip, txtExpDate;
 @synthesize activityView, lbAmount, lbAmountTitle, lbDate, lbDateTitle, tvError, lbStatus, lbTransID, lbTransIDTitle;
-@synthesize txtAddressStreet, txtAddressCity, txtAddressState, txtAddressZip, txtEmail, txtNameFirst, txtNameLast, txtPhone, tvNotes;
+@synthesize txtAddressStreet, txtAddressCity, txtAddressState, txtAddressZip, txtEmail, txtNameFirst, txtNameLast, txtPhone, tvNotes, editing;
 
 - (void) viewDidLoad {
 	
@@ -29,6 +29,13 @@
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
     barButton.title = @"Back";
     self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
+    if(!editing)
+    {
+        // Save Button
+        UIBarButtonItem *btnSave = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save)];
+        self.navigationItem.rightBarButtonItem = btnSave;
+        [btnSave release];
+    }
 	// Register for keyboard notifications
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -77,6 +84,8 @@
     
     strYear = @"";
     strMonth = @"";
+    strCVV = @"";
+    strCardNum = @"";
     [self.mainContainer setContentSize:CGSizeMake(320, 680)];
 
 }
@@ -97,7 +106,7 @@
 	txtAddressState.text = payment.creditCardPayment.addressState;
 	txtAddressZip.text = payment.creditCardPayment.addressZip;
 	
-	if( payment.transactionPaymentID > -1 || payment.creditCardPayment.response != nil ) {
+	if( payment.transactionPaymentID > -1 || payment.creditCardPayment.response != nil ){
 		if( nonRefundable ) {
 			btnCancelVoidRefund.hidden = YES;
 		}
@@ -145,6 +154,38 @@
 		[ow release];
 		[formatter release];
 	}
+    
+    if (editing) {
+        NSString *amt = [[NSString alloc] initWithFormat:@"%.2f", [payment.creditCardPayment.amount doubleValue]];
+        txtAmount.text = amt;
+        [amt release];
+        NSString *tip = [[NSString alloc] initWithFormat:@"%.2f", [payment.creditCardPayment.tip doubleValue]];
+        txtTip.text = tip;
+        [tip release];
+        strCVV = payment.creditCardPayment.ccCVV;
+        txtCVV.text = strCVV;
+        
+        strMonth = payment.creditCardPayment.ccExpirationMonth;
+        strYear = payment.creditCardPayment.ccExpirationYear;
+        txtExpDate.text = [[NSString alloc] initWithFormat:@"%@/%@", strMonth, strYear];
+        self.txtFullName.text = payment.creditCardPayment.nameFirst;
+        strCardNum = payment.creditCardPayment.ccNumber;
+        if (payment.creditCardPayment.notes.length>1) {
+            if ([[tvNotes subviews] containsObject:placeholderLabel]) {
+                
+                [UIView animateWithDuration:0.15 animations:^{
+                    placeholderLabel.alpha = 0.0;
+                } completion:^(BOOL finished) {
+                    [placeholderLabel removeFromSuperview];
+                }];
+            }
+            tvNotes.text = payment.creditCardPayment.notes;
+        }
+        
+        NSString *cc = [[NSString alloc] initWithFormat:@"************%@", [payment.creditCardPayment.ccNumber substringFromIndex:payment.creditCardPayment.ccNumber.length-4]];
+        txtCardNumber.text = cc;
+    }
+    
 	[self updateTotal];
 }
 
@@ -198,6 +239,7 @@
     [tvNotes release];
     [txtExpDate release];
 
+    [_txtFullName release];
     [super dealloc];
 }
 
@@ -268,7 +310,7 @@
 		[tip release];
 		payment.creditCardPayment.ccCVV = txtCVV.text;
 		payment.creditCardPayment.ccExpirationMonth = strMonth;
-		payment.creditCardPayment.ccExpirationYear = strMonth;
+		payment.creditCardPayment.ccExpirationYear = strYear;
 		payment.creditCardPayment.ccNumber = txtCardNumber.text;
 		// Charge or Alert
 		if( payment.creditCardPayment ) {
@@ -397,32 +439,12 @@
 }
 
 - (IBAction)onScanCard:(id)sender {
-    
-    /*[txtAmount resignFirstResponder];
-    [txtCardNumber resignFirstResponder];
-    [txtCVV resignFirstResponder];
-    [txtDateMonth resignFirstResponder];
-    [txtDateYear resignFirstResponder];
-    [txtTip resignFirstResponder];*/
+   
     [self.view endEditing:YES];
-    
-    //if([CardIOPaymentViewController canReadCardWithCamera])
-    {
-        CardIOPaymentViewController *scanViewController = [[CardIOPaymentViewController alloc] initWithPaymentDelegate:self ];//  scanningEnabled:NO];
-        scanViewController.useCardIOLogo=YES;
-        scanViewController.modalPresentationStyle = UIModalPresentationCustom;//UIModalPresentationCustom;//UIModalPresentationFullScreen;//UIModalPresentationCurrentContext;//UIModalPresentationFormSheet;
-        //CreditCardSettings * settings = [[PSADataManager sharedInstance] getCreditCardSettings];
-    
-        //scanViewController.appToken = @"630ada9f5f254f33b1511527b22cdabc"; // see Constants.h
-        [self presentViewController:scanViewController animated:YES completion:nil];
-    }
-    /*CardIOView *cardIOView = [[CardIOView alloc] initWithFrame:CGRectMake(0,40,320,480)];
-    
-    cardIOView.appToken = @"630ada9f5f254f33b1511527b22cdabc"; // get your app token from the card.io website
-    //[cardIOView setDelegate:self.mainContainer delegate];
-    //[cardIOView  setBackgroundColor:[UIColor redColor]];
-    cardIOView.delegate = self;
-    [self.mainContainer addSubview:cardIOView];*/
+    CardIOPaymentViewController *scanViewController = [[CardIOPaymentViewController alloc] initWithPaymentDelegate:self ];
+    scanViewController.useCardIOLogo=YES;
+    scanViewController.modalPresentationStyle = UIModalPresentationCustom;
+    [self presentViewController:scanViewController animated:YES completion:nil];
 }
 
 
@@ -433,7 +455,7 @@
     // Do whatever needs to be done to deliver the purchased items.
     [self dismissViewControllerAnimated:YES completion:nil];
     txtCardNumber.text=info.redactedCardNumber;
-    
+    strCardNum = info.cardNumber;
     strYear = [NSString stringWithFormat:@"%lu", (unsigned long)info.expiryYear];
     strMonth = [NSString stringWithFormat:@"%02lu", (unsigned long)info.expiryMonth];
     self.txtExpDate.text = [NSString stringWithFormat:@"%@/%@", strMonth, [strYear substringFromIndex:2]];
@@ -916,6 +938,10 @@
     self.currentResponder = textField;
 }
 
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+
+}
+
 -(BOOL) textFieldShouldReturn: (UITextField *) textField {
     [textField resignFirstResponder];
     return YES;
@@ -960,4 +986,74 @@
         }];
     }
 }
+
+- (void)save{
+    if( [txtAmount.text doubleValue] <= 0 ) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incomplete Payment" message:@"Amount must be greater than $0.00!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+    } else if( [txtCardNumber.text isEqualToString:@""] ) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incomplete Payment" message:@"You must enter the credit card number!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+    } else if( [txtCVV.text isEqualToString:@""] ) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incomplete Payment" message:@"You must enter the credit card security code (CVV2/CVC2/CID)!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+    }    else if( txtExpDate.text.length <= 3 ) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incomplete Payment" message:@"You must enter an expiration month/year!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+    } else if([[[self.txtFullName.text stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" "]] componentsSeparatedByString:@" "] count]<2)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incomplete Payment" message:@"Please Enter First and Last Name" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+        
+    }
+    else{
+        if( txtExpDate.text.length > 4 ) {
+            strMonth = [txtExpDate.text substringToIndex:2];
+            strYear = [[NSString alloc] initWithFormat:@"20%@", [txtExpDate.text substringFromIndex:3]];
+        }
+        
+        // Hide the keyboard (to show statuses)
+        [txtAmount resignFirstResponder];
+        [txtCardNumber resignFirstResponder];
+        [txtCVV resignFirstResponder];
+        [txtExpDate resignFirstResponder];
+        [txtTip resignFirstResponder];
+        // Make uneditable
+        [self disableTextFields];
+        // Put the values
+        NSNumber *amt = [[NSNumber alloc] initWithDouble:[txtAmount.text doubleValue]];
+        payment.creditCardPayment.amount = amt;
+        [amt release];
+        NSNumber *tip = [[NSNumber alloc] initWithDouble:[txtTip.text doubleValue]];
+        payment.creditCardPayment.tip = tip;
+        [tip release];
+        payment.creditCardPayment.ccCVV = txtCVV.text;
+        payment.creditCardPayment.ccExpirationMonth = strMonth;
+        payment.creditCardPayment.ccExpirationYear = strMonth;
+        if (strCardNum.length<4) {
+            payment.creditCardPayment.ccNumber = txtCardNumber.text;
+        } else{
+            payment.creditCardPayment.ccNumber = strCardNum;
+        }
+        payment.creditCardPayment.nameFirst = self.txtFullName.text;
+        payment.creditCardPayment.notes = tvNotes.text;
+        //payment.creditCardPayment.ccNumber = [payment.creditCardPayment.ccNumber substringFromIndex:payment.creditCardPayment.ccNumber.length-4];
+        [[PSADataManager sharedInstance] saveCreditCardPayment:payment.creditCardPayment];
+        // Set the extraInfo to the creditCardPaymentID
+        payment.extraInfo = [NSString stringWithFormat:@"%ld", (long)payment.creditCardPayment.ccPaymentID];
+        NSNumber *total = [[NSNumber alloc] initWithDouble:[payment.creditCardPayment.amount doubleValue]+[payment.creditCardPayment.tip doubleValue]];
+        payment.amount = total;
+        [total release];
+        //
+        [self.delegate completedNewPayment:payment];
+        
+    }
+    
+}
+
 @end

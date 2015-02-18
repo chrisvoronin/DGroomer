@@ -14,5 +14,5 @@
 }
 
 @property (nonatomic, retain) IBOutlet UITableView	*tblRegister;
-
+-(void) cancelEdit;
 @end

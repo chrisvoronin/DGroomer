@@ -16,10 +16,11 @@
 #import "ViewOptionsViewController.h"
 #import "WorkHoursViewController.h"
 #import "SettingsViewController.h"
+#import "BatchOutViewController.h"
 
 @implementation SettingsViewController
 
-@synthesize settingsTable;
+@synthesize settingsTable, bBatchOut, isShowDatePicker, strDate;
 
 
 - (void)viewDidLoad {
@@ -30,6 +31,10 @@
 	[settingsTable setBackgroundColor:bgColor];
 	[bgColor release];*/
 	//
+    bBatchOut = NO;
+    isShowDatePicker = NO;
+    if(!strDate || strDate.length<1)
+        strDate = @"6:00 PM";
 	[super viewDidLoad];
 }
 
@@ -45,6 +50,9 @@
 
 - (void)dealloc {
 	[settingsTable release];
+    [_batchBtn release];
+    [_dateCell release];
+    [_datePicker release];
     [super dealloc];
 }
 
@@ -56,15 +64,33 @@
  *	1 Section for Settings, 1 for other editable datas
  */
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
-	return 2;
+	return 3;
 }
 
 /*
  *	We have 6 rows (4 active... no emails yet)
  */
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(indexPath.section==0 && indexPath.row==2)
+        return 216;
+    else
+        return 44;
+}
 - (NSInteger) tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section {
-	if( section == 0 )		return 6;
-	else if( section == 1 )	return 4;
+    if( section == 0){
+        if(!bBatchOut)
+            return 1;
+        else{
+            if(isShowDatePicker)
+                return 3;
+            else
+                return 2;
+        }
+    }
+	else if( section == 1 )		return 6;
+	else if( section == 2 )	return 4;
 	return 0;
 }
 
@@ -72,17 +98,76 @@
  *	Creates or reuses a cell, sets it's values, and returns for display
  */
 - (UITableViewCell *) tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:@"SettingsCell"];
+    NSString *identify;
+    if (indexPath.section==0) {
+        switch (indexPath.row) {
+            case 0:
+                identify = @"BatchOutTableViewCell";
+                break;
+            case 1:
+                identify = @"SettingsCell";
+                break;
+            case 2:
+                identify = @"DatePickerTableViewCell";
+                break;
+        }
+        
+    } else{
+        identify = @"SettingsCell";
+    }
+    UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:identify];
     if( cell == nil ) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SettingsCell"] autorelease];
+        if (indexPath.section==0 && indexPath.row==0) {
+            [[NSBundle mainBundle] loadNibNamed:identify owner:self options:nil];
+            [self.batchBtn.swBatchOut setOn:bBatchOut];
+            cell = self.batchBtn;
+            self.batchBtn = nil;
+            cell.selectionStyle = UITableViewCellSelectionStyleGray;
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            }
+        else if(indexPath.section==0 && indexPath.row==1){
+            cell.selectionStyle = UITableViewCellSelectionStyleGray;
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+        else if(indexPath.section==0 && indexPath.row==2){
+            [[NSBundle mainBundle] loadNibNamed:identify owner:self options:nil];
+            cell = self.dateCell;
+            self.dateCell = nil;
+            cell.selectionStyle = UITableViewCellSelectionStyleGray;
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+        else{
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"SettingsCell"] autorelease];
 		cell.selectionStyle = UITableViewCellSelectionStyleGray;
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
     }
-	
-	if( indexPath.section == 0 ) {
+    if( indexPath.section == 0) {
+        switch(indexPath.row) {
+            case 1:
+            {
+                cell.textLabel.text = @"Time";
+                cell.detailTextLabel.text = self.strDate;
+                cell.selectionStyle = UITableViewCellSelectionStyleGray;
+                cell.accessoryType = UITableViewCellAccessoryNone;
+            }
+            break;
+            /*case 2:{
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                [formatter setDateFormat:@"HH:mm a"];
+                [formatter release];
+                NSDate *date1 = [formatter dateFromString:self.strDate];
+                [self.datePicker setDate:[formatter dateFromString:self.strDate]];
+            }
+                break;*/
+            //cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+    }
+	else if( indexPath.section == 1 ) {
 		switch (indexPath.row) {
 			case 0:
 				cell.textLabel.text = @"Company Information";
+                cell.detailTextLabel.text = @"";
 				break;
 			case 1:
 				cell.textLabel.text = @"Credit Card Processing";
@@ -101,7 +186,7 @@
 				break;
 		}
 	}
-	else if( indexPath.section == 1 ) {
+	else if( indexPath.section == 2 ) {
 		switch (indexPath.row) {
 			case 0:
 				cell.textLabel.text = @"Clients";
@@ -130,7 +215,26 @@
 	// Get rid of the selection
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	// Go to selection
-	if( indexPath.section == 0 ) {
+    if(indexPath.section == 0) {
+        switch (indexPath.row) {
+            case 1:
+            {
+                isShowDatePicker = (isShowDatePicker)?NO:YES;
+                [self.settingsTable reloadData];
+                /*BatchOutViewController *BatchControl = [[BatchOutViewController alloc] initWithNibName:@"BatchOutViewController" bundle:nil];
+                
+                BatchControl.lblTime.text = @"";
+                [self.navigationController pushViewController:BatchControl animated:YES];
+                
+                [BatchControl release];*/
+            }
+                break;
+                
+            default:
+                break;
+        }
+    }
+	if( indexPath.section == 1 ) {
 		switch (indexPath.row) {
 			case 0: {
 				CompanyViewController *companyControl = [[CompanyViewController alloc] initWithNibName:@"CompanyView" bundle:nil];
@@ -171,7 +275,7 @@
 			}
 		}
 	}
-	else if( indexPath.section == 1 ) {
+	else if( indexPath.section == 2 ) {
 		switch (indexPath.row) {
 			case 0: {
 				// Client Table
@@ -206,7 +310,24 @@
 	}
 	
 }
+- (IBAction)switchChanged:(id)sender {
+    if([sender isOn]){
+        bBatchOut = YES;
+    } else{
+        bBatchOut = NO;
+    }
+    [self.settingsTable reloadData];
+}
 
+- (IBAction)datePickerChanged:(id)sender {
+     NSIndexPath *targetedCellIndexPath = [NSIndexPath indexPathForRow:1 inSection:0];
+    UITableViewCell *cell = [self.settingsTable cellForRowAtIndexPath:targetedCellIndexPath];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"HH:mm a"];
+    self.strDate = [formatter stringFromDate:self.datePicker.date];
+    [formatter release];
+    cell.detailTextLabel.text = self.strDate;
+}
 
 
 

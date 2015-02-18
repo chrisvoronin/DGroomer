@@ -7,12 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "BatchOutTableViewCell.h"
+#import "DatePickerTableViewCell.h"
 @interface SettingsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
 	IBOutlet UITableView	*settingsTable;
+    NSString      *strDate;
 }
 
 @property (nonatomic, retain) UITableView	*settingsTable;
-
+@property (nonatomic, retain) NSString      *strDate;
+@property (nonatomic, assign) BOOL	bBatchOut;
+@property (nonatomic, assign) BOOL	isShowDatePicker;
+@property (retain, nonatomic) IBOutlet BatchOutTableViewCell *batchBtn;
+@property (retain, nonatomic) IBOutlet DatePickerTableViewCell *dateCell;
+@property (retain, nonatomic) IBOutlet UIDatePicker *datePicker;
 
 @end

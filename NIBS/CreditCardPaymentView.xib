@@ -15,6 +15,7 @@
                 <outlet property="txtCVV" destination="42" id="51"/>
                 <outlet property="txtCardNumber" destination="39" id="49"/>
                 <outlet property="txtExpDate" destination="bt2-XU-RA8" id="s2Z-na-ts2"/>
+                <outlet property="txtFullName" destination="ORg-Is-36Z" id="gTs-on-yEq"/>
                 <outlet property="txtTip" destination="38" id="53"/>
                 <outlet property="view" destination="1" id="62"/>
             </connections>
@@ -39,7 +40,7 @@
                                 <outlet property="delegate" destination="-1" id="46"/>
                             </connections>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Card Holder" adjustsFontSizeToFit="NO" minimumFontSize="16" clearButtonMode="whileEditing" id="39">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Card Number" adjustsFontSizeToFit="NO" minimumFontSize="16" clearButtonMode="whileEditing" id="39">
                             <rect key="frame" x="20" y="110" width="280" height="31"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.88527856689999995" green="0.88527856689999995" blue="0.88527856689999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -61,7 +62,7 @@
                                 <outlet property="delegate" destination="-1" id="52"/>
                             </connections>
                         </textField>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="43">
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="43">
                             <rect key="frame" x="20" y="366" width="280" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -82,7 +83,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </activityIndicatorView>
                         <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="JUb-XJ-aEA">
-                            <rect key="frame" x="20" y="428" width="280" height="44"/>
+                            <rect key="frame" x="20" y="366" width="280" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                             <state key="normal" backgroundImage="btnscannew.png">
@@ -99,6 +100,9 @@
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
                             <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="l9V-bQ-IjA"/>
+                            </connections>
                         </textField>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Exp. Date" clearsOnBeginEditing="YES" adjustsFontSizeToFit="NO" minimumFontSize="17" id="bt2-XU-RA8" userLabel="Exp. Date">
                             <rect key="frame" x="177" y="162" width="123" height="30"/>

@@ -147,6 +147,19 @@
 		93CB35131041859A0083F1D0 /* Tax.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB35121041859A0083F1D0 /* Tax.m */; };
 		93DAC5DF100E6CA100FA309C /* ProductInformation.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93DAC5DE100E6CA100FA309C /* ProductInformation.xib */; };
 		93E2F676105000FB0031FCD5 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93E2F675105000FB0031FCD5 /* MessageUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		B202C98B1A8F006D001042DA /* ProductStockTableViewCell.h in Sources */ = {isa = PBXBuildFile; fileRef = B2B654761A8CF78900A1AF2C /* ProductStockTableViewCell.h */; };
+		B202C98C1A8F006D001042DA /* ProductStockTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B654771A8CF78900A1AF2C /* ProductStockTableViewCell.m */; };
+		B202C98D1A8F0187001042DA /* TableCellInfoBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = B2B654841A8CF96100A1AF2C /* TableCellInfoBtn.png */; };
+		B202C9911A8F74CC001042DA /* PSAReminderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B202C98F1A8F74CC001042DA /* PSAReminderViewController.m */; };
+		B202C9921A8F74CC001042DA /* PSAReminderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B202C9901A8F74CC001042DA /* PSAReminderViewController.xib */; };
+		B202C9931A8F7826001042DA /* PSAReminderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B202C9901A8F74CC001042DA /* PSAReminderViewController.xib */; };
+		B202C9941A8F7846001042DA /* PSAReminderViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = B202C98E1A8F74CC001042DA /* PSAReminderViewController.h */; };
+		B202C9951A8F7846001042DA /* PSAReminderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B202C98F1A8F74CC001042DA /* PSAReminderViewController.m */; };
+		B202C9A21A8FC001001042DA /* BatchOutTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B202C9A01A8FC001001042DA /* BatchOutTableViewCell.m */; };
+		B202C9A31A8FC001001042DA /* BatchOutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B202C9A11A8FC001001042DA /* BatchOutTableViewCell.xib */; };
+		B202C9AD1A8FC01E001042DA /* BatchOutTableViewCell.h in Sources */ = {isa = PBXBuildFile; fileRef = B202C99F1A8FC001001042DA /* BatchOutTableViewCell.h */; };
+		B202C9AE1A8FC01E001042DA /* BatchOutTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B202C9A01A8FC001001042DA /* BatchOutTableViewCell.m */; };
+		B202C9AF1A8FC033001042DA /* BatchOutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B202C9A11A8FC001001042DA /* BatchOutTableViewCell.xib */; };
 		B206C14F1A658EE800AD7DAF /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B206C14D1A658EE800AD7DAF /* FirstViewController.m */; };
 		B206C1501A658EE800AD7DAF /* FirstViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B206C14E1A658EE800AD7DAF /* FirstViewController.xib */; };
 		B206C1511A658FEC00AD7DAF /* FirstViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B206C14E1A658EE800AD7DAF /* FirstViewController.xib */; };
@@ -248,6 +261,23 @@
 		B25754EF19371B20004D9350 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = B25754BA19371B20004D9350 /* SVProgressHUD.m */; };
 		B25754F019371B20004D9350 /* ValidationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B25754BD19371B20004D9350 /* ValidationModel.m */; };
 		B25754F119371B20004D9350 /* ValidationUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B25754BF19371B20004D9350 /* ValidationUtility.m */; };
+		B27195C81A91315600C77795 /* TransactionChargeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B27195C61A91315600C77795 /* TransactionChargeCell.m */; };
+		B27195C91A91315600C77795 /* TransactionChargeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B27195C71A91315600C77795 /* TransactionChargeCell.xib */; };
+		B27195D31A91326D00C77795 /* TransactionChargeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B27195C71A91315600C77795 /* TransactionChargeCell.xib */; };
+		B27195D41A91328D00C77795 /* TransactionChargeCell.h in Sources */ = {isa = PBXBuildFile; fileRef = B27195C51A91315600C77795 /* TransactionChargeCell.h */; };
+		B27195D51A91328D00C77795 /* TransactionChargeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B27195C61A91315600C77795 /* TransactionChargeCell.m */; };
+		B27195DA1A91D15200C77795 /* BatchOutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B27195D81A91D15200C77795 /* BatchOutViewController.m */; };
+		B27195DB1A91D15200C77795 /* BatchOutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B27195D91A91D15200C77795 /* BatchOutViewController.xib */; };
+		B27195DC1A91D1AA00C77795 /* BatchOutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B27195D91A91D15200C77795 /* BatchOutViewController.xib */; };
+		B27195DD1A91D1CC00C77795 /* BatchOutViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = B27195D71A91D15200C77795 /* BatchOutViewController.h */; };
+		B27195DE1A91D1CC00C77795 /* BatchOutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B27195D81A91D15200C77795 /* BatchOutViewController.m */; };
+		B27195E01A93273F00C77795 /* ReusableUIComponents.xib in Resources */ = {isa = PBXBuildFile; fileRef = B27195DF1A93273F00C77795 /* ReusableUIComponents.xib */; };
+		B27195E11A93276600C77795 /* ReusableUIComponents.xib in Resources */ = {isa = PBXBuildFile; fileRef = B27195DF1A93273F00C77795 /* ReusableUIComponents.xib */; };
+		B27195EA1A9337D700C77795 /* DatePickerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B27195E81A9337D700C77795 /* DatePickerTableViewCell.m */; };
+		B27195EB1A9337D700C77795 /* DatePickerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B27195E91A9337D700C77795 /* DatePickerTableViewCell.xib */; };
+		B27195EC1A93390900C77795 /* DatePickerTableViewCell.h in Sources */ = {isa = PBXBuildFile; fileRef = B27195E71A9337D700C77795 /* DatePickerTableViewCell.h */; };
+		B27195ED1A93390900C77795 /* DatePickerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B27195E81A9337D700C77795 /* DatePickerTableViewCell.m */; };
+		B27195EE1A93392400C77795 /* DatePickerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B27195E91A9337D700C77795 /* DatePickerTableViewCell.xib */; };
 		B272E5161A75DC8F00069877 /* imgswipecardatanytime.png in Resources */ = {isa = PBXBuildFile; fileRef = B272E5151A75DC8F00069877 /* imgswipecardatanytime.png */; };
 		B27759C51A4B525E0015F6F6 /* ClientNotesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B27759C41A4B525E0015F6F6 /* ClientNotesView.xib */; };
 		B27759C61A4B56090015F6F6 /* ClientNotesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B27759C41A4B525E0015F6F6 /* ClientNotesView.xib */; };
@@ -5003,6 +5033,12 @@
 		93CB35121041859A0083F1D0 /* Tax.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tax.m; path = "Settings Classes/Tax.m"; sourceTree = "<group>"; };
 		93DAC5DE100E6CA100FA309C /* ProductInformation.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ProductInformation.xib; path = ../../NIBS/ProductInformation.xib; sourceTree = "<group>"; };
 		93E2F675105000FB0031FCD5 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		B202C98E1A8F74CC001042DA /* PSAReminderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSAReminderViewController.h; sourceTree = "<group>"; };
+		B202C98F1A8F74CC001042DA /* PSAReminderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSAReminderViewController.m; sourceTree = "<group>"; };
+		B202C9901A8F74CC001042DA /* PSAReminderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PSAReminderViewController.xib; path = Classes/PSAReminderViewController.xib; sourceTree = "<group>"; };
+		B202C99F1A8FC001001042DA /* BatchOutTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BatchOutTableViewCell.h; path = "Classes/Settings Classes/BatchOutTableViewCell.h"; sourceTree = "<group>"; };
+		B202C9A01A8FC001001042DA /* BatchOutTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BatchOutTableViewCell.m; path = "Classes/Settings Classes/BatchOutTableViewCell.m"; sourceTree = "<group>"; };
+		B202C9A11A8FC001001042DA /* BatchOutTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BatchOutTableViewCell.xib; path = "Classes/Settings Classes/BatchOutTableViewCell.xib"; sourceTree = "<group>"; };
 		B206C14C1A658EE800AD7DAF /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
 		B206C14D1A658EE800AD7DAF /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
 		B206C14E1A658EE800AD7DAF /* FirstViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FirstViewController.xib; path = Classes/FirstViewController.xib; sourceTree = "<group>"; };
@@ -5156,6 +5192,16 @@
 		B25754BD19371B20004D9350 /* ValidationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValidationModel.m; sourceTree = "<group>"; };
 		B25754BE19371B20004D9350 /* ValidationUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValidationUtility.h; sourceTree = "<group>"; };
 		B25754BF19371B20004D9350 /* ValidationUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValidationUtility.m; sourceTree = "<group>"; };
+		B27195C51A91315600C77795 /* TransactionChargeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransactionChargeCell.h; path = "Register Classes/TransactionChargeCell.h"; sourceTree = "<group>"; };
+		B27195C61A91315600C77795 /* TransactionChargeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransactionChargeCell.m; path = "Register Classes/TransactionChargeCell.m"; sourceTree = "<group>"; };
+		B27195C71A91315600C77795 /* TransactionChargeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TransactionChargeCell.xib; path = "Register Classes/TransactionChargeCell.xib"; sourceTree = "<group>"; };
+		B27195D71A91D15200C77795 /* BatchOutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BatchOutViewController.h; path = "Classes/Settings Classes/BatchOutViewController.h"; sourceTree = "<group>"; };
+		B27195D81A91D15200C77795 /* BatchOutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BatchOutViewController.m; path = "Classes/Settings Classes/BatchOutViewController.m"; sourceTree = "<group>"; };
+		B27195D91A91D15200C77795 /* BatchOutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BatchOutViewController.xib; path = "Classes/Settings Classes/BatchOutViewController.xib"; sourceTree = "<group>"; };
+		B27195DF1A93273F00C77795 /* ReusableUIComponents.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ReusableUIComponents.xib; path = "Generic Classes/ReusableUIComponents.xib"; sourceTree = "<group>"; };
+		B27195E71A9337D700C77795 /* DatePickerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DatePickerTableViewCell.h; path = "Classes/Settings Classes/DatePickerTableViewCell.h"; sourceTree = "<group>"; };
+		B27195E81A9337D700C77795 /* DatePickerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DatePickerTableViewCell.m; path = "Classes/Settings Classes/DatePickerTableViewCell.m"; sourceTree = "<group>"; };
+		B27195E91A9337D700C77795 /* DatePickerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DatePickerTableViewCell.xib; path = "Classes/Settings Classes/DatePickerTableViewCell.xib"; sourceTree = "<group>"; };
 		B272E5151A75DC8F00069877 /* imgswipecardatanytime.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = imgswipecardatanytime.png; path = Images/imgswipecardatanytime.png; sourceTree = "<group>"; };
 		B27759C41A4B525E0015F6F6 /* ClientNotesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ClientNotesView.xib; path = NIBS/ClientNotesView.xib; sourceTree = "<group>"; };
 		B27759C71A4C5B0E0015F6F6 /* btn_blue_clicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btn_blue_clicked.png; path = ../Classes/signupFlow/images/btn_blue_clicked.png; sourceTree = "<group>"; };
@@ -7432,6 +7478,8 @@
 		D941B197115D115D00CE557B /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B202C98E1A8F74CC001042DA /* PSAReminderViewController.h */,
+				B202C98F1A8F74CC001042DA /* PSAReminderViewController.m */,
 				B206C18D1A65D9D100AD7DAF /* PSAConfirmationViewController.h */,
 				B206C18E1A65D9D100AD7DAF /* PSAConfirmationViewController.m */,
 				B206C1841A65CB9100AD7DAF /* PSAVerifyViewController.h */,
@@ -7517,6 +7565,9 @@
 				D9EB863E116F9470007EFA36 /* TransactionPaymentEditCell.xib */,
 				D9628AE510D94F01001E2BBE /* TransactionsTableCell.xib */,
 				D99422B010FB635E00E8CC02 /* TransactionVoidCell.xib */,
+				B27195C51A91315600C77795 /* TransactionChargeCell.h */,
+				B27195C61A91315600C77795 /* TransactionChargeCell.m */,
+				B27195C71A91315600C77795 /* TransactionChargeCell.xib */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -7605,6 +7656,7 @@
 		D988C03010B5ACAB00006071 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B27195DF1A93273F00C77795 /* ReusableUIComponents.xib */,
 				D955B00B0FDEBB9800197251 /* DurationView.xib */,
 				D996E12E10C966F40082A5F8 /* TablePickerView.xib */,
 			);
@@ -7984,6 +8036,7 @@
 				939853110FE0734D005C75D9 /* PSAViewController.xib */,
 				B206C1861A65CB9100AD7DAF /* PSAVerifyViewController.xib */,
 				B206C18F1A65D9D100AD7DAF /* PSAConfirmationViewController.xib */,
+				B202C9901A8F74CC001042DA /* PSAReminderViewController.xib */,
 			);
 			name = Views;
 			path = ..;
@@ -8028,6 +8081,15 @@
 				932156C80F8563DE003661E7 /* SettingsView.xib */,
 				D992A63C10CD29A300E0FF51 /* ViewOptionsView.xib */,
 				D9956EF91098A52F00E93A85 /* WorkHoursView.xib */,
+				B202C99F1A8FC001001042DA /* BatchOutTableViewCell.h */,
+				B202C9A01A8FC001001042DA /* BatchOutTableViewCell.m */,
+				B202C9A11A8FC001001042DA /* BatchOutTableViewCell.xib */,
+				B27195D71A91D15200C77795 /* BatchOutViewController.h */,
+				B27195D81A91D15200C77795 /* BatchOutViewController.m */,
+				B27195D91A91D15200C77795 /* BatchOutViewController.xib */,
+				B27195E71A9337D700C77795 /* DatePickerTableViewCell.h */,
+				B27195E81A9337D700C77795 /* DatePickerTableViewCell.m */,
+				B27195E91A9337D700C77795 /* DatePickerTableViewCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -9368,6 +9430,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B27195EE1A93392400C77795 /* DatePickerTableViewCell.xib in Resources */,
+				B27195E11A93276600C77795 /* ReusableUIComponents.xib in Resources */,
+				B27195DC1A91D1AA00C77795 /* BatchOutViewController.xib in Resources */,
+				B27195D31A91326D00C77795 /* TransactionChargeCell.xib in Resources */,
+				B202C9AF1A8FC033001042DA /* BatchOutTableViewCell.xib in Resources */,
+				B202C9931A8F7826001042DA /* PSAReminderViewController.xib in Resources */,
+				B202C98D1A8F0187001042DA /* TableCellInfoBtn.png in Resources */,
 				B2B654891A8D0E9600A1AF2C /* Void_2x.png in Resources */,
 				B2B654861A8D018A00A1AF2C /* ProductStockTableViewCell.xib in Resources */,
 				B2B4EE761A828D8900B45D3F /* Void_Normal.png in Resources */,
@@ -10418,6 +10487,7 @@
 				B2B7726D1A75C76C00525D60 /* Icon@2x.png in Resources */,
 				D9E155E1120753BC007089AB /* btnCellEmailDown@2x.png in Resources */,
 				D9E15574120753BC007089AB /* btnCellEmailUp.png in Resources */,
+				B27195DB1A91D15200C77795 /* BatchOutViewController.xib in Resources */,
 				D9E155E2120753BC007089AB /* btnCellEmailUp@2x.png in Resources */,
 				D9E155C5120753BC007089AB /* btnChargeCreditCard.png in Resources */,
 				D9E155E3120753BC007089AB /* btnChargeCreditCard@2x.png in Resources */,
@@ -10436,6 +10506,7 @@
 				D9E155E8120753BC007089AB /* btnClientManualRecovery@2x.png in Resources */,
 				849A88DA1910575C00A20B9A /* tabIco_1_1.png in Resources */,
 				D9E1558A120753BC007089AB /* btnCompleteProject.png in Resources */,
+				B27195E01A93273F00C77795 /* ReusableUIComponents.xib in Resources */,
 				B2B6547A1A8CF78900A1AF2C /* ProductStockTableViewCell.xib in Resources */,
 				D9E155FC120753BC007089AB /* btnCompleteProject@2x.png in Resources */,
 				B2B772601A75C76C00525D60 /* Icon.png in Resources */,
@@ -10483,6 +10554,7 @@
 				D9E1554B120753BC007089AB /* btnHomeRegister.png in Resources */,
 				D9E1560F120753BC007089AB /* btnHomeRegister@2x.png in Resources */,
 				B2B772C11A75C76C00525D60 /* SUSettingsViewController_iPad.xib in Resources */,
+				B202C9A31A8FC001001042DA /* BatchOutTableViewCell.xib in Resources */,
 				B2B7723F1A75C76C00525D60 /* NativeAdCell.xib in Resources */,
 				B2B772951A75C76C00525D60 /* RPSSample-Info.plist in Resources */,
 				D9E15565120753BC007089AB /* btnHomeReports.png in Resources */,
@@ -10700,6 +10772,7 @@
 				D9E15510120753BC007089AB /* ServiceGroupView.xib in Resources */,
 				D9E15511120753BC007089AB /* ServiceInformation.xib in Resources */,
 				D9E15508120753BC007089AB /* ServiceNameView.xib in Resources */,
+				B202C9921A8F74CC001042DA /* PSAReminderViewController.xib in Resources */,
 				D9E15505120753BC007089AB /* ServicesTableView.xib in Resources */,
 				D9E155AC120753BC007089AB /* serviceTimerBackground.png in Resources */,
 				D9E155D7120753BC007089AB /* serviceTimerBackground@2x.png in Resources */,
@@ -10769,6 +10842,7 @@
 				84AE6A1418671E3400F76A96 /* btnSalonWebsite@2x.png in Resources */,
 				D9E7F05112109BDD00EB7F19 /* ProjectServiceCell.xib in Resources */,
 				0F14A5E2192863A100B29BE6 /* AppIcon60x60@2x.png in Resources */,
+				B27195EB1A9337D700C77795 /* DatePickerTableViewCell.xib in Resources */,
 				D9E7F05212109BDD00EB7F19 /* ProjectsTableCell.xib in Resources */,
 				B2A1A8391A4A8B3D009589E0 /* RadioButton.png in Resources */,
 				D9E7F05312109BDD00EB7F19 /* ProjectViewCellValue2.xib in Resources */,
@@ -10829,6 +10903,7 @@
 				D9E5D8C7125F8795006A7380 /* lbCCZip.png in Resources */,
 				B2B772451A75C76C00525D60 /* ReadMe.txt in Resources */,
 				D9E5D8C8125F8795006A7380 /* lbCCZip@2x.png in Resources */,
+				B27195C91A91315600C77795 /* TransactionChargeCell.xib in Resources */,
 				B2B772A01A75C76C00525D60 /* SCMain.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -12218,6 +12293,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B27195EC1A93390900C77795 /* DatePickerTableViewCell.h in Sources */,
+				B27195ED1A93390900C77795 /* DatePickerTableViewCell.m in Sources */,
+				B27195DD1A91D1CC00C77795 /* BatchOutViewController.h in Sources */,
+				B27195DE1A91D1CC00C77795 /* BatchOutViewController.m in Sources */,
+				B27195D41A91328D00C77795 /* TransactionChargeCell.h in Sources */,
+				B27195D51A91328D00C77795 /* TransactionChargeCell.m in Sources */,
+				B202C9AD1A8FC01E001042DA /* BatchOutTableViewCell.h in Sources */,
+				B202C9AE1A8FC01E001042DA /* BatchOutTableViewCell.m in Sources */,
+				B202C9941A8F7846001042DA /* PSAReminderViewController.h in Sources */,
+				B202C9951A8F7846001042DA /* PSAReminderViewController.m in Sources */,
+				B202C98B1A8F006D001042DA /* ProductStockTableViewCell.h in Sources */,
+				B202C98C1A8F006D001042DA /* ProductStockTableViewCell.m in Sources */,
 				B2A1A83C1A4A8CBC009589E0 /* DLRadioButton.h in Sources */,
 				B2A1A83D1A4A8CBC009589E0 /* DLRadioButton.m in Sources */,
 				B2A1A8271A48C059009589E0 /* NewBusinessInfoViewController.m in Sources */,
@@ -12832,6 +12919,7 @@
 				B2B772BE1A75C76C00525D60 /* SUAppDelegate.m in Sources */,
 				B2B772331A75C76C00525D60 /* InterstitialViewController.m in Sources */,
 				B2B7728F1A75C76C00525D60 /* RPSAppDelegate.m in Sources */,
+				B27195EA1A9337D700C77795 /* DatePickerTableViewCell.m in Sources */,
 				D9E15624120753BC007089AB /* AppointmentViewController.m in Sources */,
 				84AA245E1869595D004FF1F3 /* PSABaseViewController.m in Sources */,
 				D9E15695120753BC007089AB /* AuthorizeDotNetSignUpViewController.m in Sources */,
@@ -12851,6 +12939,7 @@
 				D9E1563F120753BC007089AB /* ClientServicesViewController.m in Sources */,
 				D9E15699120753BC007089AB /* ClientSwapViewController.m in Sources */,
 				D9E1561B120753BC007089AB /* ClientTableViewController.m in Sources */,
+				B27195C81A91315600C77795 /* TransactionChargeCell.m in Sources */,
 				D9E15641120753BC007089AB /* ClientTransactionsViewController.m in Sources */,
 				B2B7729B1A75C76C00525D60 /* main.m in Sources */,
 				B2B7723E1A75C76C00525D60 /* NativeAdCell.m in Sources */,
@@ -12888,6 +12977,7 @@
 				D9E15661120753BC007089AB /* GiftCertificateExpirationViewController.m in Sources */,
 				D9E1565E120753BC007089AB /* GiftCertificateRecipientViewController.m in Sources */,
 				D9E1565C120753BC007089AB /* GiftCertificateTableViewController.m in Sources */,
+				B202C9911A8F74CC001042DA /* PSAReminderViewController.m in Sources */,
 				84B7928018FBBEE3001136BE /* iBizManager.m in Sources */,
 				D9E1565F120753BC007089AB /* GiftCertificateTextViewController.m in Sources */,
 				D9E1565B120753BC007089AB /* GiftCertificateViewController.m in Sources */,
@@ -12941,6 +13031,7 @@
 				B2B772621A75C76C00525D60 /* main.m in Sources */,
 				D9E15681120753BC007089AB /* ProjectService.m in Sources */,
 				D9E15680120753BC007089AB /* ProjectServicePriceDetailViewController.m in Sources */,
+				B27195DA1A91D15200C77795 /* BatchOutViewController.m in Sources */,
 				D9E1567F120753BC007089AB /* ProjectServicesViewController.m in Sources */,
 				D9E15684120753BC007089AB /* ProjectServiceTimerViewController.m in Sources */,
 				D9E15676120753BC007089AB /* ProjectsTableViewController.m in Sources */,
@@ -12961,6 +13052,7 @@
 				D9E1566B120753BC007089AB /* ReportsMenuViewController.m in Sources */,
 				D9E15623120753BC007089AB /* ScheduleViewController.m in Sources */,
 				D9E15627120753BC007089AB /* Service.m in Sources */,
+				B202C9A21A8FC001001042DA /* BatchOutTableViewCell.m in Sources */,
 				D9E1562A120753BC007089AB /* ServiceCostViewController.m in Sources */,
 				D9E15620120753BC007089AB /* ServiceGroup.m in Sources */,
 				D9E15647120753BC007089AB /* ServiceGroupsTableViewController.m in Sources */,

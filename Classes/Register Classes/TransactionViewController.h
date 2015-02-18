@@ -12,11 +12,14 @@
 #import "TransactionPaymentViewController.h"
 #import <MessageUI/MessageUI.h>
 #import <UIKit/UIKit.h>
-
+#import "RegisterViewController.h"
+#import "TransactionChargeCell.h"
+#import "CreditCardConnectionManager.h"
+#import "BaseRegistrationViewController.h"
 @class Client, Transaction, TransactionItem;
 
-@interface TransactionViewController : UIViewController 
-<MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate, PSAClientTableDelegate, PSAGiftCertificateDelegate, PSAProductTableDelegate,
+@interface TransactionViewController : BaseRegistrationViewController 
+<CreditCardProcessingViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate, PSAClientTableDelegate, PSAGiftCertificateDelegate, PSAProductTableDelegate,
 PSATransactionMoneyEntryDelegate, PSATransactionPaymentDelegate, PSAServiceTableDelegate, UIActionSheetDelegate, 
 UITableViewDelegate, UITableViewDataSource> 
 {
@@ -32,6 +35,7 @@ UITableViewDelegate, UITableViewDataSource>
 	NSMutableArray	*transPayments;
 	NSMutableArray	*transProducts;
 	NSMutableArray	*transServices;
+    IBOutlet TransactionChargeCell *chargeCell;
 	//
 	UITableViewCell	*cellItem;
 	UITableViewCell	*cellItemEdit;
@@ -43,6 +47,9 @@ UITableViewDelegate, UITableViewDataSource>
     BOOL            isEmailSet;
     NSString        *strEmail;
     bool            isSelectedBoth;
+    TransactionPayment *payment;
+    IBOutlet UIActivityIndicatorView *activityView;
+    MBProgressHUD *progress;
 }
 
 @property (nonatomic, assign) BOOL						isEditing;
@@ -55,7 +62,8 @@ UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, assign) IBOutlet UITableViewCell	*cellPayment;
 @property (nonatomic, assign) IBOutlet UITableViewCell	*cellPaymentEdit;
 @property (nonatomic, assign) BOOL isFirstTime;
-
+@property (nonatomic, assign) RegisterViewController    *parent;
+@property (retain, nonatomic) IBOutlet UIActivityIndicatorView *activityView;
 - (IBAction)			btnVoidPressed:(id)sender;
 - (void)				cancelEdit;
 - (BOOL)				checkForCreditPayments;
@@ -68,5 +76,5 @@ UITableViewDelegate, UITableViewDataSource>
 - (void)				refundCreditPayment;
 - (void)				removeThisView;
 - (void)				save;
-
+- (void)                autoEmailReceipt:(int)nIndex;
 @end

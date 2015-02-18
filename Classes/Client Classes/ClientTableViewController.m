@@ -12,7 +12,7 @@
 #import "Email.h"
 #import "PSAAppDelegate.h"
 #import "ClientTableViewController.h"
-
+#import "PSAReminderViewController.h"
 
 @implementation ClientTableViewController
 
@@ -193,6 +193,105 @@
  *	Receives notification of which button was pressed on the alert view.
  */
 - (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if(actionSheet.tag==1001)
+    {
+        if(buttonIndex==3)
+        {
+            return;
+        }
+        
+        PSAReminderViewController *cont = [[PSAReminderViewController alloc] initWithNibName:@"PSAReminderViewController" bundle:nil];
+        
+        Email *email = [[PSADataManager sharedInstance] getBirthdayEmail];
+        
+        NSString *clientEmail = [selectedClient getEmailAddressHome];
+        if( clientEmail == nil ) {
+            clientEmail = [selectedClient getEmailAddressWork];
+            if( clientEmail == nil ) {
+                clientEmail = [selectedClient getEmailAddressAny];
+            }
+        }
+        
+        
+        NSString *message = email.message;
+        message = [message stringByReplacingOccurrencesOfString:@"<<CLIENT>>" withString:[selectedClient getClientNameFirstThenLast]];
+        NSDate *bDate = [selectedClient getBirthdate];
+        message = [message stringByReplacingOccurrencesOfString:@"<<BIRTHDATE>>" withString:[[PSADataManager sharedInstance] getStringForDate:bDate withFormat:NSDateFormatterLongStyle]];
+        [bDate release];
+        
+        
+        
+        NSString *strPhone = [selectedClient getPhoneCell];
+        if(strPhone.length<1)
+        {
+            strPhone = [selectedClient getPhoneHome];
+            if(strPhone.length<1) {
+                strPhone = [selectedClient getPhoneWork];
+            }
+        }
+        
+        NSString *subject = email.subject;
+        //[email release];
+        cont.strEmailTo = clientEmail;
+        cont.strEmailContent = message;
+        cont.strEmailSubject = subject;
+        cont.strTextTo = strPhone;
+        cont.isEmail = (int)buttonIndex;
+        [self.navigationController pushViewController:cont animated:YES];
+        [cont release];
+        return;
+    }
+    
+    if(actionSheet.tag==1002)
+    {
+        if(buttonIndex==3)
+        {
+            return;
+        }
+        
+        PSAReminderViewController *cont = [[PSAReminderViewController alloc] initWithNibName:@"PSAReminderViewController" bundle:nil];
+        
+        Email *email = [[PSADataManager sharedInstance] getAnniversaryEmail];
+        
+        NSString *clientEmail = [selectedClient getEmailAddressHome];
+        if( clientEmail == nil ) {
+            clientEmail = [selectedClient getEmailAddressWork];
+            if( clientEmail == nil ) {
+                clientEmail = [selectedClient getEmailAddressAny];
+            }
+        }
+        
+        
+        NSString *message = email.message;
+        message = [message stringByReplacingOccurrencesOfString:@"<<CLIENT>>" withString:[selectedClient getClientNameFirstThenLast]];
+        NSDate *bDate = [selectedClient getAnniversaryDate];
+        message = [message stringByReplacingOccurrencesOfString:@"<<ANNIVERSARY>>" withString:[[PSADataManager sharedInstance] getStringForDate:bDate withFormat:NSDateFormatterLongStyle]];
+        [bDate release];
+        
+        
+        
+        NSString *strPhone = [selectedClient getPhoneCell];
+        if(strPhone.length<1)
+        {
+            strPhone = [selectedClient getPhoneHome];
+            if(strPhone.length<1) {
+                strPhone = [selectedClient getPhoneWork];
+            }
+        }
+        
+        NSString *subject = email.subject;
+        //[email release];
+        cont.strEmailTo = clientEmail;
+        cont.strEmailContent = message;
+        cont.strEmailSubject = subject;
+        cont.strTextTo = strPhone;
+        cont.isEmail = (int)buttonIndex;
+        [self.navigationController pushViewController:cont animated:YES];
+        [cont release];
+        return;
+    }
+    
 	if( [actionSheet.title hasPrefix:@"This will delete"] ) {
 		// Clicked the Delete button
 		if( buttonIndex == 0 ) {
@@ -227,6 +326,7 @@
 			[PSADataManager sharedInstance].askAboutRecoveringClients = NO;
 		}
 	}
+    
 }
 
 #pragma mark -
@@ -248,8 +348,17 @@
 - (void) emailBirthdayOrAnniversary:(id)sender {	
 	if( [[sender superview] isKindOfClass:[UITableViewCell class]] ) {
 		UITableViewCell *sendingCell = (UITableViewCell*)[sender superview];
-		if( [[sendingCell superview] isKindOfClass:[UITableView class]] ) {
-			UITableView *sendingTable = (UITableView*)[[sender superview] superview];
+        
+        id view = [sendingCell superview];
+        
+        while (view && [view isKindOfClass:[UITableView class]] == NO) {
+            view = [view superview];
+        }
+        
+        UITableView *sendingTable = (UITableView *)view;
+        
+		//if( [[sendingCell superview] isKindOfClass:[UITableView class]] ) {
+			//UITableView *sendingTable = (UITableView*)[[sender superview] superview];
 			NSIndexPath *indexPath = [sendingTable indexPathForCell:sendingCell];
 			NSArray *clientArray = nil;
 			if( sendingTable == self.searchDisplayController.searchResultsTableView ) {
@@ -268,7 +377,7 @@
 					}
 				}
 			}
-		}
+		//}
 	}
 }
 
@@ -276,7 +385,13 @@
  *
  */
 - (void) sendAnniversaryEmailWithClient:(Client*)theClient {
-	// Open Email
+    UIActionSheet *alert = [[UIActionSheet alloc] initWithTitle:@"Do you want to send a reminder?" delegate:self cancelButtonTitle:@"No" destructiveButtonTitle:nil otherButtonTitles:@"Email", @"Text", @"Both", nil];
+    alert.tag = 1002;
+    self->selectedClient = theClient;
+    [alert showInView:self.view];
+    [alert release];
+    return;
+    // Open Email
 	if( [MFMailComposeViewController canSendMail] ) {
 		MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
 		//picker.navigationBar.tintColor = [UIColor blackColor];
@@ -334,6 +449,13 @@
  *
  */
 - (void) sendBirthdayEmailWithClient:(Client*)theClient {
+    
+    UIActionSheet *alert = [[UIActionSheet alloc] initWithTitle:@"Do you want to send a reminder?" delegate:self cancelButtonTitle:@"No" destructiveButtonTitle:nil otherButtonTitles:@"Email", @"Text", @"Both", nil];
+    alert.tag = 1001;
+    self->selectedClient = theClient;
+    [alert showInView:self.view];
+    [alert release];
+    return;
 	// Open Email
 	if( [MFMailComposeViewController canSendMail] ) {
 		MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];

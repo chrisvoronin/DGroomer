@@ -41,6 +41,7 @@
 - (void) swapNavigationForClientTabWithClient:(Client*)theClient;
 - (void) swapNavigationForClientTabWithClient:(Client*)theClient swapContacts:(BOOL)isSwapping;
 - (void) swapRecoveryViewWithClient:(Client*)theClient;
+- (void) sendReminder:(NSString*)clientEmail subject:(NSString*)emailSubject content:(NSString*)emailContent phone:(NSString*)phone EmailorSMS:(int)isEmail;
 
 @end
 

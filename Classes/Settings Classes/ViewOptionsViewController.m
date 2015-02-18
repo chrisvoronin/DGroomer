@@ -23,6 +23,9 @@
 	[tblOptions setBackgroundColor:bgColor];
 	[bgColor release];*/
 	//
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Back";
+    self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
     [super viewDidLoad];
 }
 

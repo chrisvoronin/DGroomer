@@ -80,15 +80,15 @@
         
         
         postData = [NSMutableDictionary new];
-        /*NSDictionary * dict2 = @{
+        NSDictionary * dict2 = @{
                                  @"mid" : [self getMerchantIdForUrl:urlString],
                                  @"uem" : [self getEmailAddressForUrl:urlString] != nil ? [self getEmailAddressForUrl:urlString] : @"",
                                  @"uid" : [self getUserIdForUrl:urlString],
                                  @"ldk" : [ConfigurationUtility getLeadKey],
-                                 };*/
-        //[postData setObject:data forKey:@"rqd"];
+                                 };
+        [postData setObject:data forKey:@"rqd"];
         //[postData setObject:dict2 forKey:@"sd"];
-        postData = [data mutableCopy];
+        
         delegate = del;
         url = urlString;
     }

@@ -90,7 +90,7 @@
      @"traceId" : @"test"
      };*/
     
-    NSString *strDict = [NSString stringWithFormat:@"source=DOGG&originator=1030&returnType=xml&phoneAlt=&businessName=%@&contactName=%@&phone=%@&email=%@&", self.txtBusinessName, self.txtName, self.txtPhone, self.txtEmail];
+    NSString *strDict = [NSString stringWithFormat:@"source=DOGG&originator=1030&returnType=xml&phoneAlt=&businessName=%@&contactName=%@&phone=%@&email=%@", self.txtBusinessName, self.txtName, self.txtPhone, self.txtEmail];
     
     self.dal = [[ServiceDAL alloc] initWiThHttpPostData:strDict urlString:URL_MERCHANT_ACTIVEACCOUNT delegate:self];
     [self.dal startAsync];

@@ -2425,11 +2425,56 @@ static PSADataManager *mySharedDelegate = nil;
     
     
     UILocalNotification * theNotification = [[UILocalNotification alloc] init];
-    theNotification.alertBody = theAppointment.description;
+    NSString *strEmail = theAppointment.client.getEmailAddressHome;
+    if(strEmail.length < 1)
+    {
+        strEmail = theAppointment.client.getEmailAddressWork;
+        if (strEmail.length<1) {
+            strEmail = theAppointment.client.getEmailAddressAny;
+        }
+    }
+    NSString *strPhone = theAppointment.client.getPhoneCell;
+    if(strPhone.length<1)
+    {
+        strPhone = theAppointment.client.getPhoneHome;
+        if(strPhone.length<1) {
+            strPhone = theAppointment.client.getPhoneWork;
+        }
+    }
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *strDay = [formatter stringFromDate:theAppointment.dateTime];
+    [formatter setDateFormat:@"HH:mm"];
+    NSString *strHour = [formatter stringFromDate:theAppointment.dateTime];
+    [formatter release];
+    
+    
+    
+    Email *mail = [[PSADataManager sharedInstance] getAppointmentReminderEmail];
+    NSString *strContent = [NSString stringWithFormat:@"%@", mail.message];
+    strContent = [strContent stringByReplacingOccurrencesOfString:@"<<CLIENT>>" withString:theAppointment.client.getClientName];
+    strContent = [strContent stringByReplacingOccurrencesOfString:@"<<APPT_DATE>>" withString:strDay];
+    strContent = [strContent stringByReplacingOccurrencesOfString:@"<<APPT_TIME>>" withString:strHour];
+    NSDictionary * dict = nil;
+    dict = @{
+             @"email" : [NSString stringWithFormat:@"%@", strEmail]
+             , @"phone" : [NSString stringWithFormat:@"%@", strPhone]
+             , @"title" : [NSString stringWithFormat:@"%@", mail.subject]
+             };
+    
+    
+    theNotification.userInfo = [[NSDictionary  alloc] initWithDictionary:dict];
+    theNotification.alertBody = [NSString stringWithFormat:@"%@", strContent];
     theNotification.alertAction = @"Ok";
     theNotification.fireDate = [theAppointment.dateTime dateByAddingTimeInterval:-3600];
     theNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
     [[UIApplication sharedApplication] scheduleLocalNotification:theNotification];
+    
+    theNotification.fireDate = theAppointment.dateTime;
+    theNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
+    [[UIApplication sharedApplication] scheduleLocalNotification:theNotification];
+    
 	// Create invocation for the threaded method
 	NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[self methodSignatureForSelector:@selector(_saveAppointment:updateStanding:ignoreConflicts:)]];
 	[invocation setTarget:self];

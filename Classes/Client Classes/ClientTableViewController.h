@@ -34,6 +34,7 @@
 	BOOL						showBirthdayAnniversarySegment;
 	// Swapping Client Contacts
 	BOOL						isSwappingContacts;
+    Client                      *selectedClient;
 }
 
 @property (nonatomic, retain) NSDictionary					*clients;

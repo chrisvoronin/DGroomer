@@ -22,10 +22,13 @@
 #import "TransactionPayment.h"
 #import "TransactionViewController.h"
 #import "PSAAppDelegate.h"
+#import "Reachability.h"
+#import "ConfigurationUtility.h"
+#import "PSAReminderViewController.h"
 
 @implementation TransactionViewController
 
-@synthesize isEditing, tblTransaction, transaction, voidCell;
+@synthesize isEditing, tblTransaction, transaction, voidCell, parent;
 @synthesize cellItem, cellItemEdit, cellPayment, cellPaymentEdit;
 
 - (void)viewDidLoad {
@@ -39,9 +42,9 @@
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: self.navigationController.view.tintColor};
 	if( isEditing || tblTransaction.editing || transaction == nil || transaction.transactionID < 0 ) {
 		// Save Button
-		UIBarButtonItem *btnSave = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save)];
+		/*UIBarButtonItem *btnSave = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save)];
 		self.navigationItem.rightBarButtonItem = btnSave;
-		[btnSave release];
+		[btnSave release];*/
 		UIBarButtonItem *cancel  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelEdit)];
 		self.navigationItem.leftBarButtonItem = cancel;
 		[cancel release];
@@ -104,6 +107,7 @@
     }
     
     isEmailSet = NO;
+    self.activityView.hidden = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -126,6 +130,8 @@
 	//
 	[transaction release];
 	//
+    [chargeCell release];
+    [_activityView release];
     [super dealloc];
 }
 
@@ -168,13 +174,11 @@
 
 - (void) cancelEdit {
 	
-	if( [self checkForNewCreditPayments] ) {
-		refundingMethodCall = 98;
-		UIActionSheet *alert = [[UIActionSheet alloc] initWithTitle:@"This transaction contains new credit card payments! They must be refunded before the transaction editing can be cancelled!\n\nRefunding is not reversible!" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Refund" otherButtonTitles:nil];
-		[alert showInView:self.view];	
-		[alert release];
-	} else {
-		transaction.client = transClient;
+
+        //if(!transClient)
+           // transClient = [[Client alloc] initWithID:0 personID:-1 isActive:YES];
+        
+        transaction.client = transClient;
 		transaction.giftCertificates = transCertificates;
 		transaction.payments = transPayments;
 		transaction.products = transProducts;
@@ -186,6 +190,7 @@
 		if( [self.parentViewController isKindOfClass:[UINavigationController class]] ) {
             if (self.parentViewController.parentViewController == nil) {
                 [self.parentViewController dismissViewControllerAnimated:YES completion:nil];
+                //[self.parent cancelEdit];
                 return;
             }
              
@@ -197,7 +202,6 @@
 				// Do something here?
 			}
 		}
-	}
 }
 
 - (void) removeThisView {
@@ -238,6 +242,7 @@
 			}
 		} else {
             [self dismissViewControllerAnimated:YES completion:nil];
+            [self cancelEdit];
         }
 		
 	} else {
@@ -322,7 +327,7 @@
 				for( TransactionItem *tmp in transCertificates ) {
 					if( ![transaction.giftCertificates containsObject:tmp] ) {
 						if( tmp.transactionItemID > -1 ) {
-							[[PSADataManager sharedInstance] removeTransactionItem:tmp];
+							[[PSADataManager sharedInstance]  removeTransactionItem:tmp];
 							[[PSADataManager sharedInstance] removeGiftCertificate:(GiftCertificate*)tmp.item];
 						}
 					}
@@ -336,6 +341,11 @@
 			}
 			
 			if( isClosed ) {
+                /*UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Transaction successful! Do you want to send a receipt?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+                alertView.tag = 1011;
+                [alertView show];
+                [alertView release];*/
+                //[self submitForm];
 				// Action sheet
 				UIActionSheet *alert = [[UIActionSheet alloc] initWithTitle:@"Do you want to send a receipt?" delegate:self cancelButtonTitle:@"No" destructiveButtonTitle:nil otherButtonTitles:@"Email", @"Text", @"Both", nil];
                 alert.tag = 100;
@@ -373,6 +383,59 @@
 	}
 }
 
+- (void) progressTask
+{
+    [progress show:YES];
+    //if(isEmail){
+    Company *company = [[PSADataManager sharedInstance] getCompany];
+    NSString *email = [transaction.client getEmailAddressHome];
+    if( email == nil ) {
+        email = [transaction.client getEmailAddressWork];
+        if( email == nil ) {
+            email = [transaction.client getEmailAddressAny];
+        }
+    }
+    
+    if (!email) {
+        [self.progress hide:YES];
+        return;
+    }
+    
+    NSString *phone = [transaction.client getPhoneCell];
+    if(phone.length<1)
+    {
+        phone = [transaction.client getPhoneHome];
+        if(phone.length<1) {
+            phone = [transaction.client getPhoneWork];
+        }
+    }
+    NSString *tid = [NSString stringWithFormat:@"%ld", (long)transaction.transactionID];
+    NSDictionary * dict = nil;
+    dict = @{
+             @"tid" : tid
+             , @"em" : email
+             , @"sms" : phone
+             };
+    self.dal = [[ServiceDAL alloc] initWiThPostData:dict urlString:URL_SEND_RECEIPT delegate:self];
+    [self.dal startAsync];
+    
+}
+
+- (void) handleServiceResponseErrorMessage:(NSString *)error
+{
+    [self.progress hide:YES];
+    
+    if (error != nil && ![error isEqualToString:@""])
+    {
+    }
+}
+
+- (void) handleServiceResponseWithDict:(NSDictionary *)dictionary
+{
+    [self.progress hide:YES];
+    [self removeThisView];
+}
+
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if(alertView.tag == 100){
@@ -381,8 +444,18 @@
             if(strEmail.length>1)
             {
                 isEmailSet = YES;
-                [self emailReceipt];
+                [self autoEmailReceipt];
             }
+        }
+    }
+    if(alertView.tag == 1011)
+    {
+        if(buttonIndex == 1){
+            [self submitForm];
+        }
+        else{
+            //isSelectedBoth = YES;
+            [self removeThisView];
         }
     }
 }
@@ -416,6 +489,221 @@
 	TransactionItem	*transactionItem = [[TransactionItem alloc] init];
 	transactionItem.item = theItem;
 	return transactionItem;
+}
+
+- (void) autoEmailReceipt:(int)nIndex {
+    
+    PSAReminderViewController *cont = [[PSAReminderViewController alloc] initWithNibName:@"PSAReminderViewController" bundle:nil];
+        // Company Info
+        Company *company = [[PSADataManager sharedInstance] getCompany];
+        // Set up the recipients
+        NSString *email = [transaction.client getEmailAddressHome];
+        if( email == nil ) {
+            email = [transaction.client getEmailAddressWork];
+            if( email == nil ) {
+                email = [transaction.client getEmailAddressAny];
+            }
+        }
+        // Subject
+        //[[PSADataManager sharedInstance] getBussinessItem];
+        //NSString *strBusiness = [[PSADataManager sharedInstance] getBussinessItem].businessName;
+        NSString *subject = [[NSString alloc] initWithFormat:@"Receipt %@ %@", (company.companyName) ? @"From" : @"", (company.companyName) ? company.companyName : @""];
+        
+        //NSString *subject = [[NSString alloc] initWithFormat:@"Receipt #%ld %@ %@", (long)transaction.transactionID, (company.companyName) ? @"From" : @"", (company.companyName) ? company.companyName : @""];
+        // HTML message
+        NSString *clientInfo = [transaction.client getMutlilineHTMLStringForReceipt];
+        NSString *companyInfo = [company getMutlilineHTMLString];
+        // Static Top
+        NSMutableString *message = [[NSMutableString alloc] initWithFormat:@"%@%@%@%@%@%@%ld%@%@%@%@%@",
+                                    @"<html> <head> <style TYPE=\"text/css\"> BODY, TD { font-family: Helvetica, Verdana, Arial, Geneva; font-size: 12px; } .total { color: #333333; } </style> </head> <body> <table width=\"95%\" border=\"0\" cellpadding=\"0\" cellspacing=\"2\" align=\"center\"> <tr> <td> <table width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" align=\"center\"> <tr> <td valign=\"top\"><font size=\"5\"><b>",
+                                    (company.companyName) ? company.companyName : @"",
+                                    @"</b></font> <br/>",
+                                    (companyInfo) ? companyInfo : @"",
+                                    @"</td> <td align=\"right\" valign=\"top\"> <font size=\"5\" color=\"#6b6b6b\"><b>",
+                                    @"Receipt</b></font> <br/> Transaction: ",
+                                    (long)transaction.transactionID,
+                                    @"<br/>",
+                                    [[PSADataManager sharedInstance] getStringForAppointmentDate:transaction.dateClosed],
+                                    @"</td> </tr> </table> </td> </tr><tr><td>&nbsp;</td></tr> <tr> <td> <table width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" align=\"center\"> <tr> <td valign=\"top\" width=\"120\"> <font size=\"3\" color=\"#6b6b6b\"><b>Customer</b></font> </td> <td valign=\"top\">",
+                                    (clientInfo) ? clientInfo : @"",
+                                    @"</td> </tr> </table> </td> </tr><tr><td>&nbsp;</td></tr> <tr> <td> <font size=\"3\" color=\"#6b6b6b\"><b>Purchases & Services</b></font> <br/><br/> <table width=\"100%\" border=\"0\" cellpadding=\"5\" cellspacing=\"0\" align=\"center\"> <tr align=\"right\"> <td width=\"76\" align=\"center\" style=\"border-bottom:solid 1px #cccccc;\"> <b>Item No.</b> </td> <td align=\"center\" style=\"border-bottom:solid 1px #cccccc;\"> <b>Description</b> </td> <td width=\"80\" style=\"border-bottom:solid 1px #cccccc;\"> <b>Price</b> </td> <td width=\"30\" style=\"border-bottom:solid 1px #cccccc;\"> <b>Qty.</b> </td> <td width=\"80\" style=\"border-bottom:solid 1px #cccccc;\"> <b>Discount</b> </td> <td width=\"80\" style=\"border-bottom:solid 1px #cccccc;\"> <b>Line Total</b> </td> </tr>"
+                                    ];
+        
+        // Add row for each TransactionItem
+        for( TransactionItem *item in transaction.services ) {
+            NSString *itemID = nil;
+            NSString *itemDescription = nil;
+            NSInteger quantity = 1;
+            
+            Service *serv = (Service*)item.item;
+            itemID = [[NSString alloc] initWithFormat:@"%ld", (long)serv.serviceID];
+            itemDescription = [[NSString alloc] initWithString:serv.serviceName];
+            
+            [message appendFormat:@"%@%@%@%@%@%@%@%@%ld%@%@%@%@%@",
+             @"<tr align=\"right\"><td align=\"center\" style=\"border-bottom:solid 1px #cccccc; border-left:solid 1px #cccccc; border-right:solid 1px #cccccc;\">",
+             itemID,
+             @"</td><td align=\"center\" style=\"border-bottom:solid 1px #cccccc; border-right:solid 1px #cccccc;\">",
+             itemDescription,
+             @"</td><td style=\"border-bottom:solid 1px #cccccc; border-right:solid 1px #cccccc;\">",
+             [formatter stringFromNumber:item.itemPrice],
+             ([item.setupFee doubleValue] > 0.0) ? [NSString stringWithFormat:@"<br/>Setup: %@", [formatter stringFromNumber:item.setupFee]] : @"",
+             @"</td><td style=\"border-bottom:solid 1px #cccccc; border-right:solid 1px #cccccc;\">",
+             (long)quantity,
+             @"</td><td style=\"border-bottom:solid 1px #cccccc; border-right:solid 1px #cccccc;\">",
+             [formatter stringFromNumber:[item getDiscountAmount]],
+             @"</td><td style=\"border-bottom:solid 1px #cccccc; border-right:solid 1px #cccccc;\" >",
+             [formatter stringFromNumber:[item getSubTotal]],
+             @"</td></tr>"
+             ];
+            
+            [itemID release];
+            [itemDescription release];
+        }
+        
+        for( TransactionItem *item in transaction.products ) {
+            NSString *itemDescription = nil;
+            NSInteger quantity = 1;
+            
+            Product *prod = (Product*)item.item;
+            itemDescription = [[NSString alloc] initWithString:prod.productName];
+            if( item.productAdjustment ) {
+                quantity = ((ProductAdjustment*)item.productAdjustment).quantity;
+            }
+            [message appendFormat:@"%@%@%@%@%@%@%@%ld%@%@%@%@%@",
+             @"<tr align=\"right\"><td align=\"center\" style=\"border-bottom:solid 1px #cccccc; border-left:solid 1px #cccccc; border-right:solid 1px #cccccc;\">",
+             prod.productNumber,
+             @"</td><td align=\"center\" style=\"border-bottom:solid 1px #cccccc; border-right:solid 1px #cccccc;\">",
+             itemDescription,
+             @"</td><td style=\"border-bottom:solid 1px #cccccc; border-right:solid 1px #cccccc;\">",
+             [formatter stringFromNumber:item.itemPrice],
+             @"</td><td style=\"border-bottom:solid 1px #cccccc; border-right:solid 1px #cccccc;\">",
+             (long)quantity,
+             @"</td><td style=\"border-bottom:solid 1px #cccccc; border-right:solid 1px #cccccc;\">",
+             [formatter stringFromNumber:[item getDiscountAmount]],
+             @"</td><td style=\"border-bottom:solid 1px #cccccc; border-right:solid 1px #cccccc;\" >",
+             [formatter stringFromNumber:[item getSubTotal]],
+             @"</td></tr>"
+             ];
+            
+            [itemDescription release];
+        }
+        
+        for( TransactionItem *item in transaction.giftCertificates ) {
+            NSString *itemID = nil;
+            NSString *itemDescription = nil;
+            NSInteger quantity = 1;
+            
+            GiftCertificate *cert = (GiftCertificate*)item.item;
+            itemID = [[NSString alloc] initWithFormat:@"%ld", (long)cert.certificateID];
+            if( cert.recipientLast && cert.recipientFirst ) {
+                itemDescription = [[NSString alloc] initWithFormat:@"Gift Certificate for %@ %@", cert.recipientFirst, cert.recipientLast];
+            } else if( cert.recipientLast ) {
+                itemDescription = [[NSString alloc] initWithFormat:@"Gift Certificate for %@", cert.recipientLast];
+            } else if( cert.recipientFirst ) {
+                itemDescription = [[NSString alloc] initWithFormat:@"Gift Certificate for %@", cert.recipientFirst];
+            } else {
+                itemDescription = [[NSString alloc] initWithString:@"Gift Certificate"];
+            }
+            
+            [message appendFormat:@"%@%@%@%@%@%@%@%ld%@%@%@%@%@",
+             @"<tr align=\"right\"><td align=\"center\" style=\"border-bottom:solid 1px #cccccc; border-left:solid 1px #cccccc; border-right:solid 1px #cccccc;\">",
+             itemID,
+             @"</td><td align=\"center\" style=\"border-bottom:solid 1px #cccccc; border-right:solid 1px #cccccc;\">",
+             itemDescription,
+             @"</td><td style=\"border-bottom:solid 1px #cccccc; border-right:solid 1px #cccccc;\">",
+             [formatter stringFromNumber:item.itemPrice],
+             @"</td><td style=\"border-bottom:solid 1px #cccccc; border-right:solid 1px #cccccc;\">",
+             (long)quantity,
+             @"</td><td style=\"border-bottom:solid 1px #cccccc; border-right:solid 1px #cccccc;\">",
+             [formatter stringFromNumber:[item getDiscountAmount]],
+             @"</td><td style=\"border-bottom:solid 1px #cccccc; border-right:solid 1px #cccccc;\" >",
+             [formatter stringFromNumber:[item getSubTotal]],
+             @"</td></tr>"
+             ];
+            
+            [itemID release];
+            [itemDescription release];
+        }
+        
+        // Static middle
+        [message appendFormat:@"%@%@ %@%@ %@%@ %@%@ %@%@ %@",
+         @"<tr align=\"right\" class=\"total\"> <td colspan=\"4\" style=\"border-right:solid 1px #cccccc;\"> <font color=\"#666666\"><b>Discount Total</b></font> </td> <td style=\"border-bottom:solid 1px #cccccc; border-right:solid 1px #cccccc;\"> <b>",
+         [formatter stringFromNumber:[transaction getDiscounts]], // Discount Total
+         @"</b> </td> <td style=\"border-right:solid 1px #cccccc; border-bottom:solid 1px #cccccc;\"> &nbsp; </td> </tr> <tr align=\"right\" class=\"total\"> <td colspan=\"5\" style=\"border-right:solid 1px #cccccc;\"> <font color=\"#666666\"><b>Tip</b></font> </td> <td style=\"border-right:solid 1px #cccccc; border-bottom:solid 1px #cccccc;\">",
+         [formatter stringFromNumber:[transaction tip]], // Tip
+         @"</td> </tr> <tr align=\"right\" class=\"total\"> <td colspan=\"5\" style=\"border-right:solid 1px #cccccc;\"> <font color=\"#666666\"><b>Sub-Total</b></font> </td> <td style=\"border-right:solid 1px #cccccc; border-bottom:solid 1px #cccccc;\"> <b>",
+         [formatter stringFromNumber:[transaction getSubTotal]], // Sub-Total
+         @"</b> </td> </tr> <tr align=\"right\" class=\"total\"> <td colspan=\"5\" style=\"border-right:solid 1px #cccccc;\"> <font color=\"#666666\"><b>Sales Tax</b></font> </td> <td style=\"border-right:solid 1px #cccccc; border-bottom:solid 1px #cccccc;\"> <b>",
+         [formatter stringFromNumber:[transaction getTax]], // Tax
+         @"</b> </td> </tr> <tr align=\"right\"> <td colspan=\"5\" style=\"border-right:solid 1px #cccccc;\"> <font color=\"#666666\"><b>Total Balance</b></font> </td> <td style=\"border-right:solid 1px #cccccc; border-bottom:solid 1px #cccccc;\"> <b>",
+         [formatter stringFromNumber:[transaction getTotal]], // Total Balance
+         @"</b> </td> </tr> </table> </td> </tr><tr><td>&nbsp;</td></tr><tr> <td> <font size=\"3\" color=\"#6b6b6b\"><b>Payments</b></font> <br/><br/> <table width=\"100%\" border=\"0\" cellpadding=\"5\" cellspacing=\"0\" align=\"center\"> <tr align=\"right\"> <td style=\"border-bottom:solid 1px #cccccc;\"> <b>Payment Description</b> </td> <td width=\"80\" style=\"border-bottom:solid 1px #cccccc;\"> <b>Amount</b> </td> </tr>"];
+        
+        // Add row for each TransactionPayment
+        for( TransactionPayment *payment in transaction.payments ) {
+            NSString *paymentDescription = nil;
+            if( payment.paymentType == PSATransactionPaymentCash ) {
+                paymentDescription = [[NSString alloc] initWithString:@"Cash"];
+            } else if( payment.paymentType == PSATransactionPaymentCheck ) {
+                paymentDescription = [[NSString alloc] initWithFormat:@"Check No. %@", payment.extraInfo];
+            } else if( payment.paymentType == PSATransactionPaymentCoupon ) {
+                paymentDescription = [[NSString alloc] initWithFormat:@"Coupon: %@", payment.extraInfo];
+            } else if( payment.paymentType == PSATransactionPaymentCredit ) {
+                paymentDescription = [[NSString alloc] initWithFormat:@"Credit Card ending in %@", payment.extraInfo];
+            } else if( payment.paymentType == PSATransactionPaymentCreditCardForProcessing ) {
+                [payment hydrateCreditCardPayment];
+                paymentDescription = [[NSString alloc] initWithFormat:@"Credit Card ending in %@", payment.creditCardPayment.ccNumber];
+                [payment dehydrateCreditCardPayment];
+            } else if( payment.paymentType == PSATransactionPaymentGiftCertificate ) {
+                GiftCertificate *cert = [[PSADataManager sharedInstance] getGiftCertificateWithID:[payment.extraInfo integerValue]];
+                if( cert ) {
+                    paymentDescription = [[NSString alloc] initWithFormat:@"Gift Certificate %ld", (long)cert.certificateID];
+                } else {
+                    paymentDescription = [[NSString alloc] initWithString:@"Unknown Gift Certificate"];
+                }
+                [cert release];
+            }
+            
+            [message appendFormat:@"%@%@%@%@%@",
+             @"<tr align=\"right\"><td style=\"border-bottom:solid 1px #cccccc; border-right:solid 1px #cccccc; border-left:solid 1px #cccccc;\">",
+             paymentDescription,
+             @"</td><td style=\"border-bottom:solid 1px #cccccc; border-right:solid 1px #cccccc;\" >",
+             [formatter stringFromNumber:payment.amount],
+             @"</td></tr>"
+             ];
+            [paymentDescription release];
+        }
+        
+        // Semi-Static bottom
+        [message appendFormat:@"%@%@%@%@%@",
+         @"<tr align=\"right\" > <td style=\"border-right:solid 1px #cccccc;\"> <font color=\"#666666\"><b>Payment Total</b></font> </td> <td style=\"border-right:solid 1px #cccccc; border-bottom:solid 1px #cccccc;\"> <b>",
+         [formatter stringFromNumber:[transaction getAmountPaid]], // Total Payments
+         @"</b> </td> </tr> <tr align=\"right\" > <td style=\"border-right:solid 1px #cccccc;\"> <font color=\"#666666\"><b>Change</b></font> </td> <td style=\"border-right:solid 1px #cccccc; border-bottom:solid 1px #cccccc;\"> <b>",
+         [formatter stringFromNumber:[transaction getChangeDue]], // Change
+         @"</b> </td> </tr> </table> </td> </tr></table> </body> </html>"];
+    
+    NSString *strPhone = [transaction.client getPhoneCell];
+    if(strPhone.length<1)
+    {
+        strPhone = [transaction.client getPhoneHome];
+        if(strPhone.length<1) {
+            strPhone = [transaction.client getPhoneWork];
+        }
+    }
+    
+    cont.strEmailTo = email;
+    cont.strEmailContent = message;
+    cont.strEmailSubject = subject;
+    cont.strTextTo = strPhone;
+    cont.isEmail = nIndex;
+    [self.navigationController pushViewController:cont animated:YES];
+    [cont release];
+
+        [message release];
+        [clientInfo release];
+        [company release];
+        // Present the mail composition interface. 
+
 }
 
 - (void) emailReceipt {
@@ -935,7 +1223,7 @@
 	}
 	[UIView commitAnimations];
 	// Cancel
-	UIBarButtonItem *cancel  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelEdit)];
+	UIBarButtonItem *cancel  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:cont action:@selector(cancelEdit)];
 	cont.navigationItem.leftBarButtonItem = cancel;
 	[cancel release];
 	// Resume
@@ -988,19 +1276,13 @@
 			[ccPaymentsToRemove removeAllObjects];
 		}
 	} else {
-		if( buttonIndex == 0 ) {
-			[self emailReceipt];
-		}else if(buttonIndex == 1)
-        {
-            [self smsReceipt];
-        }else if(buttonIndex==2)
-        {
-            [self emailReceipt];
-            isSelectedBoth = YES;
+		if( buttonIndex == 3 ) {
+            [self removeThisView];
+            return;
         }
         else {
-			// Normal view removal
-			[self removeThisView];
+            [self autoEmailReceipt:buttonIndex];
+            
 		}
 	}
 }
@@ -1031,7 +1313,7 @@
 		else if( section == 5 )	return 3;
 		else if( section == 6 )	return transaction.payments.count+1;
 		else if( section == 7 )	return 2;
-		else if( section == 8 )	return 0;
+		else if( section == 8 )	return 1;
 	} else {
 		if( section == 0 ) {
 			if( transaction.projectID > -1 )	return 2;
@@ -1044,7 +1326,8 @@
 		else if( section == 5 )	return 3;
 		else if( section == 6 )	return (transaction.payments.count == 0) ? 1 : transaction.payments.count;
 		else if( section == 7 )	return 2;
-		else if( section == 8 )	return (transaction.dateVoided) ? 0 : 1;
+        //else if( section == 8 ) return 1;
+        else if( section == 8 )	return (transaction.dateVoided) ? 0 : 1;
 	}
 	return 1;
 }
@@ -1069,7 +1352,10 @@
 - (UITableViewCell *) tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *identifier = nil;
 	if( indexPath.section == 8 ) {
-		identifier = @"TransactionVoidCell";
+        if(!tblTransaction.editing)
+            identifier = @"TransactionVoidCell";
+        else
+            identifier = @"TransactionChargeCell";
 	} else if( indexPath.section == 1 || indexPath.section == 3 ) {
 		if( tblTransaction.editing ) {
 			identifier = @"TransactionItemEditCell";
@@ -1089,9 +1375,18 @@
     if( cell == nil ) {
 		if( indexPath.section == 8 ) {
 			[[NSBundle mainBundle] loadNibNamed:identifier owner:self options:nil];
-			cell = voidCell;
-			self.voidCell = nil;
+            if(tblTransaction.editing)
+            {
+                cell = chargeCell;
+                chargeCell = nil;
+            }
+            else {
+                cell = voidCell;
+                self.voidCell = nil;
+            }
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.editingAccessoryType = UITableViewCellAccessoryNone;
+            cell.accessoryType = UITableViewCellAccessoryNone;
             //cell.backgroundView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
             
 		} else if( indexPath.section == 1 || indexPath.section == 3 ) {
@@ -1117,8 +1412,11 @@
 		} else {
             if(indexPath.section==8)
             {
-                cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier] autorelease];
+                cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier] autorelease];
                 cell.selectionStyle = UITableViewCellSelectionStyleGray;
+                cell.editingAccessoryType = UITableViewCellAccessoryNone;
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                return cell;
             } else {
 			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier] autorelease];
 			
@@ -1142,6 +1440,11 @@
 	cell.editingAccessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	
 	switch ( indexPath.section ) {
+        case 8:
+        {
+           cell.editingAccessoryType = UITableViewCellAccessoryNone;
+        }
+            break;
 		case 0:
 			if( indexPath.row == 0 ) {
 				cell.textLabel.text = @"Client";
@@ -1329,7 +1632,7 @@
 
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if( indexPath.section == 0 || indexPath.section == 2 || indexPath.section == 5 || indexPath.section == 7 )	return UITableViewCellEditingStyleNone;
+	if( indexPath.section == 0 || indexPath.section == 2 || indexPath.section == 5 || indexPath.section == 7  || indexPath.section == 8 )	return UITableViewCellEditingStyleNone;
 	if( indexPath.row == [tblTransaction numberOfRowsInSection:indexPath.section]-1 )	return UITableViewCellEditingStyleInsert;
 	return UITableViewCellEditingStyleDelete;
 }
@@ -1462,7 +1765,7 @@
 					// Services Table
 					ServicesTableViewController *cont = [[ServicesTableViewController alloc] initWithNibName:@"ServicesTableView" bundle:nil];
 					cont.serviceDelegate = self;
-					UIBarButtonItem *cancel  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelEdit)];
+					UIBarButtonItem *cancel  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:cont action:@selector(cancelService)];
 					cont.navigationItem.leftBarButtonItem = cancel;
 					[cancel release];
 					UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:cont];
@@ -1514,7 +1817,7 @@
 					// Products Table
 					ProductsTableViewController *cont = [[ProductsTableViewController alloc] initWithNibName:@"ProductsTableView" bundle:nil];
 					cont.productDelegate = self;
-					UIBarButtonItem *cancel  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelEdit)];
+					UIBarButtonItem *cancel  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:cont action:@selector(cancelEdit)];
 					cont.navigationItem.leftBarButtonItem = cancel;
 					[cancel release];
 					UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:cont];
@@ -1537,7 +1840,7 @@
 					GiftCertificateViewController *cont = [[GiftCertificateViewController alloc] initWithNibName:@"GiftCertificateView" bundle:nil];
 					cont.delegate = self;
 					cont.transaction = transaction;
-					UIBarButtonItem *cancel  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelEdit)];
+					UIBarButtonItem *cancel  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:cont action:@selector(cancelEdit)];
 					cont.navigationItem.leftBarButtonItem = cancel;
 					[cancel release];
 					UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:cont];
@@ -1565,7 +1868,7 @@
 						[owed release];
 						cont.delegate = self;
 						cont.editing = YES;
-						UIBarButtonItem *cancel  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelEdit)];
+						UIBarButtonItem *cancel  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:cont action:@selector(cancelEdit)];
 						cont.navigationItem.leftBarButtonItem = cancel;
 						[cancel release];
 						UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:cont];
@@ -1585,6 +1888,7 @@
 						CreditCardPaymentViewController *cont = [[CreditCardPaymentViewController alloc] initWithNibName:@"CreditCardPaymentView" bundle:nil];
 						NSNumber *owed = [[NSNumber alloc] initWithDouble:([[transaction getChangeDue] doubleValue]*-1)];
 						cont.owed = owed;
+                        cont.editing = YES;
 						[owed release];
 						cont.delegate = self;
 						cont.payment = tmp;
@@ -1666,8 +1970,148 @@
 		// Get rid of background and border
 		//[cell setBackgroundView:nil];
         [cell setBackgroundColor:tblTransaction.backgroundColor];
+        [cell.contentView setBackgroundColor:tblTransaction.backgroundColor];
 	}
 }
 
+#pragma mark -
+#pragma mark Credit Card Processing
+#pragma mark -
+- (IBAction)clicked_chargeBtn:(id)sender {
+    
+    
+    // Charge or Alert
+    
+    for( TransactionPayment *tmp in transaction.payments ) {
+        if( tmp.transactionPaymentID == -1 && tmp.paymentType == PSATransactionPaymentCreditCardForProcessing ) {
+            payment = tmp;
+            if( payment.creditCardPayment ) {
+                Reachability *curReach = [Reachability reachabilityForInternetConnection];
+                // Check network reachability
+                NetworkStatus netStatus = [curReach currentReachabilityStatus];
+                if( netStatus == NotReachable ) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Internet Connection Required" message:@"Credit card processing requires a Wifi or 3G connection in order to function. " delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    [alert show];
+                    [alert release];
+                } else {
+                    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+                    self.activityView.hidden = NO;
+                    [self.activityView startAnimating];
+                    [payment.creditCardPayment chargeWithDelegate:self];
+                }
+            }
+        }
+    }
+    
+    [self save];
+}
+
+#pragma mark -
+#pragma mark Credit Card Processing Delegate Methods
+#pragma mark -
+/*
+ *	Update the labels for the current transaction status.
+ */
+- (void) processingDidChangeState {
+    switch ( payment.creditCardPayment.status ) {
+        case CreditCardProcessingNotProcessed:
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+            [activityView stopAnimating];
+            
+            //btnCharge.enabled = YES;
+            break;
+        case CreditCardProcessingCancelled:
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+            [activityView stopAnimating];
+            
+            //NSString *eDate = [[NSString alloc] initWithFormat:@"%@ %@", [[PSADataManager sharedInstance] getStringForDate:payment.creditCardPayment.date withFormat:NSDateFormatterLongStyle], [[PSADataManager sharedInstance] getStringForTime:payment.creditCardPayment.date withFormat:NSDateFormatterShortStyle]];
+            break;
+        case CreditCardProcessingConnecting:
+            //NSString *dDate = [[NSString alloc] initWithFormat:@"%@ %@", [[PSADataManager sharedInstance] getStringForDate:payment.creditCardPayment.date withFormat:NSDateFormatterLongStyle], [[PSADataManager sharedInstance] getStringForTime:payment.creditCardPayment.date withFormat:NSDateFormatterShortStyle]];
+
+            break;
+        case CreditCardProcessingRequestSent:
+            
+            //NSString *cDate = [[NSString alloc] initWithFormat:@"%@ %@", [[PSADataManager sharedInstance] getStringForDate:payment.creditCardPayment.date withFormat:NSDateFormatterLongStyle], [[PSADataManager sharedInstance] getStringForTime:payment.creditCardPayment.date withFormat:NSDateFormatterShortStyle]];
+            break;
+        case CreditCardProcessingResponseReceived:
+            //NSString *bDate = [[NSString alloc] initWithFormat:@"%@ %@", [[PSADataManager sharedInstance] getStringForDate:payment.creditCardPayment.date withFormat:NSDateFormatterLongStyle], [[PSADataManager sharedInstance] getStringForTime:payment.creditCardPayment.date withFormat:NSDateFormatterShortStyle]];
+            break;
+        case CreditCardProcessingParsingResponse:
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+
+            NSString *aDate = [[NSString alloc] initWithFormat:@"%@ %@", [[PSADataManager sharedInstance] getStringForDate:payment.creditCardPayment.date withFormat:NSDateFormatterLongStyle], [[PSADataManager sharedInstance] getStringForTime:payment.creditCardPayment.date withFormat:NSDateFormatterShortStyle]];
+            break;
+        case CreditCardProcessingApproved:{
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+            NSString *amt = [[NSString alloc] initWithFormat:@"$ %.2f", ([payment.creditCardPayment.amount doubleValue]+[payment.creditCardPayment.tip doubleValue])];
+            //lbAmount.text = amt;
+            [amt release];
+            NSString *successDate = [[NSString alloc] initWithFormat:@"%@ %@", [[PSADataManager sharedInstance] getStringForDate:payment.creditCardPayment.date withFormat:NSDateFormatterLongStyle], [[PSADataManager sharedInstance] getStringForTime:payment.creditCardPayment.date withFormat:NSDateFormatterShortStyle]];
+            [activityView stopAnimating];
+            
+            
+        }
+            break;
+        case CreditCardProcessingDeclined:{
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+            NSString *failDate = [[NSString alloc] initWithFormat:@"%@ %@", [[PSADataManager sharedInstance] getStringForDate:payment.creditCardPayment.date withFormat:NSDateFormatterLongStyle], [[PSADataManager sharedInstance] getStringForTime:payment.creditCardPayment.date withFormat:NSDateFormatterShortStyle]];
+            [failDate release];
+            NSMutableString *err = nil;
+            for( NSString *key in [payment.creditCardPayment.response.errors allKeys] ) {
+                NSString *desc = [payment.creditCardPayment.response.errors objectForKey:key];
+                if( !err ) {
+                    err = [[NSMutableString alloc] initWithFormat:@"%@ [Error %@]", desc, key];
+                } else {
+                    [err appendFormat:@"\n%@ [Error %@]", desc, key];
+                }
+            }
+            UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Payment Decline." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alertView show];
+            [alertView release];
+            [activityView stopAnimating];
+        }
+            break;
+        case CreditCardProcessingError:{
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+            NSString *errorDate = [[NSString alloc] initWithFormat:@"%@ %@", [[PSADataManager sharedInstance] getStringForDate:payment.creditCardPayment.date withFormat:NSDateFormatterLongStyle], [[PSADataManager sharedInstance] getStringForTime:payment.creditCardPayment.date withFormat:NSDateFormatterShortStyle]];
+            [errorDate release];
+            NSMutableString *err2 = nil;
+            for( NSString *key in [payment.creditCardPayment.response.errors allKeys] ) {
+                NSString *desc = [payment.creditCardPayment.response.errors objectForKey:key];
+                if( !err2 ) {
+                    err2 = [[NSMutableString alloc] initWithFormat:@"%@ [Error %@]", desc, key];
+                } else {
+                    [err2 appendFormat:@"\n%@ [Error %@]", desc, key];
+                }
+            }
+            
+            UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Credit Card processing Error." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alertView show];
+            [alertView release];
+        }
+            break;
+        case CreditCardProcessingRefunded:
+            
+            [activityView stopAnimating];
+            
+            
+            break;
+        case CreditCardProcessingVoided:
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+
+            NSString *amt3 = [[NSString alloc] initWithFormat:@"$ %.2f", ([payment.creditCardPayment.amount doubleValue]+[payment.creditCardPayment.tip doubleValue])];
+ 
+            [amt3 release];
+            NSString *successDate3 = [[NSString alloc] initWithFormat:@"%@ %@", [[PSADataManager sharedInstance] getStringForDate:payment.creditCardPayment.date withFormat:NSDateFormatterLongStyle], [[PSADataManager sharedInstance] getStringForTime:payment.creditCardPayment.date withFormat:NSDateFormatterShortStyle]];
+
+            [successDate3 release];
+            
+            [activityView stopAnimating];			
+            
+            
+            break;
+    }
+}
 
 @end

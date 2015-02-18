@@ -52,6 +52,6 @@
 - (void)		relabelWithPrice:(NSString*)priceText;
 - (void)		relabelWithSetupFee:(NSString*)setupText;
 - (IBAction)	valueChanged:(id)sender;
-
+- (void)        cancelEdit;
 
 @end

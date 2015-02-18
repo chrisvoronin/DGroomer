@@ -9,7 +9,7 @@
 #import "VendorTableViewController.h"
 #import "PSABaseViewController.h"
 #import <UIKit/UIKit.h>
-
+#import "ProductStockTableViewCell.h"
 @class Product;
 
 @interface ProductInformationViewController : PSABaseViewController <UITableViewDelegate, UITableViewDataSource, PSAProductTypeTableDelegate, PSAVendorTableDelegate> {
@@ -18,6 +18,7 @@
 	Product					*product;
 }
 
+@property (retain, nonatomic) IBOutlet ProductStockTableViewCell *stockCell;
 @property (nonatomic, retain) UITableView *myTableView;
 @property (nonatomic, retain) Product	*product;
 

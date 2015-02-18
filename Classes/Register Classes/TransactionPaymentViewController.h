@@ -41,5 +41,5 @@
 @property (nonatomic, retain) IBOutlet UITableView	*tblPayment;
 
 - (void) done;
-
+- (void) cancelEdit;
 @end

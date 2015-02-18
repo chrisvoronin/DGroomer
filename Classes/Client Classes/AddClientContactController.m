@@ -31,6 +31,15 @@
 	[bgColor release];*/
 	//
     [super viewDidLoad];
+    
+    // Request to authorise the app to use addressbook
+    ABAddressBookRef addressBookRef = ABAddressBookCreateWithOptions(nil, nil);
+    
+    if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusNotDetermined) {
+        ABAddressBookRequestAccessWithCompletion(addressBookRef, ^(bool granted, CFErrorRef error) {
+
+        });
+    }
 }
 
 //	Bad memories, clear out unnecessary datas

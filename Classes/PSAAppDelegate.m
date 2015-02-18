@@ -22,6 +22,8 @@
 #import "FirstViewController.h"
 #import "FacebookSDK/FacebookSDK.h"
 #import "DataRegister.h"
+#import "ConfigurationUtility.h"
+#import "PSAReminderViewController.h"
 
 @implementation PSAAppDelegate
 
@@ -417,18 +419,30 @@
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     
     UIApplicationState state = [application applicationState];
-    if (state == UIApplicationStateActive) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Reminder"
-                                                        message:notification.alertBody
-                                                       delegate:self cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-    }
+    [self sendReminder:notification.userInfo[@"email"] subject:notification.userInfo[@"title"] content:notification.alertBody phone:notification.userInfo[@"phone"] EmailorSMS:2];
     
+    //[self sendReminder:notification.userInfo[@"email"] subject:notification.userInfo[@"title"] content:notification.alertBody phone:notification.userInfo[@"phone"] EmailorSMS:NO];
     // Set icon badge number to zero
     application.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] - 1;
 }
 
+- (void) sendReminder:(NSString*)clientEmail subject:(NSString*)emailSubject content:(NSString*)emailContent phone:(NSString*)phone EmailorSMS:(int)isEmail{
+    //PSAReminderViewController *cont = [[PSAReminderViewController alloc] initWithNibName:@"PSAReminderViewController" bundle:[NSBundle mainBundle]];
+    
+    PSAReminderViewController *cont = [[PSAReminderViewController alloc] initWithNibName:@"PSAReminderViewController" bundle:nil];
+    
+    
+    cont.strEmailTo = clientEmail;
+    cont.strEmailContent = emailContent;
+    cont.strEmailSubject = emailSubject;
+    cont.strTextTo = phone;
+    cont.isEmail = isEmail;
+    [self.navigationController pushViewController:cont animated:YES];
+    //[self.navigationController presentViewController:cont animated:NO completion:nil];
+    [cont release];
+    
+    return;
+}
 /*- (void)applicationDidEnterBackground:(UIApplication *)application
 {
     NSDate *alertTime = [NSDate dateWithTimeIntervalSinceNow:5];

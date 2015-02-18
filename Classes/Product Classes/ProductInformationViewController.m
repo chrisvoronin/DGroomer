@@ -64,6 +64,7 @@
 	[formatter release];
 	self.myTableView = nil;
 	[product release];
+    [_stockCell release];
     [super dealloc];
 }
 
@@ -130,10 +131,24 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [myTableView dequeueReusableCellWithIdentifier:@"ProductCell"];
+    NSString *identifier = nil;
+    if (indexPath.section==2 && indexPath.row==0) {
+        identifier = @"ProductStockTableViewCell";
+    }
+    else
+        identifier = @"ProductCell";
+    UITableViewCell *cell = [myTableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"ProductCell"] autorelease];
+        if(indexPath.section==2 && indexPath.row==0)
+        {
+            [[NSBundle mainBundle] loadNibNamed:identifier owner:self options:nil];
+            self.stockCell.lblText.text = [[NSString alloc] initWithFormat:@"%ld", (long)product.productInStock];
+            cell = self.stockCell;
+            self.stockCell = nil;
+        }else{
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier] autorelease];
 		cell.selectionStyle = UITableViewCellSelectionStyleGray;
+        }
     }
 
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -192,11 +207,13 @@
 		case 2:
 			switch (indexPath.row) {
 				case 0:
-					cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-					cell.textLabel.text = @"In Stock";
-					NSString *stock = [[NSString alloc] initWithFormat:@"%ld", (long)product.productInStock];
-					cell.detailTextLabel.text = stock;
-					[stock release];
+                    
+					cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    
+					//cell.textLabel.text = @"In Stock";
+					//NSString *stock = [[NSString alloc] initWithFormat:@"%ld", (long)product.productInStock];
+					//cell.detailTextLabel.text = stock;
+					//[stock release];
 					break;
 				case 1:
 					cell.textLabel.text = @"Min. Inventory";
@@ -213,7 +230,7 @@
 			}
 			break;
 	}
-	
+    
 	return cell;
 }
 

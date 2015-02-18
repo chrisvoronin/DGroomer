@@ -18,8 +18,8 @@
     NSString *responseString = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
     NSLog(@"request:%@ - %@",urlString,responseString);
     // build request
-    NSString *baseURLString = @"https://www.icsleads.com/Api";//[ConfigurationUtility getBaseURL];
-    baseURLString = [baseURLString stringByAppendingString:urlString];
+    NSString *baseURLString = urlString;//@"https://www.icsleads.com/Api";//[ConfigurationUtility getBaseURL];
+    //baseURLString = [baseURLString stringByAppendingString:urlString];
     
     NSURL * baseURL = [NSURL URLWithString:baseURLString];
     NSURL * url = baseURL;
