@@ -213,7 +213,12 @@
             }
         }
         
-        
+        if(clientEmail==nil){
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot Email Receipt!" message:@"This client doesn't have email address." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+            [alert release];
+            return;
+        }
         NSString *message = email.message;
         message = [message stringByReplacingOccurrencesOfString:@"<<CLIENT>>" withString:[selectedClient getClientNameFirstThenLast]];
         NSDate *bDate = [selectedClient getBirthdate];
@@ -230,7 +235,12 @@
                 strPhone = [selectedClient getPhoneWork];
             }
         }
-        
+        if(strPhone.length<1 && (int)buttonIndex>=1){
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot Text Receipt!" message:@"This client doesn't have phone number." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+            [alert release];
+            return;
+        }
         NSString *subject = email.subject;
         //[email release];
         cont.strEmailTo = clientEmail;

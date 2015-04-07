@@ -103,6 +103,7 @@
 @property (nonatomic, retain) IBOutlet UILabel		*lbTransIDTitle;
 
 @property (retain, nonatomic) IBOutlet UITextField *txtFullName;
+@property (retain, nonatomic) IBOutlet UIButton *btnScan;
 
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView	*activityView;
 @property (nonatomic, assign) id <PSATransactionPaymentDelegate> delegate;

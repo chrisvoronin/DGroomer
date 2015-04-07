@@ -47,6 +47,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {	
 	if( service == nil )	service = [[Service alloc] init];
+    else{
+        self.title = service.serviceName;
+    }
 	[myTableView reloadData];
 }
 

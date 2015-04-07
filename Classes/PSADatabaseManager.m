@@ -3786,6 +3786,37 @@ static NSInteger compareStringsAsNumbers(id a, id b, void *context) {
 	[array release];
 }
 
+/////////
+- (void) AutoInsertTransactionsSinceLastCloseout:(NSDate*)date {
+    //NSMutableArray *array = [[NSMutableArray alloc] init];
+    NSInteger closeID = [self getTodayCloseout:date];
+    // Get all values.
+    NSString *sql = nil;
+    sql = [[NSString alloc] initWithString:@"SELECT transactionID, appointmentID, clientID, taxPercent, tip, totalForTable, dateOpened, dateClosed, dateVoided FROM iBiz_transaction WHERE dateClosed>0 AND dateVoided=0 AND transactionID NOT IN (SELECT transactionID FROM iBiz_closeout_transaction) ORDER BY dateClosed DESC;"];
+
+    sqlite3_stmt *statement;
+    // Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+    // The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.
+    if (sqlite3_prepare_v2(database, [sql UTF8String], -1, &statement, NULL) == SQLITE_OK) {
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            Transaction *tmp = [[Transaction alloc] init];
+            tmp.transactionID = sqlite3_column_int(statement, 0);
+            
+            [self insertCloseout:closeID Transaction:tmp];
+            
+            //[array addObject:tmp];
+            [tmp release];
+        }
+    } else {
+        [self.delegate dbReturnedError:@"There was an internal problem attempting to fetch transactions for closeout.\n\nPlease restart the app and report this message to our support if it reappears."];
+    }
+    [sql release];
+    // "Finalize" the statement - releases the resources associated with the statement.
+    sqlite3_finalize(statement);
+
+    //[array release];
+}
+
 /*
  *	Returns an array of all voided transactions in the DB
  *	MUST release when done!
@@ -3863,6 +3894,32 @@ static NSInteger compareStringsAsNumbers(id a, id b, void *context) {
 	// "Finalize" the statement - releases the resources associated with the statement.
 	sqlite3_finalize(statement);
 	return closeoutID;
+}
+
+//////
+-(NSInteger) getTodayCloseout:(NSDate*)today{
+    NSInteger closeoutID = -1;
+    NSString *sql = nil;
+    sql = [[NSString alloc] initWithFormat:@"SELECT iBiz_closeout.closeoutID FROM iBiz_closeout WHERE closeoutDate>=%f AND closeoutDate<=%f GROUP BY iBiz_closeout.closeoutID ORDER BY closeoutDate DESC;", [self getTimeIntervalForGMT:today]-(24*3600), [self getTimeIntervalForGMT:today]];
+    
+    sqlite3_stmt *statement;
+    // Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+    // The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.
+    if (sqlite3_prepare_v2(database, [sql UTF8String], -1, &statement, NULL) == SQLITE_OK) {
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            closeoutID = sqlite3_column_int(statement, 0);
+        }
+    } else {
+        [self.delegate dbReturnedError:@"There was an internal problem attempting to fetch closeoutID.\n\nPlease restart the app and report this message to our support if it reappears."];
+    }
+    [sql release];
+    // "Finalize" the statement - releases the resources associated with the statement.
+    sqlite3_finalize(statement);
+    
+    if (closeoutID<0) {
+        closeoutID = [self insertDailyCloseout];
+    }
+    return closeoutID;
 }
 
 /*
@@ -5727,6 +5784,12 @@ static NSInteger compareStringsAsNumbers(id a, id b, void *context) {
 			returnValue.isSaturdayOff = sqlite3_column_int(statement, 20);
 			returnValue.isSundayOff = sqlite3_column_int(statement, 21);
 			returnValue.is15MinuteIntervals = sqlite3_column_int(statement, 22);
+            
+            //ja
+            returnValue.isCloseout = sqlite3_column_int(statement, 25);
+            NSString *closeT = [[NSString alloc] initWithUTF8String:(char *)sqlite3_column_text(statement, 26)];
+            returnValue.closeTime = ( !closeT || [closeT isEqualToString:@"(null)"] ) ? nil : closeT;
+            [closeT release];
 		}
 	} else {
 		[self.delegate dbReturnedError:@"There was an internal problem attempting to fetch work hour settings.\n\nPlease restart the app and report this message to our support if it reappears."];
@@ -5741,7 +5804,7 @@ static NSInteger compareStringsAsNumbers(id a, id b, void *context) {
  *
  */
 - (void) updateSettings:(Settings*)settings {
-	NSString *sql = [[NSString alloc] initWithFormat:@"UPDATE iBiz_settings SET mondayStart='%@', mondayFinish='%@', tuesdayStart='%@', tuesdayFinish='%@', wednesdayStart='%@', wednesdayFinish='%@', thursdayStart='%@', thursdayFinish='%@', fridayStart='%@', fridayFinish='%@', saturdayStart='%@', saturdayFinish='%@', sundayStart='%@', sundayFinish='%@', isMondayOff=%d, isTuesdayOff=%d, isWednesdayOff=%d, isThursdayOff=%d, isFridayOff=%d, isSaturdayOff=%d, isSundayOff=%d, is15MinuteIntervals=%d WHERE settingsID='%li'", settings.mondayStart, settings.mondayFinish, settings.tuesdayStart, settings.tuesdayFinish, settings.wednesdayStart, settings.wednesdayFinish, settings.thursdayStart, settings.thursdayFinish, settings.fridayStart, settings.fridayFinish, settings.saturdayStart, settings.saturdayFinish, settings.sundayStart, settings.sundayFinish, settings.isMondayOff, settings.isTuesdayOff, settings.isWednesdayOff, settings.isThursdayOff, settings.isFridayOff, settings.isSaturdayOff, settings.isSundayOff, settings.is15MinuteIntervals, (long)settings.settingsID];
+	NSString *sql = [[NSString alloc] initWithFormat:@"UPDATE iBiz_settings SET mondayStart='%@', mondayFinish='%@', tuesdayStart='%@', tuesdayFinish='%@', wednesdayStart='%@', wednesdayFinish='%@', thursdayStart='%@', thursdayFinish='%@', fridayStart='%@', fridayFinish='%@', saturdayStart='%@', saturdayFinish='%@', sundayStart='%@', sundayFinish='%@', isMondayOff=%d, isTuesdayOff=%d, isWednesdayOff=%d, isThursdayOff=%d, isFridayOff=%d, isSaturdayOff=%d, isSundayOff=%d, is15MinuteIntervals=%d, isCloseout=%d, closeTime='%@' WHERE settingsID='%li'", settings.mondayStart, settings.mondayFinish, settings.tuesdayStart, settings.tuesdayFinish, settings.wednesdayStart, settings.wednesdayFinish, settings.thursdayStart, settings.thursdayFinish, settings.fridayStart, settings.fridayFinish, settings.saturdayStart, settings.saturdayFinish, settings.sundayStart, settings.sundayFinish, settings.isMondayOff, settings.isTuesdayOff, settings.isWednesdayOff, settings.isThursdayOff, settings.isFridayOff, settings.isSaturdayOff, settings.isSundayOff, settings.is15MinuteIntervals, settings.isCloseout, settings.closeTime, (long)settings.settingsID];
 	sqlite3_stmt *statement;
 	if (sqlite3_prepare_v2(database, [sql UTF8String], -1, &statement, NULL) != SQLITE_OK) {
 		[self.delegate dbReturnedError:@"There was an internal problem attempting to update work hour settings.\n\nPlease restart the app and report this message to our support if it reappears."];

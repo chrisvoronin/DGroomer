@@ -17,6 +17,7 @@
 @synthesize sundayStart, sundayFinish;
 @synthesize isMondayOff, isTuesdayOff, isWednesdayOff, isThursdayOff, isFridayOff, isSaturdayOff, isSundayOff;
 @synthesize is15MinuteIntervals;
+@synthesize isCloseout, closeTime;
 
 - (id)initWithKey:(NSInteger)key {
 	self.settingsID = key;
@@ -38,6 +39,7 @@
 	[fridayFinish release];
 	[saturdayFinish release];
 	[sundayFinish release];
+    [closeTime release];
 	[super dealloc];
 }
 

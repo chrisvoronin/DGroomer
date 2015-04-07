@@ -1605,6 +1605,33 @@ static PSADataManager *mySharedDelegate = nil;
 	}
 	[voids release];
 }
+//////
+- (void) autoDailyCloseoutForTransactions:(Transaction*)transactions theDate:(NSDate*)today{
+    // Insert the closeout
+    NSInteger closeoutID = [dbManager getTodayCloseout:today];
+    // Insert the closeout_transaction for each
+
+        // If the transaction wasn't closed, close it!... not anymore!
+        if( transactions.dateVoided ) {
+            // Check for project data (versus a full hydration)
+            [dbManager getTransactionProjectData:transactions];
+            // Remove from project
+            if( transactions.projectID > -1 ) {
+                [dbManager removeTransactionID:transactions.transactionID fromProjectID:transactions.projectID];
+            }
+            [dbManager deleteTransactionAndChildren:transactions];
+        } else {
+            // Only closed transactions are added to the CloseOut
+            if( transactions.dateClosed ) {
+                [dbManager insertCloseout:closeoutID Transaction:transactions];
+            }
+        }
+}
+
+
+- (void) autoCloseout:(NSDate*)date{
+    [dbManager AutoInsertTransactionsSinceLastCloseout:date];
+}
 
 /*
  *
@@ -1641,14 +1668,15 @@ static PSADataManager *mySharedDelegate = nil;
 /*
  *
  */
-- (void) saveTransaction:(Transaction*)theTransaction {
+- (void) saveTransaction:(Transaction*)theTransaction isOnlySave:(BOOL)isSave{
 	
 	//DebugLog( @"Change: %f", [[theTransaction getChangeDue] doubleValue] );
 	NSNumber *oldTotal = [[NSNumber alloc] initWithDouble:[theTransaction.totalForTable doubleValue]];
 	theTransaction.totalForTable = [theTransaction getTotal];
 	// The Transaction itself
-	if( theTransaction.transactionID > -1 ) {
+	if( theTransaction.transactionID > -1) {
 		//DebugLog( @"Change: %f", round([[theTransaction getChangeDue] doubleValue]*100)/100 );
+        
 		if( round([[theTransaction getChangeDue] doubleValue]*100)/100 >= 0.00 && theTransaction.dateClosed == nil ) {
 			// Close (should only happen once)
 			theTransaction.dateClosed = [NSDate date];
@@ -1659,7 +1687,7 @@ static PSADataManager *mySharedDelegate = nil;
 		// Open
 		theTransaction.dateOpened = [NSDate date];
 		//DebugLog( @"Change: %f", round([[theTransaction getChangeDue] doubleValue]*100)/100 );
-		if( round([[theTransaction getChangeDue] doubleValue]*100)/100 >= 0.00 ) {
+		if( round([[theTransaction getChangeDue] doubleValue]*100)/100 >= 0.00 && !isSave ) {
 			// Close (should only happen once)
 			theTransaction.dateClosed = [NSDate date];
 		}
@@ -1805,7 +1833,7 @@ static PSADataManager *mySharedDelegate = nil;
 		[[PSADataManager sharedInstance] removeGiftCertificate:(GiftCertificate*)tmp.item];
 	}
 	// Save the transaction
-	[[PSADataManager sharedInstance] saveTransaction:theTransaction];
+	[[PSADataManager sharedInstance] saveTransaction:theTransaction isOnlySave:NO];
 	[theTransaction dehydrate];
 }
 
@@ -2795,6 +2823,52 @@ static PSADataManager *mySharedDelegate = nil;
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Database Error" message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
 	[alert show];	
 	[alert release];
+}
+
+- (NSDate *)todayModifiedWithHours:(NSString *)strTime
+{
+    NSString *hours;
+    NSString *minutes;
+    NSString *period;
+    
+    NSRange startRange = [strTime rangeOfString:@":"];
+    hours = [strTime substringToIndex:startRange.location];
+    minutes = [[strTime substringFromIndex:startRange.location+1] substringToIndex:2];
+    period = [strTime substringFromIndex:strTime.length-2];
+    
+    NSDate *todayModified = NSDate.date;
+    
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    
+    NSDateComponents *components = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit|NSMinuteCalendarUnit fromDate:todayModified];
+    
+    [components setMinute:minutes.intValue];
+    
+    int hour = 0;
+    
+    if ([period.uppercaseString isEqualToString:@"AM"]) {
+        
+        if (hours.intValue == 12) {
+            hour = 0;
+        }
+        else {
+            hour = hours.intValue;
+        }
+    }
+    else if ([period.uppercaseString isEqualToString:@"PM"]) {
+        
+        if (hours.intValue != 12) {
+            hour = hours.intValue + 12;
+        }
+        else {
+            hour = 12;
+        }
+    }
+    [components setHour:hour];
+    
+    todayModified = [calendar dateFromComponents:components];
+    
+    return todayModified;
 }
 
 #pragma mark -

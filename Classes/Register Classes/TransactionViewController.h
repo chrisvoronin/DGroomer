@@ -16,10 +16,14 @@
 #import "TransactionChargeCell.h"
 #import "CreditCardConnectionManager.h"
 #import "BaseRegistrationViewController.h"
+
+#import "CreditCardType.h"
+#import "AuthNet.h"
+
 @class Client, Transaction, TransactionItem;
 
 @interface TransactionViewController : BaseRegistrationViewController 
-<CreditCardProcessingViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate, PSAClientTableDelegate, PSAGiftCertificateDelegate, PSAProductTableDelegate,
+<AuthNetDelegate, CreditCardProcessingViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate, PSAClientTableDelegate, PSAGiftCertificateDelegate, PSAProductTableDelegate,
 PSATransactionMoneyEntryDelegate, PSATransactionPaymentDelegate, PSAServiceTableDelegate, UIActionSheetDelegate, 
 UITableViewDelegate, UITableViewDataSource> 
 {
@@ -50,6 +54,9 @@ UITableViewDelegate, UITableViewDataSource>
     TransactionPayment *payment;
     IBOutlet UIActivityIndicatorView *activityView;
     MBProgressHUD *progress;
+    BOOL           isSave;
+    int m_nIndex;
+    int m_transactionType;
 }
 
 @property (nonatomic, assign) BOOL						isEditing;
@@ -64,6 +71,15 @@ UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, assign) BOOL isFirstTime;
 @property (nonatomic, assign) RegisterViewController    *parent;
 @property (retain, nonatomic) IBOutlet UIActivityIndicatorView *activityView;
+@property (nonatomic, assign) int          isEmail;
+@property (nonatomic, retain) NSString		*strTextTo;
+@property (nonatomic, retain) NSString		*strEmailTo;
+@property (nonatomic, retain) NSString		*strEmailContent;
+@property (nonatomic, retain) NSString		*strEmailSubject;
+@property (nonatomic, retain) NSString		*strTextContent;
+@property (nonatomic, strong) NSString      *sessionToken;
+@property (retain, nonatomic) IBOutlet UIButton *buttonCharge;
+
 - (IBAction)			btnVoidPressed:(id)sender;
 - (void)				cancelEdit;
 - (BOOL)				checkForCreditPayments;
@@ -76,5 +92,7 @@ UITableViewDelegate, UITableViewDataSource>
 - (void)				refundCreditPayment;
 - (void)				removeThisView;
 - (void)				save;
-- (void)                autoEmailReceipt:(int)nIndex;
+- (void) loginToGateway;
+- (void) createTransaction;
+
 @end

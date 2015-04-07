@@ -470,10 +470,11 @@
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    [FBSettings setDefaultAppID:@"421132574681288"];
+    [FBSettings setDefaultAppID:@"711404865645676"];
     [FBAppEvents activateApp];
 
 }
+
 
 
 @end

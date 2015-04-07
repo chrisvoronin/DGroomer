@@ -151,6 +151,8 @@
 		[formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
 		NSString *ow = [[NSString alloc] initWithFormat:@"Owed: %@", [formatter stringFromNumber:[NSNumber numberWithFloat:amt]]];
 		lbOwed.text = ow;
+        
+        txtAmount.text = [NSString stringWithFormat:@"%.2f", amt];
 		[ow release];
 		[formatter release];
 	}
@@ -184,6 +186,15 @@
         
         NSString *cc = [[NSString alloc] initWithFormat:@"************%@", [payment.creditCardPayment.ccNumber substringFromIndex:payment.creditCardPayment.ccNumber.length-4]];
         txtCardNumber.text = cc;
+        
+        self.btnScan.enabled = NO;
+        txtAmount.enabled = NO;
+        txtTip.enabled = NO;
+        self.txtFullName.enabled = NO;
+        txtCardNumber.enabled = NO;
+        txtCVV.enabled = NO;
+        txtExpDate.enabled = NO;
+        tvNotes.editable = NO;
     }
     
 	[self updateTotal];
@@ -240,6 +251,7 @@
     [txtExpDate release];
 
     [_txtFullName release];
+    [_btnScan release];
     [super dealloc];
 }
 
@@ -1034,7 +1046,7 @@
         [tip release];
         payment.creditCardPayment.ccCVV = txtCVV.text;
         payment.creditCardPayment.ccExpirationMonth = strMonth;
-        payment.creditCardPayment.ccExpirationYear = strMonth;
+        payment.creditCardPayment.ccExpirationYear = strYear;
         if (strCardNum.length<4) {
             payment.creditCardPayment.ccNumber = txtCardNumber.text;
         } else{

@@ -155,7 +155,8 @@
 - (void)		getInvoicePaymentsForNextCloseOut;
 - (NSArray*)	getInvoicePaymentsUnthreadedForCloseOut:(CloseOut*)theCloseOut;
 - (void)		insertDailyCloseoutForTransactions:(NSArray*)transactions andInvoicePayments:(NSArray*)payments andInvoices:(NSArray*)invoices;
-
+- (void)		autoDailyCloseoutForTransactions:(Transaction*)transactions theDate:(NSDate*)today;
+- (void)        autoCloseout:(NSDate*)date;
 // Transaction Fetchers
 //	 Threaded
 
@@ -188,7 +189,7 @@
 - (void)				removeTransactionItem:(TransactionItem*)theItem;
 - (void)				removeTransactionPayment:(TransactionPayment*)thePayment;
 // Inserts or updates the transaction and all of it's specific data
-- (void)				saveTransaction:(Transaction*)theTransaction;
+- (void)				saveTransaction:(Transaction*)theTransaction isOnlySave:(BOOL)isSave;
 - (void)				saveTransactionTip:(Transaction*)theTransaction;
 - (void)				voidTransaction:(Transaction*)theTransaction;
 // Credit Cards
@@ -272,7 +273,7 @@
 - (void)		hideActivityIndicator;
 - (void)		showActivityIndicator;
 - (void)		showError:(NSString*)message;
-
+- (NSDate *)todayModifiedWithHours:(NSString *)strTime;
 #pragma mark -
 #pragma mark Singleton Accessor
 #pragma mark -

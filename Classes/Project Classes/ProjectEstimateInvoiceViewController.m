@@ -1307,7 +1307,7 @@
 					paymentDescription = [[NSString alloc] initWithFormat:@"Credit Card ending in %@", payment.extraInfo];
 				} else if( payment.paymentType == PSATransactionPaymentCreditCardForProcessing ) {
 					[payment hydrateCreditCardPayment];
-					paymentDescription = [[NSString alloc] initWithFormat:@"Credit Card ending in %@", payment.creditCardPayment.ccNumber];
+					paymentDescription = [[NSString alloc] initWithFormat:@"Credit Card ending in %@", [payment.creditCardPayment.ccNumber substringFromIndex:payment.creditCardPayment.ccNumber.length-4]];
 					[payment dehydrateCreditCardPayment];
 				} else if( payment.paymentType == PSATransactionPaymentGiftCertificate ) {
 					GiftCertificate *cert = [[PSADataManager sharedInstance] getGiftCertificateWithID:[payment.extraInfo integerValue]];

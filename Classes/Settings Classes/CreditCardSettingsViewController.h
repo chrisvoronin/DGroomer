@@ -8,10 +8,11 @@
 #import <MessageUI/MessageUI.h>
 #import <UIKit/UIKit.h>
 #import "PSABaseViewController.h"
+#import "AuthNet.h"
 
 @class CreditCardSettings;
 
-@interface CreditCardSettingsViewController : PSABaseViewController <MFMailComposeViewControllerDelegate, UIActionSheetDelegate,UITextFieldDelegate,UIAlertViewDelegate> {
+@interface CreditCardSettingsViewController : PSABaseViewController <AuthNetDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate,UITextFieldDelegate,UIAlertViewDelegate> {
 	CreditCardSettings	*settings;
 	// Interface
 	UISegmentedControl	*segProcessingType;
@@ -38,6 +39,7 @@
 @property (nonatomic, retain) IBOutlet UITextField			*txtAPILogin;
 @property (nonatomic, retain) IBOutlet UITextField			*txtTransactionKey;
 @property (nonatomic, retain)  IBOutlet UITextField          *alertText;
+@property (retain, nonatomic) IBOutlet UIActivityIndicatorView *activityView;
 
 
 - (IBAction)	helpAPILogin:(id)sender;

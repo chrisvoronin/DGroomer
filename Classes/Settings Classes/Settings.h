@@ -32,6 +32,8 @@
 	BOOL isSaturdayOff;
 	BOOL isSundayOff;
 	BOOL is15MinuteIntervals;
+    BOOL isCloseout;
+    NSString *closeTime;
 }
 
 @property (assign, nonatomic) NSInteger settingsID;
@@ -59,6 +61,9 @@
 @property (nonatomic, assign) BOOL		isSundayOff;
 
 @property (nonatomic, assign) BOOL		is15MinuteIntervals;
+
+@property (nonatomic, assign) BOOL		isCloseout;
+@property (nonatomic, retain) NSString	*closeTime;
 
 - (id)initWithKey:(NSInteger)key;
 

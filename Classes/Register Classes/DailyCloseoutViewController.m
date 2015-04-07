@@ -13,7 +13,7 @@
 #import "TransactionItem.h"
 #import "TransactionPayment.h"
 #import "DailyCloseoutViewController.h"
-
+#import "Settings.h"
 
 @implementation DailyCloseoutViewController
 
@@ -50,6 +50,13 @@
 	formatter = [[NSNumberFormatter alloc] init];
 	[formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
 	//
+    
+    Settings *setting = [[PSADataManager sharedInstance] getSettings];
+    if(setting.isCloseout){
+        NSDate *tDate = [[PSADataManager sharedInstance] todayModifiedWithHours:setting.closeTime];
+        [[PSADataManager sharedInstance] autoCloseout:tDate];
+    }
+    
     [super viewDidLoad];
 }
 
@@ -69,6 +76,10 @@
 			[[PSADataManager sharedInstance] getAllTransactionsSinceLastCloseout];
 		}
 	}
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    
 }
 
 - (void)didReceiveMemoryWarning {

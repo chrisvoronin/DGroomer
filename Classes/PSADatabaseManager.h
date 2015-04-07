@@ -170,6 +170,8 @@ typedef enum PSACreditCardPaymentStatusType {
 - (void)		getInvoicePaymentsForNextCloseOut;
 - (NSArray*)	getInvoicePaymentsUnthreadedForCloseOut:(CloseOut*)theCloseOut;
 - (NSInteger)	insertDailyCloseout;
+-(NSInteger)    getTodayCloseout:(NSDate*)today;
+- (void)        AutoInsertTransactionsSinceLastCloseout:(NSDate*)date;
 - (void)		insertCloseout:(NSInteger)closeoutID Transaction:(Transaction*)theTransaction;
 - (void)		insertCloseout:(NSInteger)closeoutID InvoicePayment:(TransactionPayment*)thePayment;
 - (void)		insertCloseout:(NSInteger)closeoutID InvoiceID:(NSNumber*)theInvoice;

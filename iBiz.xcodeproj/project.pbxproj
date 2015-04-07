@@ -261,6 +261,12 @@
 		B25754EF19371B20004D9350 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = B25754BA19371B20004D9350 /* SVProgressHUD.m */; };
 		B25754F019371B20004D9350 /* ValidationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B25754BD19371B20004D9350 /* ValidationModel.m */; };
 		B25754F119371B20004D9350 /* ValidationUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B25754BF19371B20004D9350 /* ValidationUtility.m */; };
+		B2649CF51A99279F00948F50 /* NSString+MD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = B2649CF21A99279F00948F50 /* NSString+MD5Addition.m */; };
+		B2649CF61A99279F00948F50 /* UIDevice+IdentifierAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = B2649CF41A99279F00948F50 /* UIDevice+IdentifierAddition.m */; };
+		B2649D021A99283700948F50 /* NSString+MD5Addition.h in Sources */ = {isa = PBXBuildFile; fileRef = B2649CF11A99279F00948F50 /* NSString+MD5Addition.h */; };
+		B2649D031A99283700948F50 /* NSString+MD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = B2649CF21A99279F00948F50 /* NSString+MD5Addition.m */; };
+		B2649D041A99283700948F50 /* UIDevice+IdentifierAddition.h in Sources */ = {isa = PBXBuildFile; fileRef = B2649CF31A99279F00948F50 /* UIDevice+IdentifierAddition.h */; };
+		B2649D051A99283700948F50 /* UIDevice+IdentifierAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = B2649CF41A99279F00948F50 /* UIDevice+IdentifierAddition.m */; };
 		B27195C81A91315600C77795 /* TransactionChargeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B27195C61A91315600C77795 /* TransactionChargeCell.m */; };
 		B27195C91A91315600C77795 /* TransactionChargeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B27195C71A91315600C77795 /* TransactionChargeCell.xib */; };
 		B27195D31A91326D00C77795 /* TransactionChargeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B27195C71A91315600C77795 /* TransactionChargeCell.xib */; };
@@ -282,6 +288,195 @@
 		B27759C51A4B525E0015F6F6 /* ClientNotesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B27759C41A4B525E0015F6F6 /* ClientNotesView.xib */; };
 		B27759C61A4B56090015F6F6 /* ClientNotesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B27759C41A4B525E0015F6F6 /* ClientNotesView.xib */; };
 		B27759C81A4C5B0E0015F6F6 /* btn_blue_clicked.png in Resources */ = {isa = PBXBuildFile; fileRef = B27759C71A4C5B0E0015F6F6 /* btn_blue_clicked.png */; };
+		B28B8BC31A98C598003B1EE1 /* ANetApiRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B0A1A98C597003B1EE1 /* ANetApiRequest.m */; };
+		B28B8BC41A98C598003B1EE1 /* ANetApiResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B0B1A98C597003B1EE1 /* ANetApiResponse.m */; };
+		B28B8BC51A98C598003B1EE1 /* AuthNet.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B0C1A98C597003B1EE1 /* AuthNet.m */; };
+		B28B8BC61A98C598003B1EE1 /* AuthNetMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B0D1A98C597003B1EE1 /* AuthNetMessage.m */; };
+		B28B8BC71A98C598003B1EE1 /* AuthNetRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B0E1A98C597003B1EE1 /* AuthNetRequest.m */; };
+		B28B8BC81A98C598003B1EE1 /* AuthNetResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B0F1A98C597003B1EE1 /* AuthNetResponse.m */; };
+		B28B8BCA1A98C598003B1EE1 /* BankAccountMaskedType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B111A98C597003B1EE1 /* BankAccountMaskedType.m */; };
+		B28B8BCB1A98C598003B1EE1 /* BankAccountType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B121A98C597003B1EE1 /* BankAccountType.m */; };
+		B28B8BCC1A98C598003B1EE1 /* BatchDetailsType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B131A98C597003B1EE1 /* BatchDetailsType.m */; };
+		B28B8BCD1A98C598003B1EE1 /* BatchStatisticType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B141A98C597003B1EE1 /* BatchStatisticType.m */; };
+		B28B8BCE1A98C598003B1EE1 /* CCAuthenticationType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B151A98C597003B1EE1 /* CCAuthenticationType.m */; };
+		B28B8BCF1A98C598003B1EE1 /* CreateTransactionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B161A98C597003B1EE1 /* CreateTransactionRequest.m */; };
+		B28B8BD01A98C598003B1EE1 /* CreateTransactionResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B171A98C597003B1EE1 /* CreateTransactionResponse.m */; };
+		B28B8BD11A98C598003B1EE1 /* CreateTransactionResponse.xml in Resources */ = {isa = PBXBuildFile; fileRef = B28B8B181A98C597003B1EE1 /* CreateTransactionResponse.xml */; };
+		B28B8BD21A98C598003B1EE1 /* CreditCardMaskedType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B191A98C597003B1EE1 /* CreditCardMaskedType.m */; };
+		B28B8BD31A98C598003B1EE1 /* CreditCardTrackType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B1A1A98C597003B1EE1 /* CreditCardTrackType.m */; };
+		B28B8BD41A98C598003B1EE1 /* CreditCardType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B1B1A98C597003B1EE1 /* CreditCardType.m */; };
+		B28B8BD51A98C598003B1EE1 /* CustomerAddressType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B1C1A98C597003B1EE1 /* CustomerAddressType.m */; };
+		B28B8BD61A98C598003B1EE1 /* CustomerDataType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B1D1A98C597003B1EE1 /* CustomerDataType.m */; };
+		B28B8BD71A98C598003B1EE1 /* Error.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B1E1A98C597003B1EE1 /* Error.m */; };
+		B28B8BD81A98C598003B1EE1 /* ExtendedAmountType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B1F1A98C597003B1EE1 /* ExtendedAmountType.m */; };
+		B28B8BD91A98C598003B1EE1 /* FDSFilterType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B201A98C597003B1EE1 /* FDSFilterType.m */; };
+		B28B8BDA1A98C598003B1EE1 /* FingerPrintObjectType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B211A98C597003B1EE1 /* FingerPrintObjectType.m */; };
+		B28B8BDB1A98C598003B1EE1 /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B221A98C597003B1EE1 /* GDataXMLNode.m */; };
+		B28B8BDC1A98C598003B1EE1 /* GetBatchStatisticsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B231A98C597003B1EE1 /* GetBatchStatisticsRequest.m */; };
+		B28B8BDD1A98C598003B1EE1 /* GetBatchStatisticsResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B241A98C597003B1EE1 /* GetBatchStatisticsResponse.m */; };
+		B28B8BDE1A98C598003B1EE1 /* GetBatchStatisticsResponse.xml in Resources */ = {isa = PBXBuildFile; fileRef = B28B8B251A98C597003B1EE1 /* GetBatchStatisticsResponse.xml */; };
+		B28B8BDF1A98C598003B1EE1 /* GetSettledBatchListRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B261A98C597003B1EE1 /* GetSettledBatchListRequest.m */; };
+		B28B8BE01A98C598003B1EE1 /* GetSettledBatchListResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B271A98C597003B1EE1 /* GetSettledBatchListResponse.m */; };
+		B28B8BE11A98C598003B1EE1 /* GetSettledBatchListResponse.xml in Resources */ = {isa = PBXBuildFile; fileRef = B28B8B281A98C597003B1EE1 /* GetSettledBatchListResponse.xml */; };
+		B28B8BE21A98C598003B1EE1 /* GetTransactionDetailsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B291A98C597003B1EE1 /* GetTransactionDetailsRequest.m */; };
+		B28B8BE31A98C598003B1EE1 /* GetTransactionDetailsResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B2A1A98C597003B1EE1 /* GetTransactionDetailsResponse.m */; };
+		B28B8BE41A98C598003B1EE1 /* GetTransactionDetailsResponse.xml in Resources */ = {isa = PBXBuildFile; fileRef = B28B8B2B1A98C597003B1EE1 /* GetTransactionDetailsResponse.xml */; };
+		B28B8BE51A98C598003B1EE1 /* GetTransactionListRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B2C1A98C597003B1EE1 /* GetTransactionListRequest.m */; };
+		B28B8BE61A98C598003B1EE1 /* GetTransactionListResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B2D1A98C597003B1EE1 /* GetTransactionListResponse.m */; };
+		B28B8BE71A98C598003B1EE1 /* GetTransactionListResponse.xml in Resources */ = {isa = PBXBuildFile; fileRef = B28B8B2E1A98C597003B1EE1 /* GetTransactionListResponse.xml */; };
+		B28B8BE81A98C598003B1EE1 /* GetUnsettledTransactionListRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B2F1A98C597003B1EE1 /* GetUnsettledTransactionListRequest.m */; };
+		B28B8BE91A98C598003B1EE1 /* GetUnsettledTransactionListResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B301A98C597003B1EE1 /* GetUnsettledTransactionListResponse.m */; };
+		B28B8BEA1A98C598003B1EE1 /* GetUnsettledTransactionListResponse.xml in Resources */ = {isa = PBXBuildFile; fileRef = B28B8B311A98C597003B1EE1 /* GetUnsettledTransactionListResponse.xml */; };
+		B28B8BEB1A98C598003B1EE1 /* LineItemType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B321A98C597003B1EE1 /* LineItemType.m */; };
+		B28B8BEC1A98C598003B1EE1 /* LogoutRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B331A98C597003B1EE1 /* LogoutRequest.m */; };
+		B28B8BED1A98C598003B1EE1 /* LogoutResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B341A98C597003B1EE1 /* LogoutResponse.m */; };
+		B28B8BEE1A98C598003B1EE1 /* LogoutResponse.xml in Resources */ = {isa = PBXBuildFile; fileRef = B28B8B351A98C598003B1EE1 /* LogoutResponse.xml */; };
+		B28B8BEF1A98C598003B1EE1 /* MerchantAccountType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B361A98C598003B1EE1 /* MerchantAccountType.m */; };
+		B28B8BF01A98C598003B1EE1 /* MerchantAuthenticationType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B371A98C598003B1EE1 /* MerchantAuthenticationType.m */; };
+		B28B8BF11A98C598003B1EE1 /* MerchantContactType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B381A98C598003B1EE1 /* MerchantContactType.m */; };
+		B28B8BF21A98C598003B1EE1 /* Messages.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B391A98C598003B1EE1 /* Messages.m */; };
+		B28B8BF31A98C598003B1EE1 /* MobileDeviceLoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B3A1A98C598003B1EE1 /* MobileDeviceLoginRequest.m */; };
+		B28B8BF41A98C598003B1EE1 /* MobileDeviceLoginResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B3B1A98C598003B1EE1 /* MobileDeviceLoginResponse.m */; };
+		B28B8BF51A98C598003B1EE1 /* MobileDeviceLoginResponse.xml in Resources */ = {isa = PBXBuildFile; fileRef = B28B8B3C1A98C598003B1EE1 /* MobileDeviceLoginResponse.xml */; };
+		B28B8BF61A98C598003B1EE1 /* MobileDeviceRegistrationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B3D1A98C598003B1EE1 /* MobileDeviceRegistrationRequest.m */; };
+		B28B8BF71A98C598003B1EE1 /* MobileDeviceRegistrationResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B3E1A98C598003B1EE1 /* MobileDeviceRegistrationResponse.m */; };
+		B28B8BF81A98C598003B1EE1 /* MobileDeviceRegistrationResponse.xml in Resources */ = {isa = PBXBuildFile; fileRef = B28B8B3F1A98C598003B1EE1 /* MobileDeviceRegistrationResponse.xml */; };
+		B28B8BF91A98C598003B1EE1 /* MobileDeviceType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B401A98C598003B1EE1 /* MobileDeviceType.m */; };
+		B28B8BFA1A98C598003B1EE1 /* NameAndAddressType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B411A98C598003B1EE1 /* NameAndAddressType.m */; };
+		B28B8BFB1A98C598003B1EE1 /* OpaqueDataType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B421A98C598003B1EE1 /* OpaqueDataType.m */; };
+		B28B8BFC1A98C598003B1EE1 /* OrderExType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B431A98C598003B1EE1 /* OrderExType.m */; };
+		B28B8BFD1A98C598003B1EE1 /* OrderType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B441A98C598003B1EE1 /* OrderType.m */; };
+		B28B8BFE1A98C598003B1EE1 /* PaymentMaskedType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B451A98C598003B1EE1 /* PaymentMaskedType.m */; };
+		B28B8BFF1A98C598003B1EE1 /* PaymentType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B461A98C598003B1EE1 /* PaymentType.m */; };
+		B28B8C001A98C598003B1EE1 /* PermissionType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B471A98C598003B1EE1 /* PermissionType.m */; };
+		B28B8C011A98C598003B1EE1 /* SendCustomerTransactionReceiptRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B481A98C598003B1EE1 /* SendCustomerTransactionReceiptRequest.m */; };
+		B28B8C021A98C598003B1EE1 /* SendCustomerTransactionReceiptResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B491A98C598003B1EE1 /* SendCustomerTransactionReceiptResponse.m */; };
+		B28B8C031A98C598003B1EE1 /* SendCustomerTransactionReceiptResponse.xml in Resources */ = {isa = PBXBuildFile; fileRef = B28B8B4A1A98C598003B1EE1 /* SendCustomerTransactionReceiptResponse.xml */; };
+		B28B8C041A98C598003B1EE1 /* SettingType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B4B1A98C598003B1EE1 /* SettingType.m */; };
+		B28B8C051A98C598003B1EE1 /* SplitTenderPayment.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B4C1A98C598003B1EE1 /* SplitTenderPayment.m */; };
+		B28B8C061A98C598003B1EE1 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B4F1A98C598003B1EE1 /* Reachability.m */; };
+		B28B8C071A98C598003B1EE1 /* SwiperDataType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B501A98C598003B1EE1 /* SwiperDataType.m */; };
+		B28B8C081A98C598003B1EE1 /* TestAccountCaptchaRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B511A98C598003B1EE1 /* TestAccountCaptchaRequest.m */; };
+		B28B8C091A98C598003B1EE1 /* TestAccountCaptchaResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B531A98C598003B1EE1 /* TestAccountCaptchaResponse.m */; };
+		B28B8C0A1A98C598003B1EE1 /* TestAccountCaptchaResponse.xml in Resources */ = {isa = PBXBuildFile; fileRef = B28B8B541A98C598003B1EE1 /* TestAccountCaptchaResponse.xml */; };
+		B28B8C0B1A98C598003B1EE1 /* TestAccountRegistrationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B561A98C598003B1EE1 /* TestAccountRegistrationRequest.m */; };
+		B28B8C0C1A98C598003B1EE1 /* TestAccountRegistrationResponse.xml in Resources */ = {isa = PBXBuildFile; fileRef = B28B8B571A98C598003B1EE1 /* TestAccountRegistrationResponse.xml */; };
+		B28B8C0D1A98C598003B1EE1 /* TransactionDetailsType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B581A98C598003B1EE1 /* TransactionDetailsType.m */; };
+		B28B8C0E1A98C598003B1EE1 /* TransactionRequestType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B591A98C598003B1EE1 /* TransactionRequestType.m */; };
+		B28B8C0F1A98C598003B1EE1 /* TransactionResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B5A1A98C598003B1EE1 /* TransactionResponse.m */; };
+		B28B8C101A98C598003B1EE1 /* TransactionSummaryType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B5B1A98C598003B1EE1 /* TransactionSummaryType.m */; };
+		B28B8C111A98C598003B1EE1 /* TransRetailInfoType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B5C1A98C598003B1EE1 /* TransRetailInfoType.m */; };
+		B28B8C121A98C598003B1EE1 /* UserField.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B5D1A98C598003B1EE1 /* UserField.m */; };
+		B28B8C131A98C598003B1EE1 /* Anet SDKTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B28B8B621A98C598003B1EE1 /* Anet SDKTests-Info.plist */; };
+		B28B8C141A98C598003B1EE1 /* Anet_SDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B641A98C598003B1EE1 /* Anet_SDKTests.m */; };
+		B28B8C151A98C598003B1EE1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B28B8B651A98C598003B1EE1 /* InfoPlist.strings */; };
+		B28B8C161A98C598003B1EE1 /* README in Resources */ = {isa = PBXBuildFile; fileRef = B28B8B691A98C598003B1EE1 /* README */; };
+		B28B8C171A98C598003B1EE1 /* SDK License Agreement (10.20.10).pdf in Resources */ = {isa = PBXBuildFile; fileRef = B28B8B6A1A98C598003B1EE1 /* SDK License Agreement (10.20.10).pdf */; };
+		B28B8C181A98C598003B1EE1 /* NSArray+PerformSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B6D1A98C598003B1EE1 /* NSArray+PerformSelector.m */; };
+		B28B8C191A98C598003B1EE1 /* NSString+dataFromFilename.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B6F1A98C598003B1EE1 /* NSString+dataFromFilename.m */; };
+		B28B8C1A1A98C598003B1EE1 /* NSString+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B711A98C598003B1EE1 /* NSString+Hex.m */; };
+		B28B8C1B1A98C598003B1EE1 /* NSString+HMAC_MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B731A98C598003B1EE1 /* NSString+HMAC_MD5.m */; };
+		B28B8C1C1A98C598003B1EE1 /* NSString+stringForRFC3339DateTimeString.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B751A98C598003B1EE1 /* NSString+stringForRFC3339DateTimeString.m */; };
+		B28B8C1D1A98C598003B1EE1 /* NSString+stringValueOfXMLElement.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B771A98C598003B1EE1 /* NSString+stringValueOfXMLElement.m */; };
+		B28B8C1E1A98C598003B1EE1 /* NSString+stringWithEscapedXMLValue.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B791A98C598003B1EE1 /* NSString+stringWithEscapedXMLValue.m */; };
+		B28B8C1F1A98C598003B1EE1 /* NSString+stringWithXMLTag.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B7B1A98C598003B1EE1 /* NSString+stringWithXMLTag.m */; };
+		B28B8C201A98C598003B1EE1 /* UIToolbar+BackgroundImage.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B7D1A98C598003B1EE1 /* UIToolbar+BackgroundImage.m */; };
+		B28B8CD61A98CADD003B1EE1 /* AuthNet.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B0C1A98C597003B1EE1 /* AuthNet.m */; };
+		B28B8CD71A98CADD003B1EE1 /* AuthNetMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B0D1A98C597003B1EE1 /* AuthNetMessage.m */; };
+		B28B8CD81A98CADD003B1EE1 /* AuthNetRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B0E1A98C597003B1EE1 /* AuthNetRequest.m */; };
+		B28B8CD91A98CADD003B1EE1 /* AuthNetResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B0F1A98C597003B1EE1 /* AuthNetResponse.m */; };
+		B28B8CDB1A98CADD003B1EE1 /* CCAuthenticationType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B151A98C597003B1EE1 /* CCAuthenticationType.m */; };
+		B28B8CDC1A98CADD003B1EE1 /* MerchantAuthenticationType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B371A98C598003B1EE1 /* MerchantAuthenticationType.m */; };
+		B28B8CDF1A98CBA2003B1EE1 /* GetUnsettledTransactionListRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B2F1A98C597003B1EE1 /* GetUnsettledTransactionListRequest.m */; };
+		B28B8CE01A98CBA2003B1EE1 /* GetUnsettledTransactionListResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B301A98C597003B1EE1 /* GetUnsettledTransactionListResponse.m */; };
+		B28B8CE11A98CBB9003B1EE1 /* GetBatchStatisticsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B231A98C597003B1EE1 /* GetBatchStatisticsRequest.m */; };
+		B28B8CE21A98CBB9003B1EE1 /* GetBatchStatisticsResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B241A98C597003B1EE1 /* GetBatchStatisticsResponse.m */; };
+		B28B8CE31A98CBF0003B1EE1 /* Anet SDK-Prefix.pch in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B091A98C597003B1EE1 /* Anet SDK-Prefix.pch */; };
+		B28B8CE41A98CBF0003B1EE1 /* ANetApiRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B0A1A98C597003B1EE1 /* ANetApiRequest.m */; };
+		B28B8CE51A98CBF0003B1EE1 /* ANetApiResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B0B1A98C597003B1EE1 /* ANetApiResponse.m */; };
+		B28B8CE61A98CBF0003B1EE1 /* BankAccountMaskedType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B111A98C597003B1EE1 /* BankAccountMaskedType.m */; };
+		B28B8CE71A98CBF0003B1EE1 /* BankAccountType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B121A98C597003B1EE1 /* BankAccountType.m */; };
+		B28B8CE81A98CBF0003B1EE1 /* BatchDetailsType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B131A98C597003B1EE1 /* BatchDetailsType.m */; };
+		B28B8CE91A98CBF0003B1EE1 /* BatchStatisticType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B141A98C597003B1EE1 /* BatchStatisticType.m */; };
+		B28B8CEA1A98CBF0003B1EE1 /* CreateTransactionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B161A98C597003B1EE1 /* CreateTransactionRequest.m */; };
+		B28B8CEB1A98CBF0003B1EE1 /* CreateTransactionResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B171A98C597003B1EE1 /* CreateTransactionResponse.m */; };
+		B28B8CEC1A98CBF0003B1EE1 /* CreateTransactionResponse.xml in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B181A98C597003B1EE1 /* CreateTransactionResponse.xml */; };
+		B28B8CED1A98CBF0003B1EE1 /* CreditCardMaskedType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B191A98C597003B1EE1 /* CreditCardMaskedType.m */; };
+		B28B8CEE1A98CBF0003B1EE1 /* CreditCardTrackType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B1A1A98C597003B1EE1 /* CreditCardTrackType.m */; };
+		B28B8CEF1A98CBF0003B1EE1 /* CreditCardType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B1B1A98C597003B1EE1 /* CreditCardType.m */; };
+		B28B8CF01A98CBF0003B1EE1 /* CustomerAddressType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B1C1A98C597003B1EE1 /* CustomerAddressType.m */; };
+		B28B8CF11A98CBF0003B1EE1 /* CustomerDataType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B1D1A98C597003B1EE1 /* CustomerDataType.m */; };
+		B28B8CF21A98CBF0003B1EE1 /* Error.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B1E1A98C597003B1EE1 /* Error.m */; };
+		B28B8CF31A98CBF0003B1EE1 /* ExtendedAmountType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B1F1A98C597003B1EE1 /* ExtendedAmountType.m */; };
+		B28B8CF41A98CBF0003B1EE1 /* FDSFilterType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B201A98C597003B1EE1 /* FDSFilterType.m */; };
+		B28B8CF51A98CBF0003B1EE1 /* FingerPrintObjectType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B211A98C597003B1EE1 /* FingerPrintObjectType.m */; };
+		B28B8CF61A98CBF0003B1EE1 /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B221A98C597003B1EE1 /* GDataXMLNode.m */; };
+		B28B8CF71A98CBF0003B1EE1 /* GetBatchStatisticsResponse.xml in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B251A98C597003B1EE1 /* GetBatchStatisticsResponse.xml */; };
+		B28B8CF81A98CBF0003B1EE1 /* GetSettledBatchListRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B261A98C597003B1EE1 /* GetSettledBatchListRequest.m */; };
+		B28B8CF91A98CBF0003B1EE1 /* GetSettledBatchListResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B271A98C597003B1EE1 /* GetSettledBatchListResponse.m */; };
+		B28B8CFA1A98CBF0003B1EE1 /* GetSettledBatchListResponse.xml in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B281A98C597003B1EE1 /* GetSettledBatchListResponse.xml */; };
+		B28B8CFB1A98CBF0003B1EE1 /* GetTransactionDetailsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B291A98C597003B1EE1 /* GetTransactionDetailsRequest.m */; };
+		B28B8CFC1A98CBF0003B1EE1 /* GetTransactionDetailsResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B2A1A98C597003B1EE1 /* GetTransactionDetailsResponse.m */; };
+		B28B8CFD1A98CBF0003B1EE1 /* GetTransactionDetailsResponse.xml in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B2B1A98C597003B1EE1 /* GetTransactionDetailsResponse.xml */; };
+		B28B8CFE1A98CBF0003B1EE1 /* GetTransactionListRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B2C1A98C597003B1EE1 /* GetTransactionListRequest.m */; };
+		B28B8CFF1A98CBF0003B1EE1 /* GetTransactionListResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B2D1A98C597003B1EE1 /* GetTransactionListResponse.m */; };
+		B28B8D001A98CBF0003B1EE1 /* GetTransactionListResponse.xml in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B2E1A98C597003B1EE1 /* GetTransactionListResponse.xml */; };
+		B28B8D011A98CBF0003B1EE1 /* GetUnsettledTransactionListResponse.xml in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B311A98C597003B1EE1 /* GetUnsettledTransactionListResponse.xml */; };
+		B28B8D021A98CBF0003B1EE1 /* LineItemType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B321A98C597003B1EE1 /* LineItemType.m */; };
+		B28B8D031A98CBF0003B1EE1 /* LogoutRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B331A98C597003B1EE1 /* LogoutRequest.m */; };
+		B28B8D041A98CBF0003B1EE1 /* LogoutResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B341A98C597003B1EE1 /* LogoutResponse.m */; };
+		B28B8D051A98CBF0003B1EE1 /* LogoutResponse.xml in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B351A98C598003B1EE1 /* LogoutResponse.xml */; };
+		B28B8D061A98CBF0003B1EE1 /* MerchantAccountType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B361A98C598003B1EE1 /* MerchantAccountType.m */; };
+		B28B8D071A98CBF0003B1EE1 /* MerchantContactType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B381A98C598003B1EE1 /* MerchantContactType.m */; };
+		B28B8D081A98CBF0003B1EE1 /* Messages.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B391A98C598003B1EE1 /* Messages.m */; };
+		B28B8D091A98CBF0003B1EE1 /* MobileDeviceLoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B3A1A98C598003B1EE1 /* MobileDeviceLoginRequest.m */; };
+		B28B8D0A1A98CBF0003B1EE1 /* MobileDeviceLoginResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B3B1A98C598003B1EE1 /* MobileDeviceLoginResponse.m */; };
+		B28B8D0B1A98CBF0003B1EE1 /* MobileDeviceLoginResponse.xml in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B3C1A98C598003B1EE1 /* MobileDeviceLoginResponse.xml */; };
+		B28B8D0C1A98CBF0003B1EE1 /* MobileDeviceRegistrationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B3D1A98C598003B1EE1 /* MobileDeviceRegistrationRequest.m */; };
+		B28B8D0D1A98CBF0003B1EE1 /* MobileDeviceRegistrationResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B3E1A98C598003B1EE1 /* MobileDeviceRegistrationResponse.m */; };
+		B28B8D0E1A98CBF0003B1EE1 /* MobileDeviceRegistrationResponse.xml in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B3F1A98C598003B1EE1 /* MobileDeviceRegistrationResponse.xml */; };
+		B28B8D0F1A98CBF0003B1EE1 /* MobileDeviceType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B401A98C598003B1EE1 /* MobileDeviceType.m */; };
+		B28B8D101A98CBF0003B1EE1 /* NameAndAddressType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B411A98C598003B1EE1 /* NameAndAddressType.m */; };
+		B28B8D111A98CBF0003B1EE1 /* OpaqueDataType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B421A98C598003B1EE1 /* OpaqueDataType.m */; };
+		B28B8D121A98CBF0003B1EE1 /* OrderExType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B431A98C598003B1EE1 /* OrderExType.m */; };
+		B28B8D131A98CBF0003B1EE1 /* OrderType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B441A98C598003B1EE1 /* OrderType.m */; };
+		B28B8D141A98CBF0003B1EE1 /* PaymentMaskedType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B451A98C598003B1EE1 /* PaymentMaskedType.m */; };
+		B28B8D151A98CBF0003B1EE1 /* PaymentType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B461A98C598003B1EE1 /* PaymentType.m */; };
+		B28B8D161A98CBF0003B1EE1 /* PermissionType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B471A98C598003B1EE1 /* PermissionType.m */; };
+		B28B8D171A98CBF0003B1EE1 /* SendCustomerTransactionReceiptRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B481A98C598003B1EE1 /* SendCustomerTransactionReceiptRequest.m */; };
+		B28B8D181A98CBF0003B1EE1 /* SendCustomerTransactionReceiptResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B491A98C598003B1EE1 /* SendCustomerTransactionReceiptResponse.m */; };
+		B28B8D191A98CBF0003B1EE1 /* SendCustomerTransactionReceiptResponse.xml in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B4A1A98C598003B1EE1 /* SendCustomerTransactionReceiptResponse.xml */; };
+		B28B8D1A1A98CBF0003B1EE1 /* SettingType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B4B1A98C598003B1EE1 /* SettingType.m */; };
+		B28B8D1B1A98CBF0003B1EE1 /* SplitTenderPayment.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B4C1A98C598003B1EE1 /* SplitTenderPayment.m */; };
+		B28B8D1D1A98CBF0003B1EE1 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B4F1A98C598003B1EE1 /* Reachability.m */; };
+		B28B8D1E1A98CBF0003B1EE1 /* SwiperDataType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B501A98C598003B1EE1 /* SwiperDataType.m */; };
+		B28B8D1F1A98CBF0003B1EE1 /* TestAccountCaptchaRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B511A98C598003B1EE1 /* TestAccountCaptchaRequest.m */; };
+		B28B8D201A98CBF0003B1EE1 /* TestAccountCaptchaResponse.h in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B521A98C598003B1EE1 /* TestAccountCaptchaResponse.h */; };
+		B28B8D211A98CBF0003B1EE1 /* TestAccountCaptchaResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B531A98C598003B1EE1 /* TestAccountCaptchaResponse.m */; };
+		B28B8D221A98CBF0003B1EE1 /* TestAccountCaptchaResponse.xml in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B541A98C598003B1EE1 /* TestAccountCaptchaResponse.xml */; };
+		B28B8D231A98CBF0003B1EE1 /* TestAccountRegistrationRequest.h in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B551A98C598003B1EE1 /* TestAccountRegistrationRequest.h */; };
+		B28B8D241A98CBF0003B1EE1 /* TestAccountRegistrationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B561A98C598003B1EE1 /* TestAccountRegistrationRequest.m */; };
+		B28B8D251A98CBF0003B1EE1 /* TestAccountRegistrationResponse.xml in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B571A98C598003B1EE1 /* TestAccountRegistrationResponse.xml */; };
+		B28B8D261A98CBF0003B1EE1 /* TransactionDetailsType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B581A98C598003B1EE1 /* TransactionDetailsType.m */; };
+		B28B8D271A98CBF0003B1EE1 /* TransactionRequestType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B591A98C598003B1EE1 /* TransactionRequestType.m */; };
+		B28B8D281A98CBF0003B1EE1 /* TransactionResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B5A1A98C598003B1EE1 /* TransactionResponse.m */; };
+		B28B8D291A98CBF0003B1EE1 /* TransactionSummaryType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B5B1A98C598003B1EE1 /* TransactionSummaryType.m */; };
+		B28B8D2A1A98CBF0003B1EE1 /* TransRetailInfoType.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B5C1A98C598003B1EE1 /* TransRetailInfoType.m */; };
+		B28B8D2B1A98CBF0003B1EE1 /* UserField.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B5D1A98C598003B1EE1 /* UserField.m */; };
+		B28B8D2D1A98E17D003B1EE1 /* NSString+dataFromFilename.h in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B6E1A98C598003B1EE1 /* NSString+dataFromFilename.h */; };
+		B28B8D2E1A98E17E003B1EE1 /* NSString+dataFromFilename.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B6F1A98C598003B1EE1 /* NSString+dataFromFilename.m */; };
+		B28B8D2F1A98E17E003B1EE1 /* NSString+Hex.h in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B701A98C598003B1EE1 /* NSString+Hex.h */; };
+		B28B8D301A98E17E003B1EE1 /* NSString+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B711A98C598003B1EE1 /* NSString+Hex.m */; };
+		B28B8D311A98E17E003B1EE1 /* NSString+HMAC_MD5.h in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B721A98C598003B1EE1 /* NSString+HMAC_MD5.h */; };
+		B28B8D321A98E17E003B1EE1 /* NSString+HMAC_MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B731A98C598003B1EE1 /* NSString+HMAC_MD5.m */; };
+		B28B8D331A98E17E003B1EE1 /* NSString+stringForRFC3339DateTimeString.h in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B741A98C598003B1EE1 /* NSString+stringForRFC3339DateTimeString.h */; };
+		B28B8D341A98E17E003B1EE1 /* NSString+stringForRFC3339DateTimeString.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B751A98C598003B1EE1 /* NSString+stringForRFC3339DateTimeString.m */; };
+		B28B8D351A98E17E003B1EE1 /* NSString+stringValueOfXMLElement.h in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B761A98C598003B1EE1 /* NSString+stringValueOfXMLElement.h */; };
+		B28B8D361A98E17E003B1EE1 /* NSString+stringValueOfXMLElement.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B771A98C598003B1EE1 /* NSString+stringValueOfXMLElement.m */; };
+		B28B8D371A98E17E003B1EE1 /* NSString+stringWithEscapedXMLValue.h in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B781A98C598003B1EE1 /* NSString+stringWithEscapedXMLValue.h */; };
+		B28B8D381A98E17E003B1EE1 /* NSString+stringWithEscapedXMLValue.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B791A98C598003B1EE1 /* NSString+stringWithEscapedXMLValue.m */; };
+		B28B8D391A98E17E003B1EE1 /* NSString+stringWithXMLTag.h in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B7A1A98C598003B1EE1 /* NSString+stringWithXMLTag.h */; };
+		B28B8D3A1A98E17E003B1EE1 /* NSString+stringWithXMLTag.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B8B7B1A98C598003B1EE1 /* NSString+stringWithXMLTag.m */; };
 		B2A1A8271A48C059009589E0 /* NewBusinessInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A1A8251A48BF18009589E0 /* NewBusinessInfoViewController.m */; };
 		B2A1A8291A4A7A34009589E0 /* bankInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = B2A1A8281A4A7A34009589E0 /* bankInfo.png */; };
 		B2A1A82B1A4A7A8A009589E0 /* bankInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = B2A1A82A1A4A7A8A009589E0 /* bankInfo.png */; };
@@ -1399,7 +1594,6 @@
 		D9E14FCB12075347007089AB /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F676BB11B6BEC700B384F1 /* KeychainItemWrapper.m */; };
 		D9E14FCC12075347007089AB /* CreditCardSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F676C511B6BEFB00B384F1 /* CreditCardSettingsViewController.m */; };
 		D9E14FCD12075347007089AB /* AuthorizeDotNetSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F676CC11B6BF1B00B384F1 /* AuthorizeDotNetSignUpViewController.m */; };
-		D9E14FCE12075347007089AB /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F676EE11B6C43700B384F1 /* Reachability.m */; };
 		D9E14FCF12075347007089AB /* CalendarWeekViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D930774111F4DB22003CBA22 /* CalendarWeekViewController.m */; };
 		D9E14FD012075347007089AB /* CalendarWeekBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = D930774511F4DB3D003CBA22 /* CalendarWeekBackgroundView.m */; };
 		D9E14FD112075347007089AB /* ClientSwapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EA2E2611FBA3CD007C3075 /* ClientSwapViewController.m */; };
@@ -4811,6 +5005,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		B28B8C231A98C599003B1EE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B28B8B5E1A98C598003B1EE1 /* Anet SDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DEBA88317D129B700B7A8B9;
+			remoteInfo = "Anet SDK";
+		};
+		B28B8C251A98C599003B1EE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B28B8B5E1A98C598003B1EE1 /* Anet SDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DEBA89417D129B700B7A8B9;
+			remoteInfo = "Anet SDKTests";
+		};
 		B2B772C91A75C76D00525D60 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B2B771271A75C76B00525D60 /* AdUnitsSample.xcodeproj */;
@@ -5192,6 +5400,10 @@
 		B25754BD19371B20004D9350 /* ValidationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValidationModel.m; sourceTree = "<group>"; };
 		B25754BE19371B20004D9350 /* ValidationUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValidationUtility.h; sourceTree = "<group>"; };
 		B25754BF19371B20004D9350 /* ValidationUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValidationUtility.m; sourceTree = "<group>"; };
+		B2649CF11A99279F00948F50 /* NSString+MD5Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5Addition.h"; sourceTree = "<group>"; };
+		B2649CF21A99279F00948F50 /* NSString+MD5Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5Addition.m"; sourceTree = "<group>"; };
+		B2649CF31A99279F00948F50 /* UIDevice+IdentifierAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+IdentifierAddition.h"; sourceTree = "<group>"; };
+		B2649CF41A99279F00948F50 /* UIDevice+IdentifierAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+IdentifierAddition.m"; sourceTree = "<group>"; };
 		B27195C51A91315600C77795 /* TransactionChargeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransactionChargeCell.h; path = "Register Classes/TransactionChargeCell.h"; sourceTree = "<group>"; };
 		B27195C61A91315600C77795 /* TransactionChargeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransactionChargeCell.m; path = "Register Classes/TransactionChargeCell.m"; sourceTree = "<group>"; };
 		B27195C71A91315600C77795 /* TransactionChargeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TransactionChargeCell.xib; path = "Register Classes/TransactionChargeCell.xib"; sourceTree = "<group>"; };
@@ -5205,6 +5417,184 @@
 		B272E5151A75DC8F00069877 /* imgswipecardatanytime.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = imgswipecardatanytime.png; path = Images/imgswipecardatanytime.png; sourceTree = "<group>"; };
 		B27759C41A4B525E0015F6F6 /* ClientNotesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ClientNotesView.xib; path = NIBS/ClientNotesView.xib; sourceTree = "<group>"; };
 		B27759C71A4C5B0E0015F6F6 /* btn_blue_clicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btn_blue_clicked.png; path = ../Classes/signupFlow/images/btn_blue_clicked.png; sourceTree = "<group>"; };
+		B28B8B091A98C597003B1EE1 /* Anet SDK-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Anet SDK-Prefix.pch"; sourceTree = "<group>"; };
+		B28B8B0A1A98C597003B1EE1 /* ANetApiRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANetApiRequest.m; sourceTree = "<group>"; };
+		B28B8B0B1A98C597003B1EE1 /* ANetApiResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANetApiResponse.m; sourceTree = "<group>"; };
+		B28B8B0C1A98C597003B1EE1 /* AuthNet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthNet.m; sourceTree = "<group>"; };
+		B28B8B0D1A98C597003B1EE1 /* AuthNetMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthNetMessage.m; sourceTree = "<group>"; };
+		B28B8B0E1A98C597003B1EE1 /* AuthNetRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthNetRequest.m; sourceTree = "<group>"; };
+		B28B8B0F1A98C597003B1EE1 /* AuthNetResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthNetResponse.m; sourceTree = "<group>"; };
+		B28B8B111A98C597003B1EE1 /* BankAccountMaskedType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BankAccountMaskedType.m; sourceTree = "<group>"; };
+		B28B8B121A98C597003B1EE1 /* BankAccountType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BankAccountType.m; sourceTree = "<group>"; };
+		B28B8B131A98C597003B1EE1 /* BatchDetailsType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BatchDetailsType.m; sourceTree = "<group>"; };
+		B28B8B141A98C597003B1EE1 /* BatchStatisticType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BatchStatisticType.m; sourceTree = "<group>"; };
+		B28B8B151A98C597003B1EE1 /* CCAuthenticationType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCAuthenticationType.m; sourceTree = "<group>"; };
+		B28B8B161A98C597003B1EE1 /* CreateTransactionRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateTransactionRequest.m; sourceTree = "<group>"; };
+		B28B8B171A98C597003B1EE1 /* CreateTransactionResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateTransactionResponse.m; sourceTree = "<group>"; };
+		B28B8B181A98C597003B1EE1 /* CreateTransactionResponse.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = CreateTransactionResponse.xml; sourceTree = "<group>"; };
+		B28B8B191A98C597003B1EE1 /* CreditCardMaskedType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditCardMaskedType.m; sourceTree = "<group>"; };
+		B28B8B1A1A98C597003B1EE1 /* CreditCardTrackType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditCardTrackType.m; sourceTree = "<group>"; };
+		B28B8B1B1A98C597003B1EE1 /* CreditCardType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditCardType.m; sourceTree = "<group>"; };
+		B28B8B1C1A98C597003B1EE1 /* CustomerAddressType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerAddressType.m; sourceTree = "<group>"; };
+		B28B8B1D1A98C597003B1EE1 /* CustomerDataType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerDataType.m; sourceTree = "<group>"; };
+		B28B8B1E1A98C597003B1EE1 /* Error.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Error.m; sourceTree = "<group>"; };
+		B28B8B1F1A98C597003B1EE1 /* ExtendedAmountType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtendedAmountType.m; sourceTree = "<group>"; };
+		B28B8B201A98C597003B1EE1 /* FDSFilterType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDSFilterType.m; sourceTree = "<group>"; };
+		B28B8B211A98C597003B1EE1 /* FingerPrintObjectType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FingerPrintObjectType.m; sourceTree = "<group>"; };
+		B28B8B221A98C597003B1EE1 /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
+		B28B8B231A98C597003B1EE1 /* GetBatchStatisticsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetBatchStatisticsRequest.m; sourceTree = "<group>"; };
+		B28B8B241A98C597003B1EE1 /* GetBatchStatisticsResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetBatchStatisticsResponse.m; sourceTree = "<group>"; };
+		B28B8B251A98C597003B1EE1 /* GetBatchStatisticsResponse.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = GetBatchStatisticsResponse.xml; sourceTree = "<group>"; };
+		B28B8B261A98C597003B1EE1 /* GetSettledBatchListRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetSettledBatchListRequest.m; sourceTree = "<group>"; };
+		B28B8B271A98C597003B1EE1 /* GetSettledBatchListResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetSettledBatchListResponse.m; sourceTree = "<group>"; };
+		B28B8B281A98C597003B1EE1 /* GetSettledBatchListResponse.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = GetSettledBatchListResponse.xml; sourceTree = "<group>"; };
+		B28B8B291A98C597003B1EE1 /* GetTransactionDetailsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetTransactionDetailsRequest.m; sourceTree = "<group>"; };
+		B28B8B2A1A98C597003B1EE1 /* GetTransactionDetailsResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetTransactionDetailsResponse.m; sourceTree = "<group>"; };
+		B28B8B2B1A98C597003B1EE1 /* GetTransactionDetailsResponse.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = GetTransactionDetailsResponse.xml; sourceTree = "<group>"; };
+		B28B8B2C1A98C597003B1EE1 /* GetTransactionListRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetTransactionListRequest.m; sourceTree = "<group>"; };
+		B28B8B2D1A98C597003B1EE1 /* GetTransactionListResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetTransactionListResponse.m; sourceTree = "<group>"; };
+		B28B8B2E1A98C597003B1EE1 /* GetTransactionListResponse.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = GetTransactionListResponse.xml; sourceTree = "<group>"; };
+		B28B8B2F1A98C597003B1EE1 /* GetUnsettledTransactionListRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetUnsettledTransactionListRequest.m; sourceTree = "<group>"; };
+		B28B8B301A98C597003B1EE1 /* GetUnsettledTransactionListResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetUnsettledTransactionListResponse.m; sourceTree = "<group>"; };
+		B28B8B311A98C597003B1EE1 /* GetUnsettledTransactionListResponse.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = GetUnsettledTransactionListResponse.xml; sourceTree = "<group>"; };
+		B28B8B321A98C597003B1EE1 /* LineItemType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineItemType.m; sourceTree = "<group>"; };
+		B28B8B331A98C597003B1EE1 /* LogoutRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogoutRequest.m; sourceTree = "<group>"; };
+		B28B8B341A98C597003B1EE1 /* LogoutResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogoutResponse.m; sourceTree = "<group>"; };
+		B28B8B351A98C598003B1EE1 /* LogoutResponse.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LogoutResponse.xml; sourceTree = "<group>"; };
+		B28B8B361A98C598003B1EE1 /* MerchantAccountType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchantAccountType.m; sourceTree = "<group>"; };
+		B28B8B371A98C598003B1EE1 /* MerchantAuthenticationType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchantAuthenticationType.m; sourceTree = "<group>"; };
+		B28B8B381A98C598003B1EE1 /* MerchantContactType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchantContactType.m; sourceTree = "<group>"; };
+		B28B8B391A98C598003B1EE1 /* Messages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Messages.m; sourceTree = "<group>"; };
+		B28B8B3A1A98C598003B1EE1 /* MobileDeviceLoginRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MobileDeviceLoginRequest.m; sourceTree = "<group>"; };
+		B28B8B3B1A98C598003B1EE1 /* MobileDeviceLoginResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MobileDeviceLoginResponse.m; sourceTree = "<group>"; };
+		B28B8B3C1A98C598003B1EE1 /* MobileDeviceLoginResponse.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = MobileDeviceLoginResponse.xml; sourceTree = "<group>"; };
+		B28B8B3D1A98C598003B1EE1 /* MobileDeviceRegistrationRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MobileDeviceRegistrationRequest.m; sourceTree = "<group>"; };
+		B28B8B3E1A98C598003B1EE1 /* MobileDeviceRegistrationResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MobileDeviceRegistrationResponse.m; sourceTree = "<group>"; };
+		B28B8B3F1A98C598003B1EE1 /* MobileDeviceRegistrationResponse.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = MobileDeviceRegistrationResponse.xml; sourceTree = "<group>"; };
+		B28B8B401A98C598003B1EE1 /* MobileDeviceType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MobileDeviceType.m; sourceTree = "<group>"; };
+		B28B8B411A98C598003B1EE1 /* NameAndAddressType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NameAndAddressType.m; sourceTree = "<group>"; };
+		B28B8B421A98C598003B1EE1 /* OpaqueDataType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpaqueDataType.m; sourceTree = "<group>"; };
+		B28B8B431A98C598003B1EE1 /* OrderExType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderExType.m; sourceTree = "<group>"; };
+		B28B8B441A98C598003B1EE1 /* OrderType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderType.m; sourceTree = "<group>"; };
+		B28B8B451A98C598003B1EE1 /* PaymentMaskedType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentMaskedType.m; sourceTree = "<group>"; };
+		B28B8B461A98C598003B1EE1 /* PaymentType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentType.m; sourceTree = "<group>"; };
+		B28B8B471A98C598003B1EE1 /* PermissionType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PermissionType.m; sourceTree = "<group>"; };
+		B28B8B481A98C598003B1EE1 /* SendCustomerTransactionReceiptRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendCustomerTransactionReceiptRequest.m; sourceTree = "<group>"; };
+		B28B8B491A98C598003B1EE1 /* SendCustomerTransactionReceiptResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendCustomerTransactionReceiptResponse.m; sourceTree = "<group>"; };
+		B28B8B4A1A98C598003B1EE1 /* SendCustomerTransactionReceiptResponse.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = SendCustomerTransactionReceiptResponse.xml; sourceTree = "<group>"; };
+		B28B8B4B1A98C598003B1EE1 /* SettingType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingType.m; sourceTree = "<group>"; };
+		B28B8B4C1A98C598003B1EE1 /* SplitTenderPayment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplitTenderPayment.m; sourceTree = "<group>"; };
+		B28B8B4E1A98C598003B1EE1 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		B28B8B4F1A98C598003B1EE1 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		B28B8B501A98C598003B1EE1 /* SwiperDataType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwiperDataType.m; sourceTree = "<group>"; };
+		B28B8B511A98C598003B1EE1 /* TestAccountCaptchaRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestAccountCaptchaRequest.m; sourceTree = "<group>"; };
+		B28B8B521A98C598003B1EE1 /* TestAccountCaptchaResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestAccountCaptchaResponse.h; sourceTree = "<group>"; };
+		B28B8B531A98C598003B1EE1 /* TestAccountCaptchaResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestAccountCaptchaResponse.m; sourceTree = "<group>"; };
+		B28B8B541A98C598003B1EE1 /* TestAccountCaptchaResponse.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = TestAccountCaptchaResponse.xml; sourceTree = "<group>"; };
+		B28B8B551A98C598003B1EE1 /* TestAccountRegistrationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestAccountRegistrationRequest.h; sourceTree = "<group>"; };
+		B28B8B561A98C598003B1EE1 /* TestAccountRegistrationRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestAccountRegistrationRequest.m; sourceTree = "<group>"; };
+		B28B8B571A98C598003B1EE1 /* TestAccountRegistrationResponse.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = TestAccountRegistrationResponse.xml; sourceTree = "<group>"; };
+		B28B8B581A98C598003B1EE1 /* TransactionDetailsType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionDetailsType.m; sourceTree = "<group>"; };
+		B28B8B591A98C598003B1EE1 /* TransactionRequestType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionRequestType.m; sourceTree = "<group>"; };
+		B28B8B5A1A98C598003B1EE1 /* TransactionResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionResponse.m; sourceTree = "<group>"; };
+		B28B8B5B1A98C598003B1EE1 /* TransactionSummaryType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionSummaryType.m; sourceTree = "<group>"; };
+		B28B8B5C1A98C598003B1EE1 /* TransRetailInfoType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransRetailInfoType.m; sourceTree = "<group>"; };
+		B28B8B5D1A98C598003B1EE1 /* UserField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserField.m; sourceTree = "<group>"; };
+		B28B8B5E1A98C598003B1EE1 /* Anet SDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "Anet SDK.xcodeproj"; sourceTree = "<group>"; };
+		B28B8B621A98C598003B1EE1 /* Anet SDKTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Anet SDKTests-Info.plist"; sourceTree = "<group>"; };
+		B28B8B631A98C598003B1EE1 /* Anet_SDKTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Anet_SDKTests.h; sourceTree = "<group>"; };
+		B28B8B641A98C598003B1EE1 /* Anet_SDKTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Anet_SDKTests.m; sourceTree = "<group>"; };
+		B28B8B661A98C598003B1EE1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		B28B8B671A98C598003B1EE1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		B28B8B691A98C598003B1EE1 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		B28B8B6A1A98C598003B1EE1 /* SDK License Agreement (10.20.10).pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "SDK License Agreement (10.20.10).pdf"; sourceTree = "<group>"; };
+		B28B8B6C1A98C598003B1EE1 /* NSArray+PerformSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+PerformSelector.h"; sourceTree = "<group>"; };
+		B28B8B6D1A98C598003B1EE1 /* NSArray+PerformSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+PerformSelector.m"; sourceTree = "<group>"; };
+		B28B8B6E1A98C598003B1EE1 /* NSString+dataFromFilename.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+dataFromFilename.h"; sourceTree = "<group>"; };
+		B28B8B6F1A98C598003B1EE1 /* NSString+dataFromFilename.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+dataFromFilename.m"; sourceTree = "<group>"; };
+		B28B8B701A98C598003B1EE1 /* NSString+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Hex.h"; sourceTree = "<group>"; };
+		B28B8B711A98C598003B1EE1 /* NSString+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Hex.m"; sourceTree = "<group>"; };
+		B28B8B721A98C598003B1EE1 /* NSString+HMAC_MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HMAC_MD5.h"; sourceTree = "<group>"; };
+		B28B8B731A98C598003B1EE1 /* NSString+HMAC_MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HMAC_MD5.m"; sourceTree = "<group>"; };
+		B28B8B741A98C598003B1EE1 /* NSString+stringForRFC3339DateTimeString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+stringForRFC3339DateTimeString.h"; sourceTree = "<group>"; };
+		B28B8B751A98C598003B1EE1 /* NSString+stringForRFC3339DateTimeString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+stringForRFC3339DateTimeString.m"; sourceTree = "<group>"; };
+		B28B8B761A98C598003B1EE1 /* NSString+stringValueOfXMLElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+stringValueOfXMLElement.h"; sourceTree = "<group>"; };
+		B28B8B771A98C598003B1EE1 /* NSString+stringValueOfXMLElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+stringValueOfXMLElement.m"; sourceTree = "<group>"; };
+		B28B8B781A98C598003B1EE1 /* NSString+stringWithEscapedXMLValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+stringWithEscapedXMLValue.h"; sourceTree = "<group>"; };
+		B28B8B791A98C598003B1EE1 /* NSString+stringWithEscapedXMLValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+stringWithEscapedXMLValue.m"; sourceTree = "<group>"; };
+		B28B8B7A1A98C598003B1EE1 /* NSString+stringWithXMLTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+stringWithXMLTag.h"; sourceTree = "<group>"; };
+		B28B8B7B1A98C598003B1EE1 /* NSString+stringWithXMLTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+stringWithXMLTag.m"; sourceTree = "<group>"; };
+		B28B8B7C1A98C598003B1EE1 /* UIToolbar+BackgroundImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIToolbar+BackgroundImage.h"; sourceTree = "<group>"; };
+		B28B8B7D1A98C598003B1EE1 /* UIToolbar+BackgroundImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIToolbar+BackgroundImage.m"; sourceTree = "<group>"; };
+		B28B8B7F1A98C598003B1EE1 /* ANetApiRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANetApiRequest.h; sourceTree = "<group>"; };
+		B28B8B801A98C598003B1EE1 /* ANetApiResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANetApiResponse.h; sourceTree = "<group>"; };
+		B28B8B811A98C598003B1EE1 /* AuthNet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthNet.h; sourceTree = "<group>"; };
+		B28B8B821A98C598003B1EE1 /* AuthNetMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthNetMessage.h; sourceTree = "<group>"; };
+		B28B8B831A98C598003B1EE1 /* AuthNetRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthNetRequest.h; sourceTree = "<group>"; };
+		B28B8B841A98C598003B1EE1 /* AuthNetResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthNetResponse.h; sourceTree = "<group>"; };
+		B28B8B851A98C598003B1EE1 /* AuthNetUnitTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthNetUnitTests.h; sourceTree = "<group>"; };
+		B28B8B861A98C598003B1EE1 /* BankAccountMaskedType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BankAccountMaskedType.h; sourceTree = "<group>"; };
+		B28B8B871A98C598003B1EE1 /* BankAccountType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BankAccountType.h; sourceTree = "<group>"; };
+		B28B8B881A98C598003B1EE1 /* BatchDetailsType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatchDetailsType.h; sourceTree = "<group>"; };
+		B28B8B891A98C598003B1EE1 /* BatchStatisticType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatchStatisticType.h; sourceTree = "<group>"; };
+		B28B8B8A1A98C598003B1EE1 /* CCAuthenticationType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCAuthenticationType.h; sourceTree = "<group>"; };
+		B28B8B8B1A98C598003B1EE1 /* CreateTransactionRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateTransactionRequest.h; sourceTree = "<group>"; };
+		B28B8B8C1A98C598003B1EE1 /* CreateTransactionResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateTransactionResponse.h; sourceTree = "<group>"; };
+		B28B8B8D1A98C598003B1EE1 /* CreditCardMaskedType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditCardMaskedType.h; sourceTree = "<group>"; };
+		B28B8B8E1A98C598003B1EE1 /* CreditCardTrackType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditCardTrackType.h; sourceTree = "<group>"; };
+		B28B8B8F1A98C598003B1EE1 /* CreditCardType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditCardType.h; sourceTree = "<group>"; };
+		B28B8B901A98C598003B1EE1 /* CustomerAddressType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerAddressType.h; sourceTree = "<group>"; };
+		B28B8B911A98C598003B1EE1 /* CustomerDataType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerDataType.h; sourceTree = "<group>"; };
+		B28B8B921A98C598003B1EE1 /* Error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Error.h; sourceTree = "<group>"; };
+		B28B8B931A98C598003B1EE1 /* ExtendedAmountType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtendedAmountType.h; sourceTree = "<group>"; };
+		B28B8B941A98C598003B1EE1 /* FDSFilterType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDSFilterType.h; sourceTree = "<group>"; };
+		B28B8B951A98C598003B1EE1 /* FingerPrintObjectType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FingerPrintObjectType.h; sourceTree = "<group>"; };
+		B28B8B961A98C598003B1EE1 /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
+		B28B8B971A98C598003B1EE1 /* GetBatchStatisticsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetBatchStatisticsRequest.h; sourceTree = "<group>"; };
+		B28B8B981A98C598003B1EE1 /* GetBatchStatisticsResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetBatchStatisticsResponse.h; sourceTree = "<group>"; };
+		B28B8B991A98C598003B1EE1 /* GetSettledBatchListRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetSettledBatchListRequest.h; sourceTree = "<group>"; };
+		B28B8B9A1A98C598003B1EE1 /* GetSettledBatchListResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetSettledBatchListResponse.h; sourceTree = "<group>"; };
+		B28B8B9B1A98C598003B1EE1 /* GetTransactionDetailsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetTransactionDetailsRequest.h; sourceTree = "<group>"; };
+		B28B8B9C1A98C598003B1EE1 /* GetTransactionDetailsResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetTransactionDetailsResponse.h; sourceTree = "<group>"; };
+		B28B8B9D1A98C598003B1EE1 /* GetTransactionListRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetTransactionListRequest.h; sourceTree = "<group>"; };
+		B28B8B9E1A98C598003B1EE1 /* GetTransactionListResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetTransactionListResponse.h; sourceTree = "<group>"; };
+		B28B8B9F1A98C598003B1EE1 /* GetUnsettledTransactionListRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetUnsettledTransactionListRequest.h; sourceTree = "<group>"; };
+		B28B8BA01A98C598003B1EE1 /* GetUnsettledTransactionListResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetUnsettledTransactionListResponse.h; sourceTree = "<group>"; };
+		B28B8BA11A98C598003B1EE1 /* LineItemType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineItemType.h; sourceTree = "<group>"; };
+		B28B8BA21A98C598003B1EE1 /* LogoutRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoutRequest.h; sourceTree = "<group>"; };
+		B28B8BA31A98C598003B1EE1 /* LogoutResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoutResponse.h; sourceTree = "<group>"; };
+		B28B8BA41A98C598003B1EE1 /* MerchantAccountType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchantAccountType.h; sourceTree = "<group>"; };
+		B28B8BA51A98C598003B1EE1 /* MerchantAuthenticationType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchantAuthenticationType.h; sourceTree = "<group>"; };
+		B28B8BA61A98C598003B1EE1 /* MerchantContactType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchantContactType.h; sourceTree = "<group>"; };
+		B28B8BA71A98C598003B1EE1 /* Messages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Messages.h; sourceTree = "<group>"; };
+		B28B8BA81A98C598003B1EE1 /* MobileDeviceLoginRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobileDeviceLoginRequest.h; sourceTree = "<group>"; };
+		B28B8BA91A98C598003B1EE1 /* MobileDeviceLoginResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobileDeviceLoginResponse.h; sourceTree = "<group>"; };
+		B28B8BAA1A98C598003B1EE1 /* MobileDeviceRegistrationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobileDeviceRegistrationRequest.h; sourceTree = "<group>"; };
+		B28B8BAB1A98C598003B1EE1 /* MobileDeviceRegistrationResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobileDeviceRegistrationResponse.h; sourceTree = "<group>"; };
+		B28B8BAC1A98C598003B1EE1 /* MobileDeviceType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobileDeviceType.h; sourceTree = "<group>"; };
+		B28B8BAD1A98C598003B1EE1 /* NameAndAddressType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NameAndAddressType.h; sourceTree = "<group>"; };
+		B28B8BAE1A98C598003B1EE1 /* OpaqueDataType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpaqueDataType.h; sourceTree = "<group>"; };
+		B28B8BAF1A98C598003B1EE1 /* OrderExType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderExType.h; sourceTree = "<group>"; };
+		B28B8BB01A98C598003B1EE1 /* OrderType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderType.h; sourceTree = "<group>"; };
+		B28B8BB11A98C598003B1EE1 /* PaymentMaskedType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentMaskedType.h; sourceTree = "<group>"; };
+		B28B8BB21A98C598003B1EE1 /* PaymentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentType.h; sourceTree = "<group>"; };
+		B28B8BB31A98C598003B1EE1 /* PermissionType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PermissionType.h; sourceTree = "<group>"; };
+		B28B8BB41A98C598003B1EE1 /* SendCustomerTransactionReceiptRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendCustomerTransactionReceiptRequest.h; sourceTree = "<group>"; };
+		B28B8BB51A98C598003B1EE1 /* SendCustomerTransactionReceiptResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendCustomerTransactionReceiptResponse.h; sourceTree = "<group>"; };
+		B28B8BB61A98C598003B1EE1 /* SettingType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingType.h; sourceTree = "<group>"; };
+		B28B8BB71A98C598003B1EE1 /* SplitTenderPayment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplitTenderPayment.h; sourceTree = "<group>"; };
+		B28B8BB81A98C598003B1EE1 /* SwiperDataType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiperDataType.h; sourceTree = "<group>"; };
+		B28B8BB91A98C598003B1EE1 /* TestAccountCaptchaRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestAccountCaptchaRequest.h; sourceTree = "<group>"; };
+		B28B8BBA1A98C598003B1EE1 /* TestAccountCaptchaResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestAccountCaptchaResponse.h; sourceTree = "<group>"; };
+		B28B8BBB1A98C598003B1EE1 /* TestAccountRegistrationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestAccountRegistrationRequest.h; sourceTree = "<group>"; };
+		B28B8BBC1A98C598003B1EE1 /* TestAccountRegistrationResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestAccountRegistrationResponse.h; sourceTree = "<group>"; };
+		B28B8BBD1A98C598003B1EE1 /* TransactionDetailsType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionDetailsType.h; sourceTree = "<group>"; };
+		B28B8BBE1A98C598003B1EE1 /* TransactionRequestType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionRequestType.h; sourceTree = "<group>"; };
+		B28B8BBF1A98C598003B1EE1 /* TransactionResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionResponse.h; sourceTree = "<group>"; };
+		B28B8BC01A98C598003B1EE1 /* TransactionSummaryType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionSummaryType.h; sourceTree = "<group>"; };
+		B28B8BC11A98C598003B1EE1 /* TransRetailInfoType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransRetailInfoType.h; sourceTree = "<group>"; };
+		B28B8BC21A98C598003B1EE1 /* UserField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserField.h; sourceTree = "<group>"; };
+		B28B8CDD1A98CB2A003B1EE1 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		B2A1A8251A48BF18009589E0 /* NewBusinessInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewBusinessInfoViewController.m; sourceTree = "<group>"; };
 		B2A1A8281A4A7A34009589E0 /* bankInfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bankInfo.png; path = "Classes/signupFlow/4-NewAccountInfo/bankInfo.png"; sourceTree = SOURCE_ROOT; };
 		B2A1A82A1A4A7A8A009589E0 /* bankInfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bankInfo.png; path = "../Classes/signupFlow/4-NewAccountInfo/bankInfo.png"; sourceTree = "<group>"; };
@@ -6150,6 +6540,7 @@
 		080E96DDFE201D6D7F000001 /* Classes & Views */ = {
 			isa = PBXGroup;
 			children = (
+				B28B8B071A98C597003B1EE1 /* AuthSDK */,
 				B2B771051A75C76B00525D60 /* FacebookSDK */,
 				B2A1A82D1A4A8518009589E0 /* DLRadioButton */,
 				B257546019371B1F004D9350 /* signupFlow */,
@@ -6256,6 +6647,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B28B8CDD1A98CB2A003B1EE1 /* SenTestingKit.framework */,
 				B2B771031A75C74300525D60 /* FacebookSDK.framework */,
 				0F14A60B1928812C00B29BE6 /* AVFoundation.framework */,
 				0F14A60719287ECF00B29BE6 /* OpenGLES.framework */,
@@ -6706,6 +7098,250 @@
 				B25754BF19371B20004D9350 /* ValidationUtility.m */,
 			);
 			path = Validation;
+			sourceTree = "<group>";
+		};
+		B28B8B071A98C597003B1EE1 /* AuthSDK */ = {
+			isa = PBXGroup;
+			children = (
+				B2649CF11A99279F00948F50 /* NSString+MD5Addition.h */,
+				B2649CF21A99279F00948F50 /* NSString+MD5Addition.m */,
+				B2649CF31A99279F00948F50 /* UIDevice+IdentifierAddition.h */,
+				B2649CF41A99279F00948F50 /* UIDevice+IdentifierAddition.m */,
+				B28B8B081A98C597003B1EE1 /* Anet SDK */,
+				B28B8B5E1A98C598003B1EE1 /* Anet SDK.xcodeproj */,
+				B28B8B611A98C598003B1EE1 /* Anet SDKTests */,
+				B28B8B681A98C598003B1EE1 /* Documentation */,
+				B28B8B6B1A98C598003B1EE1 /* Extension */,
+				B28B8B7E1A98C598003B1EE1 /* Headers */,
+			);
+			path = AuthSDK;
+			sourceTree = "<group>";
+		};
+		B28B8B081A98C597003B1EE1 /* Anet SDK */ = {
+			isa = PBXGroup;
+			children = (
+				B28B8B091A98C597003B1EE1 /* Anet SDK-Prefix.pch */,
+				B28B8B0A1A98C597003B1EE1 /* ANetApiRequest.m */,
+				B28B8B0B1A98C597003B1EE1 /* ANetApiResponse.m */,
+				B28B8B0C1A98C597003B1EE1 /* AuthNet.m */,
+				B28B8B0D1A98C597003B1EE1 /* AuthNetMessage.m */,
+				B28B8B0E1A98C597003B1EE1 /* AuthNetRequest.m */,
+				B28B8B0F1A98C597003B1EE1 /* AuthNetResponse.m */,
+				B28B8B111A98C597003B1EE1 /* BankAccountMaskedType.m */,
+				B28B8B121A98C597003B1EE1 /* BankAccountType.m */,
+				B28B8B131A98C597003B1EE1 /* BatchDetailsType.m */,
+				B28B8B141A98C597003B1EE1 /* BatchStatisticType.m */,
+				B28B8B151A98C597003B1EE1 /* CCAuthenticationType.m */,
+				B28B8B161A98C597003B1EE1 /* CreateTransactionRequest.m */,
+				B28B8B171A98C597003B1EE1 /* CreateTransactionResponse.m */,
+				B28B8B181A98C597003B1EE1 /* CreateTransactionResponse.xml */,
+				B28B8B191A98C597003B1EE1 /* CreditCardMaskedType.m */,
+				B28B8B1A1A98C597003B1EE1 /* CreditCardTrackType.m */,
+				B28B8B1B1A98C597003B1EE1 /* CreditCardType.m */,
+				B28B8B1C1A98C597003B1EE1 /* CustomerAddressType.m */,
+				B28B8B1D1A98C597003B1EE1 /* CustomerDataType.m */,
+				B28B8B1E1A98C597003B1EE1 /* Error.m */,
+				B28B8B1F1A98C597003B1EE1 /* ExtendedAmountType.m */,
+				B28B8B201A98C597003B1EE1 /* FDSFilterType.m */,
+				B28B8B211A98C597003B1EE1 /* FingerPrintObjectType.m */,
+				B28B8B221A98C597003B1EE1 /* GDataXMLNode.m */,
+				B28B8B231A98C597003B1EE1 /* GetBatchStatisticsRequest.m */,
+				B28B8B241A98C597003B1EE1 /* GetBatchStatisticsResponse.m */,
+				B28B8B251A98C597003B1EE1 /* GetBatchStatisticsResponse.xml */,
+				B28B8B261A98C597003B1EE1 /* GetSettledBatchListRequest.m */,
+				B28B8B271A98C597003B1EE1 /* GetSettledBatchListResponse.m */,
+				B28B8B281A98C597003B1EE1 /* GetSettledBatchListResponse.xml */,
+				B28B8B291A98C597003B1EE1 /* GetTransactionDetailsRequest.m */,
+				B28B8B2A1A98C597003B1EE1 /* GetTransactionDetailsResponse.m */,
+				B28B8B2B1A98C597003B1EE1 /* GetTransactionDetailsResponse.xml */,
+				B28B8B2C1A98C597003B1EE1 /* GetTransactionListRequest.m */,
+				B28B8B2D1A98C597003B1EE1 /* GetTransactionListResponse.m */,
+				B28B8B2E1A98C597003B1EE1 /* GetTransactionListResponse.xml */,
+				B28B8B2F1A98C597003B1EE1 /* GetUnsettledTransactionListRequest.m */,
+				B28B8B301A98C597003B1EE1 /* GetUnsettledTransactionListResponse.m */,
+				B28B8B311A98C597003B1EE1 /* GetUnsettledTransactionListResponse.xml */,
+				B28B8B321A98C597003B1EE1 /* LineItemType.m */,
+				B28B8B331A98C597003B1EE1 /* LogoutRequest.m */,
+				B28B8B341A98C597003B1EE1 /* LogoutResponse.m */,
+				B28B8B351A98C598003B1EE1 /* LogoutResponse.xml */,
+				B28B8B361A98C598003B1EE1 /* MerchantAccountType.m */,
+				B28B8B371A98C598003B1EE1 /* MerchantAuthenticationType.m */,
+				B28B8B381A98C598003B1EE1 /* MerchantContactType.m */,
+				B28B8B391A98C598003B1EE1 /* Messages.m */,
+				B28B8B3A1A98C598003B1EE1 /* MobileDeviceLoginRequest.m */,
+				B28B8B3B1A98C598003B1EE1 /* MobileDeviceLoginResponse.m */,
+				B28B8B3C1A98C598003B1EE1 /* MobileDeviceLoginResponse.xml */,
+				B28B8B3D1A98C598003B1EE1 /* MobileDeviceRegistrationRequest.m */,
+				B28B8B3E1A98C598003B1EE1 /* MobileDeviceRegistrationResponse.m */,
+				B28B8B3F1A98C598003B1EE1 /* MobileDeviceRegistrationResponse.xml */,
+				B28B8B401A98C598003B1EE1 /* MobileDeviceType.m */,
+				B28B8B411A98C598003B1EE1 /* NameAndAddressType.m */,
+				B28B8B421A98C598003B1EE1 /* OpaqueDataType.m */,
+				B28B8B431A98C598003B1EE1 /* OrderExType.m */,
+				B28B8B441A98C598003B1EE1 /* OrderType.m */,
+				B28B8B451A98C598003B1EE1 /* PaymentMaskedType.m */,
+				B28B8B461A98C598003B1EE1 /* PaymentType.m */,
+				B28B8B471A98C598003B1EE1 /* PermissionType.m */,
+				B28B8B481A98C598003B1EE1 /* SendCustomerTransactionReceiptRequest.m */,
+				B28B8B491A98C598003B1EE1 /* SendCustomerTransactionReceiptResponse.m */,
+				B28B8B4A1A98C598003B1EE1 /* SendCustomerTransactionReceiptResponse.xml */,
+				B28B8B4B1A98C598003B1EE1 /* SettingType.m */,
+				B28B8B4C1A98C598003B1EE1 /* SplitTenderPayment.m */,
+				B28B8B4D1A98C598003B1EE1 /* Support Classes */,
+				B28B8B501A98C598003B1EE1 /* SwiperDataType.m */,
+				B28B8B511A98C598003B1EE1 /* TestAccountCaptchaRequest.m */,
+				B28B8B521A98C598003B1EE1 /* TestAccountCaptchaResponse.h */,
+				B28B8B531A98C598003B1EE1 /* TestAccountCaptchaResponse.m */,
+				B28B8B541A98C598003B1EE1 /* TestAccountCaptchaResponse.xml */,
+				B28B8B551A98C598003B1EE1 /* TestAccountRegistrationRequest.h */,
+				B28B8B561A98C598003B1EE1 /* TestAccountRegistrationRequest.m */,
+				B28B8B571A98C598003B1EE1 /* TestAccountRegistrationResponse.xml */,
+				B28B8B581A98C598003B1EE1 /* TransactionDetailsType.m */,
+				B28B8B591A98C598003B1EE1 /* TransactionRequestType.m */,
+				B28B8B5A1A98C598003B1EE1 /* TransactionResponse.m */,
+				B28B8B5B1A98C598003B1EE1 /* TransactionSummaryType.m */,
+				B28B8B5C1A98C598003B1EE1 /* TransRetailInfoType.m */,
+				B28B8B5D1A98C598003B1EE1 /* UserField.m */,
+			);
+			path = "Anet SDK";
+			sourceTree = "<group>";
+		};
+		B28B8B4D1A98C598003B1EE1 /* Support Classes */ = {
+			isa = PBXGroup;
+			children = (
+				B28B8B4E1A98C598003B1EE1 /* Reachability.h */,
+				B28B8B4F1A98C598003B1EE1 /* Reachability.m */,
+			);
+			path = "Support Classes";
+			sourceTree = "<group>";
+		};
+		B28B8B5F1A98C598003B1EE1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B28B8C241A98C599003B1EE1 /* libAnet SDK.a */,
+				B28B8C261A98C599003B1EE1 /* Anet SDKTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B28B8B611A98C598003B1EE1 /* Anet SDKTests */ = {
+			isa = PBXGroup;
+			children = (
+				B28B8B621A98C598003B1EE1 /* Anet SDKTests-Info.plist */,
+				B28B8B631A98C598003B1EE1 /* Anet_SDKTests.h */,
+				B28B8B641A98C598003B1EE1 /* Anet_SDKTests.m */,
+				B28B8B651A98C598003B1EE1 /* InfoPlist.strings */,
+			);
+			path = "Anet SDKTests";
+			sourceTree = "<group>";
+		};
+		B28B8B681A98C598003B1EE1 /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				B28B8B691A98C598003B1EE1 /* README */,
+				B28B8B6A1A98C598003B1EE1 /* SDK License Agreement (10.20.10).pdf */,
+			);
+			path = Documentation;
+			sourceTree = "<group>";
+		};
+		B28B8B6B1A98C598003B1EE1 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				B28B8B6C1A98C598003B1EE1 /* NSArray+PerformSelector.h */,
+				B28B8B6D1A98C598003B1EE1 /* NSArray+PerformSelector.m */,
+				B28B8B6E1A98C598003B1EE1 /* NSString+dataFromFilename.h */,
+				B28B8B6F1A98C598003B1EE1 /* NSString+dataFromFilename.m */,
+				B28B8B701A98C598003B1EE1 /* NSString+Hex.h */,
+				B28B8B711A98C598003B1EE1 /* NSString+Hex.m */,
+				B28B8B721A98C598003B1EE1 /* NSString+HMAC_MD5.h */,
+				B28B8B731A98C598003B1EE1 /* NSString+HMAC_MD5.m */,
+				B28B8B741A98C598003B1EE1 /* NSString+stringForRFC3339DateTimeString.h */,
+				B28B8B751A98C598003B1EE1 /* NSString+stringForRFC3339DateTimeString.m */,
+				B28B8B761A98C598003B1EE1 /* NSString+stringValueOfXMLElement.h */,
+				B28B8B771A98C598003B1EE1 /* NSString+stringValueOfXMLElement.m */,
+				B28B8B781A98C598003B1EE1 /* NSString+stringWithEscapedXMLValue.h */,
+				B28B8B791A98C598003B1EE1 /* NSString+stringWithEscapedXMLValue.m */,
+				B28B8B7A1A98C598003B1EE1 /* NSString+stringWithXMLTag.h */,
+				B28B8B7B1A98C598003B1EE1 /* NSString+stringWithXMLTag.m */,
+				B28B8B7C1A98C598003B1EE1 /* UIToolbar+BackgroundImage.h */,
+				B28B8B7D1A98C598003B1EE1 /* UIToolbar+BackgroundImage.m */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		B28B8B7E1A98C598003B1EE1 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				B28B8B7F1A98C598003B1EE1 /* ANetApiRequest.h */,
+				B28B8B801A98C598003B1EE1 /* ANetApiResponse.h */,
+				B28B8B811A98C598003B1EE1 /* AuthNet.h */,
+				B28B8B821A98C598003B1EE1 /* AuthNetMessage.h */,
+				B28B8B831A98C598003B1EE1 /* AuthNetRequest.h */,
+				B28B8B841A98C598003B1EE1 /* AuthNetResponse.h */,
+				B28B8B851A98C598003B1EE1 /* AuthNetUnitTests.h */,
+				B28B8B861A98C598003B1EE1 /* BankAccountMaskedType.h */,
+				B28B8B871A98C598003B1EE1 /* BankAccountType.h */,
+				B28B8B881A98C598003B1EE1 /* BatchDetailsType.h */,
+				B28B8B891A98C598003B1EE1 /* BatchStatisticType.h */,
+				B28B8B8A1A98C598003B1EE1 /* CCAuthenticationType.h */,
+				B28B8B8B1A98C598003B1EE1 /* CreateTransactionRequest.h */,
+				B28B8B8C1A98C598003B1EE1 /* CreateTransactionResponse.h */,
+				B28B8B8D1A98C598003B1EE1 /* CreditCardMaskedType.h */,
+				B28B8B8E1A98C598003B1EE1 /* CreditCardTrackType.h */,
+				B28B8B8F1A98C598003B1EE1 /* CreditCardType.h */,
+				B28B8B901A98C598003B1EE1 /* CustomerAddressType.h */,
+				B28B8B911A98C598003B1EE1 /* CustomerDataType.h */,
+				B28B8B921A98C598003B1EE1 /* Error.h */,
+				B28B8B931A98C598003B1EE1 /* ExtendedAmountType.h */,
+				B28B8B941A98C598003B1EE1 /* FDSFilterType.h */,
+				B28B8B951A98C598003B1EE1 /* FingerPrintObjectType.h */,
+				B28B8B961A98C598003B1EE1 /* GDataXMLNode.h */,
+				B28B8B971A98C598003B1EE1 /* GetBatchStatisticsRequest.h */,
+				B28B8B981A98C598003B1EE1 /* GetBatchStatisticsResponse.h */,
+				B28B8B991A98C598003B1EE1 /* GetSettledBatchListRequest.h */,
+				B28B8B9A1A98C598003B1EE1 /* GetSettledBatchListResponse.h */,
+				B28B8B9B1A98C598003B1EE1 /* GetTransactionDetailsRequest.h */,
+				B28B8B9C1A98C598003B1EE1 /* GetTransactionDetailsResponse.h */,
+				B28B8B9D1A98C598003B1EE1 /* GetTransactionListRequest.h */,
+				B28B8B9E1A98C598003B1EE1 /* GetTransactionListResponse.h */,
+				B28B8B9F1A98C598003B1EE1 /* GetUnsettledTransactionListRequest.h */,
+				B28B8BA01A98C598003B1EE1 /* GetUnsettledTransactionListResponse.h */,
+				B28B8BA11A98C598003B1EE1 /* LineItemType.h */,
+				B28B8BA21A98C598003B1EE1 /* LogoutRequest.h */,
+				B28B8BA31A98C598003B1EE1 /* LogoutResponse.h */,
+				B28B8BA41A98C598003B1EE1 /* MerchantAccountType.h */,
+				B28B8BA51A98C598003B1EE1 /* MerchantAuthenticationType.h */,
+				B28B8BA61A98C598003B1EE1 /* MerchantContactType.h */,
+				B28B8BA71A98C598003B1EE1 /* Messages.h */,
+				B28B8BA81A98C598003B1EE1 /* MobileDeviceLoginRequest.h */,
+				B28B8BA91A98C598003B1EE1 /* MobileDeviceLoginResponse.h */,
+				B28B8BAA1A98C598003B1EE1 /* MobileDeviceRegistrationRequest.h */,
+				B28B8BAB1A98C598003B1EE1 /* MobileDeviceRegistrationResponse.h */,
+				B28B8BAC1A98C598003B1EE1 /* MobileDeviceType.h */,
+				B28B8BAD1A98C598003B1EE1 /* NameAndAddressType.h */,
+				B28B8BAE1A98C598003B1EE1 /* OpaqueDataType.h */,
+				B28B8BAF1A98C598003B1EE1 /* OrderExType.h */,
+				B28B8BB01A98C598003B1EE1 /* OrderType.h */,
+				B28B8BB11A98C598003B1EE1 /* PaymentMaskedType.h */,
+				B28B8BB21A98C598003B1EE1 /* PaymentType.h */,
+				B28B8BB31A98C598003B1EE1 /* PermissionType.h */,
+				B28B8BB41A98C598003B1EE1 /* SendCustomerTransactionReceiptRequest.h */,
+				B28B8BB51A98C598003B1EE1 /* SendCustomerTransactionReceiptResponse.h */,
+				B28B8BB61A98C598003B1EE1 /* SettingType.h */,
+				B28B8BB71A98C598003B1EE1 /* SplitTenderPayment.h */,
+				B28B8BB81A98C598003B1EE1 /* SwiperDataType.h */,
+				B28B8BB91A98C598003B1EE1 /* TestAccountCaptchaRequest.h */,
+				B28B8BBA1A98C598003B1EE1 /* TestAccountCaptchaResponse.h */,
+				B28B8BBB1A98C598003B1EE1 /* TestAccountRegistrationRequest.h */,
+				B28B8BBC1A98C598003B1EE1 /* TestAccountRegistrationResponse.h */,
+				B28B8BBD1A98C598003B1EE1 /* TransactionDetailsType.h */,
+				B28B8BBE1A98C598003B1EE1 /* TransactionRequestType.h */,
+				B28B8BBF1A98C598003B1EE1 /* TransactionResponse.h */,
+				B28B8BC01A98C598003B1EE1 /* TransactionSummaryType.h */,
+				B28B8BC11A98C598003B1EE1 /* TransRetailInfoType.h */,
+				B28B8BC21A98C598003B1EE1 /* UserField.h */,
+			);
+			path = Headers;
 			sourceTree = "<group>";
 		};
 		B2A1A82D1A4A8518009589E0 /* DLRadioButton */ = {
@@ -8692,6 +9328,7 @@
 				en,
 				he,
 				Base,
+				es,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* PSA */;
 			productRefGroup = 84AE6A001865D36D00F76A96 /* Products */;
@@ -8700,6 +9337,10 @@
 				{
 					ProductGroup = B2B771281A75C76B00525D60 /* Products */;
 					ProjectRef = B2B771271A75C76B00525D60 /* AdUnitsSample.xcodeproj */;
+				},
+				{
+					ProductGroup = B28B8B5F1A98C598003B1EE1 /* Products */;
+					ProjectRef = B28B8B5E1A98C598003B1EE1 /* Anet SDK.xcodeproj */;
 				},
 				{
 					ProductGroup = B2B771591A75C76B00525D60 /* Products */;
@@ -8752,6 +9393,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		B28B8C241A98C599003B1EE1 /* libAnet SDK.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libAnet SDK.a";
+			remoteRef = B28B8C231A98C599003B1EE1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B28B8C261A98C599003B1EE1 /* Anet SDKTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Anet SDKTests.octest";
+			remoteRef = B28B8C251A98C599003B1EE1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		B2B772CA1A75C76D00525D60 /* AdUnitsSample.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
@@ -10442,6 +11097,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B28B8BE41A98C598003B1EE1 /* GetTransactionDetailsResponse.xml in Resources */,
 				B206C1691A6599F000AD7DAF /* btnactivate.png in Resources */,
 				B2B772A81A75C76C00525D60 /* InfoPlist.strings in Resources */,
 				B206C1511A658FEC00AD7DAF /* FirstViewController.xib in Resources */,
@@ -10486,6 +11142,7 @@
 				D9E15573120753BC007089AB /* btnCellEmailDown.png in Resources */,
 				B2B7726D1A75C76C00525D60 /* Icon@2x.png in Resources */,
 				D9E155E1120753BC007089AB /* btnCellEmailDown@2x.png in Resources */,
+				B28B8C0C1A98C598003B1EE1 /* TestAccountRegistrationResponse.xml in Resources */,
 				D9E15574120753BC007089AB /* btnCellEmailUp.png in Resources */,
 				B27195DB1A91D15200C77795 /* BatchOutViewController.xib in Resources */,
 				D9E155E2120753BC007089AB /* btnCellEmailUp@2x.png in Resources */,
@@ -10546,6 +11203,7 @@
 				B2B7722A1A75C76C00525D60 /* Project.xcconfig in Resources */,
 				B2B7728C1A75C76C00525D60 /* right-rock-88.png in Resources */,
 				B2B772551A75C76C00525D60 /* Default-568h@2x.png in Resources */,
+				B28B8C161A98C598003B1EE1 /* README in Resources */,
 				D9E15548120753BC007089AB /* btnHomeProducts.png in Resources */,
 				D9E1560D120753BC007089AB /* btnHomeProducts@2x.png in Resources */,
 				B2B7725F1A75C76C00525D60 /* Icon-72@2x.png in Resources */,
@@ -10553,6 +11211,7 @@
 				D9E1560E120753BC007089AB /* btnHomeProjects@2x.png in Resources */,
 				D9E1554B120753BC007089AB /* btnHomeRegister.png in Resources */,
 				D9E1560F120753BC007089AB /* btnHomeRegister@2x.png in Resources */,
+				B28B8BEA1A98C598003B1EE1 /* GetUnsettledTransactionListResponse.xml in Resources */,
 				B2B772C11A75C76C00525D60 /* SUSettingsViewController_iPad.xib in Resources */,
 				B202C9A31A8FC001001042DA /* BatchOutTableViewCell.xib in Resources */,
 				B2B7723F1A75C76C00525D60 /* NativeAdCell.xib in Resources */,
@@ -10568,6 +11227,7 @@
 				D9E15613120753BC007089AB /* btnHomeSettings@2x.png in Resources */,
 				D9E155A2120753BC007089AB /* btnImportProjectItems.png in Resources */,
 				D9E15603120753BC007089AB /* btnImportProjectItems@2x.png in Resources */,
+				B28B8BDE1A98C598003B1EE1 /* GetBatchStatisticsResponse.xml in Resources */,
 				B2B772721A75C76C00525D60 /* ReadMe.txt in Resources */,
 				D9E1557A120753BC007089AB /* btnInsert.png in Resources */,
 				D9E155EC120753BC007089AB /* btnInsert@2x.png in Resources */,
@@ -10591,6 +11251,7 @@
 				B2B772671A75C76C00525D60 /* InfoPlist.strings in Resources */,
 				D9E155EF120753BC007089AB /* btnServiceTimerReset@2x.png in Resources */,
 				84AE6A1518671E3400F76A96 /* logoNoText@2x.png in Resources */,
+				B28B8BE11A98C598003B1EE1 /* GetSettledBatchListResponse.xml in Resources */,
 				D9E155AE120753BC007089AB /* btnServiceTimerStart.png in Resources */,
 				D9E155F0120753BC007089AB /* btnServiceTimerStart@2x.png in Resources */,
 				B2B7722B1A75C76C00525D60 /* AdUnitsSample-Info.plist in Resources */,
@@ -10607,6 +11268,7 @@
 				D9E155DB120753BC007089AB /* calendarArrowMonthRight.png in Resources */,
 				D9E155DC120753BC007089AB /* calendarArrowMonthRight@2x.png in Resources */,
 				D9E15525120753BC007089AB /* calendarArrowRight.png in Resources */,
+				B28B8C0A1A98C598003B1EE1 /* TestAccountCaptchaResponse.xml in Resources */,
 				D9E155DD120753BC007089AB /* calendarArrowRight@2x.png in Resources */,
 				D9E15531120753BC007089AB /* calendarDateHeaderBackground.png in Resources */,
 				D9E155CF120753BC007089AB /* calendarDateHeaderBackground@2x.png in Resources */,
@@ -10652,6 +11314,7 @@
 				B2B772B01A75C76C00525D60 /* ReadMe.txt in Resources */,
 				D9E15576120753BC007089AB /* EmailMessageView.xib in Resources */,
 				D9E15575120753BC007089AB /* EmailSettingsView.xib in Resources */,
+				B28B8C131A98C598003B1EE1 /* Anet SDKTests-Info.plist in Resources */,
 				D9E15541120753BC007089AB /* Entitlements.plist in Resources */,
 				B2A1A8291A4A7A34009589E0 /* bankInfo.png in Resources */,
 				D9E1553F120753BC007089AB /* formulationFieldBackground.png in Resources */,
@@ -10730,6 +11393,7 @@
 				D9E15537120753BC007089AB /* pinstripeBackgroundOrange.png in Resources */,
 				D9E15538120753BC007089AB /* pinstripeBackgroundPurple.png in Resources */,
 				B2B772841A75C76C00525D60 /* left-rock-128.png in Resources */,
+				B28B8C151A98C598003B1EE1 /* InfoPlist.strings in Resources */,
 				D9E1552E120753BC007089AB /* pinstripeBackgroundRed.png in Resources */,
 				D9E1550B120753BC007089AB /* ProductAmountView.xib in Resources */,
 				D9E1556B120753BC007089AB /* ProductHistoryTableCell.xib in Resources */,
@@ -10778,7 +11442,9 @@
 				D9E155D7120753BC007089AB /* serviceTimerBackground@2x.png in Resources */,
 				D9E1551A120753BC007089AB /* SetDailyHoursView.xib in Resources */,
 				D9E15501120753BC007089AB /* SettingsView.xib in Resources */,
+				B28B8BF51A98C598003B1EE1 /* MobileDeviceLoginResponse.xml in Resources */,
 				B2B7728B1A75C76C00525D60 /* right-rock-128.png in Resources */,
+				B28B8C031A98C598003B1EE1 /* SendCustomerTransactionReceiptResponse.xml in Resources */,
 				B2B772811A75C76C00525D60 /* IconFacebook-72@2x.png in Resources */,
 				D9E1552A120753BC007089AB /* TablePickerView.xib in Resources */,
 				B2B7724B1A75C76C00525D60 /* InfoPlist.strings in Resources */,
@@ -10786,6 +11452,7 @@
 				D9E1554F120753BC007089AB /* TransactionAdjustmentView.xib in Resources */,
 				D9E155B2120753BC007089AB /* TransactionItemCell.xib in Resources */,
 				B206C1991A66E7E100AD7DAF /* imgfreecard1.png in Resources */,
+				B28B8BF81A98C598003B1EE1 /* MobileDeviceRegistrationResponse.xml in Resources */,
 				B2B772321A75C76C00525D60 /* InfoPlist.strings in Resources */,
 				849A88DF1910584300A20B9A /* tabIco_3_1.png in Resources */,
 				D9E155B3120753BC007089AB /* TransactionItemEditCell.xib in Resources */,
@@ -10847,8 +11514,10 @@
 				B2A1A8391A4A8B3D009589E0 /* RadioButton.png in Resources */,
 				D9E7F05312109BDD00EB7F19 /* ProjectViewCellValue2.xib in Resources */,
 				B2B7722F1A75C76C00525D60 /* Default.png in Resources */,
+				B28B8BD11A98C598003B1EE1 /* CreateTransactionResponse.xml in Resources */,
 				D9E7F05412109BDD00EB7F19 /* ProjectDateEntryView.xib in Resources */,
 				D9E7F05512109BDD00EB7F19 /* ProjectNameEntryView.xib in Resources */,
+				B28B8C171A98C598003B1EE1 /* SDK License Agreement (10.20.10).pdf in Resources */,
 				D9E7F05612109BDD00EB7F19 /* ProjectNotesEntryView.xib in Resources */,
 				B2B7727E1A75C76C00525D60 /* Icon-72@2x.png in Resources */,
 				D9E7F05712109BDD00EB7F19 /* ProjectAppointmentsView.xib in Resources */,
@@ -10896,6 +11565,7 @@
 				D9E5D8C4125F8795006A7380 /* lbCCState@2x.png in Resources */,
 				B2B7727D1A75C76C00525D60 /* Icon-72.png in Resources */,
 				B2B772B21A75C76C00525D60 /* Default.png in Resources */,
+				B28B8BE71A98C598003B1EE1 /* GetTransactionListResponse.xml in Resources */,
 				849A88CF1910516100A20B9A /* newSkin_card.png in Resources */,
 				D9E5D8C5125F8795006A7380 /* lbCCStreet.png in Resources */,
 				D9E5D8C6125F8795006A7380 /* lbCCStreet@2x.png in Resources */,
@@ -10904,6 +11574,7 @@
 				B2B772451A75C76C00525D60 /* ReadMe.txt in Resources */,
 				D9E5D8C8125F8795006A7380 /* lbCCZip@2x.png in Resources */,
 				B27195C91A91315600C77795 /* TransactionChargeCell.xib in Resources */,
+				B28B8BEE1A98C598003B1EE1 /* LogoutResponse.xml in Resources */,
 				B2B772A01A75C76C00525D60 /* SCMain.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -12293,6 +12964,106 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2649D021A99283700948F50 /* NSString+MD5Addition.h in Sources */,
+				B2649D031A99283700948F50 /* NSString+MD5Addition.m in Sources */,
+				B2649D041A99283700948F50 /* UIDevice+IdentifierAddition.h in Sources */,
+				B2649D051A99283700948F50 /* UIDevice+IdentifierAddition.m in Sources */,
+				B28B8D2D1A98E17D003B1EE1 /* NSString+dataFromFilename.h in Sources */,
+				B28B8D2E1A98E17E003B1EE1 /* NSString+dataFromFilename.m in Sources */,
+				B28B8D2F1A98E17E003B1EE1 /* NSString+Hex.h in Sources */,
+				B28B8D301A98E17E003B1EE1 /* NSString+Hex.m in Sources */,
+				B28B8D311A98E17E003B1EE1 /* NSString+HMAC_MD5.h in Sources */,
+				B28B8D321A98E17E003B1EE1 /* NSString+HMAC_MD5.m in Sources */,
+				B28B8D331A98E17E003B1EE1 /* NSString+stringForRFC3339DateTimeString.h in Sources */,
+				B28B8D341A98E17E003B1EE1 /* NSString+stringForRFC3339DateTimeString.m in Sources */,
+				B28B8D351A98E17E003B1EE1 /* NSString+stringValueOfXMLElement.h in Sources */,
+				B28B8D361A98E17E003B1EE1 /* NSString+stringValueOfXMLElement.m in Sources */,
+				B28B8D371A98E17E003B1EE1 /* NSString+stringWithEscapedXMLValue.h in Sources */,
+				B28B8D381A98E17E003B1EE1 /* NSString+stringWithEscapedXMLValue.m in Sources */,
+				B28B8D391A98E17E003B1EE1 /* NSString+stringWithXMLTag.h in Sources */,
+				B28B8D3A1A98E17E003B1EE1 /* NSString+stringWithXMLTag.m in Sources */,
+				B28B8CE31A98CBF0003B1EE1 /* Anet SDK-Prefix.pch in Sources */,
+				B28B8CE41A98CBF0003B1EE1 /* ANetApiRequest.m in Sources */,
+				B28B8CE51A98CBF0003B1EE1 /* ANetApiResponse.m in Sources */,
+				B28B8CE61A98CBF0003B1EE1 /* BankAccountMaskedType.m in Sources */,
+				B28B8CE71A98CBF0003B1EE1 /* BankAccountType.m in Sources */,
+				B28B8CE81A98CBF0003B1EE1 /* BatchDetailsType.m in Sources */,
+				B28B8CE91A98CBF0003B1EE1 /* BatchStatisticType.m in Sources */,
+				B28B8CEA1A98CBF0003B1EE1 /* CreateTransactionRequest.m in Sources */,
+				B28B8CEB1A98CBF0003B1EE1 /* CreateTransactionResponse.m in Sources */,
+				B28B8CEC1A98CBF0003B1EE1 /* CreateTransactionResponse.xml in Sources */,
+				B28B8CED1A98CBF0003B1EE1 /* CreditCardMaskedType.m in Sources */,
+				B28B8CEE1A98CBF0003B1EE1 /* CreditCardTrackType.m in Sources */,
+				B28B8CEF1A98CBF0003B1EE1 /* CreditCardType.m in Sources */,
+				B28B8CF01A98CBF0003B1EE1 /* CustomerAddressType.m in Sources */,
+				B28B8CF11A98CBF0003B1EE1 /* CustomerDataType.m in Sources */,
+				B28B8CF21A98CBF0003B1EE1 /* Error.m in Sources */,
+				B28B8CF31A98CBF0003B1EE1 /* ExtendedAmountType.m in Sources */,
+				B28B8CF41A98CBF0003B1EE1 /* FDSFilterType.m in Sources */,
+				B28B8CF51A98CBF0003B1EE1 /* FingerPrintObjectType.m in Sources */,
+				B28B8CF61A98CBF0003B1EE1 /* GDataXMLNode.m in Sources */,
+				B28B8CF71A98CBF0003B1EE1 /* GetBatchStatisticsResponse.xml in Sources */,
+				B28B8CF81A98CBF0003B1EE1 /* GetSettledBatchListRequest.m in Sources */,
+				B28B8CF91A98CBF0003B1EE1 /* GetSettledBatchListResponse.m in Sources */,
+				B28B8CFA1A98CBF0003B1EE1 /* GetSettledBatchListResponse.xml in Sources */,
+				B28B8CFB1A98CBF0003B1EE1 /* GetTransactionDetailsRequest.m in Sources */,
+				B28B8CFC1A98CBF0003B1EE1 /* GetTransactionDetailsResponse.m in Sources */,
+				B28B8CFD1A98CBF0003B1EE1 /* GetTransactionDetailsResponse.xml in Sources */,
+				B28B8CFE1A98CBF0003B1EE1 /* GetTransactionListRequest.m in Sources */,
+				B28B8CFF1A98CBF0003B1EE1 /* GetTransactionListResponse.m in Sources */,
+				B28B8D001A98CBF0003B1EE1 /* GetTransactionListResponse.xml in Sources */,
+				B28B8D011A98CBF0003B1EE1 /* GetUnsettledTransactionListResponse.xml in Sources */,
+				B28B8D021A98CBF0003B1EE1 /* LineItemType.m in Sources */,
+				B28B8D031A98CBF0003B1EE1 /* LogoutRequest.m in Sources */,
+				B28B8D041A98CBF0003B1EE1 /* LogoutResponse.m in Sources */,
+				B28B8D051A98CBF0003B1EE1 /* LogoutResponse.xml in Sources */,
+				B28B8D061A98CBF0003B1EE1 /* MerchantAccountType.m in Sources */,
+				B28B8D071A98CBF0003B1EE1 /* MerchantContactType.m in Sources */,
+				B28B8D081A98CBF0003B1EE1 /* Messages.m in Sources */,
+				B28B8D091A98CBF0003B1EE1 /* MobileDeviceLoginRequest.m in Sources */,
+				B28B8D0A1A98CBF0003B1EE1 /* MobileDeviceLoginResponse.m in Sources */,
+				B28B8D0B1A98CBF0003B1EE1 /* MobileDeviceLoginResponse.xml in Sources */,
+				B28B8D0C1A98CBF0003B1EE1 /* MobileDeviceRegistrationRequest.m in Sources */,
+				B28B8D0D1A98CBF0003B1EE1 /* MobileDeviceRegistrationResponse.m in Sources */,
+				B28B8D0E1A98CBF0003B1EE1 /* MobileDeviceRegistrationResponse.xml in Sources */,
+				B28B8D0F1A98CBF0003B1EE1 /* MobileDeviceType.m in Sources */,
+				B28B8D101A98CBF0003B1EE1 /* NameAndAddressType.m in Sources */,
+				B28B8D111A98CBF0003B1EE1 /* OpaqueDataType.m in Sources */,
+				B28B8D121A98CBF0003B1EE1 /* OrderExType.m in Sources */,
+				B28B8D131A98CBF0003B1EE1 /* OrderType.m in Sources */,
+				B28B8D141A98CBF0003B1EE1 /* PaymentMaskedType.m in Sources */,
+				B28B8D151A98CBF0003B1EE1 /* PaymentType.m in Sources */,
+				B28B8D161A98CBF0003B1EE1 /* PermissionType.m in Sources */,
+				B28B8D171A98CBF0003B1EE1 /* SendCustomerTransactionReceiptRequest.m in Sources */,
+				B28B8D181A98CBF0003B1EE1 /* SendCustomerTransactionReceiptResponse.m in Sources */,
+				B28B8D191A98CBF0003B1EE1 /* SendCustomerTransactionReceiptResponse.xml in Sources */,
+				B28B8D1A1A98CBF0003B1EE1 /* SettingType.m in Sources */,
+				B28B8D1B1A98CBF0003B1EE1 /* SplitTenderPayment.m in Sources */,
+				B28B8D1D1A98CBF0003B1EE1 /* Reachability.m in Sources */,
+				B28B8D1E1A98CBF0003B1EE1 /* SwiperDataType.m in Sources */,
+				B28B8D1F1A98CBF0003B1EE1 /* TestAccountCaptchaRequest.m in Sources */,
+				B28B8D201A98CBF0003B1EE1 /* TestAccountCaptchaResponse.h in Sources */,
+				B28B8D211A98CBF0003B1EE1 /* TestAccountCaptchaResponse.m in Sources */,
+				B28B8D221A98CBF0003B1EE1 /* TestAccountCaptchaResponse.xml in Sources */,
+				B28B8D231A98CBF0003B1EE1 /* TestAccountRegistrationRequest.h in Sources */,
+				B28B8D241A98CBF0003B1EE1 /* TestAccountRegistrationRequest.m in Sources */,
+				B28B8D251A98CBF0003B1EE1 /* TestAccountRegistrationResponse.xml in Sources */,
+				B28B8D261A98CBF0003B1EE1 /* TransactionDetailsType.m in Sources */,
+				B28B8D271A98CBF0003B1EE1 /* TransactionRequestType.m in Sources */,
+				B28B8D281A98CBF0003B1EE1 /* TransactionResponse.m in Sources */,
+				B28B8D291A98CBF0003B1EE1 /* TransactionSummaryType.m in Sources */,
+				B28B8D2A1A98CBF0003B1EE1 /* TransRetailInfoType.m in Sources */,
+				B28B8D2B1A98CBF0003B1EE1 /* UserField.m in Sources */,
+				B28B8CE11A98CBB9003B1EE1 /* GetBatchStatisticsRequest.m in Sources */,
+				B28B8CE21A98CBB9003B1EE1 /* GetBatchStatisticsResponse.m in Sources */,
+				B28B8CDF1A98CBA2003B1EE1 /* GetUnsettledTransactionListRequest.m in Sources */,
+				B28B8CE01A98CBA2003B1EE1 /* GetUnsettledTransactionListResponse.m in Sources */,
+				B28B8CD61A98CADD003B1EE1 /* AuthNet.m in Sources */,
+				B28B8CD71A98CADD003B1EE1 /* AuthNetMessage.m in Sources */,
+				B28B8CD81A98CADD003B1EE1 /* AuthNetRequest.m in Sources */,
+				B28B8CD91A98CADD003B1EE1 /* AuthNetResponse.m in Sources */,
+				B28B8CDB1A98CADD003B1EE1 /* CCAuthenticationType.m in Sources */,
+				B28B8CDC1A98CADD003B1EE1 /* MerchantAuthenticationType.m in Sources */,
 				B27195EC1A93390900C77795 /* DatePickerTableViewCell.h in Sources */,
 				B27195ED1A93390900C77795 /* DatePickerTableViewCell.m in Sources */,
 				B27195DD1A91D1CC00C77795 /* BatchOutViewController.h in Sources */,
@@ -12415,7 +13186,6 @@
 				D9E14F7412075347007089AB /* PSADatabaseManager.m in Sources */,
 				D9E14F7512075347007089AB /* PSADataManager.m in Sources */,
 				D9E14F5612075347007089AB /* PSAViewController.m in Sources */,
-				D9E14FCE12075347007089AB /* Reachability.m in Sources */,
 				D9E14F8D12075347007089AB /* RegisterViewController.m in Sources */,
 				D9E14FA512075347007089AB /* Report.m in Sources */,
 				B25754E619371B20004D9350 /* NBPhoneNumberDesc.m in Sources */,
@@ -12912,96 +13682,144 @@
 				D9E1561C120753BC007089AB /* Appointment.m in Sources */,
 				D9E15652120753BC007089AB /* AppointmentConflictViewController.m in Sources */,
 				D9E15625120753BC007089AB /* AppointmentDatePickerViewController.m in Sources */,
+				B28B8BFE1A98C598003B1EE1 /* PaymentMaskedType.m in Sources */,
 				D9E1564A120753BC007089AB /* AppointmentNotesViewController.m in Sources */,
 				B2B772531A75C76C00525D60 /* main.m in Sources */,
 				D9E15650120753BC007089AB /* AppointmentRepeatUntilViewController.m in Sources */,
+				B2649CF51A99279F00948F50 /* NSString+MD5Addition.m in Sources */,
 				D9E1564B120753BC007089AB /* AppointmentRepeatViewController.m in Sources */,
 				B2B772BE1A75C76C00525D60 /* SUAppDelegate.m in Sources */,
 				B2B772331A75C76C00525D60 /* InterstitialViewController.m in Sources */,
 				B2B7728F1A75C76C00525D60 /* RPSAppDelegate.m in Sources */,
 				B27195EA1A9337D700C77795 /* DatePickerTableViewCell.m in Sources */,
+				B28B8C071A98C598003B1EE1 /* SwiperDataType.m in Sources */,
 				D9E15624120753BC007089AB /* AppointmentViewController.m in Sources */,
+				B28B8BE81A98C598003B1EE1 /* GetUnsettledTransactionListRequest.m in Sources */,
 				84AA245E1869595D004FF1F3 /* PSABaseViewController.m in Sources */,
+				B28B8C1A1A98C598003B1EE1 /* NSString+Hex.m in Sources */,
 				D9E15695120753BC007089AB /* AuthorizeDotNetSignUpViewController.m in Sources */,
 				B2B7725C1A75C76C00525D60 /* HFAppDelegate.m in Sources */,
 				D9E15653120753BC007089AB /* CalendarDayBackgroundView.m in Sources */,
+				B28B8BE31A98C598003B1EE1 /* GetTransactionDetailsResponse.m in Sources */,
+				B28B8BDB1A98C598003B1EE1 /* GDataXMLNode.m in Sources */,
 				D9E15649120753BC007089AB /* CalendarDayViewController.m in Sources */,
 				D9E1564D120753BC007089AB /* CalendarListViewController.m in Sources */,
 				D9E15626120753BC007089AB /* CalendarMonthViewController.m in Sources */,
 				D9E15698120753BC007089AB /* CalendarWeekBackgroundView.m in Sources */,
 				D9E15697120753BC007089AB /* CalendarWeekViewController.m in Sources */,
+				B28B8C101A98C598003B1EE1 /* TransactionSummaryType.m in Sources */,
 				D9E15621120753BC007089AB /* Client.m in Sources */,
 				D9E15642120753BC007089AB /* ClientNotesViewController.m in Sources */,
+				B28B8BD71A98C598003B1EE1 /* Error.m in Sources */,
+				B28B8BFA1A98C598003B1EE1 /* NameAndAddressType.m in Sources */,
 				D9E15640120753BC007089AB /* ClientProjectsViewController.m in Sources */,
+				B28B8BCE1A98C598003B1EE1 /* CCAuthenticationType.m in Sources */,
 				D9E15671120753BC007089AB /* ClientRecoveryViewController.m in Sources */,
 				B2B772AC1A75C76C00525D60 /* SIAppDelegate.m in Sources */,
 				B2B772A21A75C76C00525D60 /* SCMealPicker.m in Sources */,
 				D9E1563F120753BC007089AB /* ClientServicesViewController.m in Sources */,
+				B28B8C061A98C598003B1EE1 /* Reachability.m in Sources */,
 				D9E15699120753BC007089AB /* ClientSwapViewController.m in Sources */,
+				B28B8BCB1A98C598003B1EE1 /* BankAccountType.m in Sources */,
 				D9E1561B120753BC007089AB /* ClientTableViewController.m in Sources */,
 				B27195C81A91315600C77795 /* TransactionChargeCell.m in Sources */,
+				B28B8BC71A98C598003B1EE1 /* AuthNetRequest.m in Sources */,
 				D9E15641120753BC007089AB /* ClientTransactionsViewController.m in Sources */,
 				B2B7729B1A75C76C00525D60 /* main.m in Sources */,
+				B28B8BF71A98C598003B1EE1 /* MobileDeviceRegistrationResponse.m in Sources */,
+				B28B8BED1A98C598003B1EE1 /* LogoutResponse.m in Sources */,
+				B2649CF61A99279F00948F50 /* UIDevice+IdentifierAddition.m in Sources */,
+				B28B8BE61A98C598003B1EE1 /* GetTransactionListResponse.m in Sources */,
 				B2B7723E1A75C76C00525D60 /* NativeAdCell.m in Sources */,
 				D9E1566E120753BC007089AB /* CloseOut.m in Sources */,
 				D9E1566F120753BC007089AB /* CloseoutHistoryViewController.m in Sources */,
+				B28B8BD91A98C598003B1EE1 /* FDSFilterType.m in Sources */,
 				B2B7723D1A75C76C00525D60 /* main.m in Sources */,
 				D9E15648120753BC007089AB /* ColorPickerViewController.m in Sources */,
 				B2B772901A75C76C00525D60 /* RPSCommonObjects.m in Sources */,
 				D9E15637120753BC007089AB /* CommissionTaxViewController.m in Sources */,
 				D9E15639120753BC007089AB /* Company.m in Sources */,
 				D9E15638120753BC007089AB /* CompanyViewController.m in Sources */,
+				B28B8BCC1A98C598003B1EE1 /* BatchDetailsType.m in Sources */,
 				D9E1568D120753BC007089AB /* CreditCardConnectionManager.m in Sources */,
 				D9E1568E120753BC007089AB /* CreditCardPayment.m in Sources */,
+				B28B8BDC1A98C598003B1EE1 /* GetBatchStatisticsRequest.m in Sources */,
+				B28B8C1E1A98C598003B1EE1 /* NSString+stringWithEscapedXMLValue.m in Sources */,
 				D9E15691120753BC007089AB /* CreditCardPaymentsTableViewController.m in Sources */,
+				B28B8C001A98C598003B1EE1 /* PermissionType.m in Sources */,
+				B28B8BFD1A98C598003B1EE1 /* OrderType.m in Sources */,
+				B28B8BE01A98C598003B1EE1 /* GetSettledBatchListResponse.m in Sources */,
 				D9E15692120753BC007089AB /* CreditCardPaymentViewController.m in Sources */,
+				B28B8BCF1A98C598003B1EE1 /* CreateTransactionRequest.m in Sources */,
 				B2B772C01A75C76C00525D60 /* SUSettingsViewController.m in Sources */,
 				D9E1568F120753BC007089AB /* CreditCardResponse.m in Sources */,
 				D9E15690120753BC007089AB /* CreditCardSettings.m in Sources */,
 				D9E15694120753BC007089AB /* CreditCardSettingsViewController.m in Sources */,
 				D9E1568B120753BC007089AB /* CurrentInvoicePaymentsViewController.m in Sources */,
 				D9E15662120753BC007089AB /* DailyCloseoutViewController.m in Sources */,
+				B28B8BC41A98C598003B1EE1 /* ANetApiResponse.m in Sources */,
 				B2B772701A75C76C00525D60 /* PPAppDelegate.m in Sources */,
 				B2B654791A8CF78900A1AF2C /* ProductStockTableViewCell.m in Sources */,
 				D9E1562B120753BC007089AB /* DurationViewController.m in Sources */,
+				B28B8BD51A98C598003B1EE1 /* CustomerAddressType.m in Sources */,
 				B2B772881A75C76C00525D60 /* main.m in Sources */,
+				B28B8BE51A98C598003B1EE1 /* GetTransactionListRequest.m in Sources */,
 				D9E15674120753BC007089AB /* Email.m in Sources */,
 				B2B772A51A75C76C00525D60 /* SCSettings.m in Sources */,
 				D9E15673120753BC007089AB /* EmailMessageViewController.m in Sources */,
 				D9E15672120753BC007089AB /* EmailSettingsViewController.m in Sources */,
+				B28B8BFC1A98C598003B1EE1 /* OrderExType.m in Sources */,
 				D9E1563E120753BC007089AB /* GenericClientDetailViewController.m in Sources */,
 				D9E1565D120753BC007089AB /* GiftCertificate.m in Sources */,
 				B2B772351A75C76C00525D60 /* main.m in Sources */,
 				D9E15660120753BC007089AB /* GiftCertificateAmountViewController.m in Sources */,
 				B2B7724D1A75C76C00525D60 /* FPViewController.m in Sources */,
 				D9E15661120753BC007089AB /* GiftCertificateExpirationViewController.m in Sources */,
+				B28B8C111A98C598003B1EE1 /* TransRetailInfoType.m in Sources */,
 				D9E1565E120753BC007089AB /* GiftCertificateRecipientViewController.m in Sources */,
 				D9E1565C120753BC007089AB /* GiftCertificateTableViewController.m in Sources */,
 				B202C9911A8F74CC001042DA /* PSAReminderViewController.m in Sources */,
 				84B7928018FBBEE3001136BE /* iBizManager.m in Sources */,
+				B28B8BC31A98C598003B1EE1 /* ANetApiRequest.m in Sources */,
 				D9E1565F120753BC007089AB /* GiftCertificateTextViewController.m in Sources */,
 				D9E1565B120753BC007089AB /* GiftCertificateViewController.m in Sources */,
 				D9E15693120753BC007089AB /* KeychainItemWrapper.m in Sources */,
+				B28B8C0E1A98C598003B1EE1 /* TransactionRequestType.m in Sources */,
 				B2B7725D1A75C76C00525D60 /* HFViewController.m in Sources */,
+				B28B8BC51A98C598003B1EE1 /* AuthNet.m in Sources */,
 				B2B772BF1A75C76C00525D60 /* SUProfileTableViewCell.m in Sources */,
+				B28B8C011A98C598003B1EE1 /* SendCustomerTransactionReceiptRequest.m in Sources */,
+				B28B8BF01A98C598003B1EE1 /* MerchantAuthenticationType.m in Sources */,
 				D9E15619120753BC007089AB /* main.m in Sources */,
+				B28B8BCD1A98C598003B1EE1 /* BatchStatisticType.m in Sources */,
 				B2B772BB1A75C76C00525D60 /* main.m in Sources */,
+				B28B8C051A98C598003B1EE1 /* SplitTenderPayment.m in Sources */,
+				B28B8BD21A98C598003B1EE1 /* CreditCardMaskedType.m in Sources */,
 				D9E1562C120753BC007089AB /* Product.m in Sources */,
 				D9E15669120753BC007089AB /* ProductAdjustment.m in Sources */,
 				B2B772911A75C76C00525D60 /* RPSDeeplyLinkedViewController.m in Sources */,
 				D9E15634120753BC007089AB /* ProductAmountViewController.m in Sources */,
+				B28B8C191A98C598003B1EE1 /* NSString+dataFromFilename.m in Sources */,
 				D9E15670120753BC007089AB /* ProductHistoryViewController.m in Sources */,
 				D9E1562D120753BC007089AB /* ProductInformationViewController.m in Sources */,
+				B28B8BF91A98C598003B1EE1 /* MobileDeviceType.m in Sources */,
 				D9E1566A120753BC007089AB /* ProductInventoryQuantityViewController.m in Sources */,
 				B2B772AD1A75C76C00525D60 /* SIMainView.m in Sources */,
 				B2B772411A75C76C00525D60 /* TableViewController.m in Sources */,
 				D9E15663120753BC007089AB /* ProductInventoryViewController.m in Sources */,
 				D9E15632120753BC007089AB /* ProductNameViewController.m in Sources */,
 				D9E15633120753BC007089AB /* ProductPriceViewController.m in Sources */,
+				B28B8BF11A98C598003B1EE1 /* MerchantContactType.m in Sources */,
+				B28B8C181A98C598003B1EE1 /* NSArray+PerformSelector.m in Sources */,
+				B28B8BD31A98C598003B1EE1 /* CreditCardTrackType.m in Sources */,
+				B28B8BC81A98C598003B1EE1 /* AuthNetResponse.m in Sources */,
+				B28B8BD81A98C598003B1EE1 /* ExtendedAmountType.m in Sources */,
 				D9E15635120753BC007089AB /* ProductsTableViewController.m in Sources */,
 				D9E1562E120753BC007089AB /* ProductType.m in Sources */,
 				D9E15646120753BC007089AB /* ProductTypeInformationViewController.m in Sources */,
 				D9E15645120753BC007089AB /* ProductTypeTableViewController.m in Sources */,
+				B28B8BE91A98C598003B1EE1 /* GetUnsettledTransactionListResponse.m in Sources */,
+				B28B8C0D1A98C598003B1EE1 /* TransactionDetailsType.m in Sources */,
 				B2B772C31A75C76C00525D60 /* SUUserManager.m in Sources */,
 				B2B7724C1A75C76C00525D60 /* FPAppDelegate.m in Sources */,
 				B2B772431A75C76C00525D60 /* ViewController.m in Sources */,
@@ -13009,55 +13827,79 @@
 				D9E15682120753BC007089AB /* ProjectAppointmentsViewController.m in Sources */,
 				D9E1567D120753BC007089AB /* ProjectDateEntryViewController.m in Sources */,
 				D9E15678120753BC007089AB /* ProjectEditViewController.m in Sources */,
+				B28B8C1C1A98C598003B1EE1 /* NSString+stringForRFC3339DateTimeString.m in Sources */,
 				D9E1568C120753BC007089AB /* ProjectEstimateInvoicePickerViewController.m in Sources */,
+				B28B8C081A98C598003B1EE1 /* TestAccountCaptchaRequest.m in Sources */,
 				D9E15685120753BC007089AB /* ProjectEstimateInvoiceViewController.m in Sources */,
+				B28B8C091A98C598003B1EE1 /* TestAccountCaptchaResponse.m in Sources */,
 				B2B772AF1A75C76C00525D60 /* SIPhoto.m in Sources */,
 				D9E15689120753BC007089AB /* ProjectEstimatesViewController.m in Sources */,
+				B28B8BDD1A98C598003B1EE1 /* GetBatchStatisticsResponse.m in Sources */,
 				D9E15686120753BC007089AB /* ProjectInvoice.m in Sources */,
 				D9E15687120753BC007089AB /* ProjectInvoiceItem.m in Sources */,
 				B2B7722C1A75C76C00525D60 /* AppDelegate.m in Sources */,
 				B2B772941A75C76C00525D60 /* RPSGameViewController.m in Sources */,
 				D9E15679120753BC007089AB /* ProjectNameEntryViewController.m in Sources */,
+				B28B8BF41A98C598003B1EE1 /* MobileDeviceLoginResponse.m in Sources */,
+				B28B8BDA1A98C598003B1EE1 /* FingerPrintObjectType.m in Sources */,
 				D9E1567A120753BC007089AB /* ProjectNotesEntryViewController.m in Sources */,
 				D9E15683120753BC007089AB /* ProjectPaymentsViewController.m in Sources */,
 				B2B7729F1A75C76C00525D60 /* SCLoginViewController.m in Sources */,
+				B28B8C121A98C598003B1EE1 /* UserField.m in Sources */,
+				B28B8C1F1A98C598003B1EE1 /* NSString+stringWithXMLTag.m in Sources */,
 				D9E1567E120753BC007089AB /* ProjectProduct.m in Sources */,
 				B2B772A11A75C76C00525D60 /* SCMainViewController.m in Sources */,
 				B2B7726E1A75C76C00525D60 /* main.m in Sources */,
+				B28B8C0F1A98C598003B1EE1 /* TransactionResponse.m in Sources */,
 				D9E1567C120753BC007089AB /* ProjectProductDetailViewController.m in Sources */,
+				B28B8BD61A98C598003B1EE1 /* CustomerDataType.m in Sources */,
 				D9E1567B120753BC007089AB /* ProjectProductsViewController.m in Sources */,
 				B2B7729C1A75C76C00525D60 /* SCAppDelegate.m in Sources */,
 				B2B772C41A75C76C00525D60 /* SUUsingViewController.m in Sources */,
+				B28B8BDF1A98C598003B1EE1 /* GetSettledBatchListRequest.m in Sources */,
 				B2B772621A75C76C00525D60 /* main.m in Sources */,
+				B28B8BD41A98C598003B1EE1 /* CreditCardType.m in Sources */,
+				B28B8BEB1A98C598003B1EE1 /* LineItemType.m in Sources */,
 				D9E15681120753BC007089AB /* ProjectService.m in Sources */,
 				D9E15680120753BC007089AB /* ProjectServicePriceDetailViewController.m in Sources */,
+				B28B8C141A98C598003B1EE1 /* Anet_SDKTests.m in Sources */,
 				B27195DA1A91D15200C77795 /* BatchOutViewController.m in Sources */,
 				D9E1567F120753BC007089AB /* ProjectServicesViewController.m in Sources */,
 				D9E15684120753BC007089AB /* ProjectServiceTimerViewController.m in Sources */,
+				B28B8BC61A98C598003B1EE1 /* AuthNetMessage.m in Sources */,
 				D9E15676120753BC007089AB /* ProjectsTableViewController.m in Sources */,
 				D9E15677120753BC007089AB /* ProjectViewController.m in Sources */,
+				B28B8C021A98C598003B1EE1 /* SendCustomerTransactionReceiptResponse.m in Sources */,
 				D9E15651120753BC007089AB /* PSAAboutViewController.m in Sources */,
 				B2B772391A75C76C00525D60 /* AppDelegate.m in Sources */,
 				D9E1561A120753BC007089AB /* PSAAppDelegate.m in Sources */,
 				B2B772A61A75C76C00525D60 /* SCShareUtility.m in Sources */,
 				D9E1563C120753BC007089AB /* PSADatabaseManager.m in Sources */,
 				B2B772A31A75C76C00525D60 /* SCProfilePictureButton.m in Sources */,
+				B28B8BE21A98C598003B1EE1 /* GetTransactionDetailsRequest.m in Sources */,
 				D9E1563D120753BC007089AB /* PSADataManager.m in Sources */,
 				B2B772AE1A75C76C00525D60 /* SIMainViewController.m in Sources */,
 				D9E1561E120753BC007089AB /* PSAViewController.m in Sources */,
 				D9E15696120753BC007089AB /* Reachability.m in Sources */,
+				B28B8BFB1A98C598003B1EE1 /* OpaqueDataType.m in Sources */,
 				D9E15655120753BC007089AB /* RegisterViewController.m in Sources */,
+				B28B8C1D1A98C598003B1EE1 /* NSString+stringValueOfXMLElement.m in Sources */,
+				B28B8BF61A98C598003B1EE1 /* MobileDeviceRegistrationRequest.m in Sources */,
 				D9E1566D120753BC007089AB /* Report.m in Sources */,
 				D9E1566C120753BC007089AB /* ReportsDateRangeViewController.m in Sources */,
 				D9E1566B120753BC007089AB /* ReportsMenuViewController.m in Sources */,
 				D9E15623120753BC007089AB /* ScheduleViewController.m in Sources */,
 				D9E15627120753BC007089AB /* Service.m in Sources */,
 				B202C9A21A8FC001001042DA /* BatchOutTableViewCell.m in Sources */,
+				B28B8BF31A98C598003B1EE1 /* MobileDeviceLoginRequest.m in Sources */,
 				D9E1562A120753BC007089AB /* ServiceCostViewController.m in Sources */,
 				D9E15620120753BC007089AB /* ServiceGroup.m in Sources */,
 				D9E15647120753BC007089AB /* ServiceGroupsTableViewController.m in Sources */,
+				B28B8C1B1A98C598003B1EE1 /* NSString+HMAC_MD5.m in Sources */,
+				B28B8BEC1A98C598003B1EE1 /* LogoutRequest.m in Sources */,
 				D9E15622120753BC007089AB /* ServiceGroupViewController.m in Sources */,
 				B2B772931A75C76C00525D60 /* RPSFriendsViewController.m in Sources */,
+				B28B8C041A98C598003B1EE1 /* SettingType.m in Sources */,
 				D9E15628120753BC007089AB /* ServiceInformationController.m in Sources */,
 				D9E15629120753BC007089AB /* ServiceNameViewController.m in Sources */,
 				B2A1A8301A4A8518009589E0 /* DLRadioButton.m in Sources */,
@@ -13076,12 +13918,19 @@
 				D9E15668120753BC007089AB /* TransactionPaymentInfoViewController.m in Sources */,
 				D9E15666120753BC007089AB /* TransactionPaymentViewController.m in Sources */,
 				D9E15657120753BC007089AB /* TransactionsTableViewController.m in Sources */,
+				B28B8C201A98C598003B1EE1 /* UIToolbar+BackgroundImage.m in Sources */,
 				D9E15656120753BC007089AB /* TransactionViewController.m in Sources */,
 				B2B772371A75C76C00525D60 /* MediumRectViewController.m in Sources */,
 				D9E1564C120753BC007089AB /* UIAppointmentButton.m in Sources */,
+				B28B8BCA1A98C598003B1EE1 /* BankAccountMaskedType.m in Sources */,
 				B2B772711A75C76C00525D60 /* PPViewController.m in Sources */,
+				B28B8BFF1A98C598003B1EE1 /* PaymentType.m in Sources */,
+				B28B8BD01A98C598003B1EE1 /* CreateTransactionResponse.m in Sources */,
+				B28B8BEF1A98C598003B1EE1 /* MerchantAccountType.m in Sources */,
+				B28B8C0B1A98C598003B1EE1 /* TestAccountRegistrationRequest.m in Sources */,
 				D9E1564E120753BC007089AB /* UICalendarMonthButton.m in Sources */,
 				D9E1568A120753BC007089AB /* UnapprovedEstimatesTableViewController.m in Sources */,
+				B28B8BF21A98C598003B1EE1 /* Messages.m in Sources */,
 				D9E15688120753BC007089AB /* UnpaidInvoiceTableViewController.m in Sources */,
 				B2B7729E1A75C76C00525D60 /* SCImagePicker.m in Sources */,
 				D9E15631120753BC007089AB /* Vendor.m in Sources */,
@@ -13646,6 +14495,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		B28B8B651A98C598003B1EE1 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B28B8B661A98C598003B1EE1 /* en */,
+				B28B8B671A98C598003B1EE1 /* es */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		B2B771471A75C76B00525D60 /* FPViewController_iPad.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -14039,7 +14897,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					"$(ARCHS_STANDARD_INCLUDING_64_BIT)",
+					"$(ARCHS_STANDARD_INCLUDING_64_BIT)",
+				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
@@ -14049,6 +14911,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Classes/FacebookSDK",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(SDKROOT)/Developer/Library/Frameworks/**",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
@@ -14061,6 +14925,12 @@
 					DEBUG_LOGGING_ENABLED,
 				);
 				GCC_THUMB_SUPPORT = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Applications/Xcode-Beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
+					"/Applications/Xcode-Beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/libxml2",
+					/usr/include/libxml2,
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Dog Groomer/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
@@ -14069,11 +14939,17 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "-lc++";
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-lc++",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "Dog Groomer";
 				PROVISIONING_PROFILE = "64be8aa7-757a-4863-8df1-8890f23472a1";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "64be8aa7-757a-4863-8df1-8890f23472a1";
-				SDKROOT = iphoneos7.0;
+				SDKROOT = iphoneos8.2;
+				USER_HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
 		};
@@ -14081,7 +14957,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					"$(ARCHS_STANDARD_INCLUDING_64_BIT)",
+					"$(ARCHS_STANDARD_INCLUDING_64_BIT)",
+				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
@@ -14091,10 +14971,18 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Classes/FacebookSDK",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(SDKROOT)/Developer/Library/Frameworks/**",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = iBiz_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = GROOMER;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Applications/Xcode-Beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
+					"/Applications/Xcode-Beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/libxml2",
+					/usr/include/libxml2,
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Dog Groomer/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
@@ -14103,11 +14991,17 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				OTHER_LDFLAGS = "-lc++";
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-lc++",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "Dog Groomer";
 				PROVISIONING_PROFILE = "64be8aa7-757a-4863-8df1-8890f23472a1";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "64be8aa7-757a-4863-8df1-8890f23472a1";
-				SDKROOT = iphoneos7.0;
+				SDKROOT = iphoneos8.2;
+				USER_HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
 		};
@@ -14115,7 +15009,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					"$(ARCHS_STANDARD_INCLUDING_64_BIT)",
+					"$(ARCHS_STANDARD_INCLUDING_64_BIT)",
+				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
@@ -14125,10 +15023,18 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Classes/FacebookSDK",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(SDKROOT)/Developer/Library/Frameworks/**",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = iBiz_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = GROOMER;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Applications/Xcode-Beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
+					"/Applications/Xcode-Beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/libxml2",
+					/usr/include/libxml2,
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Dog Groomer/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
@@ -14137,11 +15043,17 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				OTHER_LDFLAGS = "-lc++";
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-lc++",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "Dog Groomer";
 				PROVISIONING_PROFILE = "64be8aa7-757a-4863-8df1-8890f23472a1";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "64be8aa7-757a-4863-8df1-8890f23472a1";
-				SDKROOT = iphoneos7.0;
+				SDKROOT = iphoneos8.2;
+				USER_HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Distribution;
 		};
@@ -14149,7 +15061,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					"$(ARCHS_STANDARD_INCLUDING_64_BIT)",
+					"$(ARCHS_STANDARD_INCLUDING_64_BIT)",
+				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
@@ -14160,10 +15076,18 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Classes/FacebookSDK",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(SDKROOT)/Developer/Library/Frameworks/**",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = iBiz_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = GROOMER;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Applications/Xcode-Beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
+					"/Applications/Xcode-Beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/libxml2",
+					/usr/include/libxml2,
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Dog Groomer/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
@@ -14172,11 +15096,17 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				OTHER_LDFLAGS = "-lc++";
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-lc++",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "Dog Groomer";
 				PROVISIONING_PROFILE = "64be8aa7-757a-4863-8df1-8890f23472a1";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "64be8aa7-757a-4863-8df1-8890f23472a1";
-				SDKROOT = iphoneos7.0;
+				SDKROOT = iphoneos8.2;
+				USER_HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = "Ad-Hoc";
 		};

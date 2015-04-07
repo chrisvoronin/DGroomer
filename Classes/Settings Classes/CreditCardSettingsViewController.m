@@ -10,7 +10,8 @@
 #import "CreditCardSettings.h"
 #import "PSADataManager.h"
 #import "CreditCardSettingsViewController.h"
-
+#import "AuthNet.h"
+#import "UIDevice+IdentifierAddition.h"
 
 @implementation CreditCardSettingsViewController
 
@@ -28,7 +29,7 @@
 	UIBarButtonItem *btnSave = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save)];
 	self.navigationItem.rightBarButtonItem = btnSave;
 	[btnSave release];
-    
+    self.activityView.hidden = YES;
     [super viewDidLoad];
 }
 - (IBAction)btnEditGateway_clicked:(id)sender {
@@ -93,6 +94,7 @@
     [btnEditGateway release];
     [btnSignup release];
     [btnHelpGateway release];
+    [_activityView release];
     [super dealloc];
 }
 
@@ -186,8 +188,31 @@
 	settings.transactionKey = txtTransactionKey.text;
 	settings.sendEmailFromGateway = swEmail.on;
 	[settings save];
-	[self.navigationController popViewControllerAnimated:YES];
+    
+    self.activityView.hidden = NO;
+    [self.activityView startAnimating];
+    
+    [AuthNet authNetWithEnvironment:ENV_LIVE];
+    MobileDeviceRegistrationRequest *mobileDeviceRegistrationRequest = [MobileDeviceRegistrationRequest mobileDeviceRegistrationRequest];
+    mobileDeviceRegistrationRequest.mobileDevice.mobileDeviceId = [[UIDevice currentDevice] uniqueGlobalDeviceIdentifier];
+    mobileDeviceRegistrationRequest.mobileDevice.mobileDescription = @"";
+    mobileDeviceRegistrationRequest.mobileDevice.phoneNumber = @"";
+    mobileDeviceRegistrationRequest.anetApiRequest.merchantAuthentication.name = txtAPILogin.text;
+    mobileDeviceRegistrationRequest.anetApiRequest.merchantAuthentication.password = txtTransactionKey.text;
+    AuthNet *an = [AuthNet getInstance];
+    [an setDelegate:self];
+    [an mobileDeviceRegistrationRequest:mobileDeviceRegistrationRequest];
+    
+	
 }
+
+- (void) mobileDeviceRegistrationSucceeded:(MobileDeviceRegistrationResponse *)response{
+    
+    [self.activityView stopAnimating];
+    self.activityView.hidden = YES;
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     if(isPasswordChecked)
@@ -270,15 +295,86 @@
 			break;
 	}
 }
-- (IBAction)txtTransactionChanged:(id)sender {
-    int nnn = txtTransactionKey.text.length;
-    int vvv = 0;
-    vvv = nnn;
-}
+
 
 - (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error { 
     [self dismissViewControllerAnimated:YES completion:nil]; 
 }
 
+- (void) requestFailed:(AuthNetResponse *)response {
+    // Handle a failed request
+    NSLog(@"Request Failed ********************** ");
+    
+    NSString *title = nil;
+    NSString *alertErrorMsg = nil;
+    UIAlertView *alert = nil;
+    
+    [self.activityView stopAnimating];
+    self.activityView.hidden = YES;
+    
+    if ( [response errorType] == SERVER_ERROR)
+    {
+        title = NSLocalizedString(@"Server Error", @"");
+        alertErrorMsg = [response responseReasonText];
+    }
+    else if([response errorType] == TRANSACTION_ERROR)
+    {
+        title = NSLocalizedString(@"Transaction Error", @"");
+        alertErrorMsg = [response responseReasonText];
+    }
+    else if([response errorType] == CONNECTION_ERROR)
+    {
+        title = NSLocalizedString(@"Connection Error", @"");
+        alertErrorMsg = [response responseReasonText];
+    }
+    
+    Messages *ma = response.anetApiResponse.messages;
+    
+    AuthNetMessage *m = [ma.messageArray objectAtIndex:0];
+    
+    NSLog(@"Response Msg Array Count: %lu", (unsigned long)[ma.messageArray count]);
+    
+    NSLog(@"Response Msg Code %@ ", m.code);
+    
+    NSString *errorCode = [NSString stringWithFormat:@"%@",m.code];
+    NSString *errorText = [NSString stringWithFormat:@"%@",m.text];
+    
+    NSString *errorMsg = [NSString stringWithFormat:@"%@ : %@", errorCode, errorText];
+    
+    if (alertErrorMsg == nil) {
+        alertErrorMsg = errorText;
+    }
+    
+    NSLog(@"Error Code and Msg %@", errorMsg);
+    
+    
+    if ( ([m.code isEqualToString:@"E00027"]) || ([m.code isEqualToString:@"E00007"]) || ([m.code isEqualToString:@"E00096"]))
+    {
+        
+        alert = [[UIAlertView alloc] initWithTitle:title
+                                           message:alertErrorMsg
+                                          delegate:self
+                                 cancelButtonTitle:NSLocalizedString(@"OK", @"")
+                                 otherButtonTitles:nil];
+    }
+    else if ([m.code isEqualToString:@"E00008"]) // Finger Print Value is not valid.
+    {
+        alert = [[UIAlertView alloc] initWithTitle:@"Authentication Error"
+                                           message:errorText
+                                          delegate:self
+                                 cancelButtonTitle:NSLocalizedString(@"OK", @"")
+                                 otherButtonTitles:nil];
+    }
+    else
+    {
+        alert = [[UIAlertView alloc] initWithTitle:title
+                                           message:alertErrorMsg
+                                          delegate:self
+                                 cancelButtonTitle:NSLocalizedString(@"OK", @"")
+                                 otherButtonTitles:nil];
+    }
+    [alert show];
+    return;
+}
 
 @end

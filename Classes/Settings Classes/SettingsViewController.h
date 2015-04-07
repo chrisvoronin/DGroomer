@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "BatchOutTableViewCell.h"
 #import "DatePickerTableViewCell.h"
+#import "Settings.h"
 @interface SettingsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
 	IBOutlet UITableView	*settingsTable;
     NSString      *strDate;
+    NSDate      *tDate;
+    Settings				*settings;
 }
 
 @property (nonatomic, retain) UITableView	*settingsTable;
@@ -21,5 +24,7 @@
 @property (retain, nonatomic) IBOutlet BatchOutTableViewCell *batchBtn;
 @property (retain, nonatomic) IBOutlet DatePickerTableViewCell *dateCell;
 @property (retain, nonatomic) IBOutlet UIDatePicker *datePicker;
+@property (nonatomic, retain) Settings		*settings;
 
+- (NSDate *)todayModifiedWithHours:(NSString *)strTime;
 @end

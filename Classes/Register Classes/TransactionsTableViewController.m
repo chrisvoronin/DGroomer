@@ -18,6 +18,7 @@
 #import	"TransactionPayment.h"
 #import "TransactionViewController.h"
 #import "TransactionsTableViewController.h"
+#import "Settings.h"
 
 
 @implementation TransactionsTableViewController
@@ -41,11 +42,29 @@
 	formatter = [[NSNumberFormatter alloc] init];
 	[formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
 	//
+    
+    //
+    /*Settings *setting = [[PSADataManager sharedInstance] getSettings];
+    if(setting.isCloseout){
+        NSDate *tDate = [[PSADataManager sharedInstance] todayModifiedWithHours:setting.closeTime];
+        if(transactions && [transactions count]>0){
+            for( Transaction *tmp in [transactions allValues] ) {
+                [[PSADataManager sharedInstance] autoDailyCloseoutForTransactions:tmp theDate:tDate];
+            }
+        }
+    }*/
+    Settings *setting = [[PSADataManager sharedInstance] getSettings];
+    if(setting.isCloseout){
+        NSDate *tDate = [[PSADataManager sharedInstance] todayModifiedWithHours:setting.closeTime];
+        [[PSADataManager sharedInstance] autoCloseout:tDate];
+    }
+    //
+    
     [super viewDidLoad];
 }
 
 - (void) viewDidAppear:(BOOL)animated {
-	[self getTransactions];
+    [self getTransactions];
 }
 
 - (void) didReceiveMemoryWarning {
@@ -132,7 +151,8 @@
 - (void) dataManagerReturnedArray:(NSArray*)theArray {
 	// Get dictionary from array...
 	transactions = [[PSADataManager sharedInstance] getDictionaryOfTransactionsFromArray:theArray];
-	[self setSortedKeys];
+
+    [self setSortedKeys];
 	[tblTransactions reloadData];
 	[[PSADataManager sharedInstance] setDelegate:nil];
 	[[PSADataManager sharedInstance] hideActivityIndicator];
@@ -471,7 +491,7 @@
 					paymentDescription = [[NSString alloc] initWithFormat:@"Credit Card ending in %@", payment.extraInfo];
 				} else if( payment.paymentType == PSATransactionPaymentCreditCardForProcessing ) {
 					[payment hydrateCreditCardPayment];
-					paymentDescription = [[NSString alloc] initWithFormat:@"Credit Card ending in %@", payment.creditCardPayment.ccNumber];
+					paymentDescription = [[NSString alloc] initWithFormat:@"Credit Card ending in %@", [payment.creditCardPayment.ccNumber substringFromIndex:payment.creditCardPayment.ccNumber.length-4]];
 					[payment dehydrateCreditCardPayment];
 				} else if( payment.paymentType == PSATransactionPaymentGiftCertificate ) {
 					GiftCertificate *cert = [[PSADataManager sharedInstance] getGiftCertificateWithID:[payment.extraInfo integerValue]];

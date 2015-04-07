@@ -315,8 +315,12 @@
 	appointment = [[Appointment alloc] initWithAppointment:oldAppointment];
 	[oldAppointment release];
 	oldAppointment = nil;
-	[self dismissViewControllerAnimated:YES completion:nil];
-}
+    if( self.navigationController.viewControllers.count == 1 ) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+        [self appointmentsChanged];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }}
 
 /*
  *

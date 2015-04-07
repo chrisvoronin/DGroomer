@@ -46,6 +46,7 @@
         self.dal = [[ServiceDAL alloc] initWiThPostData:dict urlString:URL_MERCHANT_SENDREMINDER delegate:self];
         [self.dal startAsync];
     } else{
+        strTextTo = [strTextTo stringByReplacingOccurrencesOfString:@"-" withString:@""];
         NSString *strDict = [[NSString stringWithFormat:@"?phone=%@&text=%@. %@&token=raj12345", strTextTo, strEmailSubject, strEmailContent] stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
         strDict = [strDict stringByReplacingOccurrencesOfString:@"\n" withString:@"%20"];
         self.dal = [[ServiceDAL alloc] initWiThHttpGetData:strDict urlString:URL_MERCHANT_SENDMESSAGE delegate:self];
@@ -73,6 +74,7 @@
 {
     if ([ErrorXmlParser checkResponseError:dictionary :URL_MERCHANT_SENDREMINDER] && isEmail==2) {
         isEmail = -1;
+        strTextTo = [strTextTo stringByReplacingOccurrencesOfString:@"-" withString:@""];
         NSString *strDict = [[NSString stringWithFormat:@"?phone=%@&text=%@. %@&token=raj12345", strTextTo, strEmailSubject, strEmailContent] stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
         strDict = [strDict stringByReplacingOccurrencesOfString:@"\n" withString:@"%20"];
         self.dal = [[ServiceDAL alloc] initWiThHttpGetData:strDict urlString:URL_MERCHANT_SENDMESSAGE delegate:self];

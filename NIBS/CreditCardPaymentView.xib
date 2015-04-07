@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="activityView" destination="95" id="96"/>
                 <outlet property="btnCharge" destination="43" id="58"/>
+                <outlet property="btnScan" destination="JUb-XJ-aEA" id="W8G-7M-9tx"/>
                 <outlet property="mainContainer" destination="fdS-4v-4NM" id="BF8-B0-gqE"/>
                 <outlet property="tvNotes" destination="EVh-ei-fY7" id="JgT-R4-Gfh"/>
                 <outlet property="txtAmount" destination="37" id="47"/>
